@@ -1,0 +1,54 @@
+<layout-two-columns
+  [width]="25"
+  class="review-work-container"
+  *ngIf="bid$ | async as bid"
+>
+  <layout-panel-wrapper [panelTitle]="bid.bidderName ?? ''">
+    <p class="location-txt">{{ bid.bidderLocation }}</p>
+    <p>{{ bid.bidderName }}</p>
+  </layout-panel-wrapper>
+
+  <div aside *ngIf="auction$ | async as auction; else loader">
+    <div class="banner-header submitted-amount-banner">
+      <ocean-icon [fontIcon]="iconType.NOTIFICATION"></ocean-icon>
+      <div fxLayout="column" class="banner-text-container">
+        <span class="submitted-value-txt">
+          {{ 'REVIEW_WORK.YOU_SUBMITTED' | translate }}
+          <span class="bold-dark">{{ bid.bidAmount | currency }}</span>
+        </span>
+        <span class="light-txt">{{ bid.workStartDate | date }}</span>
+      </div>
+    </div>
+
+    <layout-panel-wrapper *ngIf="auction.id && auction.status === JobStatus.JOB_IN_PROGRESS">
+      {{ 'REVIEW_WORK.ACCEPT_WORK_MESSAGE' | translate }}
+      <app-button class="accept-work-btn" (btnClick)="acceptWork(auction.id)">
+        {{ 'REVIEW_WORK.ACCEPT_WORK_BTN' | translate }}
+      </app-button>
+    </layout-panel-wrapper>
+
+    <layout-panel-wrapper>
+      <ng-container *ngIf="auction.jobItems?.length; else noJobItems">
+        <span class="bid-items">
+          <app-survey-items-table
+            [jobItems]="auction.jobItems"
+          ></app-survey-items-table>
+        </span>
+      </ng-container>
+      <ng-template #noJobItems>
+        <span class="bid-items">
+          {{ 'REVIEW_WORK.NO_JOB_ITEMS' | translate: { bidId: bid.id } }}
+        </span>
+      </ng-template>
+    </layout-panel-wrapper>
+  </div>
+  <ng-template #loader>
+    <div aside class="loading-container">
+      <mat-progress-spinner
+        [diameter]="50"
+        [strokeWidth]="5"
+        mode="indeterminate"
+      ></mat-progress-spinner>
+    </div>
+  </ng-template>
+</layout-two-columns>

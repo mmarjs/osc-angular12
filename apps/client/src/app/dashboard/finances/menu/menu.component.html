@@ -1,0 +1,21 @@
+<layout-panel-wrapper
+  panelTitle="Menu"
+  icon="menu"
+>
+  <div class="subpanel-content">
+    <mat-nav-list class="ocean-menu">
+
+      <ng-container *ngFor="let link of links">
+
+        <mat-list-item
+        [attr.disabled]="link.route.toString() === currentUrl ? '' : null"
+        [routerLink]="[ link.route ]">
+          <mat-icon mat-list-icon>{{ link.icon }}</mat-icon>
+          <span matLine>{{ link.title }}</span>
+        </mat-list-item>
+
+      </ng-container>
+
+    </mat-nav-list>
+  </div>
+</layout-panel-wrapper>

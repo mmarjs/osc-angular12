@@ -1,0 +1,33 @@
+form {
+  margin: 0 auto;
+  max-width: 420px;
+}
+.flag{
+  display: flex;
+  flex-direction: column;
+}
+:host ::ng-deep {
+  app-drop-down {
+    form {
+      padding: 0;
+
+      label,
+      span {
+        font-weight: bold;
+      }
+
+      .status {
+        margin-bottom: 0;
+      }
+
+      .mat-select-min-line {
+        font-weight: normal;
+      }
+    }
+  }
+}
+
+.addBoat {
+  position: relative;
+  top: -2.8rem
+}

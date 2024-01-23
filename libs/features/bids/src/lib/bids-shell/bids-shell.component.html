@@ -1,0 +1,35 @@
+<!-- <layout-two-columns [width]="82" *ngIf="auction$ | async as auction"> -->
+<layout-two-columns [width]="82">
+
+    <h2 class="title-page">{{title | translate}}</h2>
+
+    <div class="banner-header" fxLayoutAlign="center" *ngIf="auction.isStarted && !auction.isFinished">
+        {{ 'AUCTIONS.STARTED_ON' | translate }}
+        <span class="bold-dark">
+          {{ auction.auctionStartDate | date:'fullDate' }}
+        </span>
+    </div>
+
+    <div class="router-wrapper">
+        <router-outlet></router-outlet>
+    </div>
+
+    <div aside class="bids-auction-aside">
+        <ng-container *ngIf="!auction.isFinished && title !== 'BIDS.REVIEW_WORK'">
+            <layout-panel-wrapper [panelTitle]="'BIDS.TIME_REMAINING' | translate">
+                <ocean-auction-time-remaining [auctionEndDate]="$any(auction.auctionEndDate)">
+                </ocean-auction-time-remaining>
+            </layout-panel-wrapper>
+        </ng-container>
+        <layout-panel-wrapper [panelTitle]="'BIDS.REPAIR_PROCESS' | translate">
+            <ocean-auction-bids-process [jobId]="auction.id" [bid]="acceptedBid"></ocean-auction-bids-process>
+        </layout-panel-wrapper>
+        <layout-panel-wrapper [panelTitle]="'AUCTIONS.DETAIL' | translate">
+            <app-auction-detail-card [auction]="auction"></app-auction-detail-card>
+        </layout-panel-wrapper>
+
+        <button type="button" mat-stroked-button (click)="cancelRepair(auction.id+'')" *ngIf="title === 'BIDS.REVIEW_BIDS' && auction?.status === auctionStatus.AUCTION_LIVE">
+          {{'COMMON.BUTTONS.CANCEL_AUCTION' | translate}}
+        </button>
+    </div>
+</layout-two-columns>

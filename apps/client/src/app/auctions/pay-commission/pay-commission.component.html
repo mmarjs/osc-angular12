@@ -1,0 +1,53 @@
+<div class="wrapper">
+  <div
+    class="banner-header deposit-success-banner"
+    fxLayout="row"
+    fxLayoutAlign="center center"
+    *ngIf="depositSuccess; else showDeposit"
+  >
+    <span class="bold-dark">{{'APPLICATION.SUCCESS' | translate}}!&nbsp;</span>
+    <span>{{'BIDS.SUCCESSFULLY_DEPOSITED' | translate}}&nbsp;</span>
+    <span class="bold-dark">
+      {{ form.get('deposit').value | currency: 'USD' }}
+    </span>
+  </div>
+  <ng-template #showDeposit>
+    <ng-container *ngIf="bid$ | async as bid">
+      <layout-two-columns [width]="50">
+        <layout-panel-wrapper>
+          <p
+            class="deposit-info"
+            [innerHTML]="'BIDS.BID_WINNER.DEPOSIT_INFO' | translate: { depositAmount: bid?.startDeposit | currency  }"
+          ></p>
+
+          <div class="d-flex">
+            <app-form-builder
+              [form]="form"
+              [fields]="formFields"
+            ></app-form-builder>
+          </div>
+          <p class="minDeposit">
+            {{'BIDS.MINIMUM' | translate}}:
+            <span class="bold-dark">{{bid?.startDeposit | currency}}</span>
+          </p>
+        </layout-panel-wrapper>
+
+        <app-payment-list
+          aside
+          (cardDetails)="onCardDetailsChanged($event)"
+        ></app-payment-list>
+      </layout-two-columns>
+
+      <div class="submit-deposit-wrapper">
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="form.invalid && selectedCard"
+          (click)="onSubmit()"
+        >
+          {{'COMMON.BUTTONS.SUBMIT' | translate}}
+        </button>
+      </div>
+    </ng-container>
+  </ng-template>
+</div>

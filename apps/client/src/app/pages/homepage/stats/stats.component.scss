@@ -1,0 +1,59 @@
+@import "variables";
+
+.stats-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 350px;
+
+  .stats-item-container {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 70px;
+
+    .total-shipyards,
+    .total-repairs {
+      font-size: 7em;
+      font-weight: 700;
+      line-height: 1em;
+      margin: 0;
+      white-space: pre;
+    }
+
+    .total-shipyards {
+      color: mat-color($base, A200);
+    }
+
+    .total-repairs {
+      color: mat-color($base, 500);
+    }
+
+    .stats-item-repairs,
+    .stats-item-shipyards {
+      font-size: 2em;
+      line-height: 1em;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .stats-container {
+    height: 175px;
+
+    .stats-item-container {
+      padding: 0 20px;
+
+      .total-shipyards,
+      .total-repairs {
+        font-size: 5em;
+      }
+
+      .stats-item-repairs,
+      .stats-item-shipyards {
+        font-size: 1em;
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+
+<h3 matDialogTitle>Log in</h3>
+
+<div mat-dialog-content>
+  <!-- <p>Log in using the form below. Use the links below to reset your password or create an account.</p> -->
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+    <div fxLayout="column">
+      <label for="login-username">Username</label>
+      <mat-form-field>
+        <input matInput required type="text" id="login-username" formControlName="username">
+        <!-- <mat-error *ngIf="formErrors.username">{{ formErrors.username }}</mat-error> -->
+      </mat-form-field>
+
+      <label for="login-password">Password</label>
+      <mat-form-field>
+        <input matInput required type="password" id="login-password" formControlName="password">
+        <!-- <mat-error *ngIf="formErrors.password">{{ formErrors.password }}</mat-error> -->
+      </mat-form-field>
+    </div>
+  </form>
+
+</div>
+
+<div mat-dialog-actions fxLayout="column" fxLayoutAlign="stretch">
+  <div fxLayout="row" fxLayoutGap="10px">
+    <button fxFlex mat-stroked-button matDialogClose>Cancel</button>
+    <button fxFlex mat-raised-button color="primary" (click)="onSubmit()">Login</button>
+  </div>
+
+  <p fxLayout="column" fxLayoutAlign=" center" fxLayoutGap="10px">
+    <a [routerLink]="[{ outlets: { open: routes.link('RESET') }}]" (click)="dialogRef.close()">
+      Lost Your Password?
+    </a>
+    <a [routerLink]="[{ outlets: { primary: routes.path('SIGNUP'), open: null }}]" (click)="dialogRef.close()">
+      Not a member? Create an account here
+    </a>
+  </p>
+</div>

@@ -1,0 +1,79 @@
+@import "variables";
+
+app-survey-list {
+  .content {
+    button {
+      outline: none;
+      max-width: 19px;
+      background-color: transparent;
+      height: 15px;
+      margin: 10px;
+      margin-top: 14px;
+      border: 1px dashed mat-color($base, A100);
+      align-items: center;
+      line-height: 10px;
+      align-content: center;
+      position: relative;
+
+      .button {
+        position: absolute;
+        right: 2.5px;
+        bottom: 0.3px;
+        font-size: 30px;
+        color: mat-color($base, A100);
+      }
+
+      .add {
+        position: absolute;
+        right: 2.2px;
+        bottom: 0.3px;
+        font-size: 19px;
+        color: mat-color($base, A100);
+      }
+    }
+
+    background: white;
+
+    .surveys-group {
+      &:nth-child(odd) {
+        background: #f7f6f4;
+        border-radius: 8px;
+      }
+    }
+  }
+
+  .survey-item {
+    width: 100%;
+    margin: 15px 1px 1px 13px;
+  }
+
+  .surveys-group,
+  .surveys-form-group {
+    display: flex;
+    flex: 1;
+  }
+
+  .surveys-group {
+    padding: 0 15px;
+  }
+
+  .survey-item textarea.mat-input-element {
+    height: 75px !important;
+  }
+
+  .add-span {
+    cursor: pointer;
+    margin-left: 10px;
+  }
+
+  .icon-delete-container {
+    margin-top: 32px;
+  }
+
+  .add-survey {
+    margin-top: 25px;
+    margin-left: 15px;
+    display: inline-flex;
+    align-items: center;
+  }
+}

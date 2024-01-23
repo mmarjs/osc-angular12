@@ -1,0 +1,24 @@
+<div class="content">
+    <section>
+        <form class="form" [formGroup]="form">
+            <div *ngFor="let item of surveyItems['controls']; let i = index;" class="surveys-group" formArrayName="jobItems">
+                <div [formGroupName]="i" class="surveys-form-group">
+                    <div class="icon-delete-container" (click)="!isStarted && deleteSurvey(i)">
+                        <ocean-icon [iconType]="iconType.REMOVE" [classes]="['dashed-border-icon']"></ocean-icon>
+                    </div>
+                    <div class="survey-item">
+                        <app-field-text contextId="auctions" placeholder="{{titlePlaceHolder}}" formControlName="title" [readonly]="isStarted" [noTailingSpace]="true" [required]="true">
+                        </app-field-text>
+
+                        <app-field-textarea row contextId="auctions" placeholder="{{descriptionPlaceHolder}}" formControlName="description" [readonly]="isStarted" [noTailingSpace]="true" [required]="true">
+                        </app-field-textarea>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="add-survey" (click)="!isStarted && addSurvey()">
+            <ocean-icon [iconType]="iconType.ADD" [classes]="['dashed-border-icon']"></ocean-icon>
+            <span class="add-span">Add line Item</span>
+        </div>
+    </section>
+</div>

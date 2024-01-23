@@ -1,0 +1,180 @@
+@import "variables";
+
+::ng-deep {
+  .form-footer-group-container {
+    layout-two-columns {
+      padding: 30px 0;
+      .right-col{
+        min-width: 280px !important;
+      }
+    }
+
+    .display-total {
+      .display-item {
+        justify-content: flex-start !important;
+        width: 100%;
+        .flex-tax{
+          display: flex;
+          position: relative;
+          align-items: center;
+
+          input{
+            margin-left: 0;
+          }
+          .tax-text{
+            margin-right: 9px;
+            margin-left: 6px;
+            min-width: max-content;
+          }
+        }
+        .align-right{
+          text-align: right;
+          width: 45%;
+          #suffix{
+            position: absolute;
+            right: 10%;
+          }
+        }
+        .align-left{
+          display: flex;
+          align-items: center;
+          margin-left: 18px;
+          width: 60%;
+        }
+        @include fxFlexJustify();
+        margin-bottom: 20px;
+      }
+    }
+
+    .input-tax {
+      width: 45%;
+      margin-bottom: 20px;
+    }
+
+    .display-items-controls {
+      width: 100%;
+    }
+
+    .input-container {
+      display: -ms-flexbox;
+      /* IE10 */
+      display: flex;
+      width: 100%;
+      margin-bottom: 15px;
+
+      .icon {
+        padding: 10px;
+        background: #E0E0E5;
+        color: #283b4d;
+        min-width: 50px;
+        text-align: center;
+      }
+    }
+
+    .d-flex {
+      display: flex;
+    }
+
+    app-drop-down {
+      width: 120px;
+    }
+
+    .open-documents-dialog-icon-wrapper {
+      margin-top: 10px;
+    }
+    app-button {
+      margin-top:65px;
+      button {
+        width: 100%;
+        height: 50px;
+      }
+    }
+
+    .status {
+      margin: 0 !important;
+    }
+  }
+}
+app-datepicker {
+  flex-direction: column !important;
+}
+.w-100 {
+  width: 100%;
+}
+
+@media screen and (max-width: 960px) {
+  .display-total .display-item {
+    justify-content: left;
+    width: 100%;
+    span {
+      margin-right: 10px;
+    }
+  }
+  .final-price{
+    .display-item{
+      .align-right{
+        width: 50%;
+      }
+      .align-left{
+        width: 50%;
+      }
+    }
+    .align-right{
+      width: 50%;
+      #suffix{
+        right: 5%;
+      }
+    }
+    .flex-tax{
+      justify-content: end;
+      input{
+        width: 25%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1025px) {
+
+
+  .final-price{
+    .align-right{
+      width: 52%;
+      #suffix{
+        right: 5%;
+      }
+    }
+
+  }
+
+  app-button{
+    width: 100%;
+  }
+
+}
+
+input[type=number]{
+  width: 100%;
+  height: 40px;
+  padding-left: 10px;
+  margin-left: 15px;
+  border: 1px solid #E0E0E5;
+}
+
+
+input[type=number]:hover::-webkit-inner-spin-button {
+right: 0 !important;
+}
+
+.files{
+  display: contents;
+  ::ng-deep .mat-list-item-content{
+    padding: 0px 0px !important;
+  }
+}
+
+.footer-aside{
+  display: flex;
+  flex-direction: column;
+  margin-top: 7%;
+}

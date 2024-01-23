@@ -1,0 +1,28 @@
+<div
+  *ngIf="type === uploadItemType.OTHER && value"
+  class="other-file"
+  (click)="onDelete(value)"
+  role="none"
+>
+  <span class="file-name">{{ fileName || 'File' }}</span>
+  <span class="delete" *ngIf="!selected">
+    <mat-icon>delete</mat-icon>
+    {{ 'COMMON.BUTTONS.REMOVE' | translate }}
+  </span>
+  <span class="selected" *ngIf="selected" (click)="onUnselect(value)" role="button">
+    <mat-icon>check</mat-icon>
+  </span>
+</div>
+<div
+  *ngIf="type === uploadItemType.IMAGE && value"
+  class="uploaded-image"
+  [style.background-image]="'url(' + value + ')'"
+  role="none"
+>
+  <span class="delete" *ngIf="!selected" (click)="onDelete(value)" role="button">
+    <mat-icon>delete</mat-icon>
+  </span>
+  <span class="selected" *ngIf="selected" (click)="onUnselect(value)" role="button">
+    <mat-icon>check</mat-icon>
+  </span>
+</div>

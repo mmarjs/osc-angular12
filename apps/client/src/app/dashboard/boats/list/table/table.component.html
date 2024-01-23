@@ -1,0 +1,46 @@
+<mat-datasource [dataSource]="source">
+
+  <!-- TABLE -->
+  <mat-table [dataSource]="source" matSort>
+    <ng-container matColumnDef="info">
+      <mat-header-cell mat-sort-header="name" *matHeaderCellDef> {{'COMMON.TABLE.HEADER.NAME' | translate}}
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row" fxLayout="column" fxLayoutAlign="center start" class="clickable"
+        (click)="handleRowClick(row)" [class.active]="row.id === activeBoatId">
+        <strong>{{ row.name }}</strong>
+        <span>{{ row.address }}</span>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef>{{'COMMON.TABLE.HEADER.ACTIONS' | translate}}</mat-header-cell>
+      <mat-cell *matCellDef="let row" class="boat-column-actions" [class.active]="row.id === activeBoatId">
+        <div class="actions-wrapper">
+          <a [appLink]="['BOATS_DISPLAY', { id: row.id }]">
+            <mat-icon>launch</mat-icon>
+          </a>
+          <a [appLink]="['BOATS_EDIT', { id: row.id }]">
+            <mat-icon>edit</mat-icon>
+          </a>
+          <a href="#" (click)="onDelete($event, row)">
+            <mat-icon>delete_outline</mat-icon>
+          </a>
+        </div>
+        <button type="button" mat-raised-button color="primary" [appLink]="['AUCTION_CREATE', { id: row.id }]"  (click)="createAuction()"
+          class="create-auction-btn" *ngIf="!isActionButtonHide">
+          {{'COMMON.BUTTONS.CREATE_AUCTION' | translate}}
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+  </mat-table>
+
+  <mat-datasource-empty>
+    {{'BOATS.INFO.NO_BOATS' | translate}}
+  </mat-datasource-empty>
+</mat-datasource>
+
+<!-- PAGINATOR -->
+<mat-paginator [length]="source.total" [pageSize]="source.pageSize" [pageSizeOptions]="[5, 10, 15, 20]"></mat-paginator>

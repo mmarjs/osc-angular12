@@ -1,0 +1,48 @@
+@import 'variables';
+
+:host {
+  display: block;
+  height: 100%;
+  width: 100%;
+
+  background: mat-color($background, 'app-bar', 0.95);
+  padding: 15px;
+  user-select: none;
+
+  // account switcher
+  > button:first-child {
+    position: absolute;
+    right: 17px;
+    top: 17px;
+  }
+
+  // close button
+  .mat-icon {
+    font-size: 40px;
+    line-height: 40px;
+    height: 40px;
+    width: 40px;
+  }
+
+  // menu
+  .mat-list {
+    font-weight: bold;
+    margin: 50px 10px;
+
+    .mat-list-item {
+      font-size: 120%;
+      line-height: 1rem;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+    }
+  }
+
+  // actions
+  > div {
+    margin: 0 15px;
+
+    button:last-child {
+      background: mat-color($background, 'app-bar');
+    }
+  }
+}

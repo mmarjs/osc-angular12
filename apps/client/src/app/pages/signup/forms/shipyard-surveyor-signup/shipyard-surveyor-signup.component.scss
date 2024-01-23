@@ -1,0 +1,62 @@
+h2 {
+  text-align: left;
+  font-size: 1.6rem;
+  margin-bottom: auto;
+}
+
+form {
+  padding: 0;
+
+  .w-50 {
+    width: 49.2%;
+  }
+}
+
+::ng-deep {
+  ngx-intl-tel-input {
+    width: 100%;
+
+    input {
+      height: 34px;
+      width: 100%;
+    }
+  }
+}
+
+.phone-control {
+  display: block;
+  margin-bottom: 1.3rem;
+
+  .label {
+    margin-bottom: 10px;
+
+  }
+}
+
+
+mat-horizontal-stepper {
+  background-color: unset;
+}
+
+.endButtons {
+  height: 45px;
+  margin-top: 27px;
+}
+
+
+
+:host ::ng-deep {
+  .mat-horizontal-stepper-header-container {
+    width: max-content;
+  }
+
+  ngx-intl-tel-input .country-dropdown,
+  ngx-intl-tel-input .iti-arrow {
+    display: none !important;
+  }
+}
+
+.phone-error {
+  display: flex;
+  font-size: 80%;
+}

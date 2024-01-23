@@ -1,0 +1,51 @@
+<div fxFlex fxFlexAlign="stretch" class="messages-board">
+  <div fxLayout="row" fxLayoutAlign=" center" fxLayoutGap="10px" class="messages-header">
+    <mat-icon>account_circle</mat-icon>
+
+    <div fxFlex fxLayout="column">
+      <strong>#Robert</strong>
+      <span>Message history started on 01/24/19</span>
+    </div>
+
+    <button type="button" mat-flat-button color="primary">
+      View Profile
+    </button>
+  </div>
+
+  <div fxFlex class="messages-body" #messageBody>
+    <div class="message-heading message-first" *ngIf="thread.messages && thread.messages.length === 0">
+      Start your conversation
+    </div>
+
+    <ng-container *ngFor="let message of thread.messages">
+      <div class="message-heading" *ngIf="message.timestamp"
+      [class.message-input]="uid !== message.author"
+      [class.message-output]="uid === message.author">
+        {{ message.timestamp }}
+      </div>
+      <div class="message-wrap"
+      [class.message-input]="uid !== message.author"
+      [class.message-output]="uid === message.author">
+        <span class="message-text" [innerHTML]="message.content"></span>
+        <mat-icon class="message-avatar"
+          [fxFlexOrder]="uid === message.author ? -1 : 1"
+        >account_circle</mat-icon>
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="messages-footer">
+    <textarea rows="2"
+      [formControl]="newMessage"
+      [appDetectKey]="13"
+      (keyPressed)="doSend()"
+      placeholder="Type your message here..."
+    ></textarea>
+  </div>
+
+</div>
+
+<button type="button" mat-raised-button color="primary"
+[disabled]="!newMessage.value" (click)="doSend()">
+  <mat-icon>send</mat-icon> Send Message
+</button>

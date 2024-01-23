@@ -1,0 +1,228 @@
+@import "variables";
+
+.form-description {
+  label span {
+    color: rgba(128, 128, 128, 0.9) !important;
+  }
+
+  .label span {
+    color: mat-color($base, 500) !important;
+    font-weight: bold;
+    font-size: 25px;
+  }
+
+  app-drop-down {
+    margin-top: 20px;
+    .status {
+      margin-bottom: 0px !important;
+    }
+  }
+
+  app-drop-down .label {
+    font-weight: bold;
+    font-size: 25px;
+  }
+
+  app-auctions-create-media p {
+    align-self: auto !important;
+    margin-top: 12px !important;
+  }
+
+  app-form-gallery {
+    border: none !important;
+  }
+
+  app-form-gallery-item {
+    display: flex;
+    justify-content: center;
+    height: 80px !important;
+  }
+
+  app-form-gallery img {
+    object-fit: contain;
+  }
+
+  .text-blocks .label {
+    font-size: 25px !important;
+  }
+}
+
+layout-two-columns {
+  padding: 30px 0px !important;
+}
+
+img {
+  object-fit: contain;
+}
+
+app-radio-button {
+  .status {
+    margin-top: 20px !important;
+    margin-bottom: 0 !important;
+    .radio {
+      flex-direction: row !important;
+      .mat-radio-label {
+        margin-right: 20px;
+      }
+    }
+  }
+}
+
+.media-imgages-wrapper {
+  background: rgba(237, 234, 230, 0.5);
+  padding: 20px;
+  margin-top: 20px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.icon {
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  &.camera-icon {
+    background: url("/assets/icons/camera-icon.svg") no-repeat center;
+    background-size: 40px;
+  }
+}
+
+.icon-star {
+  color: mat-color($base, 500);
+}
+
+
+.text-description {
+  font-size: 12px;
+}
+
+// Tooltip
+
+.tooltipA {
+  position: relative;
+  text-align: left;
+  font-weight: bold;
+}
+
+.tooltipA h3 {
+  margin: 12px 0;
+}
+.text-blocks{
+app-field-textarea {
+  margin-bottom: 0 !important;
+  .mat-input-element {
+    height: 315px !important;
+  }
+}
+}
+
+@media screen and (max-width: 900px) {
+  .tooltipA .right {
+    width: 365px;
+    top: 115px;
+    /* margin-left: 225px; */
+    -webkit-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    padding: 0;
+    color: black;
+    background: mat-color($background, app-bar);
+    font-weight: normal;
+    font-size: 13px;
+    border-radius: 8px;
+    position: absolute;
+    z-index: 99999999;
+    box-sizing: border-box;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transition: opacity 0.8s;
+    transition: opacity 0.8s;
+  }
+}
+
+@media screen and (min-width: 901px) {
+  .tooltipA .right {
+    width: 530px;
+    top: 85px;
+    margin-left: 20px;
+    -webkit-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    padding: 0;
+    color: black;
+    background: rgba(237, 234, 230);
+
+    font-weight: normal;
+    font-size: 13px;
+    border-radius: 8px;
+    position: absolute;
+    z-index: 99999999;
+    box-sizing: border-box;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transition: opacity 0.8s;
+    transition: opacity 0.8s;
+  }
+}
+
+.tooltipA:hover .right {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltipA .right img {
+  width: 400px;
+  border-radius: 8px 8px 0 0;
+}
+
+.tooltipA .text-content {
+  padding: 10px 20px;
+}
+
+.tooltipA .right i {
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -12px;
+  width: 12px;
+  height: 24px;
+  overflow: hidden;
+}
+
+.text-blocks {
+  padding-top: 20px;
+}
+
+.tooltipA .right i::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  left: 0;
+  top: 50%;
+  transform: translate(50%, -50%) rotate(-45deg);
+  background-color: #444444;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+}
+
+layout-two-columns {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.tooltip-types {
+  display: flex;
+  margin: 0px -4px;
+  text-align: center;
+  font-size: 12px;
+}
+
+.title-tooltipA b {
+  font-size: 27px;
+  color: #283b4d;
+}
+
+.tooltip-info {
+  font-size: 12px;
+}

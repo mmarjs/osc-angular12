@@ -1,0 +1,65 @@
+@import 'variables';
+
+$alpha: 0.75;
+
+.template {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  color: mat-color($background, raised-button);
+  cursor: pointer;
+}
+
+:host {
+  .other-file {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+
+    .file-name {
+      font-style: italic;
+    }
+
+    .delete {
+      display: flex;
+      align-items: center;
+      color: mat-color($base, A100);
+      margin-left: 10px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .selected {
+      cursor: pointer;
+      margin-left: 10px;
+    }
+  }
+  .uploaded-image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 2px solid mat-color($accent);
+
+    .delete {
+      @extend .template;
+      opacity: 0;
+      transition: background, opacity 0.3s;
+
+      &:hover {
+        opacity: 1;
+        background: rgba(0, 0, 0, $alpha);
+      }
+    }
+
+    .selected {
+      @extend .template;
+      background: rgba(0, 0, 0, $alpha);
+    }
+  }
+}

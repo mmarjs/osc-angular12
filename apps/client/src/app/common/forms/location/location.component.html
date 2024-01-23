@@ -1,0 +1,33 @@
+<ng-container [formGroup]="form">
+
+  <div fxLayout="row" class="child-location-1">
+    <app-field-text fxLayout="column" contextId="location" formControlName="city"
+                    label="FORMS.LABELS.CITY" [readonly]="_readonly" [row]="_row" [maxLength]="100" [required]="true">
+    </app-field-text>
+  </div>
+
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="5%" fxLayoutGap.sm="10px" fxLayoutGap.xs="0"
+       fxLayoutAlign="space-between start" class="child-location-2">
+
+    <app-field-text fxLayout="column" fxFlex.xs="100" contextId="location" formControlName="state"
+                    label="FORMS.LABELS.STATE" [readonly]="_readonly" [row]="_row" [maxLength]="100"
+                    [required]="true"></app-field-text>
+
+    <div fxLayout="column" fxFlex="40" fxFlex.xs="100" class="zip-control">
+      <label class="label">
+        {{ 'FORMS.LABELS.ZIP_CODE' | translate}}
+        <span *ngIf="!zipCodeCtrl.disabled">*</span>
+      </label>
+
+      <mat-form-field floatLabel="never" [class.readonly]="_readonly">
+        <input matInput formControlName="zipCode" type="number" [readonly]="_readonly">
+        <mat-error *ngIf=" zipCodeCtrl.touched && zipCodeCtrl.invalid && !zipCodeCtrl?.errors?.invalidCountryZip">
+          {{'FORMS.LABELS.REQUIRED' | translate}}
+        </mat-error>
+        <mat-error *ngIf="zipCodeCtrl?.errors?.invalidCountryZip">
+          {{'FORMS.LABELS.INVALID_ZIP_FOR_COUNTRY' |translate : {countryCode: zipCodeCtrl.errors.invalidCountryZip} }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+</ng-container>

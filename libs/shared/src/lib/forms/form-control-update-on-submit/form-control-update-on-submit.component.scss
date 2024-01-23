@@ -1,0 +1,40 @@
+@import "variables";
+
+::ng-deep {
+  .form-control-submit {
+    .form-control-wrapper-with-icon {
+      @include fxLayout(column);
+    }
+
+    .form-conrol-input-wrapper {
+      @include fxLayout();
+      @include fxFlexAlignItems();
+      .mat-form-field-wrapper {
+        padding-bottom: 0 !important;
+      }
+
+      button {
+        font-size: 14px;
+        margin: 10px 0 0 5px;
+        color: mat-color($base, A100);
+      }
+    }
+
+    .loading-gif {
+      height: 24px;
+    }
+
+    ngx-intl-tel-input {
+      margin-top: 0.84375em;
+      width: 100%;
+      input {
+        height: 34px !important;
+        width: 100%;
+      }
+    }
+  }
+
+  .error {
+    font-size: 11px !important;
+  }
+}

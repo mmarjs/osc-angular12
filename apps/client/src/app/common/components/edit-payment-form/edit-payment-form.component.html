@@ -1,0 +1,24 @@
+<form  role="form" [formGroup]="editPaymentMethodForm">
+  <div class="header d-flex justify-content-space-between">
+    <p>{{'PAYMENT.EDIT_PAYMENT_METHOD' | translate}}</p>
+    <div class="pt-10">
+      <mat-icon  (click)="close()" class="cursor-pointer">close</mat-icon>
+    </div>
+  </div>
+  <div class="d-flex flex-column">
+    <label class="label">{{'PAYMENT.CARD_NUMBER' | translate}} </label>
+    <input type="text" [value]="'XXXX XXXX XXXX ' + getCard(data.details).last4" [disabled]="true" class="cardNumber">
+  </div>
+  <div>
+    <app-field-text formControlName="expMonth" label="PAYMENT.EXP_MONTH" [type]="'number'" [min]="minValue"></app-field-text>
+    <app-field-text formControlName="expYear" label="PAYMENT.EXP_YEAR" [type]="'number'" [min]="currentYear"></app-field-text>
+  </div>
+<div class="d-flex justify-content-end">
+  <button type="button" mat-raised-button (click)="close()" class="mr-6">
+    {{'COMMON.BUTTONS.CANCEL' | translate}}
+  </button>
+  <button type="button" mat-raised-button color="primary" (click)="onSubmit(data.id)" [disabled]="!showSubmit || !editPaymentMethodForm?.valid">
+    {{'COMMON.BUTTONS.SAVE_CHANGES' | translate}}
+  </button>
+</div>
+</form>

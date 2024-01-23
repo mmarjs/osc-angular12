@@ -1,0 +1,27 @@
+@use "sass:math";
+@import "variables";
+
+.upload-mask-wrapper {
+  display: flex;
+  cursor: pointer;
+}
+
+.cross {
+  background: mat-color($accent);
+  position: relative;
+
+  height: 40px;
+  width: 2px;
+
+  &:after {
+    background: mat-color($accent);
+    content: "";
+
+    height: 2px;
+    width: 40px;
+
+    position: absolute;
+    left: math.div(-40px, 2);
+    top: math.div(40px, 2);
+  }
+}

@@ -1,0 +1,8 @@
+
+<h3 *ngIf="data.title" matDialogTitle>{{ data.title }}</h3>
+
+<div mat-dialog-content>{{ data.content }}</div>
+
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="end stretch">
+  <button mat-raised-button [color]="data.color" matDialogClose>{{ data.accept }}</button>
+</div>

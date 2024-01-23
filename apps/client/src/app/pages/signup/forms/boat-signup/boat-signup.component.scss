@@ -1,0 +1,46 @@
+h2 {
+  text-align: left;
+  font-size: 1.6rem;
+  margin-bottom: auto;
+}
+
+
+.endButtons {
+  height: 45px;
+  margin-top: 27px;
+}
+
+mat-horizontal-stepper {
+  background-color: unset;
+}
+
+.label {
+  display: flex;
+  justify-content: flex-start;
+}
+
+:host ::ng-deep {
+  .mat-horizontal-stepper-header-container {
+    width: max-content;
+  }
+
+  .form {
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .full {
+    width: 100%;
+    text-align: left;
+  }
+
+  .half {
+    text-align: left;
+    position: relative;
+    width: 49.2%;
+    display: block;
+  }
+}

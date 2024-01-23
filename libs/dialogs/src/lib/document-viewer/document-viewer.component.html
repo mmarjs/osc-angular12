@@ -1,0 +1,7 @@
+<div class="d-flex justify-content-space-between">
+  <div class="d-flex">
+    <h2>{{ 'DOCUMENTS.CONTRACT' | translate }}</h2>
+  </div>
+  <mat-icon (click)="closeDocument()" class="cursor-pointer">close</mat-icon>
+</div>
+<iframe [src]="link"  height="94%" width="100%"></iframe>

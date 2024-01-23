@@ -1,0 +1,81 @@
+<h2 class="title-page">{{'AUCTIONS.TITLE' | translate}}</h2>
+
+<mat-datasource [dataSource]="source">
+  <mat-table [dataSource]="source" fxLayout="row wrap" fxLayout.xs="column">
+
+    <ng-container matColumnDef="image">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <figure>
+          <img src="/assets/images/no-image.png" alt="" class="default-img"/>
+          <figcaption>{{ 'APPLICATION.' + row.type | translate}}</figcaption>
+        </figure>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="info">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let row" fxFlexAlign="stretch" fxLayout="column" fxLayoutAlign="stretch stretch">
+        <div>
+          <span class="size-25 auctionName">{{ row.name }}</span><br/>
+          <small>{{row.boat.city}}, {{row.boat.state}} - {{row.boat.zipCode}}</small>
+        </div>
+
+        <div fxFlex fxLayout="column" fxLayoutAlign="space-around center">
+          <small>{{'AUCTIONS.CURRENT_BID_RANGE' | translate}}</small>
+          <ng-container *ngIf="row.bidders;else firstToBidTemp">
+            <small>{{row.bidders}} {{'AUCTIONS.BIDDERS' | translate}}</small>
+          </ng-container>
+          <ng-template #firstToBidTemp>
+            <small>{{'AUCTIONS.BE_THE_FIRST_TO_BID' | translate}}</small>
+          </ng-template>
+        </div>
+
+        <div class="bottom-cell-actions">
+          <div class="dates">
+            <div class="auction-start-wrapper">
+              <span class="bold-dark">{{'FORMS.LABELS.LISTED' | translate}}:</span>
+              <span>{{row.auctionStartDate | date:'mediumDate'}}</span>
+            </div>
+
+            <div>
+              <span class="bold-dark">{{'FORMS.LABELS.ENDS' | translate}}:</span>
+              <span>{{row.auctionEndDate | date:'mediumDate'}}</span>
+            </div>
+          </div>
+
+          <button
+            class="view-bid-btn"
+            mat-stroked-button
+            type="button"
+            [appLink]="['AUCTION_DETAIL', { id: row.id }]"
+            (click)="storeIsBidded(row)"
+          >
+            <span
+              *ngIf="!findBidById(row); else bidStatus"
+            >
+              {{'AUCTIONS.BID_ON' | translate}} {{ 'APPLICATION.' + row.type | translate}}
+            </span>
+            <ng-template #bidStatus>
+              <span>{{ 'COMMON.BUTTONS.VIEW_BID_STATUS' | translate }}</span>
+            </ng-template>
+          </button>
+        </div>
+      </mat-cell>
+    </ng-container>
+
+    <mat-row *matRowDef="let row; columns: columns;" class="auction-row"></mat-row>
+  </mat-table>
+
+  <mat-datasource-empty>
+    {{'AUCTIONS.NO_AUCTIONS' | translate}}
+  </mat-datasource-empty>
+
+</mat-datasource>
+
+<mat-paginator
+  [length]="source.total"
+  [pageSize]="source.pageSize"
+  [pageSizeOptions]="[5, 10, 15, 20]"
+  [hidePageSize]="hidePageSize"
+></mat-paginator>

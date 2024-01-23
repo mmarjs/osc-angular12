@@ -1,0 +1,47 @@
+.header {
+  margin-top: 20px;
+
+  h3 {
+    font-weight: 700;
+    font-size: 40px;
+  }
+
+  mat-icon {
+    color: #5a8ea0;
+    font-size: 40px;
+    text-align: right;
+    width: 30px;
+  }
+
+  p {
+    font-size: 14px;
+    margin-right: 25px;
+  }
+
+  span {
+    color: #283B4D;
+    font-weight: 700;
+  }
+}
+
+mat-label {
+  font-size: 18px;
+  color: #283B4D;
+  font-weight: 700;
+}
+
+.d-flex {
+  display: flex;
+
+  span {
+    margin-top: 25px;
+    margin-right: 6px;
+    font-weight: 700;
+    color: #283b4d;
+    font-size: 18px;
+  }
+
+  app-drop-down {
+    width: 206px
+  }
+}

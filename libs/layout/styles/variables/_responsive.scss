@@ -1,0 +1,34 @@
+/* Responsive breakpoints of @angular/flex-layout */
+
+// Extra small screen
+$xs-max: 599px !default;
+// Small screen / tablet
+$sm-max: 959px !default;
+// Medium screen / desktop
+$md-max: 1279px !default;
+// Large screen / wide desktop
+$lg-max: 1919px !default;
+
+$sm-min: ($xs-max + 1);
+$md-min: ($sm-max + 1);
+$lg-min: ($md-max + 1);
+$xl-min: ($lg-max + 1);
+
+$xs: 'only screen and (max-width : #{$xs-max})';
+$sm: 'only screen and (min-width : #{$sm-min}) and (max-width : #{$sm-max})';
+$md: 'only screen and (min-width : #{$md-min}) and (max-width : #{$md-max})';
+$lg: 'only screen and (min-width : #{$lg-min}) and (max-width : #{$lg-max})';
+
+$sm-md: 'only screen and (min-width : #{$sm-min}) and (max-width : #{$md-max})';
+$sm-lg: 'only screen and (min-width : #{$sm-min}) and (max-width : #{$lg-max})';
+$md-lg: 'only screen and (min-width : #{$md-min}) and (max-width : #{$lg-max})';
+
+$lt-sm: 'only screen and (max-width : #{$xs-max})';
+$lt-md: 'only screen and (max-width : #{$sm-max})';
+$lt-lg: 'only screen and (max-width : #{$md-max})';
+$lt-xl: 'only screen and (max-width : #{$lg-max})';
+
+$gt-xs: 'only screen and (min-width : #{$sm-min})';
+$gt-sm: 'only screen and (min-width : #{$md-min})';
+$gt-md: 'only screen and (min-width : #{$lg-min})';
+$gt-lg: 'only screen and (min-width : #{$xl-min})';

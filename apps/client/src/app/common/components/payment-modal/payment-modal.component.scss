@@ -1,0 +1,54 @@
+* {
+  box-sizing: border-box;
+}
+
+form {
+  min-width: 500px;
+  position: relative;
+
+  #payment-element {
+    margin-bottom: 24px;
+  }
+
+  .header {
+    font-family: 'BentonSansCond';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
+    line-height: 48px;
+    color: #283B4D;
+
+    p {
+      margin: .5rem 0 1rem 0;
+    }
+  }
+
+  .actions {
+    display: flex;
+
+    button {
+      &:first-child {
+        margin-right: .5rem;
+      }
+
+      &:last-child {
+        margin-left: .5rem;
+      }
+    }
+  }
+
+  #close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  @media only screen and (max-width: 600px) {
+    min-width: initial;
+  }
+}

@@ -1,0 +1,8 @@
+/**
+ * UserType
+ */
+
+export interface UserType {
+  id?: number;
+  type?: string;
+}

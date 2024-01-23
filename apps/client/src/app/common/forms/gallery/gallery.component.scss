@@ -1,0 +1,40 @@
+@import 'variables';
+
+:host {
+  display: block;
+
+  &[editable] {
+    border: 2px dashed mat-color($foreground, 'border');
+  }
+
+  &.drop-zone-active {
+    background: mat-color($background, 'hover');
+  }
+
+  .gallery-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .non-image-grid {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .images-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    app-form-gallery-item,
+    app-form-gallery-upload {
+      height: 80px;
+      width: 80px;
+    }
+
+    app-form-gallery-upload.no-files {
+      width: 100%;
+    }
+  }
+}

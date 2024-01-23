@@ -1,0 +1,56 @@
+<h3>Boat Location</h3>
+
+<ng-container [formGroup]="form">
+
+  <div fxLayout="column">
+    <label for="boat-name">
+      Name
+      <span aria-hidden="true">*</span>
+    </label>
+    <mat-form-field>
+      <input matInput id="boat-name" formControlName="name">
+    </mat-form-field>
+  </div>
+
+  <div fxLayout="column">
+    <label for="boat-model">
+      Model Year
+      <span aria-hidden="true">*</span>
+    </label>
+    <mat-form-field>
+      <input matInput id="boat-model" formControlName="makeModelYear">
+    </mat-form-field>
+  </div>
+
+  <div fxLayout="column">
+    <label for="boat-addr-1">
+      Street Address
+    </label>
+    <mat-form-field>
+      <input matInput id="boat-addr-1" formControlName="address">
+    </mat-form-field>
+  </div>
+
+  <div fxLayout="column">
+    <label for="boat-addr-2">
+      Address Line 2
+    </label>
+    <mat-form-field>
+      <input matInput id="boat-addr-2" formControlName="address2">
+    </mat-form-field>
+  </div>
+
+  <app-form-location
+    [form]="form"
+  ></app-form-location>
+
+  <div fxLayout="column">
+    <label for="boat-about">
+      About The Boat
+    </label>
+    <mat-form-field>
+      <textarea matInput id="boat-about" formControlName="about" rows="4"></textarea>
+    </mat-form-field>
+  </div>
+
+</ng-container>

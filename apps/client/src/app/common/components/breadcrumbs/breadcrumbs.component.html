@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="app-breadcrumbs">
+    <div fxLayout="row">
+      <ng-container *ngFor="let path of paths; let last = last">
+        <a *ngIf="!last" [appLink]="path.route">
+          <span>{{ path.text }}</span>
+        </a>
+  
+        <span *ngIf="last">
+          {{ path.text }}
+        </span>
+      </ng-container>
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+</div>

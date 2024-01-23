@@ -1,0 +1,16 @@
+::ng-deep app-create-stripe-account {
+  position: relative;
+  margin: 0 auto;
+  width: 500px;
+  padding: 30px 0;
+  button {
+    width: 100%;
+  }
+  .progress {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 99;
+  }
+}

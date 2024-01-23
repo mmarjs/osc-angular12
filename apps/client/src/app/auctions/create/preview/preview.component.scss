@@ -1,0 +1,162 @@
+layout-two-columns {
+  padding: 0;
+}
+
+.middle-layout {
+  padding-top: 0 !important;
+}
+
+.home-title {
+  justify-content: center;
+  background: rgba(237, 234, 230, 0.5);
+  height: 40px;
+  display: flex;
+  align-items: center;
+  font-weight: 100;
+}
+
+.carousel {
+  width: 100%;
+  height: 100%;
+
+  .default-img-big {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.details-card {
+  background: rgba(237, 234, 230, 0.5);
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.budget-details {
+  background: rgba(237, 234, 230, 0.5);
+  padding: 20px;
+}
+
+.inf {
+  z-index: 3;
+  color: #283b4d;
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 53px;
+}
+
+.survey-items-title {
+  margin-bottom: 20px;
+}
+
+@media screen and (min-width: 1200px) {
+  app-auctions-previews .form {
+    margin-left: -90px;
+    margin-top: 8px;
+  }
+}
+// Budget
+.budget {
+  .block .contact-button {
+    z-index: 3;
+    width: 47%;
+    height: 52px;
+    border: 2px solid #5a8ea1;
+    margin-left: -12px;
+  }
+
+  .block {
+    width: 327px;
+    //height: 398.99px;
+    background: rgb(237, 234, 230, 0.5);
+    font-size: 14px;
+    padding: 1px 25px 3px 25px;
+  }
+
+  .budget-icon {
+    margin-left: 110px;
+    margin-top: 16px;
+  }
+
+  @media screen and (max-width: 950px) {
+    .budget {
+      display: flex;
+      justify-content: center;
+      padding-top: 55px;
+    }
+    .block {
+      margin-top: 79px !important;
+      margin-left: 20px !important;
+    }
+  }
+  @media screen and (min-width: 950px) {
+  }
+}
+
+// Info
+.auction-info {
+  .blocks .fon {
+    background: rgb(237, 234, 230, 0.5);
+    padding: 17px 17px 10px 17px;
+  }
+
+  .blocks {
+    margin-top: -10px;
+  }
+
+  .about {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  .about .contact-button {
+    z-index: 3;
+    width: 47%;
+    height: 52px;
+    border: 2px solid #5a8ea1;
+    margin-left: -12px;
+  }
+
+  .disable{
+    pointer-events: none;
+    color: gray;
+  }
+
+  .about .repair-button {
+    z-index: 3;
+    width: 47%;
+    height: 52px;
+    background: #f79f51;
+    color: white;
+    border: 1px solid #f79f51;
+    margin-right: -12px;
+  }
+
+  .update-btn{
+    color:#5a8ea0
+  }
+
+  .text {
+    font-weight: 400;
+  }
+
+  .all-text {
+    padding: 30px 9px 8px 9px;
+  }
+
+  .all-text .information {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 25px;
+  }
+
+  @media screen and (min-width: 960px) {
+    .all-text .information {
+      width: 60%;
+    }
+  }
+  @media screen and (max-width: 961px) {
+    .all-text .information {
+      width: 80%;
+    }
+  }
+}

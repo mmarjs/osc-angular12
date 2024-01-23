@@ -1,0 +1,29 @@
+  <div class="d-flex rating">
+    <div>
+      <h3>"{{boat.name}}" </h3>
+    </div>
+    <div>
+      <span >&#9733;</span>
+      <p>97%</p>
+  </div>
+  </div>
+  <div class="boat-details-card card-bg-widget">
+    <div class="boat-details-container">
+      <div class="boat-info-wrapper">
+        <span class="bold-dark">{{ 'FORMS.LABELS.BOAT_LENGTH_TYPE_AND_YEAR' | translate }}: </span>
+        <span>{{boat.length}}' {{boat.type}} {{boat.makeModelYear}}</span>
+      </div>
+      <div class="boat-location-wrapper">
+        <span class="bold-dark">{{ 'FORMS.LABELS.LOCATION' | translate }}: </span>
+        <span>{{boat.city}}, {{boat.state}}</span>
+        <span class="bold-dark zip-label">{{ 'FORMS.LABELS.ZIP_CODE' | translate }}: </span>
+        <span>{{boat.zipCode}}</span>
+      </div>
+      <div>
+        <div class="bold-dark description-label">{{ 'FORMS.LABELS.DESCRIPTION' | translate }}: </div>
+        <div>
+          {{boat.about}}
+        </div>
+      </div>
+    </div>
+  </div>

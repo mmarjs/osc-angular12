@@ -1,0 +1,75 @@
+:host {
+  display: block;
+}
+
+.carousel {
+  width: 100%;
+  height: 60%;
+
+  .default-img-big {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.profile-form-footer {
+  display: flex;
+  justify-content: flex-end;
+
+  a {
+    margin-right: 15px;
+  }
+}
+
+.change-password-container {
+  margin: 20px 0;
+}
+
+layout-two-columns {
+  padding: 0;
+}
+
+.upload-container {
+  margin-top: 20px;
+  min-height: 200px;
+  p {
+    margin: 1em 0;
+  }
+}
+
+.upload-button {
+  margin-top: 1rem;
+}
+
+.avatar-wrapper {
+  position: relative;
+  display: inline-block;
+
+  .avatar {
+    transition: .3s;
+  }
+
+  button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    color: #5a8ea0;
+    background: #f7f6f4;
+    display: none;
+  }
+
+  &:hover {
+    .avatar {
+      filter: opacity(.5);
+    }
+
+    button {
+      display: inline;
+    }
+  }
+}
+.edit{
+  position: absolute;
+  right: 2rem;
+  color: #5a8ea0;
+}

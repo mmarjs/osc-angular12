@@ -1,0 +1,9 @@
+<h2>{{'COMMON.MENU.MY_BIDS' | translate}}</h2>
+<form [formGroup]="filterForm" >
+  <div class="header">
+    <app-drop-down [items]="priceFilters" [placeholder]="'Sort by Price'" formControlName="bidAmount" [form]="filterForm" class="w-160" (change)="onChange('bidAmount')"></app-drop-down>
+    <app-drop-down [items]="priceFilters" [placeholder]="'Sort by Start Date'" formControlName="workStartDate" [form]="filterForm" (change)="onChange('workStartDate')"></app-drop-down>
+    <app-drop-down [items]="priceFilters" [placeholder]="'Sort by Complete Time'" formControlName="approximateDuration" [form]="filterForm" (change)="onChange('approximateDuration')"></app-drop-down>
+</div>
+</form>
+  <ocean-bids-table [source]="source" [isLoading]="isLoading" [hidePageSize]="false" [limit]="limit" [sortValue]="sortedItem"></ocean-bids-table>

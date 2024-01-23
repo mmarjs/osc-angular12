@@ -1,0 +1,124 @@
+// Include theme styles for core and each component used in your app.
+
+@include mat-core($typography);
+@include angular-material-theme($ocean-theme);
+
+// Customizations
+
+// buttons
+
+// @include mat-form-button-theme($ocean-buttons);
+
+button {
+  box-shadow: none !important;
+}
+
+.mat-button,
+.mat-flat-button,
+.mat-raised-button,
+.mat-stroked-button {
+  border-width: 2px !important;
+  font-size: 16px;
+  font-weight: bold;
+
+  .mat-button-wrapper {
+    display: inline-block;
+    padding-top: 3px;
+  }
+
+  &.mat-primary {
+    .mat-button-wrapper {
+      color: #fff;
+      // text-shadow: 0px 1px white;
+    }
+  }
+}
+
+.mat-stroked-button:not([disabled]) {
+  border-color: mat-color($palette, A100);
+}
+
+.mat-icon-button .mat-button-wrapper > ocean-icon {
+  vertical-align: unset;
+  .mat-icon {
+    vertical-align: middle;
+  }
+}
+
+// form-field
+
+.mat-hint,
+.mat-error {
+  font-size: 90%;
+  letter-spacing: 0.02em;
+}
+
+.mat-form-field {
+  max-width: 100%;
+  width: 100%;
+}
+
+// list
+
+.mat-nav-list {
+  &.ocean-menu {
+    .mat-list-item {
+      border-top: 1px solid mat-color($foreground, "border");
+
+      &:last-child {
+        border-bottom: 1px solid mat-color($foreground, "border");
+      }
+
+      &[disabled] {
+        color: mat-color($foreground, "disabled");
+        pointer-events: none;
+
+        &:focus {
+          background: transparent;
+        }
+      }
+    }
+  }
+}
+
+.mat-list-base {
+  padding-top: 0 !important;
+}
+
+// stepper
+
+.mat-step-header {
+  // need no hover or active background
+  background: transparent !important;
+}
+
+.mat-horizontal-content-container {
+  padding: 0 !important;
+}
+
+.mat-step-icon-content {
+  padding-top: 3px;
+}
+
+// tabs
+
+.mat-tab-label {
+  &.mat-tab-label-active {
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-bottom: none;
+    border-radius: 5px 5px 0 0;
+  }
+}
+
+.mat-tab-label-content {
+  font-size: 120%;
+  font-weight: bold;
+}
+
+.mat-tab-label-active {
+  opacity: 1 !important;
+
+  .mat-tab-label-content {
+    color: mat-color($accent, A200);
+  }
+}

@@ -1,0 +1,25 @@
+.carousel-html-content {
+  .carousel-cell {
+    background: aliceblue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+}
+::ng-deep {
+  .auction-carousel {
+    position: relative;
+    .carousel-cells {
+      .carousel-cell {
+        img {
+          object-fit: cover;
+        }
+      }
+    }
+  }
+}
+
+.carousel-thumbs {
+  margin-top: 20px;
+}

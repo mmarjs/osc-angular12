@@ -1,0 +1,64 @@
+.card-group {
+  display: flex;
+  margin-top: 15px;
+}
+
+.card-control {
+  margin-right: 15px;
+}
+
+.card-controlName-card-number {
+  flex: 1 60%;
+}
+
+.card-controlName-expiration,
+.card-controlName-cvc {
+  flex: 1 20%;
+}
+
+.card-controlName-cvc {
+  margin-right: 0;
+}
+
+.credit-card-footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.d-flex{
+  display: flex;
+}
+layout-panel-wrapper{
+  h3{
+    font-size: 25px !important;
+  }
+  padding: 30px;
+}
+.options{
+  margin-top: 1rem;
+  margin-bottom: 2.5rem;
+  input[type='radio'] {
+    accent-color: #5a8ea0;
+}
+  label{
+    margin-left: 0.6rem;
+    margin-right: 2rem;
+    color: black;
+    font-weight: 400;
+  }
+}
+.fs-25{
+  font-size: 25px;
+}
+
+@media screen and (max-width:600px) {
+  .options{
+    label{
+    font-size: 12px;
+    margin-right: 0.3rem;
+  }
+}
+  .fs-25{
+    font-size: 12px;
+  }
+}

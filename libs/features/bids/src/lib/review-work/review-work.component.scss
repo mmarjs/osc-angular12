@@ -1,0 +1,59 @@
+@import "variables";
+
+layout-two-columns {
+  padding: 0;
+
+  layout-panel-wrapper {
+    margin-bottom: 20px !important;
+  }
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+:host {
+  .bid-items {
+    color: mat-color($foreground, light-txt);
+    text-align: center;
+  }
+}
+
+::ng-deep.review-work-container {
+  button {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .image-mask {
+    margin-top: 5px;
+    height: 180px;
+  }
+
+  .location-txt {
+    margin: 15px 0;
+  }
+
+  .submitted-amount-banner {
+    margin-bottom: 15px;
+    .mat-icon {
+      font-size: 24px;
+      color: mat-color($base, A100);
+    }
+  }
+}
+
+.banner-text-container {
+  margin-left: 15px;
+}
+
+.submitted-value-txt {
+  font-size: 14px;
+}
+
+.accept-work-btn {
+  width: 200px;
+}

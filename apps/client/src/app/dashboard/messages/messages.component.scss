@@ -1,0 +1,10 @@
+@import 'variables';
+
+:host {
+  @include app-content-margin();
+  @include app-dashboard-padding();
+
+  > h2 {
+    display: none;
+  }
+}

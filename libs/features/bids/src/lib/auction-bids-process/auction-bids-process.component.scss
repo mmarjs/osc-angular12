@@ -1,0 +1,65 @@
+@import "variables";
+
+.steps-container {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+
+  .bid-step-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    margin: 5px 0;
+    .mat-radio-container {
+      margin-right: 5px;
+      box-sizing: border-box;
+      display: inline-block;
+      position: relative;
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
+
+    .mat-radio-outer-circle {
+      box-sizing: border-box;
+      display: block;
+      height: 20px;
+      left: 0;
+      position: absolute;
+      top: 0;
+      transition: border-color ease 280ms;
+      width: 20px;
+      border-width: 2px;
+      border-style: solid;
+      border-radius: 50%;
+    }
+
+    .mat-radio-inner-circle {
+      border-radius: 50%;
+      box-sizing: border-box;
+      display: block;
+      height: 20px;
+      left: 0;
+      position: absolute;
+      top: 0;
+      opacity: 0;
+      transition: transform ease 280ms, background-color ease 280ms, opacity linear 1ms 280ms;
+      width: 20px;
+      transform: scale(0.001);
+      -webkit-print-color-adjust: exact;
+    }
+  }
+
+  .active {
+    .mat-radio-inner-circle {
+      background-color: mat-color($base, 500);
+      transform: scale(0.5);
+      opacity: 1;
+      transition: transform ease 280ms, background-color ease 280ms;
+    }
+
+    .mat-radio-outer-circle {
+      border-color: mat-color($base, 500);
+    }
+  }
+}

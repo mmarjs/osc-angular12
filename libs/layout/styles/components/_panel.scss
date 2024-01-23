@@ -1,0 +1,32 @@
+.panel-content {
+  min-height: 50px;
+  padding: 20px 0;
+}
+
+.subpanel-content {
+  padding-bottom: 20px;
+}
+
+.panel-content,
+.subpanel-content {
+  @include fxLayoutAlign(center, stretch, column);
+
+  max-width: 100%;
+
+  a {
+    text-align: center; // important for option links
+  }
+
+  form {
+    padding: 0 10px;
+  }
+
+  .panel-actions {
+    font-size: 90%;
+  }
+}
+
+.panel-body {
+  line-height: 1.75em;
+  margin-bottom: 20px;
+}

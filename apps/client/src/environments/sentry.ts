@@ -1,0 +1,5 @@
+export const dsns = {
+  prod: 'https://476afee734214e198a671922dd8cd022@o4504596858732544.ingest.sentry.io/4504611795435520',
+  qa: 'https://044f84f7565b46bc9f57188a9621964b@o4504596858732544.ingest.sentry.io/4504611790782464',
+  local: ''
+};

@@ -1,0 +1,36 @@
+<ng-container [formGroup]="form">
+
+  <ng-container *ngIf="_readonly">
+    <label class="addressLabel">{{ label | translate }}</label>
+    <span class="app-form-field-value">
+      {{ form.value.address }}
+      <ng-container *ngIf="form.value.address2">{{ form.value.address2 }}</ng-container>
+    </span>
+  </ng-container>
+
+  <app-field-text [attr.hidden]="_readonly ? '' : null"
+  contextId="location"
+  formControlName="address"
+  [placeholder]="'FORMS.PLACEHOLDERS.ADDRESS' | translate"
+  [label]="label"
+  [readonly]="_readonly"
+  [row]="_row"
+  [maxLength]="100"
+  [noTailingSpace]="noTailingSpace"
+  class="child-address-1"
+  [required]="true"
+  ></app-field-text>
+
+  <app-field-text [attr.hidden]="_readonly ? '' : null"
+  contextId="location"
+  formControlName="address2"
+  [placeholder]="'FORMS.PLACEHOLDERS.ADDRESS2' | translate"
+  [readonly]="_readonly"
+  [row]="_row"
+  [maxLength]="100"
+  [noTailingSpace]="noTailingSpace"
+  [label]="labelAddress2"
+  ></app-field-text>
+
+</ng-container>
+

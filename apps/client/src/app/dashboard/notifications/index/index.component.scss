@@ -1,0 +1,10 @@
+:host {
+  layout-panel-wrapper {
+    place-content: stretch stretch;
+    align-items: stretch;
+
+    height: 100%;
+    min-height: 500px;
+    padding-bottom: 25px;
+  }
+}

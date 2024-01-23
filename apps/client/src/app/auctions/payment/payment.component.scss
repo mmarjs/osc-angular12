@@ -1,0 +1,175 @@
+@import "variables";
+
+.payment-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 32px;
+
+  .payment-content {
+    flex: 0 0 350px;
+  }
+
+  .payment-content-card {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    app-payment-list {
+      width: 530px;
+      display: block;
+    }
+  }
+}
+
+.auction-detail-panel {
+
+  p,
+  img {
+    margin-top: 15px;
+  }
+}
+
+
+.payment-header {
+  margin-bottom: 24px;
+}
+
+.title-page {
+  margin: 0;
+  margin-top: 47px;
+}
+
+.deposit-description {
+  white-space: pre-wrap;
+  font-size: 14px;
+  text-align: center;
+  margin-inline: auto;
+  margin-top: 7px;
+  margin-bottom: 18px;
+  max-width: 550px;
+}
+
+.smart-message {
+  width: 100%;
+  margin-bottom: 24px;
+  text-align: center;
+  padding: 12px;
+}
+
+.deposit-payment-container {
+  max-width: 590px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .deposit-submit-btn {
+    margin-top: 55px;
+  }
+}
+
+
+.card {
+  margin: auto;
+  margin-top: 5rem;
+}
+
+.mt-15 {
+  margin-top: 15px;
+}
+
+.mb-15 {
+  margin-bottom: 15px;
+}
+
+span {
+  margin-left: 0.7rem;
+}
+
+i {
+  font-size: 20px;
+  color: #EC7D08;
+}
+
+.edit {
+  position: absolute;
+  right: 1rem;
+  display: flex;
+  color: #5a8ea0;
+  cursor: pointer;
+
+  p {
+    text-align: center;
+    margin: auto;
+    margin-top: 0.5rem;
+  }
+}
+
+layout-panel-wrapper {
+  padding: 30px;
+}
+
+app-cancel-listing {
+  ::ng-deep button {
+    margin-top: 10px;
+    width: -webkit-fill-available;
+  }
+}
+
+
+@media screen and(max-width:900px) {
+  .payment-container {
+    flex-direction: column;
+
+    .payment-content-card {
+      margin-top: 24px;
+      align-items: center;
+    }
+  }
+
+  .card {
+    margin: 0 0 0 8rem
+  }
+
+  .credit-card-footer-wrapper {
+    margin-left: 5rem;
+  }
+
+  .heading {
+    margin-left: 9rem;
+  }
+}
+
+@media screen and(max-width:600px) {
+  .card {
+    margin: 0
+  }
+
+  app-payment-list {
+    width: 350px !important;
+
+    layout-panel-wrapper {
+      font-size: 8px;
+    }
+  }
+
+  app-button {
+    margin-right: 21rem;
+  }
+
+  .payment-content-card {
+    margin-left: 4px;
+    margin-right: 4px;
+    width: 385px;
+    max-width: 100%;
+    min-width: 100%;
+    overflow-x: hidden;
+
+    .heading {
+      font-size: 12px;
+    }
+  }
+
+
+}

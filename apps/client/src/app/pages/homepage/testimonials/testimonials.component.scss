@@ -1,0 +1,22 @@
+:host {
+  display: block;
+  padding: 45px 30px;
+}
+
+h2 {
+  text-align: center;
+}
+
+div {
+  > div {
+    text-align: center;
+
+    blockquote {
+      margin: 1em;
+    }
+
+    span {
+      font-size: 0.9em;
+    }
+  }
+}

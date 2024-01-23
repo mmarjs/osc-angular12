@@ -1,0 +1,25 @@
+<p>
+  <span class="bold-dark">
+    {{'FORMS.LABELS.LISTED' | translate}}:
+  </span>
+  <span>
+    {{auction.auctionStartDate | date:'mediumDate'}}
+  </span>
+</p>
+<p>
+  <span class="bold-dark">
+    {{'FORMS.LABELS.ENDS' | translate}}:
+  </span>
+  <span>
+    {{auction.auctionEndDate | date:'mediumDate'}}
+  </span>
+</p>
+<hr>
+<p>
+  <span class="bold-dark">
+    {{'FORMS.LABELS.YOUR_BID' | translate}}:
+  </span>
+  <span>
+    {{ ( bidAmount > 0 ? bidAmount : 0 ) | currency}}
+  </span>
+</p>

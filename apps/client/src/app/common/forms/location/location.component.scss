@@ -1,0 +1,61 @@
+@import "variables";
+
+:host {
+  @include fxLayout(column);
+
+  label+.mat-form-field {
+    margin-top: 0;
+  }
+
+  @media #{$xs} {
+    > :last-child {
+      align-self: stretch;
+    }
+  }
+
+  // row layout customizations
+  &.layout-row {
+    @media #{$gt-xs} {
+      > :first-child {
+        flex: 2;
+      }
+
+      > :last-child {
+        flex: 1;
+      }
+    }
+
+    @media #{$xs} {
+      @include fxLayout(column);
+
+      > :last-child {
+        align-self: flex-start;
+      }
+    }
+  }
+}
+
+.zip-control {
+  .label {
+    height: 18px;
+  }
+}
+
+::ng-deep .mat-form-field-disabled>.mat-form-field-wrapper>.mat-form-field-flex>.mat-form-field-infix{
+  background-color: mat-color($background,disabled-input) !important;
+}
+
+.mat-input-element:disabled {
+  color: rgb(70 70 70 / 96%) !important;
+  font-weight:300;
+}
+
+::ng-deep.layout-row {
+  .zip-control {
+    .label {
+      height: unset !important;
+      line-height: 29px;
+      padding-top: 0.84375em;
+    }
+  }
+}

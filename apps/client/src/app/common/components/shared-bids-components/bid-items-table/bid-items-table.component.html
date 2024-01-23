@@ -1,0 +1,101 @@
+<mat-table [dataSource]="bidItems" #bidTable multiTemplateDataRows>
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef fxFlex="120px">
+      <span class="bold-black">
+        {{ 'COMMON.TABLE.HEADER.ITEM' | translate }} #
+      </span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row" fxFlex="120px">
+      {{ row.id }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="title">
+    <mat-header-cell *matHeaderCellDef>
+      <span class="bold-black">
+        {{ 'FORMS.LABELS.DESCRIPTION' | translate }}
+      </span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <span class="survey-item-title">
+        {{ element?.description ?? '' }}
+      </span>
+      <span
+        class="toggle-row-element"
+        (click)="
+          expandedElement = expandedElement?.id === element.id ? null : element
+        "
+        *ngIf="element.comments"
+      >
+        -
+        {{
+          expandedElement?.id === element.id
+            ? ('NOTES.COLLAPSE_NOTES' | translate)
+            : ('NOTES.READ_NOTES' | translate)
+        }}
+      </span>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="quantity">
+    <mat-header-cell
+      *matHeaderCellDef
+      fxFlex="100px"
+      fxLayoutAlign="center center"
+    >
+      <span class="bold-black">
+        {{ 'COMMON.TABLE.HEADER.QUANTITY' | translate }}
+      </span>
+    </mat-header-cell>
+    <mat-cell
+      *matCellDef="let element"
+      fxFlex="100px"
+      fxLayoutAlign="center center"
+    >
+      {{ element.quantity }}
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="bid">
+    <mat-header-cell *matHeaderCellDef fxFlex="170px">
+      <span class="bold-black">
+        {{ 'COMMON.TABLE.HEADER.BID' | translate }}
+      </span>
+    </mat-header-cell>
+    <mat-cell *matCellDef="let element" fxFlex="170px">
+      <div class="d-flex amount">
+        <img src="/assets/icons/coin.png" alt="" class="dollar-icon" />
+        <mat-form-field floatLabel="never">
+          <input matInput [value]="element.amount" [disabled]="true" />
+        </mat-form-field>
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="bidDetails">
+    <mat-cell *matCellDef="let element" [attr.colspan]="columns.length">
+      <div
+        class="notes-details"
+        [@rowExpand]="
+          element.id === expandedElement?.id ? 'expanded' : 'collapsed'
+        "
+      >
+        <ng-container *ngIf="element.comments">
+          <p>{{ element.comments }}</p>
+        </ng-container>
+      </div>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+  <mat-row
+    *matRowDef="let row; columns: columns; let index = dataIndex"
+    [ngClass]="{ bgcolorwhite: index % 2 === 0, tableColor: index % 2 !== 0 }"
+  ></mat-row>
+  <mat-row
+    mat-row
+    *matRowDef="let row; columns: ['bidDetails']; let index = dataIndex"
+    [ngClass]="{ bgcolorwhite: index % 2 === 0, tableColor: index % 2 !== 0 }"
+    class="bid-details-row"
+  ></mat-row>
+</mat-table>

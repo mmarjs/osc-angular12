@@ -1,0 +1,21 @@
+<mat-list-item [class.unread]="notification?.unread">
+  <mat-icon matListIcon>notifications_none</mat-icon>
+  <span matLine [innerHTML]="notification?.text"></span>
+
+  <ng-container *ngIf="!dense then list; else widget"></ng-container>
+
+  <ng-template #list>
+    <button type="button" mat-flat-button color="primary">
+      {{ notification?.action }}
+    </button>
+    <button *ngIf="notification?.unread" type="button" mat-button>
+      DISMISS <mat-icon fontSet="far" fontIcon="fa-times-circle"></mat-icon>
+    </button>
+  </ng-template>
+
+  <ng-template #widget>
+    <button *ngIf="notification?.unread" type="button" mat-button>
+      <mat-icon aria-label="Dismiss" fontSet="far" fontIcon="fa-times-circle"></mat-icon>
+    </button>
+  </ng-template>
+</mat-list-item>

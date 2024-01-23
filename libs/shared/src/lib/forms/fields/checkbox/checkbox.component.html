@@ -1,0 +1,22 @@
+<label *ngIf="label" [attr.for]="id" class="label">
+  {{ label | translate }}
+  <ng-container *ngIf="required">*</ng-container>
+</label>
+
+<div class="mat-form-field-wrapper">
+  <mat-checkbox
+    [aria-label]="label"
+    [id]="id"
+    [checked]="checked"
+    (change)="onModelChange($event)"
+    (touch)="onTouched()"
+    (blur)="propagateTouch()"
+    [disabled]="disabled"
+  >
+    {{ placeholder | translate }}
+  </mat-checkbox>
+</div>
+
+<ng-container matSuffix>
+  <ng-content select="[matSuffix]"></ng-content>
+</ng-container>

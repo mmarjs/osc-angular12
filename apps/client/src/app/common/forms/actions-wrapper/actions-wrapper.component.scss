@@ -1,0 +1,31 @@
+@import 'variables';
+
+app-form-actions-wrapper {
+  @include fxLayoutAlign(stretch, stretch, row);
+
+  > * {
+    @include fxLayoutAlign(center, center);
+
+    display: flex !important;
+    flex: 1;
+    margin-right: 15px !important;
+    text-align: center;
+
+    &:last-child {
+      margin-right: 0 !important;
+    }
+  }
+
+  @media #{$xs} {
+    @include fxLayout(column-reverse);
+
+    > * {
+      margin-bottom: 15px !important;
+      margin-right: 0 !important;
+
+      &:first-child {
+        margin-bottom: 0 !important;
+      }
+    }
+  }
+}

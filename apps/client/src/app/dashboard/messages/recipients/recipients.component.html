@@ -1,0 +1,19 @@
+<app-messages-recipients-search></app-messages-recipients-search>
+
+<div fxFlex class="recipients-scroll" #scroll>
+  <mat-nav-list>
+    <ng-container *ngFor="let thread of threads; let index = index">
+    <mat-list-item
+    (click)="active = index"
+    [class.unread]="1 === index"
+    [class.active]="active === index">
+      <strong matLine>
+        {{ thread.name }}
+      </strong>
+      <p matLine class="recipient-message">
+        {{ thread.message }}
+      </p>
+    </mat-list-item>
+    </ng-container>
+  </mat-nav-list>
+</div>

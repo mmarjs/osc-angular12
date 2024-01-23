@@ -1,0 +1,46 @@
+.finalize-section {
+  background: rgba(237, 234, 230, 0.5);
+  padding: 30px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.icon {
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  &.boat-icon {
+    background: url("/assets/icons/boat-icon.png") no-repeat center;
+    background-size: 40px;
+  }
+}
+
+.finalize-description {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+}
+
+.finalize-form-group {
+  display: flex;
+  margin: 0;
+  justify-content: space-around;
+}
+
+.form-control {
+  width: 40%;
+}
+
+.finalize-text {
+  font-size: 14px;
+  text-align: justify;
+}

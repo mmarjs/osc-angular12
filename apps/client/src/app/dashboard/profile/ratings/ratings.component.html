@@ -1,0 +1,9 @@
+<layout-panel-wrapper [panelTitle]="'PROFILE.RATINGS_AND_REVIEWS' | translate" icon="star_rate"
+  class="profile-ratings-panel">
+  <div class="rating-bar-wrapper">
+    <bar-rating [(rate)]="rate" [max]="5"></bar-rating>
+    <button type="button" mat-stroked-button>
+      {{'COMMON.BUTTONS.VIEW_RATINGS' | translate}}
+    </button>
+  </div>
+</layout-panel-wrapper>

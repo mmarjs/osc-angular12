@@ -1,0 +1,126 @@
+<div class="btn-row" fxLayoutAlign="space-between center">
+  <h2 class="title-page">{{'PROFILE.TITLE' | translate}}</h2>
+</div>
+
+<div fxFlexFill>
+  <layout-two-columns [width]="50">
+    <div class="carousel">
+      <div [style.text-align]="'center'">
+        <div class="avatar-wrapper">
+          <img *ngIf="userAvatar;else tempImg" [src]="(userAvatar | transform:mediaTransform.AVATAR)" alt=""
+               class="avatar">
+          <button mat-icon-button (click)="avatarUploader.uploader.onclick()">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+        <app-form-gallery 
+          #avatarUploader
+          [form]="avatarForm"
+          (fileAdded)="updateAvatar($event)"
+          [hidden]="true"
+          [accept]="supportedImageFormats"
+          [multiple]="false">
+        </app-form-gallery>
+        <ng-template #tempImg>
+          <img src="/assets/images/no-image.png" width="574px" height="480px" alt="" class="avatar">
+        </ng-template>
+      </div>
+      <layout-panel-wrapper
+        [panelTitle]="'MEDIA.UPLOAD_PICTURES_AND_FILES' | translate"
+        fontSet="fas"
+        icon="fa-camera"
+        class="upload-container"
+      >
+        <p>
+          {{'MEDIA.DRAG_AND_DROP_MEDIA' | translate}}
+        </p>
+        <app-form-gallery
+          [form]="galleryForm"
+          (fileAdded)="onFileCheck($event)"
+          (filesDeleted)="onDeleteImages($event)"
+          [accept]="supportedImageFormats"
+          appDropZone
+        >
+        </app-form-gallery>
+        <button
+          type="button"
+          class="upload-button"
+          mat-flat-button
+          color="primary"
+          (click)="onUploadImages()"
+          [disabled]="!fileSelected || !showUpload"
+        >
+          {{'COMMON.BUTTONS.UPLOAD_IMAGES' | translate}}
+        </button>
+      </layout-panel-wrapper>
+    </div>
+
+    <div class="auction-info" aside>
+      <app-personal-information
+        [user]="user$ | async"
+        [isUpdating]="isUpdating$ | async"
+        (controlSubmittedValue)="patchUser($event)"
+        (updateAvatar)="updateAvatar($event)"
+      >
+      </app-personal-information>
+      <div *ngIf="userType$ | async as userType">
+      <layout-panel-wrapper
+        class="change-password-container"
+        [panelTitle]="'PROFILE.ADDITIONAL_INFORMATION' | translate" fontSet="far"
+        *ngIf="userType === userTypes.BOAT_OWNER || userType === userTypes.SHIPYARD"
+      >
+        <button
+          *ngIf="isDisableAdditionalInfo"
+          mat-icon-button
+          class="edit"
+          (click)="isDisableAdditionalInfo=!isDisableAdditionalInfo"
+        >
+          <mat-icon>edit</mat-icon>
+          <span>
+            {{ ('COMMON.BUTTONS.EDIT' | translate)}}
+          </span>
+        </button>
+        <div *ngIf="userType$ | async as userType" class="text-center mt-16">
+          <div *ngIf="userType === userTypes.BOAT_OWNER">
+            <app-boat-user #boatOwner [isDisabled]="isDisableAdditionalInfo" [user]="user$ | async"></app-boat-user>
+          </div>
+          <div *ngIf="userType === userTypes.SHIPYARD">
+            <app-shipyard-user #shipyard [isDisabled]="isDisableAdditionalInfo"
+                               [user]="user$ | async"></app-shipyard-user>
+          </div>
+        </div>
+        <div class="d-flex justify-content-end" *ngIf="userType$ | async as userType">
+          <button
+            type="button"
+            class="w-150"
+            *ngIf="!isDisableAdditionalInfo"
+            mat-raised-button
+            color="primary"
+            (click)="updateAdditionalInfo()"
+            [disabled]="userType === userTypes.SHIPYARD ? shipyard?.form.invalid : boatOwner?.form.invalid"
+          >
+            {{'COMMON.BUTTONS.SAVE' | translate}}
+          </button>
+        </div>
+      </layout-panel-wrapper>
+    </div>
+      <div class="change-password-container">
+        <app-profile-password></app-profile-password>
+      </div>
+      <ng-container *ngIf="userType$ | async as userType">
+        <div class="services-container">
+          <app-boats-widget *ngIf="userType === userTypes.BOAT_OWNER" [isTableOnly]="true">
+          </app-boats-widget>
+
+          <app-shipyards-widget *ngIf="userType === userTypes.SHIPYARD">
+          </app-shipyards-widget>
+
+          <app-surveyors-widget *ngIf="userType === userTypes.SURVEYOR">
+          </app-surveyors-widget>
+        </div>
+      </ng-container>
+      <app-payment-details></app-payment-details>
+    </div>
+
+  </layout-two-columns>
+</div>

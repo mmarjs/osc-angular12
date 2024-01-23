@@ -1,0 +1,19 @@
+<app-boats-widget
+  *ngIf="userType === userTypes.BOAT_OWNER"
+  [isTableOnly]="true"
+>
+</app-boats-widget>
+
+<app-shipyards-widget
+  *ngIf="userType === userTypes.SHIPYARD"
+>
+</app-shipyards-widget>
+
+<app-surveyors-widget
+  *ngIf="userType === userTypes.SURVEYOR"
+  [isTableOnly]="true"
+>
+</app-surveyors-widget>
+
+<router-outlet></router-outlet>
+

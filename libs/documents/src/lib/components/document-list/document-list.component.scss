@@ -1,0 +1,65 @@
+@import 'variables';
+
+:host {
+  --page-width: 500px;
+}
+
+.document-page {
+  &--title {
+    margin-top: 80px;
+    margin-inline: auto;
+    text-align: center;
+  }
+  &--go-back {
+    width: var(--page-width);
+    display: block;
+    margin: 0 auto;
+  }
+}
+.document-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: var(--page-width);
+  margin: 0 auto;
+  margin-block: 32px;
+  gap: 10px;
+  &--empty {
+    margin-top: 80px;
+    text-align: center;
+    font-size: 1.5rem;
+  }
+}
+
+.document-card {
+  width: 480px;
+  display: grid;
+  grid-template-columns: 1fr 120px;
+  grid-template-areas: 'content actions';
+
+  padding: 10px 20px;
+
+  background: mat-color($background, widget);
+  border: 1px solid mat-color($foreground, border);
+
+  &--title {
+    font-size: 14px;
+    font-weight: 400;
+    color: #000000;
+    grid-area: content;
+  }
+
+  &--description {
+    margin-top: 4px;
+    font-size: 10px;
+    color: mat-color($foreground, light-txt);
+    grid-area: content;
+  }
+
+  &--button {
+    line-height: 24px;
+    background: mat-color($base, 500);
+    color: #ffffff;
+    grid-area: actions;
+  }
+}

@@ -1,0 +1,5 @@
+<div fxFlexFill fxLayoutAlign="center center" class="wrapper">
+    <span class="cross"></span>
+
+    <input #file type="file" [accept]="accept" [multiple]="multiple" (change)="doUpload(file.files)" />
+</div>

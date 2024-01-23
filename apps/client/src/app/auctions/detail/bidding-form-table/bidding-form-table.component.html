@@ -1,0 +1,249 @@
+<form #form="ngForm" autocomplete="off" class="bidding-form-table">
+  <table
+    mat-table
+    [dataSource]="biddingTableFormModel"
+    #bidTable
+    multiTemplateDataRows
+  >
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef fxFlex="100px">
+        <span class="bold-black">
+          {{ 'COMMON.TABLE.HEADER.ITEM' | translate }} #
+        </span>
+      </th>
+      <td mat-cell *matCellDef="let row" fxFlex="100px">
+        <ng-container *ngIf="row.isStoredinDB; else removeTemp">
+          {{ row.id }}
+        </ng-container>
+        <ng-template #removeTemp>
+          <span
+            (click)="removeSurveyItem.emit(row.id)"
+            class="remove-line-item"
+          >
+            <ocean-icon
+              [iconType]="iconType.REMOVE"
+              [classes]="['dashed-border-icon']"
+            ></ocean-icon>
+          </span>
+        </ng-template>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef>
+        <ng-container *ngIf="!showOnlyDescription; else description">
+          <span class="bold-black">
+            {{ 'COMMON.TABLE.HEADER.TASK_NAME_AND_DESCRIPTION' | translate }}
+          </span>
+        </ng-container>
+        <ng-template #description>
+          <span class="bold-black">{{
+            'FORMS.LABELS.DESCRIPTION' | translate
+          }}</span>
+        </ng-template>
+      </th>
+      <td mat-cell *matCellDef="let element" class="task">
+        <span class="survey-item-title">
+          {{ element.title ? element.title + '&& ' : '' }}
+          {{ element.description ? element.description : '' }}
+          <span
+            class="toggle-row-element"
+            (click)="toggleRow(element)"
+            *ngIf="element.note || element.comments"
+          >
+            -
+            {{
+              isExpanded(element) === 'expanded'
+                ? ('NOTES.COLLAPSE_NOTES' | translate)
+                : ('NOTES.READ_NOTES' | translate)
+            }}
+          </span>
+        </span>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="quantity">
+      <th mat-header-cell *matHeaderCellDef fxFlex="180px" class="align-center">
+        <span class="bold-black">
+          {{ 'COMMON.TABLE.HEADER.QUANTITY' | translate }}
+        </span>
+      </th>
+      <td
+        mat-cell
+        *matCellDef="let element"
+        fxFlex="120px"
+        class="qty-input"
+        [ngClass]="{
+          error: quantity.invalid && (quantity.touched || quantity.dirty)
+        }"
+      >
+        <div>
+          <app-field-text
+            placeholder="FORMS.PLACEHOLDERS.ENTER_QUANTITY"
+            type="number"
+            [numberOnly]="true"
+            [(ngModel)]="element.quantity"
+            name="quantity_{{ element.id }}"
+            #quantity="ngModel"
+            [required]="true"
+            [min]="1"
+            [hideArrowsForNumber]="false"
+          >
+          </app-field-text>
+          <mat-error
+            class="qty-error"
+            *ngIf="
+              checkError(
+                quantity.errors?.required &&
+                  quantity.invalid &&
+                  (quantity.touched || quantity.dirty)
+              )
+            "
+          >
+            {{ 'FORMS.LABELS.REQUIRED' | translate }}
+          </mat-error>
+          <mat-error
+            class="qty-error"
+            *ngIf="
+              checkError(
+                quantity.errors?.min &&
+                  quantity.invalid &&
+                  (quantity.touched || quantity.dirty)
+              )
+            "
+          >
+            {{
+              'FORMS.ERRORS.SHOULD_NOT_LESS_THAN' | translate: { value: min }
+            }}
+          </mat-error>
+        </div>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="bid">
+      <th mat-header-cell *matHeaderCellDef fxFlex="180px" class="align-center">
+        <span class="bold-black">
+          {{ 'COMMON.TABLE.HEADER.YOUR_BID' | translate }}
+        </span>
+      </th>
+      <td
+        mat-cell
+        *matCellDef="let element"
+        fxFlex="180px"
+        class="bid-input"
+        [ngClass]="{
+          error: amount.invalid && (amount.touched || amount.dirty)
+        }"
+      >
+        <div>
+          <app-field-text
+            placeholder="FORMS.PLACEHOLDERS.ENTER_AMOUNT"
+            [numberOnly]="true"
+            [(ngModel)]="element.amount"
+            name="amount_{{ element.id }}"
+            #amount="ngModel"
+            [required]="true"
+            [showDollar]="true"
+            [maxlength]="maxLength"
+          >
+          </app-field-text>
+          <mat-error
+            class="bid-error"
+            *ngIf="
+              checkError(
+                amount.errors?.maxlength &&
+                  amount.invalid &&
+                  (amount.touched || amount.dirty)
+              )
+            "
+          >
+            {{
+              'FORMS.ERRORS.MUST_HAVE_MAXIMUM__OF'
+                | translate: { value: maxLength }
+            }}
+          </mat-error>
+          <mat-error
+            class="bid-error"
+            *ngIf="
+              checkError(
+                amount.errors?.required &&
+                  amount.invalid &&
+                  (amount.touched || amount.dirty)
+              )
+            "
+          >
+            {{ 'FORMS.LABELS.REQUIRED' | translate }}
+          </mat-error>
+          <mat-error
+            class="bid-error"
+            *ngIf="
+              checkError(
+                amount.errors?.min &&
+                  amount.invalid &&
+                  (amount.touched || amount.dirty)
+              )
+            "
+          >
+            {{
+              'FORMS.ERRORS.SHOULD_NOT_LESS_THAN' | translate: { value: min }
+            }}
+          </mat-error>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="notes">
+      <th mat-header-cell *matHeaderCellDef fxFlex="100px">
+        <span class="bold-black">
+          {{ 'COMMON.TABLE.HEADER.YOUR_NOTES' | translate }}
+        </span>
+      </th>
+      <td
+        mat-cell
+        *matCellDef="let element"
+        fxFlex="100px"
+        class="align-center"
+      >
+        <ocean-icon
+          [iconType]="iconType.ADD"
+          [classes]="['dashed-border-icon']"
+          (click)="openNoteDialog(element)"
+        >
+        </ocean-icon>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="expandedNotes">
+      <td mat-cell *matCellDef="let element" [attr.colspan]="columns.length">
+        <div class="notes-details" [@rowExpand]="isExpanded(element)">
+          <ng-container *ngIf="element.note || element.comments">
+            <p>
+              {{ element?.note?.text ?? element?.comments ?? '' }}
+            </p>
+          </ng-container>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columns"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: columns; let index = dataIndex"
+      class="main-row"
+      [ngClass]="{ bgcolorwhite: index % 2 == 0 }"
+    ></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: ['expandedNotes']; let index = dataIndex"
+      class="notes-row"
+      [ngClass]="{ bgcolorwhite: index % 2 == 0 }"
+    ></tr>
+  </table>
+
+  <div class="add-item-row" (click)="createLineItem()">
+    <ocean-icon
+      [iconType]="iconType.ADD"
+      [classes]="['dashed-border-icon']"
+    ></ocean-icon>
+    <span class="add-item-text">{{
+      'COMMON.BUTTONS.ADD_ITEM' | translate
+    }}</span>
+  </div>
+</form>

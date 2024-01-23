@@ -1,0 +1,39 @@
+<form [formGroup]="form">
+  <app-field-text formControlName="address" label="FORMS.LABELS.ADDRESS" [maxLength]="50">
+</app-field-text>
+<div class="cell-control">
+  <label class="label d-flex justify-content-start">
+    {{ 'FORMS.LABELS.PHONE' | translate}}
+  </label>
+  <ngx-intl-tel-input [cssClass]="'custom'" [enablePlaceholder]="true"
+    [enableAutoCountrySelect]="true" [preferredCountries]="preferredCountries" [searchCountryFlag]="true" [searchCountryField]="[
+    searchCountryField.Iso2,
+    searchCountryField.Name]" [selectFirstCountry]="false" [numberFormat]="phoneNumberFormat.National"
+    [phoneValidation]="true" name="cell" formControlName="cell">
+  </ngx-intl-tel-input>
+  <mat-error class="phone-error mt-4" *ngIf="cellCtrl.hasError('required') && cellCtrl.touched">
+    {{'FORMS.LABELS.REQUIRED' | translate}}
+  </mat-error>
+  <mat-error class="phone-error mt-4" *ngIf="!cellCtrl.hasError('required') && cellCtrl.touched && cellCtrl.errors">
+    {{'FORMS.ERRORS.INVALID_PHONE' | translate}}
+  </mat-error>
+</div>
+<app-datepicker
+  placeholder="FORMS.PLACEHOLDERS.CHOOSE_DATE"
+  label="FORMS.LABELS.DATE_OF_BIRTH"
+  formControlName="dob"
+  contextId="dob"
+  [minDate]="birthDateInterval.minDate"
+  [maxDate]="birthDateInterval.maxDate"
+  [readonly]="isDisabled"
+></app-datepicker>
+  <app-field-text formControlName="driverLicense" label="FORMS.LABELS.DRIVER_LICENSE" [maxLength]="50">
+  </app-field-text>
+  <app-field-text formControlName="passportNumber" label="FORMS.LABELS.PASSPORT_NUMBER" [maxLength]="50">
+</app-field-text>
+<app-field-text  formControlName="representativeName" label="FORMS.LABELS.REPRESENTATIVE_NAME" [maxLength]="50" [noTailingSpace]="true">
+</app-field-text>
+  <app-field-text  formControlName="representativeContact" label="FORMS.LABELS.REPRESENTATIVE_CONTACT" [maxLength]="50">
+  </app-field-text>
+</form>
+

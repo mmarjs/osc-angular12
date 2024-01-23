@@ -1,0 +1,37 @@
+@import "variables";
+
+// component-context encapsulation
+app-page-signup {
+  h3 {
+    margin-top: 1em;
+  }
+
+  form {
+    background: mat-color($background, "app-bar");
+    padding: 20px 50px 40px;
+
+    @media #{$xs} {
+      padding: 10px 30px 30px;
+    }
+  }
+}
+.inline-items {
+  display: flex;
+  align-items: center;
+
+  mat-form-field {
+    width: 145px;
+    margin-left: 0.5rem;
+  }
+}
+
+
+.info-login {
+  margin-top: 4.2rem;
+}
+h2 {
+  &.subHeading {
+    text-align: left;
+    font-size: 1.6rem;
+  }
+}

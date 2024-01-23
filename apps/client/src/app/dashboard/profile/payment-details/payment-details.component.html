@@ -1,0 +1,66 @@
+<layout-panel-wrapper
+  class="mt-1"
+  [panelTitle]="'PROFILE.PAYMENT_DETAILS' | translate"
+>
+  <img src="/assets/icons/payment-icon.png" class="payment-icon" alt="*" />
+  <p
+    class="mt-1"
+    [innerHTML]="'PROFILE.MANAGE_PAYMENT_DETAILS' | translate"
+  ></p>
+  <app-stripe-account-guard>
+    <ng-container *ngIf="savedCards?.length">
+      <div class="mt-1">
+        <div class="spinner-wrapper" *ngIf="isLoading">
+          <mat-progress-spinner
+            mode="indeterminate"
+            [diameter]="40"
+            [strokeWidth]="5"
+          >
+          </mat-progress-spinner>
+        </div>
+        <div *ngFor="let card of savedCards; let i = index" class="card">
+          <img
+            [src]="'assets/banks/' + getCard(card.details).brand + '.png'"
+            class="cardBrands"
+            alt="card"
+          />
+          <p class="cardName">
+            {{ getCard(card.details).brand }}
+            <span class="cardFont">&#8226;&#8226;&#8226;&#8226;</span
+            >{{ getCard(card.details).last4 }} <br /><span class="cardExp"
+              >{{ 'PROFILE.EXPIRES' | translate }}
+              {{ getCard(card.details).exp_year }}</span
+            >
+          </p>
+          <div class="cardIcons">
+            <img
+              src="/assets/icons/pencil.png"
+              class="edit-icon"
+              (click)="onEdit(card)"
+              alt="cardIcon"
+            />
+            <a>
+              <mat-icon (click)="onDelete(card.id)">delete_outline</mat-icon>
+            </a>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <div *ngIf="!savedCards?.length">
+      <p class="noSavedCards">
+        {{ 'PROFILE.NO_PAYMENT_METHODS_ARE_ADDED' | translate }}
+      </p>
+    </div>
+
+    <button
+      type="button"
+      mat-flat-button
+      color="primary"
+      (click)="openDialog()"
+      class="mt-1 payment"
+    >
+      <mat-icon>add</mat-icon>
+      {{ 'PROFILE.ADD_PAYMENT_METHOD' | translate }}
+    </button>
+  </app-stripe-account-guard>
+</layout-panel-wrapper>

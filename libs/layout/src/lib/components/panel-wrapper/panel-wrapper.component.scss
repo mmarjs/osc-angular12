@@ -1,0 +1,35 @@
+@import "variables";
+
+layout-panel-wrapper {
+  position: relative;
+  @include fxLayout(column);
+
+  @include panel-wrapper();
+
+  // title
+  > div:first-child {
+    // height: 64px;
+
+    h3 {
+      margin: 5px 0 0;
+      font-weight: bold;
+    }
+
+    .mat-icon {
+      color: mat-color($accent);
+      font-size: 24px;
+      text-align: right;
+      width: 30px;
+    }
+  }
+
+  // description
+  > p {
+    margin: 0;
+  }
+
+  // sub-elements
+  .mat-paginator {
+    margin-bottom: -10px;
+  }
+}

@@ -1,0 +1,51 @@
+@use "sass:math";
+@import "variables";
+@import "../basic.vars";
+
+header {
+  position: absolute;
+  z-index: 2;
+  background: mat-color($background, "app-bar");
+  width: 100%;
+  height: $header-height;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 30px;
+
+  .mat-primary {
+    min-width: 177px;
+    margin: 0 0 30px 20px;
+  }
+}
+
+.logo-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  cursor: pointer;
+  outline: none;
+  width: 225px;
+  height: 84px;
+  background-image: url("/assets/logo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  @media #{$xs} {
+    width: 120px;
+    height: 47px;
+  }
+}
+
+.header-menu-container {
+  padding-top: 15px;
+}
+
+@media #{$xs} {
+  header {
+    height: $header-height-xs;
+    align-items: center;
+  }
+}

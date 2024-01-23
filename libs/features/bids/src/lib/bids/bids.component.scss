@@ -1,0 +1,20 @@
+app-drop-down {
+  width: 220px;
+  margin: 0 5px 0 5px;
+}
+
+.filters {
+  flex-wrap: nowrap;
+}
+
+@media screen and (max-width: 1025px) {
+  .filters {
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .filters {
+    flex-wrap: wrap;
+  }
+}

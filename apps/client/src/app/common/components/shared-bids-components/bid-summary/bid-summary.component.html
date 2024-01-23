@@ -1,0 +1,32 @@
+<div class="bids-summary-container">
+  <div class="bid-amount-details">
+    <div class="display-item">
+      <span class="display-item-text">{{'FORMS.LABELS.SUB_TOTAL' | translate}}:</span>
+      <span class="bold-dark">{{bid.bidAmount | currency:'USD'}}</span>
+    </div>
+    <div class="display-item">
+      <span class="display-item-text">{{'FORMS.LABELS.TOTAL' | translate}}:</span>
+      <span class="bold-dark">{{bid.bidAmount | currency:'USD'}}</span>
+    </div>
+  </div>
+  <div class="bids-summary-buttons-wrapper" *ngIf="showSummaryButtons">
+    <div class="status-btns-wrapper">
+      <app-button [disabled]="bid.status !== bidStatus.IN_REVIEW" class="accept-btn" (btnClick)="acceptBid.emit(bid)">
+        <ocean-icon [iconType]="iconType.CHECK"></ocean-icon>
+        {{'COMMON.BUTTONS.ACCEPT' | translate}}
+      </app-button>
+      <app-button color='accent' [disabled]="bid.status !== bidStatus.IN_REVIEW" class="reject-btn" (btnClick)="rejectBid.emit(bid.id)">
+        <ocean-icon [iconType]="iconType.CLOSE"></ocean-icon>
+        {{'COMMON.BUTTONS.REJECT' | translate}}
+      </app-button>
+    </div>
+    <div class="bids-template-buttons-container">
+      <!-- Todo <app-button color='accent' (btnClick)="sendMessage.emit()">
+        {{'COMMON.BUTTONS.SEND_MESSAGE' | translate}}
+      </app-button> -->
+      <app-button color='accent' (btnClick)="collapseDetails.emit(bid)">
+        {{'COMMON.BUTTONS.COLLAPSE_BID_DETAILS' | translate}}
+      </app-button>
+    </div>
+  </div>
+</div>

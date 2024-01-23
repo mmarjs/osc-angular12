@@ -1,0 +1,22 @@
+<ng-container *ngIf="isLoading$ | async">
+  <mat-progress-spinner
+    color="primary"
+    mode="indeterminate"
+    class="progress"
+    [strokeWidth]="5"
+    [diameter]="100"
+  >
+  </mat-progress-spinner>
+</ng-container>
+<app-form-builder
+  [form]="form"
+  [fields]="fields"
+></app-form-builder>
+<button
+  mat-flat-button
+  color="primary"
+  [disabled]="form.invalid"
+  (click)="onSubmit()"
+>
+  {{'COMMON.BUTTONS.SUBMIT' | translate}}
+</button>

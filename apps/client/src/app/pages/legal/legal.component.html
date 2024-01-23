@@ -1,0 +1,17 @@
+<layout-two-columns noTitle>
+
+  <div style="display: flex;">
+
+    <div>
+      <app-menu-component aside></app-menu-component>
+    </div>
+
+    <!-- Main Content -->
+
+    <div fxFlexFill [ngStyle]="{'paddingLeft': '50px'}">
+      <!-- Needs to wrap this or fxLayoutGap margins the outlet -->
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+</layout-two-columns>

@@ -1,0 +1,41 @@
+@import "variables";
+
+app-form-actions-wrapper {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 500px;
+
+  @media #{$xs} {
+    min-width: 90%;
+  }
+}
+
+.finalize-message {
+  justify-content: center;
+  background: rgba(237, 234, 230, 0.5);
+  height: 40px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.finalize-btn-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.icon {
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  &.boat-icon {
+    background: url("/assets/icons/boat-icon.png") no-repeat center;
+    background-size: 40px;
+  }
+  &.camera-icon {
+    background: url("/assets/icons/boat-icon.png") no-repeat center;
+    background-size: 40px;
+  }
+}

@@ -1,0 +1,29 @@
+@import "variables";
+
+:host {
+  display: block;
+}
+
+nav {
+  a {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    color: mat-color($accent, A200);
+    font-weight: bold;
+    outline: none;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+
+    &.active {
+      border-bottom: 5px solid mat-color($accent, A200) !important;
+    }
+
+    line-height: 40px;
+
+    @media #{$lt-md} {
+      border-width: 4px;
+    }
+  }
+}

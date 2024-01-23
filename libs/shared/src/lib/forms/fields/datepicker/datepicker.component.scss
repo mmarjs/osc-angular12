@@ -1,0 +1,8 @@
+::ng-deep {
+  mat-datepicker-toggle {
+    .mat-icon-button {
+      width: unset !important;
+      height: unset !important;
+    }
+  }
+}

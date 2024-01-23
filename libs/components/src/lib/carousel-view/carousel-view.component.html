@@ -1,0 +1,53 @@
+<carousel
+  class="carousel-html-content"
+  #carouselUseCase
+  [height]="250"
+  [cellsToShow]="1"
+  (events)="handleCarouselUseCaseEvents.emit($event)"
+>
+  <div
+    class="carousel-cell"
+    (click)="carouselUseCase.select(i)"
+    *ngFor="let file of media; index as i"
+  >
+    <img
+      *ngIf="file.format !== 'pdf'; else pdf"
+      [src]="getMainUrl(file)"
+      alt=""
+    />
+    <ng-template #pdf>
+      <img src="/assets/images/pdf_logo.png" class="pdf mt-1" alt="" />
+      <p>{{ file.originalFilename || '' }}</p>
+      <mat-icon
+        class="download"
+        (click)="download(file.secureFileURL, file.originalFilename)"
+        >download</mat-icon
+      >
+    </ng-template>
+  </div>
+</carousel>
+
+<carousel
+  class="carousel-html-content carousel-thumbs test"
+  #carouselThumbsUseCase
+  [height]="70"
+  [cellsToShow]="8"
+  [objectFit]="'cover'"
+  [borderRadius]="0"
+  [arrows]="false"
+>
+  <div
+    class="carousel-cell"
+    (click)="carouselUseCase.select(i)"
+    *ngFor="let file of media; index as i"
+  >
+    <img
+      *ngIf="file.format !== 'pdf'; else pdf"
+      [src]="getThumbnailUrl(file)"
+      alt=""
+    />
+    <ng-template #pdf>
+      <img src="/assets/images/pdf_logo.png" class="pdf" alt="" />
+    </ng-template>
+  </div>
+</carousel>

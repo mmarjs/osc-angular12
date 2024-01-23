@@ -1,0 +1,6 @@
+<ng-container *ngIf="fontIcon;else materialIconTemp">
+  <mat-icon aria-label="Notifications" [fontSet]="fontSet" [fontIcon]="fontIcon"></mat-icon>
+</ng-container>
+<ng-template #materialIconTemp>
+  <mat-icon [ngClass]="classes">{{iconType}}</mat-icon>
+</ng-template>

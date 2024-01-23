@@ -1,0 +1,9 @@
+<div class="redirect-container">
+  <div class="banner-header">{{message | translate}} {{count$ | async}} {{'COMMON.BUTTONS.SECONDS' | translate}}...
+  </div>
+  <div class="redirect-btn-wrapper">
+    <app-button [appLink]="appLink">
+      {{btnText | translate}}
+    </app-button>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+@import "variables";
+.mat-paginator {
+  margin-bottom: -10px;
+}
+
+.boat-column-actions {
+  max-width: 160px;
+  display: flex;
+  flex-flow: column;
+  align-items: flex-end;
+}
+
+.create-auction-btn {
+  margin: 5px 0 10px;
+}
+
+.actions-wrapper {
+  margin: 10px 0 5px;
+}
+
+.active {
+  background: mat-color($accent);
+  color: mat-color($accent, A100-contrast);
+
+  mat-icon {
+    color: mat-color($accent, A100-contrast);
+  }
+}

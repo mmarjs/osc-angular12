@@ -1,0 +1,16 @@
+<h3 fxFlexAlign="center">
+  {{ 'BOATS.ADD_PICTURES_AND_MEDIA' | translate }}
+</h3>
+
+<p fxFlexAlign="center">
+  {{ 'BOATS.DRAG_AND_DROP_MEDIA' | translate }}
+</p>
+
+<app-form-gallery
+  (filesDeleted)="onDeleteImages($event)"
+  editable
+  [form]="form"
+  [multiple]="true"
+  appDropZone
+>
+</app-form-gallery>

@@ -1,0 +1,20 @@
+@import 'variables';
+
+layout-one-column {
+  @include app-component();
+  @include app-content-margin();
+
+  @include page-layout();
+
+  > h2:first-child {
+    margin-top: 0;
+  }
+
+  &[noTitle] > h2 {
+    display: none;
+  }
+
+  app-breadcrumbs {
+    margin-bottom: 20px;
+  }
+}

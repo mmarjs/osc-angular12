@@ -1,0 +1,126 @@
+<div class="d-flex justify-content-end">
+  <img src="/assets/icons/boat-icon.png" class="h-50px" alt="">
+</div>
+<form role="form" [formGroup]="form" (keydown.enter)="onSubmit()" class="addBoat">
+
+<app-field-text contextId="boat" formControlName="name" label="FORMS.LABELS.WHAT_IS_THE_NAME_OF_YOUR_BOAT"
+    [maxLength]="50"></app-field-text>
+
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="5%" fxLayoutGap.xs="0">
+    <app-field-text fxLayout="column" contextId="boat" formControlName="makeModelYear" label="FORMS.LABELS.YEAR"
+      [maxLength]="50" [type]="'number'">
+    </app-field-text>
+
+    <app-field-text fxLayout="column" formControlName="length" label="FORMS.LABELS.LENGTH" [maxLength]="50" [min]="0" [type]="'number'">
+    </app-field-text>
+  </div>
+  <app-field-text fxLayout="column" formControlName="type" label="FORMS.LABELS.WHAT_IS_THE_TYPE_OF_YOUR_BOAT"
+  [maxLength]="50">
+</app-field-text>
+  <label class="label">
+    {{ 'FORMS.LABELS.COUNTRY' | translate}}
+    <span>*</span>
+  </label>
+  <mat-select-country id="countrySelect" label="" placeHolder="" formControlName="country" [trimInput]="true">
+  </mat-select-country>
+  <mat-error id="countryError" class="d-none">
+    Country is required
+  </mat-error>
+  <app-drop-down [items]="timeZones" [placeholder]="'FORMS.PLACEHOLDERS.CHOOSE_YOUR_TIMEZONE'"
+  formControlName="timeZone" [form]="form" label="Timezone" [required]="true"></app-drop-down>
+
+
+  <app-form-address [form]="form" label="FORMS.LABELS.WHERE_IS_YOUR_BOAT_LOCATION"></app-form-address>
+
+  <app-form-location [form]="form"></app-form-location>
+
+  <div class="flag">
+  <label class="label">
+    {{ 'FORMS.LABELS.FLAG' | translate}}
+    <span>*</span>
+  </label>
+  <mat-select-country id="flagSelect" label="" placeHolder="" formControlName="flag" [trimInput]="true">
+  </mat-select-country>
+  </div>
+    <app-field-text
+      contextId="boat"
+      formControlName="hullId"
+      label="FORMS.LABELS.HULL_ID"
+      [maxLength]="50"
+    >
+    </app-field-text>
+
+  <app-field-text
+    contextId="boat"
+    formControlName="model"
+    label="FORMS.LABELS.MODEL"
+    [maxLength]="50"
+  >
+  </app-field-text>
+
+  <app-field-text
+    contextId="boat"
+    formControlName="officialNumber"
+    label="FORMS.LABELS.OFFICIAL_NUMBER"
+    [maxLength]="50"
+  >
+  </app-field-text>
+
+  <app-field-text
+    contextId="boat"
+    formControlName="loa"
+    label="FORMS.LABELS.LOA"
+    [maxLength]="50"
+  >
+  </app-field-text>
+
+  <app-field-text
+    contextId="boat"
+    formControlName="beam"
+    label="FORMS.LABELS.BEAM"
+    [maxLength]="50"
+  >
+  </app-field-text>
+
+  <app-field-text
+    contextId="boat"
+    formControlName="draft"
+    label="FORMS.LABELS.DRAFT"
+    [maxLength]="50"
+  >
+  </app-field-text>
+
+  <app-field-text
+    contextId="boat"
+    formControlName="displacement"
+    label="FORMS.LABELS.DISPLACEMENT"
+    [maxLength]="50"
+  >
+  </app-field-text>
+
+  <app-field-text
+    contextId="boat"
+    formControlName="boatClass"
+    label="FORMS.LABELS.BOAT_CLASS"
+    [maxLength]="50"
+  >
+  </app-field-text>
+
+  <app-field-text
+    contextId="boat"
+    formControlName="insuranceNumber"
+    label="FORMS.LABELS.INSURANCE_NUMBER"
+    [maxLength]="50"
+  >
+  </app-field-text>
+
+  <app-field-textarea
+    fxLayout="column"
+    row
+    contextId="boat"
+    formControlName="electricalRequirements"
+    label="FORMS.LABELS.ELECTRICAL_REQUIREMENTS"
+  >
+  </app-field-textarea>
+
+</form>

@@ -1,0 +1,65 @@
+<div class="steps-container">
+  <a
+    [routerLink]="['../bids']"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{exact: true}"
+    class="bid-step-link"
+  >
+    <span class="mat-radio-container">
+      <span class="mat-radio-outer-circle"></span>
+      <span class="mat-radio-inner-circle"></span>
+      <span class="mat-ripple mat-radio-ripple mat-focus-indicator">
+        <span class="mat-ripple-element mat-radio-persistent-ripple"></span>
+      </span>
+    </span>
+    <span class="bold-dark"> {{'BIDS.REVIEW_BIDS'| translate}} </span>
+  </a>
+  <a
+  [routerLink]="['./documents',bid?.id]"
+  routerLinkActive="active"
+  [routerLinkActiveOptions]="{exact: true}"
+  class="bid-step-link"
+  [ngClass]="{'disabled':!bid?.id}"
+>
+  <span class="mat-radio-container">
+    <span class="mat-radio-outer-circle"></span>
+    <span class="mat-radio-inner-circle"></span>
+    <span class="mat-ripple mat-radio-ripple mat-focus-indicator">
+      <span class="mat-ripple-element mat-radio-persistent-ripple"></span>
+    </span>
+  </span>
+  <span class="bold-dark"> {{'BIDS.DOCUMENTS'| translate}} </span>
+</a>
+  <a
+    [routerLink]="['./deposit', bid?.id]"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{exact: true}"
+    class="bid-step-link"
+    [ngClass]="{'disabled': !(document?.status === 'Completed')}"
+  >
+    <span class="mat-radio-container">
+      <span class="mat-radio-outer-circle"></span>
+      <span class="mat-radio-inner-circle"></span>
+      <span class="mat-ripple mat-radio-ripple mat-focus-indicator">
+        <span class="mat-ripple-element mat-radio-persistent-ripple"></span>
+      </span>
+    </span>
+    <span class="bold-dark"> {{'BIDS.PAYMENT'| translate}} </span>
+  </a>
+  <a
+    [routerLink]="['./review-work', bid?.id]"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{exact: true}"
+    class="bid-step-link"
+    [ngClass]="{'disabled': !(bid?.paymentItemDTO?.eventType === paymentStatus.SUCCEEDED)}"
+  >
+    <span class="mat-radio-container">
+      <span class="mat-radio-outer-circle"></span>
+      <span class="mat-radio-inner-circle"></span>
+      <span class="mat-ripple mat-radio-ripple mat-focus-indicator">
+        <span class="mat-ripple-element mat-radio-persistent-ripple"></span>
+      </span>
+    </span>
+    <span class="bold-dark"> {{'BIDS.REVIEW_WORK'| translate}} </span>
+  </a>
+</div>

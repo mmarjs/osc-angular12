@@ -1,0 +1,53 @@
+<label *ngIf="label" for="{{ contextId }}-{{ formControlName }}" class="label">
+  {{ label | translate}}
+  <span *ngIf="!_readonly && _required" aria-hidden="true">*</span>
+</label>
+<div class="d-flex">
+<div class="dollarParent" *ngIf="showDollar">
+  <mat-icon class="dollar">attach_money</mat-icon>
+</div>
+<!-- set floatLabel="never" to remove the label animation because we use custom label above the input, and in this case Angular will animate the palceholder above the input, and we dont want such a behaviour -->
+<mat-form-field [class.readonly]="_readonly" [hideRequiredMarker]="true" floatLabel="never" [class.showArrow]="type=='number' && hideArrowsForNumber">
+  <ng-container matPrefix>
+    <ng-content select="[matPrefix]"></ng-content>
+  </ng-container>
+
+  <span class="read-only-text" *ngIf="_readonly">{{ value || defValue }}</span>
+
+  <!-- matInput is just hidden because mat-form-field requires it -->
+  <input
+    matInput
+    id="{{ contextId }}-{{ formControlName }}"
+    [type]="type"
+    [appNumberOnly]="numberOnly"
+    [formControl]="_control"
+    [placeholder]="_control?.disabled ? '--' : placeholder | translate"
+    [attr.maxlength]="maxLength ? maxLength : null"
+    [attr.hidden]="_readonly ? '' : null"
+    [attr.disabled]="_readonly ? '' : null"
+    [required]="_required"
+    [readonly]="_readonly"
+    [value]="value"
+    (input)="onChange($event.target.value)"
+    (blur)="propagateTouch()"
+    (change)="$event.stopPropagation()"
+    [disabled]="disabled"
+    [trimInput]="noTailingSpace"
+    [min]="min"
+  >
+
+  <mat-hint *ngIf="hintLabel">{{ hintLabel | translate}}</mat-hint>
+  <mat-error *ngIf="_control?.touched && _control?.invalid">
+    <ng-container *ngIf="isErrorMsg(getErrorMsg); else stringMsg">
+      {{ getErrorMsg.translation | translate: getErrorMsg.params }}
+    </ng-container>
+    <ng-template #stringMsg>
+      {{ $any(getErrorMsg) | translate }}
+    </ng-template>
+  </mat-error>
+
+  <ng-container matSuffix>
+    <ng-content select="[matSuffix]"></ng-content>
+  </ng-container>
+</mat-form-field>
+</div>

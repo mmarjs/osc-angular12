@@ -1,0 +1,12 @@
+<layout-panel-wrapper [panelTitle]="'BOATS.MY_BOATS' | translate"
+  [description]="'BOATS.MY_BOATS_DESCRIPTION' | translate" fontSet="fas" icon="fa-ship">
+  <div class="panel-content">
+
+    <app-boats-list [hidePageSize]="true" [limit]="5" [isOnlyTable]="isTableOnly"></app-boats-list>
+
+    <a appLink="BOATS">
+      {{'COMMON.BUTTONS.VIEW_ALL' | translate}}
+    </a>
+
+  </div>
+</layout-panel-wrapper>

@@ -1,0 +1,9 @@
+<div fxLayout="row" fxLayoutAlign="space-between center" *ngIf="panelTitle">
+  <h3>{{ panelTitle }}</h3>
+
+  <mat-icon *ngIf="fontSet" [fontSet]="fontSet" [fontIcon]="icon"></mat-icon>
+</div>
+
+<p *ngIf="description">{{ description }}</p>
+
+<ng-content></ng-content>

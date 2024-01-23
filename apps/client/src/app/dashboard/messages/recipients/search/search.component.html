@@ -1,0 +1,22 @@
+<mat-form-field class="ocean-input-search" appearance="fill" floatLabel="never">
+  <input matInput name="search" [matAutocomplete]="auto" [formControl]="searchCtrl"
+    [placeholder]="selected.length ? 'Add Recipient' : 'Search Recipient'">
+  <mat-icon matSuffix>search</mat-icon>
+</mat-form-field>
+
+<mat-autocomplete #auto="matAutocomplete">
+  <mat-option *ngFor="let account of accounts" (onSelectionChange)="doSelect(account)">
+    <span>{{ account.name }}</span>
+    <!-- <small>{{ account.message }}</small> -->
+  </mat-option>
+</mat-autocomplete>
+
+<mat-list *ngIf="selected.length">
+  <mat-list-item *ngFor="let account of selected">
+    <mat-icon matListIcon>account_circle</mat-icon>
+    <span matLine>{{ account.name }}</span>
+    <button mat-icon-button (click)="doRemove(account)">
+      <mat-icon aria-label="remove">clear</mat-icon>
+    </button>
+  </mat-list-item>
+</mat-list>

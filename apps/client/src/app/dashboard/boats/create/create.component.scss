@@ -1,0 +1,35 @@
+@import 'variables';
+
+layout-panel-simple {
+  padding-bottom: 20px;
+
+  .panel-content {
+    padding: 30px 0 10px;
+  }
+}
+
+app-form-actions-wrapper {
+  margin: 0 auto;
+  min-width: 300px;
+
+  @media #{$xs} {
+    min-width: 90%;
+  }
+}
+
+:host ::ng-deep {
+  .form-container {
+    padding-top: 1rem;
+    max-width: 40%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+
+  .full, .half, label {
+    text-align: left;
+    width: 100%;
+  }
+}

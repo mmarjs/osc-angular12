@@ -1,0 +1,33 @@
+
+<h3 matDialogTitle>Forgotten Password</h3>
+
+<div mat-dialog-content>
+  <p>Put in your email address below to have a password reset link sent to you.</p>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+    <div fxLayout="column">
+      <label for="reset-email">Email Address</label>
+      <mat-form-field>
+        <input matInput email required type="text" id="reset-email" formControlName="email">
+        <!-- <mat-error *ngIf="formErrors.userEmail">{{ formErrors.userEmail }}</mat-error> -->
+      </mat-form-field>
+    </div>
+  </form>
+
+</div>
+
+<div mat-dialog-actions fxLayout="column" fxLayoutAlign="stretch">
+  <div fxLayout="row" fxLayoutGap="10px">
+    <button fxFlex mat-stroked-button matDialogClose>Cancel</button>
+    <button fxFlex mat-raised-button color="primary">Send Reset Link</button>
+  </div>
+
+  <p fxLayout="column" fxLayoutAlign=" center" fxLayoutGap="10px">
+    <a [routerLink]="[{ outlets: { open: routes.link('LOGIN') }}]" (click)="dialogRef.close()">
+      Back to the Log in form
+    </a>
+    <a [routerLink]="[{ outlets: { primary: routes.path('SIGNUP'), open: null }}]" (click)="dialogRef.close()">
+      Not a member? Create an account here
+    </a>
+  </p>
+</div>

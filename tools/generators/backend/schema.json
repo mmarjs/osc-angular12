@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "backend",
+  "type": "object",
+  "properties": {
+    "fetch": {
+      "type": "boolean",
+      "description": "Force the Swagger JSON fetch",
+      "alias": "f"
+    },
+    "url": {
+      "type": "string",
+      "description": "URL of the Swagger JSON",
+      "alias": "u",
+      "default": "http://main.qa.oceanservicecenter.internal/v2/api-docs"
+    },
+    "input": {
+      "type": "string",
+      "description": "Path to the input JSON file",
+      "alias": "i"
+    }
+  },
+  "additionalProperties": true,
+  "required": []
+}

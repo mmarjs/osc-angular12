@@ -1,0 +1,45 @@
+<layout-panel-wrapper class="w-100">
+  <div class="d-flex justify-content-end">
+    <img src="/assets/icons/deposit.jpg" alt=""
+      style="height: 50px; width: 50px;">
+  </div>
+
+<ng-container *ngIf="bid$ | async as bid">
+  <div
+    class="banner-header deposit-success-banner"
+    *ngIf="bid?.paymentItemDTO?.eventType === paymentEvent.SUCCEEDED; else showDeposit"
+  >
+     <p>
+     <span class="bold-dark"> {{'APPLICATION.SUCCESS' | translate}} </span>
+      {{'BIDS.SUCCESSFULLY_DEPOSITED' | translate}}
+      <span class="bold-dark"> {{ bid?.bidAmount | currency: 'USD' }} </span>
+     </p>
+     <p> {{'BIDS.TRANSFERRED_TO_YOUR' | translate}}  <a [routerLink]="['../../', 'review-work', bid?.id]"> {{'BIDS.REVIEW_WORK_FEED' | translate}}. </a> </p>
+  </div>
+  <ng-template #showDeposit>
+    <layout-panel-wrapper>
+      <layout-panel-wrapper class="escrow-deposit-container">
+        <div
+          *ngIf="bid?.bidAmount"
+          [innerHTML]="'COMMON.BUTTONS.FULL_PAYMENT' | translate: { value: bid.bidAmount | currency: 'USD' }"
+        ></div>
+      </layout-panel-wrapper>
+
+      <!-- <ocean-credit-card aside></ocean-credit-card> -->
+      <app-payment-list
+        aside
+        (cardDetails)="setCard($event)"
+      ></app-payment-list>
+    </layout-panel-wrapper>
+
+    <div class="submit-deposit-wrapper">
+      <app-button
+      [disabled]="!selectedCard?.stripeMethodId"
+      (btnClick)="payFullAmount(selectedCard?.stripeMethodId, bid?.id)"
+    >
+      {{'COMMON.BUTTONS.SUBMIT_DEPOSIT' | translate}}
+    </app-button>
+    </div>
+  </ng-template>
+</ng-container>
+</layout-panel-wrapper>

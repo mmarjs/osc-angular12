@@ -1,0 +1,26 @@
+<div class="finalize-section">
+    <i class="icon boat-icon"></i>
+    <div class="finalize-description">
+        <h3>{{'AUCTIONS.CREATE.FINALIZE_LISTING' | translate}}</h3>
+        <p class="finalize-text"><b>{{'FORMS.LABELS.NOTE' | translate}}:</b>
+            {{'AUCTIONS.CREATE.FINALIZE_LISTING_DESCRIPTION' | translate}}
+            <br>
+        </p>
+    </div>
+    <form class="finalize-form-group" [formGroup]="form">
+        <!-- <div class="form-control">
+            <app-datepicker label="FORMS.LABELS.AUCTION_START_DATE" placeholder="FORMS.PLACEHOLDERS.CHOOSE_DATE"
+                formControlName="auctionStartDate" (dateValueChanged)="onch()" fxLayout="column"
+                contextId="auctionEndDate" [minDate]="minDate" [readonly]="isStarted">
+            </app-datepicker>
+        </div> -->
+        <div class="w-100">
+            <app-datepicker label="FORMS.LABELS.AUCTION_END_DATE" placeholder="FORMS.PLACEHOLDERS.CHOOSE_DATE"
+                formControlName="auctionEndDate" fxLayout="column" contextId="auctionEndDate" [minDate]="startDt">
+            </app-datepicker>
+        </div>
+    </form>
+    <mat-error *ngIf="form?.errors?.dates">
+        {{'FORMS.ERRORS.AUCTION_END_DATE_SET_AFTER_THE_CURRENT_DATE' | translate}}
+    </mat-error>
+</div>

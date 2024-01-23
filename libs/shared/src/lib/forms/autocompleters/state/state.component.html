@@ -1,0 +1,19 @@
+<label for="{{ contextId }}-{{ formControlName }}">
+  {{ label | translate}}
+  <span *ngIf="!_readonly && _required" aria-hidden="true">*</span>
+</label>
+
+<mat-form-field [class.readonly]="_readonly" [hideRequiredMarker]="true" floatLabel="never">
+  <input matInput type="text" #trigger id="{{ contextId }}-{{ formControlName }}" [placeholder]="placeholder"
+    [formControl]="_input" [matAutocomplete]="auto" [readonly]="_readonly" [attr.disabled]="_readonly ? '' : null"
+    [required]="_required" (blur)="propagateTouch()" (focusout)="onFocusOut()" (change)="$event.stopPropagation()">
+
+  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn.bind(this)" (optionSelected)="onSelect($event)">
+    <mat-option *ngFor="let item of items" [value]="item" [disabled]="item.disabled">
+      <p matLine>{{ item.title }}</p>
+    </mat-option>
+  </mat-autocomplete>
+
+  <mat-icon *ngIf="!_readonly && hasSelected" class="icon-remove" [matTooltip]="tooltip" (click)="onRemove()" matSuffix>
+    cancel</mat-icon>
+</mat-form-field>

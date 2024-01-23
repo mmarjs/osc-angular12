@@ -1,0 +1,51 @@
+<button type="button" mat-icon-button color="accent" (click)="closeMenu()">
+  <mat-icon aria-label="Close navigation menu">close</mat-icon>
+</button>
+
+<ng-container *ngIf="loggedIn then logged; else guest"></ng-container>
+<ng-template #guest>
+
+  <mat-action-list>
+    <button type="button" mat-list-item (click)="goTo('HOME')">
+      {{'COMMON.MENU.WHO_WE_ARE' | translate}}
+    </button>
+    <!-- <button type="button" mat-list-item (click)="goTo('AUCTIONS')">
+      Auctions
+    </button> -->
+    <button type="button" mat-list-item (click)="goTo('FAQ')">
+      {{'COMMON.MENU.FAQ' | translate}}
+    </button>
+  </mat-action-list>
+
+</ng-template>
+<ng-template #logged>
+
+  <mat-action-list>
+    <button type="button" mat-list-item (click)="goTo('AUCTIONS')" *ngIf="(userRole$ | async) !== userRoles.BOAT_OWNER">
+      {{'COMMON.MENU.AUCTIONS' | translate}}
+    </button>
+    <button type="button" mat-list-item (click)="goTo('DASHBOARD')">
+      {{'COMMON.MENU.DASHBOARD' | translate}}
+    </button>
+    <button type="button" mat-list-item (click)="goTo('PROFILE')">
+      {{'COMMON.MENU.PROFILE' | translate}}
+    </button>
+    <button type="button" mat-list-item (click)="goTo('NOTIFICATIONS')">
+      {{'COMMON.MENU.NOTTIFICATIONS' | translate}}
+    </button>
+    <button type="button" mat-list-item (click)="onLogout()">
+      {{'COMMON.BUTTONS.LOGOUT' | translate}}
+    </button>
+  </mat-action-list>
+
+</ng-template>
+
+<div *ngIf="!loggedIn" fxLayout="column" fxLayoutGap="20px">
+  <button mat-flat-button color="primary" (click)="getStarted()">
+    {{'COMMON.BUTTONS.GET_STARTED' | translate}}
+  </button>
+
+  <button mat-stroked-button (click)="doLogin()">
+    {{'COMMON.BUTTONS.LOGIN' | translate}}
+  </button>
+</div>

@@ -1,0 +1,20 @@
+<h3 matDialogTitle>{{ data.firstInput.title }}</h3>
+<form [formGroup]="form" mat-dialog-content>
+  <div>
+    <app-field-text formControlName="firstInput" [label]="data.firstInput.label"
+      [placeholder]="data.firstInput.placeholder"></app-field-text>
+  </div>
+  <div>
+    <app-field-textarea formControlName="secondInput"
+      [label]="data.secondInput.label"
+      [placeholder]="data.secondInput.placeholder"></app-field-textarea>
+  </div>
+</form>
+
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="end stretch" fxLayoutGap="10px">
+  <button mat-stroked-button [matDialogClose]="false">{{'COMMON.BUTTONS.CLOSE' | translate}}</button>
+  <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="dialogRef.close({
+    firstInput:firstInput.value,
+    secondInput:secondInput.value
+  })">{{'COMMON.BUTTONS.OK' | translate}}</button>
+</div>

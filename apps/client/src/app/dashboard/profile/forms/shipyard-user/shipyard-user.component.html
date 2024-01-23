@@ -1,0 +1,15 @@
+<form [formGroup]="form">
+<app-field-text  formControlName="dockageFee" label="FORMS.LABELS.DOCKAGE_FEE" [maxLength]="50" type="number" [showDollar]="true">
+</app-field-text>
+<app-field-text  formControlName="utilityFee" label="FORMS.LABELS.UTILITY_FEE" [maxLength]="50" type="number" [showDollar]="true">
+</app-field-text>
+<app-field-text  formControlName="garbageFee" label="FORMS.LABELS.GARBAGE_FEE" [maxLength]="50" type="number" [showDollar]="true">
+</app-field-text>
+<app-field-text  formControlName="ampServiceFee" label="FORMS.LABELS.AMP_SERVICE_FEE" [maxLength]="50" type="number" [showDollar]="true">
+</app-field-text>
+<app-drop-down [items]="securityOptions" [placeholder]="'Choose your option'" formControlName="security" [form]="form" label="FORMS.LABELS.SECURITY"></app-drop-down>
+<app-field-text  formControlName="arbitrationLocation" label="FORMS.LABELS.ABRITRATION_LOCATION" [maxLength]="50">
+</app-field-text>
+<app-field-text  formControlName="warrantyDays" label="FORMS.LABELS.WARRANTY_DAYS" [maxLength]="50" class="mr-5" type="number">
+</app-field-text>
+</form>

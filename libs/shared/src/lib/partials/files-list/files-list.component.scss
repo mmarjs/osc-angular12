@@ -1,0 +1,26 @@
+@import "variables";
+
+::ng-deep {
+  .files-list {
+    .mat-icon-button {
+      width: unset !important;
+      height: unset !important;
+      line-height: unset !important;
+      border-radius: unset !important;
+    }
+
+    .file-item-name {
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .remove-file-btn {
+      color: mat-color($primary, A100);
+      margin-left: 20px;
+    }
+  }
+}
+span{
+  width: 180px;
+  overflow-wrap:break-word;
+}

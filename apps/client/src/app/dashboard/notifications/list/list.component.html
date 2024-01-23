@@ -1,0 +1,14 @@
+
+<!-- FIXME remove when it's implemented -->
+<layout-notification type="info">
+  These are mock notifications.
+</layout-notification>
+
+<mat-nav-list>
+  <ng-container *ngFor="let notification of notifications">
+    <app-notifications-item
+      [notification]="notification"
+      [dense]="_isDense"
+    ></app-notifications-item>
+  </ng-container>
+</mat-nav-list>

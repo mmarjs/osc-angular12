@@ -1,0 +1,43 @@
+@import "variables";
+
+.mat-table {
+  background: transparent;
+}
+
+.mat-header-row {
+  min-height: 24px;
+}
+
+.mat-column-info {
+  strong {
+    padding-bottom: 4px;
+  }
+}
+
+.mat-column-actions {
+  flex: 0.2 0 auto;
+  max-width: 120px;
+  place-content: flex-end;
+
+  a {
+    margin-left: 3px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+
+  // .mat-icon {
+  //   color: mat-color($foreground, "secondary-text");
+  // }
+}
+
+.striped-table {
+  .mat-row:nth-child(even) {
+    background-color: mat-color($background, even);
+  }
+  .mat-row:nth-child(odd),
+  .mat-header-row {
+    background-color: mat-color($background, app-bar);
+  }
+}

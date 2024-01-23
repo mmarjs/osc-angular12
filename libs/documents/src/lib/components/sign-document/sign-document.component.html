@@ -1,0 +1,17 @@
+<div class="sign-page">
+  <div class="sign-page--title">{{ 'DOCUMENTS.SIGN_TITLE' | translate }}</div>
+  <div class="sign-page--text">{{ 'DOCUMENTS.SIGN_TEXT' | translate }}</div>
+  <ng-container *ngIf="signLink$ | async as link; else loader">
+    <a mat-flat-button color="primary" (click)="viewDocument(link)">
+      {{ 'DOCUMENTS.REVIEW_AND_SIGN' | translate }}
+    </a>
+  </ng-container>
+
+  <ng-template #loader>
+    <mat-progress-spinner
+      mode="indeterminate"
+      [diameter]="40"
+      [strokeWidth]="5"
+    ></mat-progress-spinner>
+  </ng-template>
+</div>

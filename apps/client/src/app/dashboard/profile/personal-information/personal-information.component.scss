@@ -1,0 +1,12 @@
+@import "variables";
+.personal-info-form-row {
+    display: flex;
+    justify-content: space-between;
+    app-form-control-update-on-submit {
+        width: 48%;
+        margin-top: 15px !important;
+    }
+    app-form-gallery {
+        margin-top: 15px !important;
+    }
+}

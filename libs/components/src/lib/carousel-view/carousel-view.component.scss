@@ -1,0 +1,45 @@
+.carousel-cell {
+  .pdf {
+    object-fit: contain;
+    height: 80%;
+  }
+}
+
+.mt-1 {
+  margin-top: 1rem;
+}
+
+.download {
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
+  font-size: 40px;
+  transition: .2s;
+
+  &:hover {
+    color: var(--primary);
+  }
+}
+
+.carousel-html-content .carousel-cell {
+
+  img,
+  video {
+    height: auto !important;
+    width: fit-content;
+    max-width: fit-content !important;
+  }
+}
+
+.carousel-thumbs {
+  margin-top: 20px;
+
+  .carousel-cell {
+    flex-direction: column;
+
+    img,
+    video {
+      height: 100% !important;
+    }
+  }
+}

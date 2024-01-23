@@ -1,0 +1,48 @@
+@import "variables";
+
+:host {
+  display: block;
+}
+
+nav {
+  button {
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    color: mat-color($accent);
+    font-weight: normal;
+    outline: none;
+    text-align: center;
+
+    &.mat-button {
+      line-height: 30px;
+
+      .mat-icon {
+        font-size: 22px;
+        line-height: 22px;
+        padding-right: 3px;
+      }
+    }
+
+    &.mat-icon-button {
+      // line-height: 32px;
+      height: unset;
+      width: unset;
+
+      .mat-icon {
+        font-size: 20px;
+        padding-top: 2px;
+      }
+
+      &:last-child {
+        line-height: inherit;
+
+        .mat-icon {
+          font-size: 26px;
+          height: 26px;
+          width: 26px;
+        }
+      }
+    }
+  }
+}

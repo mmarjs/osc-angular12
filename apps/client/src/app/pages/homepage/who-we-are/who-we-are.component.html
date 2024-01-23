@@ -1,0 +1,13 @@
+<div id="about-us" fxLayout="column" fxLayoutAlign="center start" style="flex-direction:inherit">
+  <div class="home-banner-container">
+    <h1>
+      {{'WHO_WE_ARE.HOME_BANNER.TITLE_ROW_ONE' | translate}}
+      <p>
+        {{'WHO_WE_ARE.HOME_BANNER.TITLE_ROW_TWO' | translate}}
+      </p>
+    </h1>
+    <button type="button" mat-raised-button color="primary" (click)="getStarted()">
+      {{ loggedIn ? ('COMMON.BUTTONS.GO_TO_DASHBOARD' | translate) : ('COMMON.BUTTONS.GET_STARTED' | translate) }}
+    </button>
+  </div>
+</div>

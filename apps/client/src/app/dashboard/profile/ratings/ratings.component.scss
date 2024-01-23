@@ -1,0 +1,11 @@
+@import "variables";
+
+.rating-bar-wrapper {
+  @include fxFlexJustify();
+  margin-top: 15px;
+}
+
+.profile-ratings-panel {
+  background-color: #fff;
+  margin-top: 15px;
+}

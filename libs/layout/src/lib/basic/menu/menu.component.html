@@ -1,0 +1,27 @@
+<nav fxLayout="row" fxLayoutAlign="center">
+  <ng-container *ngIf="userName then logged; else guest"></ng-container>
+  <ng-template #guest>
+    <div fxLayout="column" fxLayoutAlign="center">
+      <button type="button" mat-button (click)="doLogin()">
+        <mat-icon fontSet="far" fontIcon="fa-user-circle"></mat-icon> {{'COMMON.BUTTONS.LOGIN' | translate}}
+      </button>
+    </div>
+  </ng-template>
+  <ng-template #logged>
+    <button type="button" mat-button appLink="PROFILE">
+      <mat-icon fontSet="far" fontIcon="fa-user-circle"></mat-icon>
+      {{ userName }}
+    </button>
+
+    <!-- TODO overlay with the latest messages and notifications -->
+    <!-- <button type="button" mat-icon-button appLink="MESSAGES">
+      <mat-icon aria-label="Messages" fontSet="far" fontIcon="fa-comment-alt"></mat-icon>
+    </button> -->
+
+    <button type="button" mat-icon-button appLink="NOTIFICATIONS">
+      <mat-icon aria-label="Notifications" fontSet="far" fontIcon="fa-bell"></mat-icon>
+    </button>
+  </ng-template>
+</nav>
+
+<!-- TODO: context component -->

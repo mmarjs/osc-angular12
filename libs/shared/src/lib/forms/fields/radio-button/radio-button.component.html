@@ -1,0 +1,22 @@
+<label *ngIf="label" for="{{ contextId }}-{{ formControlName }}" class="label">
+  {{ label | translate}}
+  <span *ngIf="!_readonly && _required && value.length === 0" aria-hidden="true">*</span>
+</label>
+<ng-container matPrefix>
+    <ng-content select="[matPrefix]"></ng-content>
+</ng-container>
+
+<span *ngIf="_readonly">{{ value || defValue }}</span>
+<div class="status">
+    <mat-radio-group class="radio">
+        <mat-radio-button *ngFor="let item of itemsRadioButton" value="{{item.value}}" checked='{{item.checked && _control?.valid}}' (change)="onChange($event.value)" (blur)="propagateTouch()" [attr.hidden]="_readonly ? '' : null" [attr.disabled]="_readonly ? '' : null">{{item.label}}</mat-radio-button>
+    </mat-radio-group>
+</div>
+
+
+<mat-hint *ngIf="hintLabel">{{ hintLabel | translate}}</mat-hint>
+<mat-error>{{ _control?.invalid ? getErrorMsg : '' }}</mat-error>
+
+<ng-container matSuffix>
+    <ng-content select="[matSuffix]"></ng-content>
+</ng-container>

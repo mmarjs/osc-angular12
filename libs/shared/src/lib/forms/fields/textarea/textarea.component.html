@@ -1,0 +1,26 @@
+<label *ngIf="label" for="{{ contextId }}-{{ formControlName }}" class="label">
+  {{ label | translate}}
+  <span *ngIf="!_readonly && _required" aria-hidden="true">*</span>
+</label>
+
+<!-- set floatLabel="never" to remove the label animation because we use custom label above the input, and in this case Angular will animate the palceholder above the input, and we dont want such a behaviour -->
+<mat-form-field [class.readonly]="_readonly" [hideRequiredMarker]="true" floatLabel="never">
+  <ng-container matPrefix>
+    <ng-content select="[matPrefix]"></ng-content>
+  </ng-container>
+
+  <span *ngIf="_readonly">{{ value || defValue }}</span>
+
+  <!-- matInput is just hidden because mat-form-field requires it -->
+  <textarea matInput id="{{ contextId }}-{{ formControlName }}" [placeholder]="_control?.disabled ? '' : placeholder | translate" [rows]="rows"
+    [attr.hidden]="_readonly ? '' : null" [attr.disabled]="_readonly ? '' : null" [required]="_required" [formControl]="_control"
+    [readonly]="_readonly" (input)="onChange($event.target.value)" (blur)="propagateTouch()"
+    (change)="$event.stopPropagation()" [trimInput]="noTailingSpace">{{ value }}</textarea>
+
+  <mat-hint *ngIf="hintLabel">{{ hintLabel | translate}}</mat-hint>
+  <mat-error>{{ _control?.invalid ? (getErrorMsg | translate) : '' }}</mat-error>
+
+  <ng-container matSuffix>
+    <ng-content select="[matSuffix]"></ng-content>
+  </ng-container>
+</mat-form-field>

@@ -1,0 +1,34 @@
+.bids-auction-aside {
+  layout-panel-wrapper {
+    margin-bottom: 20px;
+
+    p {
+      margin-top: 15px;
+      color: #283B4D;
+    }
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
+.banner-header {
+  .bold-dark {
+    margin-left: 5px;
+  }
+}
+
+:host ::ng-deep layout-two-columns div {
+  .right-col {
+    min-width: 18%;
+  }
+}
+
+@media screen and (max-width: 1025px) {
+  :host ::ng-deep layout-two-columns div {
+     .right-col{
+       min-width: 20%;
+     }
+   }
+ }

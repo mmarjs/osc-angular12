@@ -1,0 +1,15 @@
+<form [formGroup]="filterForm" class="d-flex">
+  <div class="d-flex filters">
+    <app-drop-down [items]="priceFilters" [placeholder]="'Sort by Price'" formControlName="price" [form]="filterForm" class="w-160"></app-drop-down>
+    <app-drop-down [items]="priceFilters" [placeholder]="'Sort by Start Date'" formControlName="startDate" [form]="filterForm"></app-drop-down>
+    <app-drop-down [items]="priceFilters" [placeholder]="'Sort by Complete Time'" formControlName="completeTime" [form]="filterForm"></app-drop-down>
+    <app-drop-down [items]="priceFilters" [placeholder]="'Sort by Rating'" formControlName="rating" [form]="filterForm" class="w-160"></app-drop-down>
+<app-filter-search [placeholder]="'COMMON.SEARCH.BY_NAME' | translate" (search)="onSearch($event)">
+</app-filter-search>
+</div>
+</form>
+<ocean-bids-table [bids]="bids" [isLoading]="isLoading"
+  (acceptBid)="acceptBid($event)" (rejectBid)="rejectBid($event)"
+  [filterValue]="searchValue.asObservable()" [isReviewBids]="true"
+  (sendMessage)="sendMessage()">
+</ocean-bids-table>

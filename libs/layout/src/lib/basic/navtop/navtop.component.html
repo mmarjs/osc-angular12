@@ -1,0 +1,53 @@
+<nav fxLayout="row" class="layout-basic-navtop-container">
+  <ng-container *ngIf="loggedIn then logged; else guest"></ng-container>
+  <ng-template #guest>
+    <a
+      mat-button
+      routerLink="/"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{exact: true}"
+    >
+      {{'COMMON.MENU.WHO_WE_ARE' | translate}}
+    </a>
+    <a mat-button routerLink="/faq" routerLinkActive="active">
+      {{'COMMON.MENU.FAQ' | translate}}
+    </a>
+  </ng-template>
+  <ng-template #logged>
+    <a
+      mat-button
+      routerLink="/auctions"
+      routerLinkActive="active"
+      *ngIf="(userRole$ | async) !== userRoles.BOAT_OWNER"
+    >
+      {{'COMMON.MENU.AUCTIONS' | translate}}
+    </a>
+    <a
+      mat-button
+      routerLink="/mybids"
+      routerLinkActive="active"
+      *ngIf="(userRole$ | async) !== userRoles.BOAT_OWNER"
+    >
+      {{'COMMON.MENU.MY_BIDS' | translate}}
+    </a>
+    <a
+      mat-button
+      routerLink="/drafts"
+      routerLinkActive="active"
+      *ngIf="(userRole$ | async) === userRoles.BOAT_OWNER"
+    >
+      {{'COMMON.MENU.DRAFTS' | translate}}
+    </a>
+      <a mat-button routerLink="/documents" routerLinkActive="active">
+      {{'COMMON.MENU.DOCUMENTS' | translate}}
+    </a>
+    <a mat-button routerLink="/dashboard" routerLinkActive="active">
+      {{'COMMON.MENU.DASHBOARD' | translate}}
+    </a>
+    <a mat-button (click)="onLogout()">
+      {{'COMMON.BUTTONS.LOGOUT' | translate}}
+    </a>
+  </ng-template>
+</nav>
+
+<!-- TODO: context component -->

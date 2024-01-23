@@ -1,0 +1,56 @@
+<form [formGroup]="form" novalidate class="form-control-submit" (ngSubmit)="submit()" *ngIf="form">
+  <div class="form-control-wrapper-with-icon">
+    <label [attr.for]="'ctrl-update-on-submit-'+ controlName" class="label" *ngIf="label">
+      {{ label | translate}}
+      <span aria-hidden="true">*</span>
+    </label>
+
+    <div class="form-conrol-input-wrapper">
+      <ng-container *ngIf="isPhone; else regularCtrl">
+        <ngx-intl-tel-input
+          name="phone"
+          [cssClass]="'custom'"
+          [preferredCountries]="preferredCountries"
+          [enableAutoCountrySelect]="true"
+          [enablePlaceholder]="true"
+          [searchCountryFlag]="true"
+          [searchCountryField]="[
+            SearchCountryField.Iso2,
+            SearchCountryField.Name
+          ]"
+          [selectFirstCountry]="false"
+          (ngModelChange)="onCountrySelect($event)"
+          [maxLength]="15"
+          [phoneValidation]="true"
+          [separateDialCode]="false"
+          [numberFormat]="PhoneNumberFormat.National"
+          [formControl]="control"
+        >
+        </ngx-intl-tel-input>
+      </ng-container>
+
+      <ng-template #regularCtrl>
+        <mat-form-field floatLabel="never">
+          <input matInput [id]="'ctrl-update-on-submit-' + controlName" [formControl]="control" (change)="onValueChange()">
+        </mat-form-field>
+      </ng-template>
+
+      <button mat-icon-button type="submit" (click)="toggleControlDisabledState()" [style.visibility]="visibility"
+              [disabled]="isLoading || control.invalid">
+        <img src="/assets/images/loading.gif" alt="Loading..." *ngIf="isLoading; else loadedTemp"
+             class="loading-gif">
+        <ng-template #loadedTemp>
+          <mat-icon>edit</mat-icon>
+          <span>{{control.disabled ? ('COMMON.BUTTONS.EDIT' | translate) :
+            ('COMMON.BUTTONS.OK' |translate)}}
+          </span>
+        </ng-template>
+      </button>
+    </div>
+  </div>
+  <mat-error *ngIf="control.touched && control.invalid">
+    <div *ngIf="errorMsg" class="error">
+      {{errorMsg}}
+    </div>
+  </mat-error>
+</form>

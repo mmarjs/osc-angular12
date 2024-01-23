@@ -1,0 +1,30 @@
+@import "variables";
+
+::ng-deep {
+  .ngx-file-drop__drop-zone {
+    height: 80px !important;
+    border: 2px dotted mat-color($accent) !important;
+    border-radius: 3px !important;
+  }
+
+  .ngx-file-drop__drop-zone--over {
+    background-color: rgba(215, 215, 215, 0.4) !important;
+  }
+
+  .ngx-file-drop__content {
+    height: 80px !important;
+    color: mat-color($accent) !important;
+    flex-flow: column;
+
+    .drop-files-hint {
+      font-size: 14px;
+      margin: 5px 0 0 0;
+    }
+  }
+
+  app-upload-input-mask {
+    display: block;
+    padding: 0 22px;
+    cursor: pointer;
+  }
+}

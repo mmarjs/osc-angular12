@@ -1,0 +1,31 @@
+<layout-two-columns [width]="60">
+  <div class="form">
+    <button mat-icon-button matStepperPrevious class="wizzard-back-btn">
+      <ocean-icon [iconType]="iconType.CHEVRON_LEFT"></ocean-icon>
+      {{'COMMON.BUTTONS.BACK' | translate}}
+    </button>
+    <form role="form" [formGroup]="form">
+      <h2 class="text-title">{{auctionType | capitalize}} {{'AUCTIONS.CREATE.INFORMATION' | translate}}</h2>
+      <p class="text-justify information">
+        {{'AUCTIONS.CREATE.INFORMATION_DESCRIPTION_FIRST_ROW' | translate}}
+        <br> {{'AUCTIONS.CREATE.INFORMATION_DESCRIPTION_SECOND_ROW' | translate}}
+      </p>
+      <app-survey-list [form]="form"></app-survey-list>
+    </form>
+  </div>
+  <div class="my-boat-background" aside>
+    <app-boat-info
+      [boat]="boat"
+      [form]="descriptionForm"
+      *ngIf="selectedTab === 1"
+      title="{{auctionType | capitalize}} {{'BOATS.LISTING'| translate}}"
+    >
+    </app-boat-info>
+    <div *ngIf="isEdit" class="mb-10 d-flex boat-card-details pt-0 images-wrapper">
+      <div *ngFor="let img of jobImages">
+        <img src="{{ img.format === 'pdf' ? '/assets/images/pdf_logo.png' : img.fileURL }}" class="thumbnail-img mr-10">
+      </div>
+    </div>
+    <!-- <app-cancel-listing [auction]="auction"></app-cancel-listing> -->
+  </div>
+</layout-two-columns>

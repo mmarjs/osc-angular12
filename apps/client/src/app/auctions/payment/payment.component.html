@@ -1,0 +1,101 @@
+<ng-container *ngIf="auction$ | async as auction">
+  <div class="payment-header">
+    <div class="heading">
+      <h2 class="title-page" data-testid="title">
+        {{ 'AUCTIONS.DEPOSIT' | translate }} - {{ depositAmount | currency:
+        'USD' }}
+      </h2>
+      <p class="deposit-description">
+        {{ 'AUCTIONS.DEPOSIT_DESCRIPTION' | translate: { value: depositAmount }
+        }}
+      </p>
+    </div>
+  </div>
+  <div class="payment-container">
+    <div class="payment-content-card">
+      <ng-container *ngIf="depositSuccess">
+        <div class="smart-message">
+          <span class="bold-dark">
+            {{ 'APPLICATION.SUCCESS' | translate }}!
+          </span>
+          {{ 'AUCTIONS.SUCCESSFULLY_DEPOSITED' | translate }}
+          <span class="bold-dark"> {{ depositAmount | currency: 'USD' }} </span>
+          {{ 'AUCTIONS.TO_GET_STARTED' | translate }}
+          <a
+            #dashboardLink
+            class="bold-primary"
+            (click)="goToDashboard()"
+          >
+            {{ 'AUCTIONS.DASHBOARD' | translate }}.
+          </a>
+        </div>
+      </ng-container>
+      <div class="deposit-payment-container">
+        <layout-panel-wrapper
+          class="mt-1"
+          [panelTitle]="'AUCTIONS.PAYMENT_METHOD' | translate"
+          icon="payment"
+        >
+          <app-payment-list
+            class="card"
+            (cardDetails)="setCard($event)"
+            style="margin-top: 1rem"
+          ></app-payment-list>
+        </layout-panel-wrapper>
+        <app-button
+          class="deposit-submit-btn"
+          (btnClick)="pay(auction)"
+          [disabled]="!cardDetails"
+        >
+          {{ 'COMMON.BUTTONS.SUBMIT' | translate }}
+        </app-button>
+      </div>
+    </div>
+    <div class="payment-content">
+      <layout-panel-wrapper
+        [panelTitle]="'Repair Process' | translate"
+        class="mb-15"
+      >
+        <div *ngFor="let step of steps" class="mt-15">
+          <i class="fa" *ngIf="step.completed">&#xf058;</i>
+          <i class="fa" *ngIf="!step.completed">&#xf111;</i>
+          <span>{{ step.translation | translate }}</span>
+        </div>
+      </layout-panel-wrapper>
+      <layout-panel-wrapper
+        [panelTitle]="'AUCTIONS.DETAIL' | translate"
+        class="auction-detail-panel"
+      >
+        <div class="edit">
+          <mat-icon>edit</mat-icon>
+          <p
+            [appLink]="['AUCTION_EDIT', { id: auction?.id }]"
+            (click)="onEditAuction(auction)"
+          >
+            {{ 'COMMON.BUTTONS.EDIT' | translate }}
+          </p>
+        </div>
+        <img src="/assets/images/no-image.png" alt="" class="default-img" />
+        <p>{{ auction.name }}</p>
+        <p>
+          <b>{{ 'FORMS.LABELS.TYPE' | translate }}: </b>
+          {{ 'APPLICATION.' + auction.type | translate }}
+        </p>
+        <p>
+          <b>{{ 'FORMS.LABELS.LISTED' | translate }}: </b>
+          <ng-container *ngIf="auction?.auctionStartDate; else noDate">
+            {{ auction.auctionStartDate | date: 'shortDate' }}
+          </ng-container>
+          <ng-template #noDate>
+            {{ 'AUCTIONS.NOT_LISTED' | translate }}
+          </ng-template>
+        </p>
+        <p>
+          <b>{{ 'FORMS.LABELS.ENDS' | translate }}: </b>
+          {{ auction.auctionEndDate | date: 'shortDate' }}
+        </p>
+      </layout-panel-wrapper>
+      <!-- <app-cancel-listing [auction]="auction"></app-cancel-listing> -->
+    </div>
+  </div>
+</ng-container>

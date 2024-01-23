@@ -1,0 +1,11 @@
+<div fxLayout="row" fxLayoutAlign=" center" fxLayoutGap="20px">
+  <h2 fxFlex="initial" aria-hidden="true">{{'WHO_WE_ARE.TRUSTED_BY' | translate}}:</h2>
+
+  <div fxFlex class="trusted-by">
+    <div tabindex="0" aria-label="Trusted by" fxFlex fxLayout="row" fxLayoutAlign="space-between center"
+      fxLayoutGap="30px">
+      <span *ngFor="let brand of brands" [style.background-image]="'url(/assets/brands/' + brand.logo + ')'"
+        [style.width.px]="brand.width" [style.height.px]="brand.height">{{ brand.name }}</span>
+    </div>
+  </div>
+</div>

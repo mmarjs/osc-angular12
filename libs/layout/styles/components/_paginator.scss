@@ -1,0 +1,16 @@
+.mat-paginator {
+  background: transparent;
+  margin-top: 15px;
+
+  .mat-paginator-container {
+    min-height: auto;
+  }
+
+  .mat-paginator-page-size-select {
+    margin-top: -0.84375em;
+
+    .mat-form-field-wrapper {
+      padding-bottom: 0;
+    }
+  }
+}

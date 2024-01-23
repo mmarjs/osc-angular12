@@ -1,0 +1,91 @@
+{
+  "Bid": {
+    "createBid": "POST /api/bids",
+    "findByBoatId": "GET /api/bids/job/{id}",
+    "findById": "GET /api/bids/{id}",
+    "acceptBid": "PUT /api/bids/{id}",
+    "addItem": "POST /api/bids/{id}/bid-item",
+    "updateItem": "PUT /api/bids/{id}/bid-item/{itemId}"
+  },
+  "Boat": {
+    "getBoats": "GET /api/boats",
+    "addBoat": "POST /api/boats",
+    "updateBoatInfo": "PUT /api/boats",
+    "searchBoats": "GET /api/boats/search",
+    "getBoatById": "GET /api/boats/{id}",
+    "deleteBoatById": "DELETE /api/boats/{id}",
+    "uploadImage": "POST /api/boats/{id}/images",
+    "deleteImage": "DELETE /api/boats/{id}/images/{imageId}",
+    "uploadObject": "POST /api/boats/{id}/objects",
+    "deleteObject": "DELETE /api/boats/{id}/objects/{objectId}"
+  },
+  "Job": {
+    "list": "GET /api/jobs",
+    "createJob": "POST /api/jobs",
+    "findByBoatId": "GET /api/jobs/boat/{id}",
+    "findRepairsByBoatId": "GET /api/jobs/repairs/boat/{id}",
+    "findSurveysByBoatId": "GET /api/jobs/surveys/boat/{id}",
+    "findById": "GET /api/jobs/{id}",
+    "markAsAccepted": "PUT /api/jobs/{id}/accepted",
+    "markAsCompleted": "PUT /api/jobs/{id}/completed",
+    "uploadImage": "POST /api/jobs/{id}/images",
+    "deleteImage": "DELETE /api/jobs/{id}/images/{imageId}",
+    "uploadObject": "POST /api/jobs/{id}/objects",
+    "deleteObject": "DELETE /api/jobs/{id}/objects/{objectId}"
+  },
+  "Notification": {
+    "getNotifications": "GET /api/notifications",
+    "createNotification": "POST /api/notifications",
+    "updateNotification": "PUT /api/notifications",
+    "getNotificationsByUserId": "GET /api/notifications/user/{userId}",
+    "getNotificationById": "GET /api/notifications/{id}",
+    "deleteNotification": "DELETE /api/notifications/{id}"
+  },
+  "Stripe": {
+    "charge": "POST /api/payment/charge"
+  },
+  "Payment": {
+    "deposit": "POST /api/payments/deposit",
+    "charge": "POST /api/payments/jobs/{id}",
+    "refund": "POST /api/payments/jobs/{id}/refund",
+    "registerChargeMethod": "POST /api/payments/register-charge/{token}",
+    "registerPayoutMethod": "POST /api/payments/register-payout/{token}"
+  },
+  "Shipyard": {
+    "getShipyards": "GET /api/shipyards",
+    "addShipyard": "POST /api/shipyards",
+    "updateShipyardInfo": "PUT /api/shipyards",
+    "searchShipyard": "GET /api/shipyards/search",
+    "getShipyardsById": "GET /api/shipyards/{id}",
+    "deleteShipyardById": "DELETE /api/shipyards/{id}",
+    "uploadImage": "POST /api/shipyards/{id}/images",
+    "deleteImage": "DELETE /api/shipyards/{id}/images/{imageId}",
+    "uploadObject": "POST /api/shipyards/{id}/objects",
+    "deleteObject": "DELETE /api/shipyards/{id}/objects/{objectId}"
+  },
+  "Surveyor": {
+    "getSurveyors": "GET /api/surveyors",
+    "addSurveyor": "POST /api/surveyors",
+    "updateSurveyorInfo": "PUT /api/surveyors",
+    "searchSurveyor": "GET /api/surveyors/search",
+    "getSurveyorById": "GET /api/surveyors/{id}",
+    "deleteSurveyorById": "DELETE /api/surveyors/{id}",
+    "uploadImage": "POST /api/surveyors/{id}/images",
+    "deleteImage": "DELETE /api/surveyors/{id}/images/{imageId}",
+    "uploadObject": "POST /api/surveyors/{id}/objects",
+    "deleteObject": "DELETE /api/surveyors/{id}/objects/{objectId}"
+  },
+  "User": {
+    "updateUser": "PUT /api/users",
+    "isAuthenticated": "GET /api/users/authenticate",
+    "changePassword": "POST /api/users/change-password",
+    "getCurrentUser": "GET /api/users/current",
+    "login": "POST /api/users/login",
+    "getLogOutUrl": "GET /api/users/logout-url",
+    "registerAccount": "POST /api/users/register",
+    "uploadImage": "POST /api/users/{id}/images",
+    "deleteImage": "DELETE /api/users/{id}/images/{imageId}",
+    "uploadObject": "POST /api/users/{id}/objects",
+    "deleteObject": "DELETE /api/users/{id}/objects/{objectId}"
+  }
+}

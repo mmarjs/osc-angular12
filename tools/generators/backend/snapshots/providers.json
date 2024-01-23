@@ -1,0 +1,1947 @@
+{
+  "Bid": {
+    "imports": {
+      "@ocean/api/shared": ["BidDTO", "BidItemDTO"]
+    },
+    "methods": {
+      "createBid": {
+        "docs": "Responses: 200, 201, 401, 403, 404",
+        "api": {
+          "method": "POST",
+          "url": "/api/bids"
+        },
+        "prefix": "BidCreateBid",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "BidDTO"
+      },
+      "findByBoatId": {
+        "docs": "Responses: 200, 401, 403, 404",
+        "api": {
+          "method": "GET",
+          "url": "/api/bids/job/{id}"
+        },
+        "prefix": "BidFindByBoatId",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "Array<BidDTO>"
+      },
+      "findById": {
+        "docs": "Responses: 200, 401, 403, 404",
+        "api": {
+          "method": "GET",
+          "url": "/api/bids/{id}"
+        },
+        "prefix": "BidFindById",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "BidDTO"
+      },
+      "acceptBid": {
+        "docs": "Responses: 200, 201, 401, 403, 404",
+        "api": {
+          "method": "PUT",
+          "url": "/api/bids/{id}"
+        },
+        "prefix": "BidAcceptBid",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "any"
+      },
+      "addItem": {
+        "docs": "Responses: 200, 201, 401, 403, 404",
+        "api": {
+          "method": "POST",
+          "url": "/api/bids/{id}/bid-item"
+        },
+        "prefix": "BidAddItem",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "BidItemDTO"
+      },
+      "updateItem": {
+        "docs": "Responses: 200, 201, 401, 403, 404",
+        "api": {
+          "method": "PUT",
+          "url": "/api/bids/{id}/bid-item/{itemId}"
+        },
+        "prefix": "BidUpdateItem",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "BidItemDTO"
+      }
+    },
+    "requests": [
+      {
+        "prefix": "BidCreateBid",
+        "parameters": [
+          {
+            "name": "bidDto",
+            "type": "BidDTO",
+            "in": "body",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "BidFindByBoatId",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "BidFindById",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "BidAcceptBid",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "BidAddItem",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "dto",
+            "type": "BidItemDTO",
+            "in": "body",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "BidUpdateItem",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "itemId",
+            "type": "number",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "dto",
+            "type": "BidItemDTO",
+            "in": "body",
+            "required": true
+          }
+        ]
+      }
+    ],
+    "responses": []
+  },
+  "Boat": {
+    "imports": {
+      "@ocean/api/shared": [
+        "PagedResponse",
+        "BoatOutputDTO",
+        "Boat",
+        "StoredObjectDescriptorDTO"
+      ]
+    },
+    "methods": {
+      "getBoats": {
+        "docs": "Responses: 200, 401, 403, 404",
+        "api": {
+          "method": "GET",
+          "url": "/api/boats"
+        },
+        "prefix": "BoatGetBoats",
+        "request": {
+          "exists": true,
+          "required": false
+        },
+        "response": "PagedResponse<BoatOutputDTO>"
+      },
+      "addBoat": {
+        "docs": "Responses: 200, 201, 401, 403, 404",
+        "api": {
+          "method": "POST",
+          "url": "/api/boats"
+        },
+        "prefix": "BoatAddBoat",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "BoatOutputDTO"
+      },
+      "updateBoatInfo": {
+        "docs": "Responses: 200, 201, 401, 403, 404",
+        "api": {
+          "method": "PUT",
+          "url": "/api/boats"
+        },
+        "prefix": "BoatUpdateBoatInfo",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "Boat"
+      },
+      "searchBoats": {
+        "docs": "Responses: 200, 401, 403, 404",
+        "api": {
+          "method": "GET",
+          "url": "/api/boats/search"
+        },
+        "prefix": "BoatSearchBoats",
+        "request": {
+          "exists": true,
+          "required": false
+        },
+        "response": "PagedResponse<BoatOutputDTO>"
+      },
+      "getBoatById": {
+        "docs": "Responses: 200, 401, 403, 404",
+        "api": {
+          "method": "GET",
+          "url": "/api/boats/{id}"
+        },
+        "prefix": "BoatGetBoatById",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "BoatOutputDTO"
+      },
+      "deleteBoatById": {
+        "docs": "Responses: 200, 204, 401, 403",
+        "api": {
+          "method": "DELETE",
+          "url": "/api/boats/{id}"
+        },
+        "prefix": "BoatDeleteBoatById",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "any"
+      },
+      "uploadImage": {
+        "docs": "Responses: 200, 201, 401, 403, 404",
+        "api": {
+          "method": "POST",
+          "url": "/api/boats/{id}/images"
+        },
+        "prefix": "BoatUploadImage",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "StoredObjectDescriptorDTO"
+      },
+      "deleteImage": {
+        "docs": "Responses: 200, 204, 401, 403",
+        "api": {
+          "method": "DELETE",
+          "url": "/api/boats/{id}/images/{imageId}"
+        },
+        "prefix": "BoatDeleteImage",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "any"
+      },
+      "uploadObject": {
+        "docs": "Responses: 200, 201, 401, 403, 404",
+        "api": {
+          "method": "POST",
+          "url": "/api/boats/{id}/objects"
+        },
+        "prefix": "BoatUploadObject",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "StoredObjectDescriptorDTO"
+      },
+      "deleteObject": {
+        "docs": "Responses: 200, 204, 401, 403",
+        "api": {
+          "method": "DELETE",
+          "url": "/api/boats/{id}/objects/{objectId}"
+        },
+        "prefix": "BoatDeleteObject",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "any"
+      }
+    },
+    "requests": [
+      {
+        "prefix": "BoatGetBoats",
+        "parameters": [
+          {
+            "name": "pageable",
+            "type": "Pageable",
+            "in": "body",
+            "required": false
+          }
+        ]
+      },
+      {
+        "prefix": "BoatAddBoat",
+        "parameters": [
+          {
+            "name": "boatDTO",
+            "type": "BoatInputDTO",
+            "in": "body",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "BoatUpdateBoatInfo",
+        "parameters": [
+          {
+            "name": "boatDTO",
+            "type": "BoatInputDTO",
+            "in": "body",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "BoatSearchBoats",
+        "parameters": [
+          {
+            "name": "searchKey",
+            "type": "string",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "pageable",
+            "type": "Pageable",
+            "in": "body",
+            "required": false
+          }
+        ]
+      },
+      {
+        "prefix": "BoatGetBoatById",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "BoatDeleteBoatById",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "BoatUploadImage",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "file",
+            "type": "any",
+            "in": "formData",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "BoatDeleteImage",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "imageId",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "BoatUploadObject",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "file",
+            "type": "any",
+            "in": "formData",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "BoatDeleteObject",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "objectId",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ]
+      }
+    ],
+    "responses": []
+  },
+  "Job": {
+    "imports": {
+      "@ocean/api/shared": [
+        "PagedResponse",
+        "JobDTO",
+        "StoredObjectDescriptorDTO"
+      ]
+    },
+    "methods": {
+      "list": {
+        "docs": "Responses: 200, 401, 403, 404",
+        "api": {
+          "method": "GET",
+          "url": "/api/jobs"
+        },
+        "prefix": "JobList",
+        "request": {
+          "exists": true,
+          "required": false
+        },
+        "response": "PagedResponse<JobDTO>"
+      },
+      "createJob": {
+        "docs": "Responses: 200, 201, 401, 403, 404",
+        "api": {
+          "method": "POST",
+          "url": "/api/jobs"
+        },
+        "prefix": "JobCreateJob",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "JobDTO"
+      },
+      "findByBoatId": {
+        "docs": "Responses: 200, 401, 403, 404",
+        "api": {
+          "method": "GET",
+          "url": "/api/jobs/boat/{id}"
+        },
+        "prefix": "JobFindByBoatId",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "Array<JobDTO>"
+      },
+      "findRepairsByBoatId": {
+        "docs": "Responses: 200, 401, 403, 404",
+        "api": {
+          "method": "GET",
+          "url": "/api/jobs/repairs/boat/{id}"
+        },
+        "prefix": "JobFindRepairsByBoatId",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "Array<JobDTO>"
+      },
+      "findSurveysByBoatId": {
+        "docs": "Responses: 200, 401, 403, 404",
+        "api": {
+          "method": "GET",
+          "url": "/api/jobs/surveys/boat/{id}"
+        },
+        "prefix": "JobFindSurveysByBoatId",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "Array<JobDTO>"
+      },
+      "findById": {
+        "docs": "Responses: 200, 401, 403, 404",
+        "api": {
+          "method": "GET",
+          "url": "/api/jobs/{id}"
+        },
+        "prefix": "JobFindById",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "JobDTO"
+      },
+      "markAsAccepted": {
+        "docs": "Responses: 200, 201, 401, 403, 404",
+        "api": {
+          "method": "PUT",
+          "url": "/api/jobs/{id}/accepted"
+        },
+        "prefix": "JobMarkAsAccepted",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "any"
+      },
+      "markAsCompleted": {
+        "docs": "Responses: 200, 201, 401, 403, 404",
+        "api": {
+          "method": "PUT",
+          "url": "/api/jobs/{id}/completed"
+        },
+        "prefix": "JobMarkAsCompleted",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "any"
+      },
+      "uploadImage": {
+        "docs": "Responses: 200, 201, 401, 403, 404",
+        "api": {
+          "method": "POST",
+          "url": "/api/jobs/{id}/images"
+        },
+        "prefix": "JobUploadImage",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "StoredObjectDescriptorDTO"
+      },
+      "deleteImage": {
+        "docs": "Responses: 200, 204, 401, 403",
+        "api": {
+          "method": "DELETE",
+          "url": "/api/jobs/{id}/images/{imageId}"
+        },
+        "prefix": "JobDeleteImage",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "any"
+      },
+      "uploadObject": {
+        "docs": "Responses: 200, 201, 401, 403, 404",
+        "api": {
+          "method": "POST",
+          "url": "/api/jobs/{id}/objects"
+        },
+        "prefix": "JobUploadObject",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "StoredObjectDescriptorDTO"
+      },
+      "deleteObject": {
+        "docs": "Responses: 200, 204, 401, 403",
+        "api": {
+          "method": "DELETE",
+          "url": "/api/jobs/{id}/objects/{objectId}"
+        },
+        "prefix": "JobDeleteObject",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "any"
+      }
+    },
+    "requests": [
+      {
+        "prefix": "JobList",
+        "parameters": [
+          {
+            "name": "pageable",
+            "type": "Pageable",
+            "in": "body",
+            "required": false
+          }
+        ]
+      },
+      {
+        "prefix": "JobCreateJob",
+        "parameters": [
+          {
+            "name": "job",
+            "type": "JobDTO",
+            "in": "body",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "JobFindByBoatId",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "JobFindRepairsByBoatId",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "JobFindSurveysByBoatId",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "JobFindById",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "JobMarkAsAccepted",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "JobMarkAsCompleted",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "JobUploadImage",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "file",
+            "type": "any",
+            "in": "formData",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "JobDeleteImage",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "imageId",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "JobUploadObject",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "file",
+            "type": "any",
+            "in": "formData",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "JobDeleteObject",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "objectId",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ]
+      }
+    ],
+    "responses": []
+  },
+  "Notification": {
+    "imports": {
+      "@ocean/api/shared": ["Notification", "NotificationDTO"]
+    },
+    "methods": {
+      "getNotifications": {
+        "docs": "Responses: 200, 401, 403, 404",
+        "api": {
+          "method": "GET",
+          "url": "/api/notifications"
+        },
+        "prefix": "NotificationGetNotifications",
+        "request": {
+          "exists": true,
+          "required": false
+        },
+        "response": "Array<Notification>"
+      },
+      "createNotification": {
+        "docs": "Responses: 200, 201, 401, 403, 404",
+        "api": {
+          "method": "POST",
+          "url": "/api/notifications"
+        },
+        "prefix": "NotificationCreateNotification",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "any"
+      },
+      "updateNotification": {
+        "docs": "Responses: 200, 201, 401, 403, 404",
+        "api": {
+          "method": "PUT",
+          "url": "/api/notifications"
+        },
+        "prefix": "NotificationUpdateNotification",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "any"
+      },
+      "getNotificationsByUserId": {
+        "docs": "Responses: 200, 401, 403, 404",
+        "api": {
+          "method": "GET",
+          "url": "/api/notifications/user/{userId}"
+        },
+        "prefix": "NotificationGetNotificationsByUserId",
+        "request": {
+          "exists": true,
+          "required": false
+        },
+        "response": "Array<Notification>"
+      },
+      "getNotificationById": {
+        "docs": "Responses: 200, 401, 403, 404",
+        "api": {
+          "method": "GET",
+          "url": "/api/notifications/{id}"
+        },
+        "prefix": "NotificationGetNotificationById",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "NotificationDTO"
+      },
+      "deleteNotification": {
+        "docs": "Responses: 200, 204, 401, 403",
+        "api": {
+          "method": "DELETE",
+          "url": "/api/notifications/{id}"
+        },
+        "prefix": "NotificationDeleteNotification",
+        "request": {
+          "exists": true,
+          "required": true
+        }
+      }
+    },
+    "requests": [
+      {
+        "prefix": "NotificationGetNotifications",
+        "parameters": [
+          {
+            "name": "pageable",
+            "type": "Pageable",
+            "in": "body",
+            "required": false
+          }
+        ]
+      },
+      {
+        "prefix": "NotificationCreateNotification",
+        "parameters": [
+          {
+            "name": "notificationDTO",
+            "type": "NotificationDTO",
+            "in": "body",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "NotificationUpdateNotification",
+        "parameters": [
+          {
+            "name": "notificationDTO",
+            "type": "NotificationDTO",
+            "in": "body",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "NotificationGetNotificationsByUserId",
+        "parameters": [
+          {
+            "name": "pageable",
+            "type": "Pageable",
+            "in": "body",
+            "required": false
+          },
+          {
+            "name": "userId",
+            "type": "number",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "NotificationGetNotificationById",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "NotificationDeleteNotification",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true
+          }
+        ]
+      }
+    ],
+    "responses": []
+  },
+  "Stripe": {
+    "imports": {
+      "@ocean/api/shared": ["Charge"]
+    },
+    "methods": {
+      "charge": {
+        "docs": "Responses: 200, 201, 401, 403, 404",
+        "api": {
+          "method": "POST",
+          "url": "/api/payment/charge"
+        },
+        "prefix": "StripeCharge",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "Charge"
+      }
+    },
+    "requests": [
+      {
+        "prefix": "StripeCharge",
+        "parameters": [
+          {
+            "name": "chargeRequest",
+            "type": "ChargeRequestDTO",
+            "in": "body",
+            "required": true
+          }
+        ]
+      }
+    ],
+    "responses": []
+  },
+  "Payment": {
+    "imports": {
+      "@ocean/api/shared": ["PaymentDTO"]
+    },
+    "methods": {
+      "deposit": {
+        "docs": "Responses: 200, 201, 401, 403, 404",
+        "api": {
+          "method": "POST",
+          "url": "/api/payments/deposit"
+        },
+        "prefix": "PaymentDeposit",
+        "request": {
+          "exists": true,
+          "required": false
+        },
+        "response": "PaymentDTO"
+      },
+      "charge": {
+        "docs": "Responses: 200, 201, 401, 403, 404",
+        "api": {
+          "method": "POST",
+          "url": "/api/payments/jobs/{id}"
+        },
+        "prefix": "PaymentCharge",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "PaymentDTO"
+      },
+      "refund": {
+        "docs": "Responses: 200, 201, 401, 403, 404",
+        "api": {
+          "method": "POST",
+          "url": "/api/payments/jobs/{id}/refund"
+        },
+        "prefix": "PaymentRefund",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "PaymentDTO"
+      },
+      "registerChargeMethod": {
+        "docs": "Responses: 200, 201, 401, 403, 404",
+        "api": {
+          "method": "POST",
+          "url": "/api/payments/register-charge/{token}"
+        },
+        "prefix": "PaymentRegisterChargeMethod",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "any"
+      },
+      "registerPayoutMethod": {
+        "docs": "Responses: 200, 201, 401, 403, 404",
+        "api": {
+          "method": "POST",
+          "url": "/api/payments/register-payout/{token}"
+        },
+        "prefix": "PaymentRegisterPayoutMethod",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "any"
+      }
+    },
+    "requests": [
+      {
+        "prefix": "PaymentDeposit",
+        "parameters": [
+          {
+            "name": "depositDTO",
+            "type": "DepositDTO",
+            "in": "body",
+            "required": false
+          }
+        ]
+      },
+      {
+        "prefix": "PaymentCharge",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "PaymentRefund",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "refundDTO",
+            "type": "RefundDTO",
+            "in": "body",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "PaymentRegisterChargeMethod",
+        "parameters": [
+          {
+            "name": "token",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "PaymentRegisterPayoutMethod",
+        "parameters": [
+          {
+            "name": "token",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ]
+      }
+    ],
+    "responses": []
+  },
+  "Shipyard": {
+    "imports": {
+      "@ocean/api/shared": [
+        "PagedResponse",
+        "ShipyardOutputDTO",
+        "StoredObjectDescriptorDTO"
+      ]
+    },
+    "methods": {
+      "getShipyards": {
+        "docs": "Responses: 200, 401, 403, 404",
+        "api": {
+          "method": "GET",
+          "url": "/api/shipyards"
+        },
+        "prefix": "ShipyardGetShipyards",
+        "request": {
+          "exists": true,
+          "required": false
+        },
+        "response": "PagedResponse<ShipyardOutputDTO>"
+      },
+      "addShipyard": {
+        "docs": "Responses: 200, 201, 400, 401, 403, 404",
+        "api": {
+          "method": "POST",
+          "url": "/api/shipyards"
+        },
+        "prefix": "ShipyardAddShipyard",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "ShipyardOutputDTO"
+      },
+      "updateShipyardInfo": {
+        "docs": "Responses: 200, 201, 204, 401, 403, 404",
+        "api": {
+          "method": "PUT",
+          "url": "/api/shipyards"
+        },
+        "prefix": "ShipyardUpdateShipyardInfo",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "any"
+      },
+      "searchShipyard": {
+        "docs": "Responses: 200, 401, 403, 404",
+        "api": {
+          "method": "GET",
+          "url": "/api/shipyards/search"
+        },
+        "prefix": "ShipyardSearchShipyard",
+        "request": {
+          "exists": true,
+          "required": false
+        },
+        "response": "PagedResponse<ShipyardOutputDTO>"
+      },
+      "getShipyardsById": {
+        "docs": "Responses: 200, 401, 403, 404",
+        "api": {
+          "method": "GET",
+          "url": "/api/shipyards/{id}"
+        },
+        "prefix": "ShipyardGetShipyardsById",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "ShipyardOutputDTO"
+      },
+      "deleteShipyardById": {
+        "docs": "Responses: 200, 204, 401, 403",
+        "api": {
+          "method": "DELETE",
+          "url": "/api/shipyards/{id}"
+        },
+        "prefix": "ShipyardDeleteShipyardById",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "any"
+      },
+      "uploadImage": {
+        "docs": "Responses: 200, 201, 401, 403, 404",
+        "api": {
+          "method": "POST",
+          "url": "/api/shipyards/{id}/images"
+        },
+        "prefix": "ShipyardUploadImage",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "StoredObjectDescriptorDTO"
+      },
+      "deleteImage": {
+        "docs": "Responses: 200, 204, 401, 403",
+        "api": {
+          "method": "DELETE",
+          "url": "/api/shipyards/{id}/images/{imageId}"
+        },
+        "prefix": "ShipyardDeleteImage",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "any"
+      },
+      "uploadObject": {
+        "docs": "Responses: 200, 201, 401, 403, 404",
+        "api": {
+          "method": "POST",
+          "url": "/api/shipyards/{id}/objects"
+        },
+        "prefix": "ShipyardUploadObject",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "StoredObjectDescriptorDTO"
+      },
+      "deleteObject": {
+        "docs": "Responses: 200, 204, 401, 403",
+        "api": {
+          "method": "DELETE",
+          "url": "/api/shipyards/{id}/objects/{objectId}"
+        },
+        "prefix": "ShipyardDeleteObject",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "any"
+      }
+    },
+    "requests": [
+      {
+        "prefix": "ShipyardGetShipyards",
+        "parameters": [
+          {
+            "name": "pageable",
+            "type": "Pageable",
+            "in": "body",
+            "required": false
+          }
+        ]
+      },
+      {
+        "prefix": "ShipyardAddShipyard",
+        "parameters": [
+          {
+            "name": "dto",
+            "type": "ShipyardInputDTO",
+            "in": "body",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "ShipyardUpdateShipyardInfo",
+        "parameters": [
+          {
+            "name": "shipyardDTO",
+            "type": "ShipyardInputDTO",
+            "in": "body",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "ShipyardSearchShipyard",
+        "parameters": [
+          {
+            "name": "searchKey",
+            "type": "string",
+            "in": "query",
+            "required": false
+          },
+          {
+            "name": "pageable",
+            "type": "Pageable",
+            "in": "body",
+            "required": false
+          }
+        ]
+      },
+      {
+        "prefix": "ShipyardGetShipyardsById",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "ShipyardDeleteShipyardById",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "ShipyardUploadImage",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "file",
+            "type": "any",
+            "in": "formData",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "ShipyardDeleteImage",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "imageId",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "ShipyardUploadObject",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "file",
+            "type": "any",
+            "in": "formData",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "ShipyardDeleteObject",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "objectId",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ]
+      }
+    ],
+    "responses": []
+  },
+  "Surveyor": {
+    "imports": {
+      "@ocean/api/shared": [
+        "PagedResponse",
+        "SurveyorOutputDTO",
+        "Surveyor",
+        "StoredObjectDescriptorDTO"
+      ]
+    },
+    "methods": {
+      "getSurveyors": {
+        "docs": "Responses: 200, 401, 403, 404",
+        "api": {
+          "method": "GET",
+          "url": "/api/surveyors"
+        },
+        "prefix": "SurveyorGetSurveyors",
+        "request": {
+          "exists": true,
+          "required": false
+        },
+        "response": "PagedResponse<SurveyorOutputDTO>"
+      },
+      "addSurveyor": {
+        "docs": "Responses: 200, 201, 401, 403, 404",
+        "api": {
+          "method": "POST",
+          "url": "/api/surveyors"
+        },
+        "prefix": "SurveyorAddSurveyor",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "SurveyorOutputDTO"
+      },
+      "updateSurveyorInfo": {
+        "docs": "Responses: 200, 201, 401, 403, 404",
+        "api": {
+          "method": "PUT",
+          "url": "/api/surveyors"
+        },
+        "prefix": "SurveyorUpdateSurveyorInfo",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "Surveyor"
+      },
+      "searchSurveyor": {
+        "docs": "Responses: 200, 401, 403, 404",
+        "api": {
+          "method": "GET",
+          "url": "/api/surveyors/search"
+        },
+        "prefix": "SurveyorSearchSurveyor",
+        "request": {
+          "exists": true,
+          "required": false
+        },
+        "response": "PagedResponse<SurveyorOutputDTO>"
+      },
+      "getSurveyorById": {
+        "docs": "Responses: 200, 401, 403, 404",
+        "api": {
+          "method": "GET",
+          "url": "/api/surveyors/{id}"
+        },
+        "prefix": "SurveyorGetSurveyorById",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "SurveyorOutputDTO"
+      },
+      "deleteSurveyorById": {
+        "docs": "Responses: 200, 204, 401, 403",
+        "api": {
+          "method": "DELETE",
+          "url": "/api/surveyors/{id}"
+        },
+        "prefix": "SurveyorDeleteSurveyorById",
+        "request": {
+          "exists": true,
+          "required": true
+        }
+      },
+      "uploadImage": {
+        "docs": "Responses: 200, 201, 401, 403, 404",
+        "api": {
+          "method": "POST",
+          "url": "/api/surveyors/{id}/images"
+        },
+        "prefix": "SurveyorUploadImage",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "StoredObjectDescriptorDTO"
+      },
+      "deleteImage": {
+        "docs": "Responses: 200, 204, 401, 403",
+        "api": {
+          "method": "DELETE",
+          "url": "/api/surveyors/{id}/images/{imageId}"
+        },
+        "prefix": "SurveyorDeleteImage",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "any"
+      },
+      "uploadObject": {
+        "docs": "Responses: 200, 201, 401, 403, 404",
+        "api": {
+          "method": "POST",
+          "url": "/api/surveyors/{id}/objects"
+        },
+        "prefix": "SurveyorUploadObject",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "StoredObjectDescriptorDTO"
+      },
+      "deleteObject": {
+        "docs": "Responses: 200, 204, 401, 403",
+        "api": {
+          "method": "DELETE",
+          "url": "/api/surveyors/{id}/objects/{objectId}"
+        },
+        "prefix": "SurveyorDeleteObject",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "any"
+      }
+    },
+    "requests": [
+      {
+        "prefix": "SurveyorGetSurveyors",
+        "parameters": [
+          {
+            "name": "pageable",
+            "type": "Pageable",
+            "in": "body",
+            "required": false
+          }
+        ]
+      },
+      {
+        "prefix": "SurveyorAddSurveyor",
+        "parameters": [
+          {
+            "name": "dto",
+            "type": "SurveyorInputDTO",
+            "in": "body",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "SurveyorUpdateSurveyorInfo",
+        "parameters": [
+          {
+            "name": "dto",
+            "type": "SurveyorInputDTO",
+            "in": "body",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "SurveyorSearchSurveyor",
+        "parameters": [
+          {
+            "name": "searchKey",
+            "type": "string",
+            "in": "query",
+            "required": true
+          },
+          {
+            "name": "pageable",
+            "type": "Pageable",
+            "in": "body",
+            "required": false
+          }
+        ]
+      },
+      {
+        "prefix": "SurveyorGetSurveyorById",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "SurveyorDeleteSurveyorById",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "number",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "SurveyorUploadImage",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "file",
+            "type": "any",
+            "in": "formData",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "SurveyorDeleteImage",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "imageId",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "SurveyorUploadObject",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "file",
+            "type": "any",
+            "in": "formData",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "SurveyorDeleteObject",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "objectId",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ]
+      }
+    ],
+    "responses": []
+  },
+  "User": {
+    "imports": {
+      "@ocean/api/shared": ["User", "LogoutUrlDTO", "StoredObjectDescriptorDTO"]
+    },
+    "methods": {
+      "updateUser": {
+        "docs": "Responses: 200, 201, 204, 401, 403, 404",
+        "api": {
+          "method": "PUT",
+          "url": "/api/users"
+        },
+        "prefix": "UserUpdateUser",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "any"
+      },
+      "isAuthenticated": {
+        "docs": "Responses: 200, 401, 403, 404",
+        "api": {
+          "method": "GET",
+          "url": "/api/users/authenticate"
+        },
+        "prefix": "UserIsAuthenticated",
+        "request": {
+          "exists": false,
+          "required": false
+        },
+        "response": "string"
+      },
+      "changePassword": {
+        "docs": "Responses: 200, 201, 401, 403, 404",
+        "api": {
+          "method": "POST",
+          "url": "/api/users/change-password"
+        },
+        "prefix": "UserChangePassword",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "any"
+      },
+      "getCurrentUser": {
+        "docs": "Responses: 200, 401, 403, 404",
+        "api": {
+          "method": "GET",
+          "url": "/api/users/current"
+        },
+        "prefix": "UserGetCurrentUser",
+        "request": {
+          "exists": false,
+          "required": false
+        },
+        "response": "User"
+      },
+      "login": {
+        "docs": "Responses: 200, 201, 401, 403, 404",
+        "api": {
+          "method": "POST",
+          "url": "/api/users/login"
+        },
+        "prefix": "UserLogin",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "any"
+      },
+      "getLogOutUrl": {
+        "docs": "Responses: 200, 401, 403, 404",
+        "api": {
+          "method": "GET",
+          "url": "/api/users/logout-url"
+        },
+        "prefix": "UserGetLogOutUrl",
+        "request": {
+          "exists": false,
+          "required": false
+        },
+        "response": "LogoutUrlDTO"
+      },
+      "registerAccount": {
+        "docs": "Responses: 200, 201, 400, 401, 403, 404",
+        "api": {
+          "method": "POST",
+          "url": "/api/users/register"
+        },
+        "prefix": "UserRegisterAccount",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "any"
+      },
+      "uploadImage": {
+        "docs": "Responses: 200, 201, 401, 403, 404",
+        "api": {
+          "method": "POST",
+          "url": "/api/users/{id}/images"
+        },
+        "prefix": "UserUploadImage",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "StoredObjectDescriptorDTO"
+      },
+      "deleteImage": {
+        "docs": "Responses: 200, 204, 401, 403",
+        "api": {
+          "method": "DELETE",
+          "url": "/api/users/{id}/images/{imageId}"
+        },
+        "prefix": "UserDeleteImage",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "any"
+      },
+      "uploadObject": {
+        "docs": "Responses: 200, 201, 401, 403, 404",
+        "api": {
+          "method": "POST",
+          "url": "/api/users/{id}/objects"
+        },
+        "prefix": "UserUploadObject",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "StoredObjectDescriptorDTO"
+      },
+      "deleteObject": {
+        "docs": "Responses: 200, 204, 401, 403",
+        "api": {
+          "method": "DELETE",
+          "url": "/api/users/{id}/objects/{objectId}"
+        },
+        "prefix": "UserDeleteObject",
+        "request": {
+          "exists": true,
+          "required": true
+        },
+        "response": "any"
+      }
+    },
+    "requests": [
+      {
+        "prefix": "UserUpdateUser",
+        "parameters": [
+          {
+            "name": "userDTO",
+            "type": "UserUpdateDTO",
+            "in": "body",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "UserChangePassword",
+        "parameters": [
+          {
+            "name": "password",
+            "type": "string",
+            "in": "body",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "UserLogin",
+        "parameters": [
+          {
+            "name": "userFormDTO",
+            "type": "UserFormDTO",
+            "in": "body",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "UserRegisterAccount",
+        "parameters": [
+          {
+            "name": "userInputDTO",
+            "type": "UserInputDTO",
+            "in": "body",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "UserUploadImage",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "file",
+            "type": "any",
+            "in": "formData",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "UserDeleteImage",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "imageId",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "UserUploadObject",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "file",
+            "type": "any",
+            "in": "formData",
+            "required": true
+          }
+        ]
+      },
+      {
+        "prefix": "UserDeleteObject",
+        "parameters": [
+          {
+            "name": "id",
+            "type": "string",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "objectId",
+            "type": "string",
+            "in": "path",
+            "required": true
+          }
+        ]
+      }
+    ],
+    "responses": []
+  }
+}

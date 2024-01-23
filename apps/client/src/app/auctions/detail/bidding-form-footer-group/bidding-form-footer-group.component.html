@@ -1,0 +1,29 @@
+<form [formGroup]="form" autocomplete="off" class="form-footer-group-container">
+  <layout-two-columns [width]="60">
+    <app-form-builder [form]="form" [fields]="fields"></app-form-builder>
+    <div class="display-total" aside>
+      <div class="footer-aside">
+        <div class="final-price">
+          <div class="display-item">
+            <span class="align-right">{{'FORMS.LABELS.SUB_TOTAL' | translate}}</span>
+            <span
+              class="bold-black align-left">{{bidAmount > 0 ? (bidAmount | currency:'USD') : (0 | currency:'USD')}}</span>
+          </div>
+
+          <div class="display-item">
+            <span class="align-right">{{'FORMS.LABELS.TOTAL' | translate}}</span>
+            <span
+              class="bold-black align-left">{{bidAmount > 0 ? (bidAmount | currency:'USD') : (0 | currency:'USD')}}</span>
+          </div>
+        </div>
+        <app-button
+          [isLoading]="isBidCreating"
+          [disabled]="form.invalid || tableFormInvalid || isBidAmountPaid"
+          (btnClick)="formBidSubmit()"
+        >
+          {{'COMMON.BUTTONS.SUBMIT_REVIEW_BID' | translate}}
+        </app-button>
+      </div>
+    </div>
+  </layout-two-columns>
+</form>

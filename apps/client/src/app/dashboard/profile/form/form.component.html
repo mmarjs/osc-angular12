@@ -1,0 +1,31 @@
+<layout-panel-wrapper
+  [panelTitle]="readonly ? ('PROFILE.MY_PROFILE' | translate)  : ('PROFILE.EDIT_PROFILE') | translate" fontSet="far"
+  icon="fa-user-circle">
+  <div class="panel-content">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+
+      <app-field-text contextId="profile" formControlName="firstName" label="FORMS.LABELS.FIRST_NAME"
+        [readonly]="readonly" [maxLength]="50"></app-field-text>
+
+      <app-field-text contextId="profile" formControlName="lastName" label="FORMS.LABELS.LAST_NAME"
+        [readonly]="readonly" [maxLength]="50"></app-field-text>
+
+      <app-field-email contextId="profile" formControlName="email" label="FORMS.LABELS.EMAIL_ADDRESS"
+        [readonly]="readonly" [disabled]="true">
+      </app-field-email>
+
+      <app-field-text contextId="profile" defValue="-" formControlName="phoneNumber" label="FORMS.LABELS.PHONE"
+        [readonly]="readonly" [minLength]="7" [maxLength]="50"></app-field-text>
+
+      <div *ngIf="!readonly" fxLayout="row" fxLayoutAlign="end" fxLayoutGap="10px">
+        <button type="button" mat-stroked-button routerLink="../">
+          {{'COMMON.BUTTONS.CANCEL' | translate}}
+        </button>
+        <button type="submit" mat-raised-button color="primary">
+          {{'COMMON.BUTTONS.UPDATE_PROFILE' | translate}}
+        </button>
+      </div>
+
+    </form>
+  </div>
+</layout-panel-wrapper>

@@ -1,0 +1,10 @@
+@import "variables";
+
+.form-group {
+  @include fxFlexGrid();
+  @include fxLayoutInline(column);
+}
+
+form {
+  padding: 0;
+}

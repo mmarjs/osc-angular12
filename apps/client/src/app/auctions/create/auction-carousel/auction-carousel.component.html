@@ -1,0 +1,34 @@
+<div class="auction-carousel">
+    <carousel class="carousel-html-content" #carouselUseCase [height]="400" [cellsToShow]="1"
+      (events)="handleCarouselUseCaseEvents($event)" [arrows]="false">
+      <div class="carousel-cell" *ngFor="let image of images; index as i;" style="width: 100%; max-width: 700px !important;">
+        <img [src]="image.fileURL" alt="" *ngIf="image.format != 'pdf'; else pdf" style="width: max-content;">
+        <ng-template #pdf>
+          <div class="d-block text-center">
+            <img src="/assets/images/pdf_logo.png" class="pdf mt-1" alt="" width="150" style="width: 150px;
+                              margin-bottom: 20px;">
+            <div class="d-flex v-center" (click)="download(image.secureFileURL, image.originalFilename)">
+              <span>{{image.originalFilename || 'pdf'}}</span>
+              <!-- <mat-icon class="download">download</mat-icon> -->
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </carousel>
+
+    <carousel class="carousel-html-content carousel-thumbs" #carouselThumbsUseCase [height]="100" [cellsToShow]="8"
+    [objectFit]="'cover'"
+    [borderRadius]="0"
+      [arrows]="false">
+      <ng-container *ngFor="let image of images; let i = index;">
+        <div class="carousel-cell {{i}}" (click)="carouselUseCase.select(i)">
+          <img [src]="image.fileURL" alt="" *ngIf="image.format != 'pdf'; else pdf" style="object-position: center;">
+          <ng-template #pdf>
+            <img src="/assets/images/pdf_logo.png" class="pdf" alt="" style="object-fit: cover;
+                                                                                          max-width: fit-content;
+                                                                                          object-position: center;">
+          </ng-template>
+        </div>
+      </ng-container>
+    </carousel>
+</div>

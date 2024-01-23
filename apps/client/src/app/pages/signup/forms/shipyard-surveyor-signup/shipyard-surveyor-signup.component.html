@@ -1,0 +1,98 @@
+<h2 class="title-process">{{ (role == 'SHIPYARD' ? 'PROFILE.SHIPYARD_DETAILS'
+  :'PROFILE.SURVEYOR_DETAILS') | translate}}</h2>
+
+<mat-horizontal-stepper labelPosition="bottom" linear #stepper [linear]="true"
+  class="{{ 'last-edited-step-' + stepper.selectedIndex }}">
+  <mat-step [stepControl]="step1" [completed]="step1.valid">
+    <ng-template matStepLabel>{{'COMMON.BUTTONS.INFORMATION' | translate}}
+    </ng-template>
+    <form [formGroup]="step1">
+      <app-field-text formControlName="name" [maxLength]="50"
+        [label]="role == 'SHIPYARD' ? 'FORMS.LABELS.SHIPYARD_NAME' : 'FORMS.LABELS.BUSINESS_NAME'"
+        [trimInput]="true">
+      </app-field-text>
+      <label class="label d-flex justify-content-start">
+        {{ 'FORMS.LABELS.COUNTRY' | translate}}
+        <span>*</span>
+      </label>
+      <mat-select-country #matCountry placeHolder="" [formControl]="countryCtrl"
+        [trimInput]="true" [required]="true"
+        [class.has-error]="countryCtrl.hasError('required') && countryCtrl.touched">
+      </mat-select-country>
+      <mat-error class="country-error"
+        *ngIf="countryCtrl.hasError('required') && countryCtrl.touched">
+        {{'FORMS.ERRORS.COUNTRY_REQUIRED' | translate}}
+      </mat-error>
+      <div class="phone-control">
+        <label class="label d-flex justify-content-start">
+          {{ 'FORMS.LABELS.PHONE' | translate}}
+          <span>*</span>
+        </label>
+        <ngx-intl-tel-input [cssClass]="'custom'" [enablePlaceholder]="true"
+          [selectedCountryISO]="countryAlpha2Code ? countryAlpha2Code : defaultCountry"
+          [phoneValidation]="true" name="phone" formControlName="phone">
+        </ngx-intl-tel-input>
+        <mat-error class="phone-error mt-4" *ngIf="phoneCtrl.hasError('required') && phoneCtrl.touched">
+          {{'FORMS.LABELS.REQUIRED' | translate}}
+        </mat-error>
+        <mat-error class="phone-error mt-4" *ngIf="!phoneCtrl.hasError('required') && phoneCtrl.touched && phoneCtrl.errors">
+          {{'FORMS.ERRORS.INVALID_PHONE' | translate}}
+        </mat-error>
+      </div>
+      <app-field-email formControlName="businessEmail" [maxLength]="50"
+        label="FORMS.LABELS.BUSINESS_EMAIL">
+      </app-field-email>
+      <app-field-text formControlName="website" [maxLength]="50"
+        [label]="role == 'SHIPYARD' ? 'FORMS.LABELS.SHIPYARD_WEBSITE' : 'FORMS.LABELS.SURVEYING_WEBSITE'">
+      </app-field-text>
+      <div class="d-flex justify-content-end">
+        <button mat-flat-button color="primary" matStepperNext
+          [disabled]="step1.invalid">
+          {{'COMMON.BUTTONS.NEXT' | translate}}
+        </button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [editable]="step1.valid" [completed]="step1.valid && step2.valid"
+    [stepControl]="step2">
+    <ng-template matStepLabel>{{ 'FORMS.LABELS.LOCATION' | translate}}
+    </ng-template>
+    <form [formGroup]="step2">
+      <app-field-text formControlName="address" [maxLength]="50"
+        [label]="role == 'SHIPYARD' ? 'FORMS.LABELS.SHIPYARD_ADDRESS': 'FORMS.LABELS.SURVEYING_OFFICE_ADDRESS'">
+      </app-field-text>
+      <app-field-text formControlName="address2" [maxLength]="50"
+        [label]="role == 'SHIPYARD' ? 'FORMS.LABELS.SHIPYARD_ADDRESS_2': 'FORMS.LABELS.SURVEYING_OFFICE_ADDRESS_2'">
+      </app-field-text>
+      <div class="d-flex space-center">
+        <div class="w-50">
+          <app-field-text formControlName="city" [maxLength]="50" class="mr-5"
+            [trimInput]="true" label="FORMS.LABELS.CITY">
+          </app-field-text>
+        </div>
+        <div class="w-50">
+          <app-field-text formControlName="state" [maxLength]="50"
+            [trimInput]="true" label="FORMS.LABELS.STATE">
+          </app-field-text>
+        </div>
+      </div>
+      <div class="d-flex justify-content-space-between">
+        <app-field-text formControlName="zipCode" [maxLength]="10" class="w-50"
+          [type]="'number'" label="FORMS.LABELS.ZIP_CODE">
+        </app-field-text>
+        <div class="d-flex">
+          <div class="endButtons">
+            <button type="button" mat-flat-button matStepperPrevious
+              class="mr-6">
+              {{'COMMON.BUTTONS.BACK' | translate}}
+            </button>
+            <button type="submit" mat-raised-button color="primary"
+              [disabled]="step2.invalid || isParentValid" (click)="onSubmit()">
+              {{'COMMON.BUTTONS.CREATE_ACCOUNT' | translate}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </mat-step>
+</mat-horizontal-stepper>

@@ -1,0 +1,8 @@
+<label for="{{ contextId }}-{{ formControlName }}">
+  {{ label | translate}}
+  <span *ngIf="_required">*</span>
+</label>
+
+<mat-select-country label="" [placeHolder]="placeholder" [formControlName]="formControlName"
+  id="{{ contextId }}-{{ formControlName }}" (onCountrySelected)="onCountrySelected($event)">
+</mat-select-country>

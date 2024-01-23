@@ -1,0 +1,31 @@
+<div class="header">
+  <div class="d-flex justify-content-space-between">
+    <h3 class="bold-dark">{{'COMMON.INFO.CONTACT_LISTER' | translate}}</h3>
+    <mat-icon>picture_in_picture</mat-icon>
+  </div>
+  <p *ngIf="!isSend">{{'COMMON.INFO.COMPLETE_THE_FORM_BELOW_TO_CONTACT' | translate}}
+     <span>{{'COMMON.INFO.BIG_BLUE' | translate}}</span></p>
+</div>
+<div mat-dialog-content *ngIf="!isSend; else send">
+  <form [formGroup]="form">
+    <div class="d-flex">
+      <app-field-text formControlName="name" label="COMMON.INFO.SENDING_AS">
+      </app-field-text>
+    </div>
+      <div>
+        <app-field-textarea formControlName="message" rows="12" label="COMMON.INFO.YOUR_MESSAGE"></app-field-textarea>
+      </div>
+  </form>
+
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="end stretch" fxLayoutGap="10px">
+  <button mat-stroked-button [matDialogClose]="false">{{'COMMON.BUTTONS.CANCEL' |
+    translate}}</button>
+  <button mat-raised-button color="primary" (click)="onSend()"
+    [disabled]="form.invalid">{{'COMMON.BUTTONS.SEND_MESSAGE' |
+    translate}}</button>
+</div>
+</div>
+<ng-template #send>
+  <p>{{'COMMON.INFO.MESSAGE_SENT_SUCCESSFULLY' | translate}}</p>
+  <p>{{'COMMON.INFO.WINDOW_CLOSE' | translate}}</p>
+</ng-template>

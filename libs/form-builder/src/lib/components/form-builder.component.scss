@@ -1,0 +1,31 @@
+.phone-control-wrapper {
+  padding-bottom: 1.25rem;
+  font-size: 75%;
+  label {
+    display: inline-block;
+    padding-bottom: 10px;
+  }
+}
+
+:host ::ng-deep ngx-intl-tel-input {
+  .phone-control {
+    width: 100%;
+  }
+}
+
+.countryWrapper {
+  position: relative;
+  .countryArrow {
+    position: absolute;
+    right: 8px;
+    top: 45%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid;
+    margin: 0 4px;
+    color: rgba(0, 0, 0, 0.54);
+  }
+}

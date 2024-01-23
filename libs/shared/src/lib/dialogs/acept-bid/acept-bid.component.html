@@ -1,0 +1,57 @@
+<div class="d-flex justify-content-space-between h-50px">
+    <h2>{{ 'BIDS.ACCEPT' | translate }}</h2>
+    <img src="/assets/icons/check-icon.png" alt="" class="icon">
+</div>
+<p>{{'COMMON.INFO.ABOUT_TO_ACCEPT_BID' | translate}} <span
+        class="bold-dark">{{'COMMON.INFO.ACTION_CANNOT_BE_UNDONE' |
+        translate}}</span> {{'COMMON.INFO.PLEASE_REVIEW_BID_DETAILS' |
+    translate}}<br> {{'COMMON.INFO.BELOW_BEFORE_ACCEPTING' | translate}}</p>
+<div mat-dialog-content>
+    <div class="bidding-profile-info-container">
+        <div class="bidder-image-wrapper">
+            <img src="/assets/images/shipyard_logo.png" alt="" class="default-img">
+        </div>
+        <div class="bidding-profile-info-detail-container">
+            <p class="bidding-profile-name">
+                {{bid.bidderName}}
+            </p>
+            <span class="bidding-profile-location">
+        {{bid.bidderLocation}}
+      </span>
+      <div class="rating">
+        <span>&#9733;</span>
+        <span>  97% {{'BIDS.RATING' | translate}}</span>
+    </div>
+            <p>
+                <span>
+          {{'FORMS.LABELS.TOTAL_BID' | translate}}:
+        </span>
+                <span class="bold-dark">
+          {{bid.bidAmount | currency}}
+        </span>
+            </p>
+            <p>
+                <span>
+          {{'FORMS.LABELS.WORK_CAN_START' | translate}}:
+        </span>
+                <span class="bold-dark">
+          {{bid.workStartDate | date}}
+        </span>
+            </p>
+            <p>
+                <span>
+          {{'FORMS.LABELS.TIME_TO_COMPLETE' | translate}}:
+        </span>
+                <span class="bold-dark to-lowercase">
+          {{bid.approximateDuration}} {{bid.durationUnit}}
+        </span>
+            </p>
+        </div>
+    </div>
+</div>
+
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="end stretch" fxLayoutGap="10px">
+    <button mat-stroked-button [matDialogClose]="false">{{'COMMON.BUTTONS.CANCEL' | translate}}</button>
+    <button mat-raised-button color="primary"
+        [matDialogClose]="true">{{'COMMON.BUTTONS.ACCEPT' | translate}}</button>
+</div>

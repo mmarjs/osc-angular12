@@ -1,0 +1,30 @@
+mat-dialog-container[role="dialog"] {
+  background: mat-color($background, "app-bar");
+  overflow: visible;
+  padding: 1.2rem;
+}
+
+.app-dialog {
+  display: block;
+  min-width: 500px;
+
+  @media #{$xs} {
+    min-width: auto;
+  }
+
+  .mat-dialog-title {
+    font-size: 2em;
+    font-weight: bold;
+  }
+
+  a {
+    color: black;
+    font-size: 90%;
+    // text-decoration: none;
+  }
+}
+
+.mat-dialog-actions {
+  padding: 1.2rem 0 0 0 !important;
+  margin-bottom: 0 !important;
+}

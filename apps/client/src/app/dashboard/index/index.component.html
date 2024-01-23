@@ -1,0 +1,38 @@
+<layout-one-column *ngIf="userType === userTypes.SHIPYARD || userType === userTypes.SURVEYOR">
+  <h2 class="title-page">
+    {{'DASHBOARD.TITLE' | translate}}
+  </h2>
+  <layout-panel-wrapper [panelTitle]="'COMMON.MENU.MY_BIDS' | translate" fontSet="fas" icon="fa-cog">
+    <div class="panel-content">
+      <app-my-bids-widget></app-my-bids-widget>
+    </div>
+  </layout-panel-wrapper>
+</layout-one-column>
+<layout-two-columns noTitle>
+  <!-- Main Content -->
+
+  <layout-panel-wrapper [panelTitle]="'AUCTIONS.MY_AUCTIONS' | translate"
+    [description]="'AUCTIONS.MY_AUCTIONS_DESCRIPTION' | translate" fontSet="fas" icon="fa-cog"
+    *ngIf="userType === userTypes.BOAT_OWNER">
+    <div class="panel-content">
+      <app-my-auctions></app-my-auctions>
+    </div>
+  </layout-panel-wrapper>
+
+  <app-boats-widget *ngIf="userType === userTypes.BOAT_OWNER"></app-boats-widget>
+
+  <app-shipyards-widget *ngIf="userType === userTypes.SHIPYARD"></app-shipyards-widget>
+
+  <app-surveyors-widget *ngIf="userType === userTypes.SURVEYOR"></app-surveyors-widget>
+
+  <!-- Side Content -->
+
+  <!--  <app-profile-widget aside></app-profile-widget>-->
+
+  <!-- <app-finances-widget aside></app-finances-widget> -->
+
+  <!--  <app-notifications-widget aside></app-notifications-widget>-->
+
+  <!-- <app-messages-widget aside></app-messages-widget> -->
+
+</layout-two-columns>

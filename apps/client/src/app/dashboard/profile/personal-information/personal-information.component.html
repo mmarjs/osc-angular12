@@ -1,0 +1,24 @@
+<layout-panel-wrapper [panelTitle]="'PROFILE.PERSONAL_INFORMATION' | translate" fontSet="far" icon="fa-user-circle">
+    <div class="personal-info-form-row">
+        <app-form-control-update-on-submit [control]="firstNameCtrl" controlName="firstName" label="FORMS.LABELS.FIRST_NAME" [isLoading]="isUpdating" (controlSubmitted)="controlSubmitted({firstName:$event})" [maxLength]="50">
+
+        </app-form-control-update-on-submit>
+
+        <app-form-control-update-on-submit [control]="lastNameCtrl" controlName="lastName" label="FORMS.LABELS.LAST_NAME" (controlSubmitted)="controlSubmitted({lastName:$event})" [maxLength]="50" [isLoading]="isUpdating">
+
+        </app-form-control-update-on-submit>
+
+    </div>
+    <div class="personal-info-form-row">
+
+        <app-form-control-update-on-submit [control]="emailCtrl" controlName="email" label="FORMS.LABELS.EMAIL_ADDRESS" visibility="hidden">
+
+        </app-form-control-update-on-submit>
+
+        <app-form-control-update-on-submit [control]="phoneCtrl" label="FORMS.LABELS.PHONE" [isPhone]="true" (controlSubmitted)="controlSubmitted({phoneNumber:$event.internationalNumber})" [isLoading]="isUpdating">
+
+        </app-form-control-update-on-submit>
+
+    </div>
+    <div class="personal-info-form-row"></div>
+</layout-panel-wrapper>

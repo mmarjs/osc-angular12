@@ -1,0 +1,48 @@
+<h2 class="text-center drafts-title">{{'DRAFTS.SAVED_DRAFTS' | translate}}</h2>
+<ng-container *ngIf="isLoading;else drafts">
+  <div class="spinner-wrapper">
+    <mat-progress-spinner mode="indeterminate" [diameter]="40" [strokeWidth]="5"></mat-progress-spinner>
+  </div>
+</ng-container>
+<ng-template #drafts>
+  <ng-container *ngIf="dataSource?.data?.length else empyTemp">
+    <mat-table [dataSource]="dataSource.data" #draftTable>
+      <ng-container matColumnDef="id">
+        <mat-cell *matCellDef="let row" fxLayout="column">
+          <img src="/assets/images/no-image.png" alt="" class="default-img">
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <mat-cell *matCellDef="let row" fxLayout="column">
+          <div class="draft-info">
+            <p class="draft-name">{{ row.name }}</p>
+            <p class="detail">{{ row.boat.name }}</p>
+            <p class="detail">{{row.boat.address}}, {{row.boat.address2}}, {{ row.boat.city }}, {{row.boat.state}}</p>
+          </div>
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <mat-cell *matCellDef="let row; let i=index">
+          <div class="actions-wrapper">
+            <button color="primary" mat-flat-button [appLink]="['AUCTION_CREATE',{ id: row.boat.id }]"
+              [queryParams]="{draft:row.id}">
+              {{'DRAFTS.CONTINUE_EDITING' | translate}}
+            </button>
+            <button class="delete" mat-flat-button (click)="onDelete(row.id)">
+              {{'DRAFTS.DELETE' | translate}}
+            </button>
+          </div>
+        </mat-cell>
+      </ng-container>
+      <mat-row *matRowDef="let row; columns: columns;" class="draft-card-wrapper"></mat-row>
+    </mat-table>
+  </ng-container>
+  <ng-template #empyTemp>
+    <div class="no-drafts">
+      {{'DRAFTS.INFO.NO_DRAFTS' | translate}}
+    </div>
+  </ng-template>
+</ng-template>
+<mat-paginator [length]="dataSource?.totalRecords" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+  showFirstLastButtons (page)="pageEvents($event)">
+</mat-paginator>

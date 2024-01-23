@@ -1,0 +1,259 @@
+<ng-container *ngIf="isLoading; else bidsTable">
+  <div class="spinner-wrapper">
+    <mat-progress-spinner
+      mode="indeterminate"
+      [diameter]="40"
+      [strokeWidth]="5"
+    ></mat-progress-spinner>
+  </div>
+</ng-container>
+<ng-template #bidsTable>
+  <ng-container *ngIf="source?.data.length || bids?.length; else noData">
+    <mat-table
+      [dataSource]="source?.data ? source.data : bids"
+      class="bids-table"
+      multiTemplateDataRows
+    >
+      <ng-container matColumnDef="name">
+        <mat-header-cell
+          *matHeaderCellDef
+          [fxFlex.lg]="isReviewBids ? '' : '400px'"
+          [fxFlex.md]="isReviewBids ? '' : '300px'"
+        >
+          <span class="bold-dark">
+            {{ 'COMMON.TABLE.HEADER.NAME' | translate }}
+          </span>
+        </mat-header-cell>
+        <mat-cell
+          *matCellDef="let element"
+          [fxFlex.lg]="isReviewBids ? '' : '400px'"
+          [fxFlex.md]="isReviewBids ? '' : '300px'"
+        >
+          <div class="bidding-profile-info-container">
+            <div
+              class="bidder-image-wrapper"
+              [fxFlex.lg]="isReviewBids ? '' : '100px'"
+              [fxFlex.md]="isReviewBids ? '' : '70px'"
+            >
+              <img
+                [src]="
+                  isReviewBids
+                    ? '/assets/images/shipyard_logo.png'
+                    : '/assets/images/no-image.png'
+                "
+                alt=""
+                [class.obj-fit-contain]="isReviewBids"
+              />
+            </div>
+            <div class="bidding-profile-info-detail-container">
+              <p class="bidding-profile-name">
+                {{ isReviewBids ? element.bidderName : element.boat.name }}
+              </p>
+              <p class="bidding-profile-location">
+                {{ isReviewBids ? element.state : element.boat.state }}
+              </p>
+              <div class="rating">
+                <span>&#9733;</span>
+                <span> 97% {{ 'BIDS.RATING' | translate }}</span>
+              </div>
+            </div>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="bidPrices">
+        <mat-header-cell *matHeaderCellDef>
+          <span class="bold-dark">
+            {{ 'COMMON.TABLE.HEADER.BID_PRICES' | translate }}
+          </span>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" fxLayout="column">
+          <p [class.pl-16]="isReviewBids">
+            <span> {{ 'FORMS.LABELS.TOTAL_BID' | translate }}: </span>
+            <span class="bold-dark">
+              {{ element.bidAmount | currency }}
+            </span>
+          </p>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="bidDates">
+        <mat-header-cell *matHeaderCellDef>
+          <span class="bold-dark">
+            {{ 'COMMON.TABLE.HEADER.BID_DATES' | translate }}
+          </span>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <div [class.mx-auto]="isReviewBids">
+            <p>
+              <span> {{ 'FORMS.LABELS.WORK_CAN_START' | translate }}: </span>
+              <span class="bold-dark">
+                {{ element.workStartDate | date }}
+              </span>
+            </p>
+            <p>
+              <span> {{ 'FORMS.LABELS.TIME_TO_COMPLETE' | translate }}: </span>
+              <span class="bold-dark to-lowercase">
+                {{ element.approximateDuration }} {{ element.durationUnit }}
+              </span>
+            </p>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>
+          <span class="bold-dark">
+            {{ 'COMMON.TABLE.HEADER.ACTIONS' | translate }}
+          </span>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <ng-container *ngIf="isReviewBids; else mybidsComponentButtons">
+            <div class="bids-actions-wrapper">
+              <div class="bid-actions">
+                <app-button
+                  class="accept-btn"
+                  (btnClick)="acceptBid.emit(element)"
+                  [disabled]="element.status !== bidStatus.IN_REVIEW"
+                >
+                  <ocean-icon [iconType]="iconType.CHECK"></ocean-icon>
+                  {{ 'COMMON.BUTTONS.ACCEPT' | translate }}
+                </app-button>
+                <app-button
+                  color="accent"
+                  class="reject-btn"
+                  (btnClick)="rejectBid.emit(element.id)"
+                  [disabled]="element.status !== bidStatus.IN_REVIEW"
+                >
+                  <ocean-icon [iconType]="iconType.CLOSE"></ocean-icon>
+                  {{ 'COMMON.BUTTONS.REJECT' | translate }}
+                </app-button>
+              </div>
+              <div class="bids-template-buttons-container">
+                <!-- Todo <app-button color="accent" (btnClick)="sendMessage.emit()">
+                  {{ 'COMMON.BUTTONS.SEND_MESSAGE' | translate }}
+                </app-button> -->
+                <app-button
+                  color="accent"
+                  (btnClick)="onViewBidDetails(element)"
+                >
+                  {{ 'COMMON.BUTTONS.VIEW_BID_DETAILS' | translate }}
+                </app-button>
+              </div>
+            </div>
+          </ng-container>
+          <ng-template #mybidsComponentButtons>
+            <div class="mybids-buttons">
+              <app-button
+                (btnClick)="onNavigate(element)"
+                [disabled]="
+                  element.status === bidStatus.LOST ||
+                  element.status === bidStatus.AUCTION_CANCELLED ||
+                  element?.paymentItemDTO?.eventType === paymentStatus.SUCCEEDED
+                "
+              >
+                {{ 'COMMON.BUTTONS.UPDATE_BID' | translate }}
+              </app-button>
+              <app-button color="accent" (btnClick)="onViewBidDetails(element)">
+                {{ 'COMMON.BUTTONS.VIEW_BID_DETAILS' | translate }}
+              </app-button>
+              <app-button
+                *ngIf="getBidStatus(element) === 'START_REPAIR'"
+                color="accent"
+                (btnClick)="onStartProgress(element)"
+              >
+                {{ 'BIDS.BID_START_REPAIR' | translate }}
+              </app-button>
+              <app-button
+                *ngIf="getBidStatus(element) === 'PAY'"
+                color="accent"
+                [routerLink]="[
+                  '/auctions',
+                  element?.job?.id,
+                  'deposit',
+                  element?.id
+                ]"
+              >
+                {{ 'BIDS.PAY' | translate }}
+              </app-button>
+              <app-button
+                *ngIf="getBidStatus(element) === 'SIGN'"
+                color="accent"
+                [routerLink]="['/documents', 'job', element?.job?.id]"
+              >
+                {{ 'BIDS.DOCUMENTS' | translate }}
+              </app-button>
+            </div>
+          </ng-template>
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="bidDetails">
+        <mat-cell *matCellDef="let element" [attr.colspan]="columns.length">
+          <div
+            class="bid-details-container"
+            [@rowExpand]="
+              element.id === expandedElementId &&
+              element.status !== bidStatus.REJECTED &&
+              !isAuctionEnded(element.job)
+                ? 'expanded'
+                : 'collapsed'
+            "
+          >
+            <div class="bid-details">
+              <ng-container *ngIf="isBidLoading; else showDetails">
+                <div class="spinner-wrapper">
+                  <mat-progress-spinner
+                    mode="indeterminate"
+                    [diameter]="40"
+                    [strokeWidth]="5"
+                  ></mat-progress-spinner>
+                </div>
+              </ng-container>
+              <ng-template #showDetails>
+                <ocean-bid-items-table
+                  [bidItems]="bidItems"
+                ></ocean-bid-items-table>
+                <ocean-bid-summary
+                  [bid]="element"
+                  (collapseDetails)="expandedElementId = null"
+                  (acceptBid)="acceptBid.emit($event)"
+                  (rejectBid)="rejectBid.emit($event)"
+                  [showSummaryButtons]="isReviewBids"
+                  (sendMessage)="sendMessage.emit($event)"
+                >
+                </ocean-bid-summary>
+              </ng-template>
+            </div>
+          </div>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+      <mat-row
+        *matRowDef="let row; columns: columns"
+        [ngClass]="{
+          'rejected-bid':
+            isAuctionEnded(row.job) ||
+            row?.status === bidStatus.REJECTED ||
+            row?.status === bidStatus.LOST
+        }"
+      ></mat-row>
+      <mat-row
+        mat-row
+        *matRowDef="let row; columns: ['bidDetails']"
+        class="bid-details-row"
+      ></mat-row>
+    </mat-table>
+  </ng-container>
+  <ng-template #noData>
+    <p class="text-align-center">{{ 'BIDS.NO_BIDS' | translate }}</p>
+  </ng-template>
+</ng-template>
+
+<mat-paginator
+  [length]="source?.totalRecords"
+  [pageSize]="10"
+  [pageSizeOptions]="[5, 10, 15, 20]"
+  [hidePageSize]="hidePageSize"
+></mat-paginator>

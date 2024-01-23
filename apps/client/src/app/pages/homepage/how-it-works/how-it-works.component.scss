@@ -1,0 +1,103 @@
+@import "variables";
+
+app-page-how-it-works {
+  background: mat-color($background, "app-bar");
+  display: block;
+  padding: 45px 0;
+
+  h2 {
+    text-align: center;
+  }
+
+  mat-tab-group {
+    margin: 0 30px;
+  }
+
+  .role-action {
+    padding: 25px 0;
+
+    @media #{$xs} {
+      padding: 20px 0;
+    }
+
+    span {
+      font-size: 120%;
+      padding: 0 15px;
+      text-align: center;
+    }
+
+    small {
+      font-size: 90%;
+      line-height: 125%;
+      padding: 5px 15px 0;
+      text-align: center;
+    }
+  }
+
+  i {
+    display: inline-block;
+    margin-bottom: 10px;
+    height: 80px;
+    width: 80px;
+
+    &.bid-icon {
+      background: url("/assets/icons/bid-icon.png") no-repeat center;
+      background-size: 67px 64px;
+    }
+
+    &.location-icon {
+      background: url("/assets/icons/location-icon.png") no-repeat center;
+      background-size: 41.8px 59.7px;
+    }
+
+    &.boat-icon {
+      background: url("/assets/icons/boat-icon.png") no-repeat center;
+      background-size: 56.5px;
+    }
+
+    &.account-icon {
+      background: url("/assets/icons/person.svg") no-repeat center;
+      background-size: 58px;
+    }
+
+    &.edit-icon {
+      background: url("/assets/icons/edit-icon.png") no-repeat center;
+      background-size: 57.5px 72px;
+    }
+
+    &.check-icon {
+      background: url("/assets/icons/check-icon.svg") no-repeat center;
+      background-size: 52px;
+    }
+
+    &.settings-icon {
+      background: url("/assets/icons/settings-icon.png") no-repeat center;
+      background-size: 61px;
+    }
+
+    &.success-icon {
+      background: url("/assets/icons/success-icon.svg") no-repeat center;
+      background-size: 60px;
+    }
+
+    &.dollar-icon {
+      background: url("/assets/icons/dollar-icon.svg") no-repeat center;
+      background-size: 75px;
+    }
+
+    &.action-icon {
+      background: url("/assets/icons/action-icon.svg") no-repeat center;
+      background-size: 75px;
+    }
+
+    &.camera-icon {
+      background: url("/assets/icons/camera-icon.svg") no-repeat center;
+      background-size: 55px;
+    }
+
+    &.comment-icon {
+      background: url("/assets/icons/comment-icon.svg") no-repeat center;
+      background-size: 55px;
+    }
+  }
+}

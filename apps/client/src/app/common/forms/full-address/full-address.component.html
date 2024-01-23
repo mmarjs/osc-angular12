@@ -1,0 +1,11 @@
+<ng-container [formGroup]="form">
+  <label class="label">
+    {{ 'FORMS.LABELS.COUNTRY' | translate}}
+    <span>*</span>
+  </label>
+  <mat-select-country label="" placeHolder="" formControlName="country" [trimInput]="true">
+  </mat-select-country>
+
+  <app-form-address [form]="form" label="FORMS.LABELS.ADDRESS"></app-form-address>
+  <app-form-location [form]="form"></app-form-location>
+</ng-container>

@@ -1,0 +1,14 @@
+<mat-menu class="switch-accounts" #accMenu="matMenu">
+  <ng-template matMenuContent>
+    <button mat-menu-item disabled>{{'PROFILE.SWITCH_ACCOUNTS' | translate}}</button>
+    <button mat-menu-item *ngFor="let user of userTypes" [disabled]="user.type === (userFacade.userType$ | async)"
+      (click)="doSwitchAccount(user.type)">
+      {{ user.type | formatType }}
+    </button>
+  </ng-template>
+</mat-menu>
+
+<span>{{'PROFILE.I_AM_A' | translate}}</span>
+<button type="button" mat-raised-button [matMenuTriggerFor]="accMenu" [disabled]="true">
+  {{userFacade.userType$ | async | formatType}} <mat-icon>expand_more</mat-icon>
+</button>

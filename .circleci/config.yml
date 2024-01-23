@@ -1,0 +1,175 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+
+orbs:
+  aws-ecr: circleci/aws-ecr@0.0.4
+  aws-ecs: circleci/aws-ecs@0.0.5
+  sonarcloud: sonarsource/sonarcloud@1.0.3
+
+version: 2.1
+
+# anchors http://blog.daemonl.com/2016/02/yaml.html
+
+frontend: &frontend
+  docker:
+    - image: cimg/node:16.13.2
+
+deployment: &deployment
+  working_directory: ~/ng
+  environment:
+    AWS_DEFAULT_OUTPUT: json
+    ECR_REPOSITORY_NAME: 105813037578.dkr.ecr.us-west-2.amazonaws.com/osc-client
+
+# jobs
+jobs:
+  sonar_check:
+    docker:
+      - image: "cimg/node:16.13.2"
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-frontend-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install dependencies
+          command: yarn install
+      - save_cache:
+          key: v1-frontend-{{ checksum "yarn.lock" }}
+          paths:
+            - .yarn/cache
+            - node_modules
+      - run:
+          name: Collect coverage
+          command: |
+            yarn nx run-many --all --target=test --ci --runInBand --code-coverage --maxWorkers=100% --silent=true --parallel=3
+            yarn lcov-result-merger 'coverage/**/lcov.info' 'coverage/lcov.info'
+      - sonarcloud/scan
+
+  ## this builds image and pushes to s3
+  build-osc-web-ui-push-to-s3-qa:
+    docker:
+      - image: "circleci/node:14.16.0"
+    steps:
+      - checkout
+      - run: sudo apt update
+      - run: sudo apt install awscli
+      - run: yarn install
+      - run: echo 'export BUILD_NUMBER=$(jq -r .name package.json)@$(jq -r .version package.json)' >> "$BASH_ENV"
+      - run: echo "NG_APP_BUILD_NUMBER=${BUILD_NUMBER}" >> .env
+      - run: yarn build --configuration qa
+      - run: yarn sentry releases files $BUILD_NUMBER delete --all
+      - run: yarn sentry releases new $BUILD_NUMBER
+      - run: yarn sentry releases files $BUILD_NUMBER upload-sourcemaps ./dist/apps/client
+      - run: yarn sentry releases finalize $BUILD_NUMBER
+      - run: rm ./dist/apps/client/*.js.map
+      - run: sudo apt update
+      - run: sudo apt install awscli
+      - run: aws s3 sync dist/apps/client/ s3://oceanservicecenter-qa-ui/
+      - run: aws configure set preview.cloudfront true
+      - run: aws cloudfront create-invalidation --distribution-id ${CLOUDFRONT_DISTRO_ID} --paths "/*"
+  build-osc-web-ui-push-to-s3-prod:
+    docker:
+      - image: "circleci/node:14.16.0"
+    steps:
+      - checkout
+      - run: sudo apt update
+      - run: sudo apt install awscli
+      - run: yarn install
+      - run: echo 'export BUILD_NUMBER=$(jq -r .name package.json)-prod@$(jq -r .version package.json)' >> "$BASH_ENV"
+      - run: echo "NG_APP_BUILD_NUMBER=${BUILD_NUMBER}" >> .env
+      - run: yarn build --configuration main
+      - run: yarn sentry releases files $BUILD_NUMBER delete --all
+      - run: yarn sentry releases new $BUILD_NUMBER
+      - run: yarn sentry releases files $BUILD_NUMBER upload-sourcemaps ./dist/apps/client
+      - run: yarn sentry releases finalize $BUILD_NUMBER
+      - run: rm ./dist/apps/client/*.js.map
+      - run: sudo apt update
+      - run: sudo apt install awscli
+      - run: aws s3 sync dist/apps/client/ s3://oceanservicecenter-prod-ui/
+      - run: aws configure set preview.cloudfront true
+      - run: aws cloudfront create-invalidation --distribution-id ${CLOUDFRONT_DISTRO_ID} --paths "/*"
+  setup:
+    <<: *frontend
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-frontend-{{ checksum "yarn.lock" }}
+      - run:
+          name: NPM Dependencies
+          command: yarn install
+      - save_cache:
+          key: v1-frontend-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
+      - persist_to_workspace:
+          root: .
+          paths:
+            - '.'
+
+  pr_checks:
+    docker:
+      - image: cimg/node:16.13.2
+    steps:
+      - checkout
+      - run:
+          name: 'Set build number'
+          command: echo 'export BUILD_NUMBER=$(jq -r .name package.json)@$(jq -r .version package.json)' >> "$BASH_ENV"
+      - run: echo "Build number is ${BUILD_NUMBER}"
+      - restore_cache:
+          keys:
+            - v1-frontend-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install dependencies
+          command: yarn install
+      - save_cache:
+          key: v1-frontend-{{ checksum "yarn.lock" }}
+          paths:
+            - .yarn/cache
+            - node_modules
+      - run:
+          name: Run tests
+          command: yarn affected:test --ci --runInBand  --reporters=default --reporters=jest-junit --maxWorkers=100% --silent=true --parallel=3
+          no_output_timeout: "10m"
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: ./reports/
+            JEST_JUNIT_UNIQUE_OUTPUT_NAME: 'true'
+      - run:
+          name: Run build
+          command: yarn affected:build --parallel=3
+      - store_test_results:
+          path: ./reports/
+      - store_artifacts:
+          path: ./reports/
+
+
+workflows:
+  code_check:
+    jobs:
+      - sonar_check:
+          context: SonarCloud
+  version: 2
+  frontend_workflow:
+    jobs:
+      - pr_checks:
+          name: "PR Checks"
+          context: qa
+          filters:
+            branches:
+              ignore:
+                - master
+                - qa
+      - build-osc-web-ui-push-to-s3-qa:
+          context: qa
+          filters:
+            branches:
+              only:
+                - qa
+      - build-osc-web-ui-push-to-s3-prod:
+          context: prod
+          filters:
+            branches:
+              only:
+                - master

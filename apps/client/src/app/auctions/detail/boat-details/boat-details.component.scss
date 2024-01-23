@@ -1,0 +1,44 @@
+.buttons-wrapper {
+  display: flex;
+  margin-bottom: 20px;
+  button {
+    flex: 1;
+  }
+}
+
+.boat-info-wrapper,
+.boat-location-wrapper {
+  margin-bottom: 20px;
+}
+
+.zip-label {
+  margin-left: 40px;
+}
+
+.description-label {
+  margin-bottom: 10px;
+}
+
+.bid-btn {
+  margin-left: 20px;
+}
+
+.boat-details-card {
+  height: 30rem;
+}
+.rating {
+  justify-content: space-between;
+
+  span {
+    font-size: 500%;
+    color: #5A8EA1;
+  }
+
+  p {
+    text-align: center;
+    margin: -36px;
+    font-size: 11px;
+    font-weight: 600;
+    color: white;
+  }
+}

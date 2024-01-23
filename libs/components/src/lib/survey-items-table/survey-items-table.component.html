@@ -1,0 +1,48 @@
+<mat-table [dataSource]="jobItems || []" matSort class="striped-table">
+  <ng-container matColumnDef="id">
+    <mat-header-cell mat-sort-header="id" *matHeaderCellDef>
+      {{ 'COMMON.TABLE.HEADER.ITEM' | translate }}
+    </mat-header-cell>
+    <mat-cell
+      *matCellDef="let row; let i = index"
+      fxLayout="column"
+      fxLayoutAlign="center start"
+    >
+      <strong>{{ i + 1 }}</strong>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="title">
+    <mat-header-cell *matHeaderCellDef>
+      {{ 'COMMON.TABLE.HEADER.TASK_NAME_AND_DESCRIPTION' | translate }}
+    </mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <span class="survey-item-title">
+        {{row.title }}
+        <span style="color: #959595" *ngIf="row.showMore">
+          <br />
+          {{ row.description ?? '' }}
+        </span>
+        <ng-container *ngIf="row.description">
+          <a
+            class="read-notes-link"
+            (click)="toggleShowMore(row)"
+            *ngIf="!row.showMore"
+          >
+            {{ 'NOTES.READ_NOTES' | translate }}
+          </a>
+          <a
+            class="read-notes-link"
+            (click)="toggleShowMore(row)"
+            *ngIf="row.showMore"
+          >
+            {{ 'NOTES.COLLAPSE_NOTES' | translate }}
+          </a>
+        </ng-container>
+      </span>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+</mat-table>

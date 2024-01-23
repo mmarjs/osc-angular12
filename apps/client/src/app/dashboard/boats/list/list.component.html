@@ -1,0 +1,16 @@
+<!-- FILTER -->
+<app-filter-wrapper>
+  <ng-container *ngIf="!isOnlyTable">
+    <app-filter-search *ngIf="hasRecords" [placeholder]="'COMMON.SEARCH.BY_NAME' | translate"
+      (search)="onSearch($event)"></app-filter-search>
+    <div></div>
+  </ng-container>
+
+  <button type="button" mat-flat-button color="primary" appLink="BOATS_CREATE">
+    {{'COMMON.BUTTONS.ADD_BOAT' | translate}}
+  </button>
+</app-filter-wrapper>
+
+<!-- TABLE -->
+<app-boats-list-table [source]="source" [hidePageSize]="hidePageSize" [limit]="limit"
+  [isActionButtonHide]="isOnlyTable"></app-boats-list-table>

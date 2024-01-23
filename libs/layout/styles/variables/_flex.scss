@@ -1,0 +1,61 @@
+@use "sass:math";
+
+@mixin fxLayout($dir: row) {
+  display: flex;
+  flex-direction: $dir;
+}
+
+@mixin fxLayoutInline($dir: row) {
+  display: inline-flex;
+  flex-direction: $dir;
+}
+
+@mixin fxLayoutAlign($main: flex-start, $cross: stretch, $dir: row) {
+  display: flex;
+  flex-direction: $dir;
+  place-content: $cross $main;
+  align-items: $cross;
+}
+
+@mixin fxFlexAlign($align: auto) {
+  align-self: $align;
+}
+
+@mixin fxFlexAlignItems($align: center) {
+  align-items: $align;
+}
+
+@mixin fxFlexJustify($justify: space-between) {
+  @include fxLayout();
+  @include fxFlexAlignItems();
+  justify-content: $justify;
+}
+
+@mixin fxFill() {
+  height: 100%;
+  min-height: 100%;
+  min-width: 100%;
+  width: 100%;
+}
+
+// TODO check fxFlex source code
+
+@mixin fxFlexGrid($cols: 2, $distance: 2%) {
+  $pad: $cols * $distance;
+  $width: math.div(100%, $cols) - 2;
+
+  flex: 1 1 $width;
+  max-width: $width;
+
+  margin-right: $pad;
+
+  &:nth-child(#{$cols}n + 0) {
+    margin-right: 0;
+  }
+
+  @media #{$xs} {
+    flex: 1 1 100%;
+    max-width: 100%;
+    margin-right: 0;
+  }
+}

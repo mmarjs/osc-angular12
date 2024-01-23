@@ -1,0 +1,102 @@
+<h2 class="title-page">
+  {{ item?.name }}
+</h2>
+
+<div class="info-wrapper">
+  <div class="boat-form">
+    <app-form-builder
+      *ngIf="!!form"
+      [form]="form"
+      [fields]="fields"
+      containerCssClass="form"
+      [readonly]="readonly"
+    >
+    </app-form-builder>
+    <div
+      *ngIf="isEditMode; else editBoat"
+      class="d-flex justify-content-end"
+    >
+      <button
+        type="button"
+        mat-stroked-button
+        routerLink="../"
+      >
+        {{'COMMON.BUTTONS.CANCEL' | translate}}
+      </button>
+      <button
+        type="button"
+        mat-raised-button
+        color="primary"
+        class="mlr-1"
+        (click)="onSubmit()"
+        [disabled]="form.invalid"
+      >
+        {{'COMMON.BUTTONS.UPDATE_BOAT' | translate}}
+      </button>
+    </div>
+    <ng-template #editBoat>
+      <div class="d-flex justify-content-end">
+        <button
+          type="button"
+          mat-raised-button
+          color="primary"
+          routerLink="edit"
+        >
+          {{'COMMON.BUTTONS.EDIT_BOAT' | translate}}
+        </button>
+      </div>
+    </ng-template>
+  </div>
+
+  <div class="upload-images">
+    <ng-container *ngIf="isLoadingImages; else imagesTemp">
+      <div class="spinner-wrapper">
+        <mat-progress-spinner
+          mode="indeterminate"
+          [diameter]="40"
+          [strokeWidth]="5"
+        ></mat-progress-spinner>
+      </div>
+    </ng-container>
+
+    <ng-template #imagesTemp>
+      <ng-container *ngIf="boatImages?.length; else noImageTemp">
+        <app-carousel-view
+          [media]="boatImages"
+        >
+        </app-carousel-view>
+
+        <layout-panel-wrapper *ngIf="isEditMode">
+          <app-boats-create-media
+            [form]="uploadImageForm"
+          >
+          </app-boats-create-media>
+          <app-button
+            (click)="onUploadImages()"
+            [disabled]="!canUploadImages()"
+          >
+            {{'COMMON.BUTTONS.UPLOAD_IMAGES' | translate}}
+          </app-button>
+        </layout-panel-wrapper>
+      </ng-container>
+
+      <ng-template #noImageTemp>
+        <h3 class="text-align-center">
+          {{'MEDIA.NO_IMAGES_UPLOADED' | translate}}
+        </h3>
+        <layout-panel-wrapper *ngIf="isEditMode">
+          <app-boats-create-media
+            [form]="uploadImageForm"
+          >
+          </app-boats-create-media>
+          <app-button
+            (click)="onUploadImages()"
+            [disabled]="!canUploadImages()"
+          >
+            {{'COMMON.BUTTONS.UPLOAD_IMAGES' | translate}}
+          </app-button>
+        </layout-panel-wrapper>
+      </ng-template>
+    </ng-template>
+  </div>
+</div>

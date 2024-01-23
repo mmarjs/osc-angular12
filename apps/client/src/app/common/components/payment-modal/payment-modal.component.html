@@ -1,0 +1,14 @@
+<form id="payment-form">
+  <div class="header">
+    <p>{{ 'PAYMENT.PAYMENT_METHOD_DETAILS' | translate }}</p>
+  </div>
+  <div id="card-element" #card></div>
+  <div class="actions">
+    <button type="button" mat-raised-button (click)="close()">
+      {{'COMMON.BUTTONS.CANCEL' | translate}}
+    </button>
+    <button type="button" mat-raised-button color="primary" (click)="onSubmit()">
+      {{'COMMON.BUTTONS.SUBMIT' | translate}}
+    </button>
+  </div>
+</form>

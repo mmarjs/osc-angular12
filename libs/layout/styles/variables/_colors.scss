@@ -1,0 +1,146 @@
+/**
+ * Palettes Usage:
+ *
+ * mat-color($primary)
+ * mat-color($primary, default-contrast)
+ * mat-color($primary, lighter)
+ * mat-color($primary, darker)
+ * mat-color($accent, 'A400-contrast', 0.38)
+ * mat-color($foreground, text)
+ * mat-color($background, 'background')
+ */
+
+/* Colors */
+// use rgba(R, G, B, a) notation
+
+// base and contrast colors
+
+$base: (
+  100: #ffa454,
+  500: #f79f51,
+  900: #ba783d,
+  A100: #5a8ea0,
+  A200: #283b4d,
+  A400: #1a2631,
+);
+
+$contrast: (
+  100: #ffffff,
+  500: #ffffff,
+  900: #ffffff,
+  A100: #ffffff,
+  A200: #ffffff,
+  A400: #ffffff,
+);
+
+// foreground and background colors
+
+$foreground: (
+  base: #504c4a,
+  divider: rgba(black, 0.12),
+  dividers: rgba(black, 0.12),
+  light-txt: #727172,
+  disabled: rgba(black, 0.38),
+  disabled-button: rgba(black, 0.38),
+  disabled-text: rgba(black, 0.38),
+  hint-text: rgba(black, 0.38),
+  secondary-text: #7b7978,
+  icon: #aba9a8,
+  icons: #9b9b9b,
+  text: #484848,
+  slider-min: rgba(black, 0.87),
+  slider-off: rgba(black, 0.26),
+  slider-off-active: rgba(black, 0.38),
+  success: #d0e9c6,
+  info: #d9edf7,
+  warning: #faf2cc,
+  error: #f2dede,
+  actions: #a6a6a6,
+  stroke: #ddddde,
+  progress: #807d7c,
+  border: #ced4da,
+);
+
+$background: (
+  status-bar: #e0e0e0,
+  app-bar: #edeae6,
+  background: #ffffff,
+  hover: rgba(0, 123, 255, 0.25),
+  card: white,
+  dialog: white,
+  disabled-button: rgba(black, 0.12),
+  raised-button: white,
+  focused-button: rgba(black, 0.07),
+  focused-input: #80bdff,
+  selected-button: #e0e0e0,
+  selected-disabled-button: #bdbdbd,
+  disabled-button-toggle: #eeeeee,
+  unselected-chip: #e0e0e0,
+  disabled-list-option: #eeeeee,
+  box-shadow: rgba(black, 0.12),
+  chart: rgba(248, 248, 248, 0.7),
+  overlay: rgba(black, 0.05),
+  success: #3c763d,
+  info: #31708f,
+  warning: #8a6d3b,
+  error: #f44336,
+  even: #fff,
+  odd: #f5f5f5,
+  widget: #f7f6f4,
+  unread: #f3f0ee,
+  selected: #f5f5f5,
+  disabled-input: #cececc,
+  table-color: #E0E0E5
+);
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+
+@import "~@angular/material/theming";
+
+/* Typography */
+
+// mat-typography-config
+
+$typography: mat-typography-config(
+  $font-family: "BentonSansCond",
+  $display-4: mat-typography-level(112px, 112px, 300),
+  $display-3: mat-typography-level(56px, 56px, 400),
+  $display-2: mat-typography-level(45px, 48px, 400),
+  $display-1: mat-typography-level(34px, 40px, 400),
+  $headline: mat-typography-level(24px, 32px, 400),
+  $title: mat-typography-level(20px, 32px, 500),
+  $subheading-2: mat-typography-level(16px, 28px, 400),
+  $subheading-1: mat-typography-level(15px, 24px, 400),
+  $body-2: mat-typography-level(14px, 24px, 500),
+  $body-1: mat-typography-level(14px, 20px, 400),
+  $caption: mat-typography-level(12px, 20px, 400),
+  $button: mat-typography-level(14px, 14px, 500),
+  $input: mat-typography-level(16px, 1.125, 400),
+);
+
+/* Themes */
+
+$palette: map-merge(
+  $base,
+  (
+    contrast: $contrast,
+  )
+);
+
+$primary: mat-palette($palette);
+$accent: mat-palette($palette, A100, A200, A400);
+$warn: mat-palette($mat-red);
+
+$mat-light-theme-background: $background;
+$mat-light-theme-foreground: $foreground;
+
+$ocean-theme: mat-light-theme($primary, $accent, $warn);
+
+// custom components
+
+$btn-primary: mat-palette($palette, A100, A100, A100);
+$btn-accent: mat-palette($palette, 500, 500, 500);
+$btn-warn: mat-palette($palette, A100, A100, A100);
+
+$ocean-buttons: mat-light-theme($btn-primary, $btn-accent, $btn-warn);

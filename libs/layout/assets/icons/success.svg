@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="63px" height="69px" viewBox="0 0 63 69" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>Artboard</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="77.891%" y1="17.493%" x2="25.417%" y2="79.531%" id="linearGradient-1">
+            <stop stop-color="#BAE04B" offset="0%"></stop>
+            <stop stop-color="#A2DA55" offset="26.349%"></stop>
+            <stop stop-color="#78D967" offset="52.886%"></stop>
+            <stop stop-color="#6AD46B" offset="76.555%"></stop>
+            <stop stop-color="#4FD478" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="66.738%" y1="14.323%" x2="27.363%" y2="97.753%" id="linearGradient-2">
+            <stop stop-color="#FFFFFF" offset="0%"></stop>
+            <stop stop-color="#E1F9DB" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group" transform="translate(2.000000, 1.000000)" fill-rule="nonzero">
+            <circle id="Oval" fill="url(#linearGradient-1)" cx="30" cy="30" r="30"></circle>
+            <path d="M30.5,13 C20.85,13 13,20.85 13,30.5 C13,40.15 20.85,48 30.5,48 C40.15,48 48,40.15 48,30.5 C48,20.85 40.15,13 30.5,13 Z M40.28,25.895 L29.097,36.99 C28.4397757,37.6605457 27.3662432,37.6801292 26.685,37.034 L20.765,31.639 C20.0710292,30.9874847 20.0128578,29.9051435 20.633,29.183 C20.9466308,28.8449779 21.3819183,28.6457078 21.8427334,28.6291965 C22.3035486,28.6126852 22.7519814,28.7802911 23.089,29.095 L27.782,33.394 L37.782,23.394 C38.1108825,23.0575502 38.5615087,22.8678854 39.032,22.8678854 C39.5024913,22.8678854 39.9531175,23.0575502 40.282,23.394 C40.6184498,23.7228825 40.8081146,24.1735087 40.8081146,24.644 C40.8081146,25.1144913 40.6184498,25.5651175 40.282,25.894 L40.28,25.895 Z" id="Shape" fill="url(#linearGradient-2)"></path>
+        </g>
+    </g>
+</svg>

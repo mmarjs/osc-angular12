@@ -1,0 +1,14 @@
+:host {
+  &:not(.layout-row) {
+    > .mat-form-field {
+      margin-bottom: 0;
+
+      &:last-child {
+        margin-top: -10px;
+      }
+    }
+  }
+}
+.addressLabel {
+  padding: 0 0.4375em 0.4375em 0;
+}

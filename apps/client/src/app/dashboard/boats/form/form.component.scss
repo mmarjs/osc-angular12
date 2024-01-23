@@ -1,0 +1,52 @@
+@import 'variables';
+
+.info-wrapper {
+  padding: 30px 20px;
+
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+
+  .upload-images {
+    min-width: 50%;
+    max-width: 50%;
+    margin-right: 2rem;
+  }
+
+  .mlr-1 {
+    margin-left: 1rem;
+  }
+}
+
+.spinner-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+app-button {
+  margin-top: 20px;
+}
+
+:host ::ng-deep {
+  .form {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .full {
+    width: 100%;
+  }
+
+  .half {
+    width: 48%;
+  }
+
+  .triple {
+    position: relative;
+    display: block;
+    width: 32%;
+  }
+}

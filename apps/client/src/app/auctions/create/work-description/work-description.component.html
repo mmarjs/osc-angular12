@@ -1,0 +1,147 @@
+<form [formGroup]="form">
+  <layout-two-columns [width]="60">
+    <div class="form-description">
+      <button mat-icon-button appLink="DASHBOARD" class="wizzard-back-btn">
+        <ocean-icon [iconType]="iconType.CHEVRON_LEFT"></ocean-icon>
+        {{ 'COMMON.BUTTONS.CANCEL' | translate }}
+      </button>
+      <div class="block-title">
+        <div class="tooltipA">
+          <span class="title-tooltipA">
+            {{ 'FORMS.LABELS.I_AM_LOOKING_FOR' | translate }}
+          </span>
+          <img src="/assets/info.png" class="ml-10"/>
+          <div class="right">
+            <div class="text-content">
+              <div>
+                <p class="tooltip-title">
+                  <b>{{ 'FORMS.LABELS.SERVICE_TYPES' | translate }}</b>
+                </p>
+                <p class="tooltip-info">
+                  {{ 'AUCTIONS.CREATE.SERVICE_TYPE_DESCRIPTION' }}
+                </p>
+                <div class="tooltip-types">
+                  <div class="block-tooltip-type">
+                    <p class="text-center">
+                      <b>{{ 'FORMS.LABELS.REPAIRS' | translate }}</b>
+                    </p>
+                    <p>{{ 'AUCTIONS.CREATE.REPAIRS_DESCRIPTION' }}</p>
+                  </div>
+
+                  <div class="block-tooltip-type">
+                    <p class="text-center">
+                      <b>{{ 'FORMS.LABELS.SURVEY' | translate }}</b>
+                    </p>
+                    <p>
+                      {{ 'AUCTIONS.CREATE.SURVEY_DESCRIPTION' | translate }}
+                    </p>
+                  </div>
+
+                  <div class="block-tooltip-type">
+                    <p class="text-center">
+                      <b>{{ 'FORMS.LABELS.REFIT' | translate }}</b>
+                    </p>
+                    <p>
+                      {{ 'AUCTIONS.CREATE.REFIT_DESCRIPTION' | translate }}
+                    </p>
+                  </div>
+                </div>
+                <p class="text-center">
+                  {{ 'FORMS.LABELS.CHOOSE_LISTING_SERVICE_TYPE' | translate }}
+                </p>
+              </div>
+            </div>
+            <i></i>
+          </div>
+        </div>
+        <app-radio-button
+          formControlName="type"
+          class="auction"
+          [itemsRadioButton]="jobTypesValues | async"
+          [readonly]="auction?.isFinished || auction?.status === jobStatus.DRAFT"
+          [class.mt-10]="auction?.status === jobStatus.DRAFT"
+        >
+        </app-radio-button>
+      </div>
+      <div class="text-blocks">
+        <app-field-text
+          contextId="auctions"
+          label="FORMS.LABELS.BOAT_LISTING_TITLE"
+          placeholder="FORMS.PLACEHOLDERS.LIST_BOAT_TITLE"
+          [maxLength]="50"
+          formControlName="name"
+          [required]="true"
+          [noTailingSpace]="true"
+        >
+        </app-field-text>
+        <app-field-textarea
+          row
+          contextId="auctions"
+          label="FORMS.LABELS.BOAT_LISTING_DESCRIPTION"
+          placeholder="FORMS.PLACEHOLDERS.LIST_BOAT_DESCRIPTION"
+          formControlName="description"
+          [required]="true"
+          [noTailingSpace]="true"
+          class="auction"
+        >
+        </app-field-textarea>
+        <a (click)="onClearForm()" class="cursor-pointer" *ngIf="!auction">
+          {{ 'FORMS.CLEAR_FORM' | translate }}
+        </a>
+      </div>
+    </div>
+
+    <div class="my-job" aside>
+      <app-boat-info
+        [boat]="boat"
+        [form]="form"
+        [title]="'BOATS.MY_BOAT' | translate"
+      ></app-boat-info>
+      <div class="media-imgages-wrapper">
+        <div *ngIf="isEdit" class="mb-10">
+          <ng-container *ngIf="isLoadingImages; else imagesTemp">
+            <div class="spinner-wrapper">
+              <mat-progress-spinner
+                mode="indeterminate"
+                [diameter]="40"
+                [strokeWidth]="5"
+              >
+              </mat-progress-spinner>
+            </div>
+          </ng-container>
+          <ng-template #imagesTemp>
+            <ng-container *ngIf="jobImages && jobImages.length">
+              <app-carousel-view [media]="jobImages"></app-carousel-view>
+            </ng-container>
+            <!-- <ng-template #noImageTemp>
+                <h3 class="text-align-center">
+                    {{'MEDIA.NO_IMAGES_UPLOADED' | translate}}
+                </h3>
+            </ng-template> -->
+          </ng-template>
+        </div>
+        <div class="d-flex" style="align-items: flex-start">
+          <h3 style="line-height: initial; width: 100%">
+            {{ 'AUCTIONS.CREATE.SUPPORTED_FILES_TITLE' | translate }}
+          </h3>
+          <img
+            src="/assets/icons/camera.png"
+            alt=""
+            style="width: 50px; margin-left: 10px"
+          />
+          <!-- <i class="icon camera-icon"></i> -->
+        </div>
+        <p>{{ 'AUCTIONS.CREATE.SUPPORTED_FILES' | translate }}</p>
+        <app-form-gallery
+          (filesDeleted)="onDeleteImages($event)"
+          editable
+          [form]="mediasForm"
+          [media]="jobImages"
+          [multiple]="true"
+          appDropZone
+        ></app-form-gallery>
+      </div>
+      <!-- <app-cancel-listing [auction]="auction"></app-cancel-listing> -->
+    </div>
+  </layout-two-columns>
+</form>

@@ -1,0 +1,54 @@
+@import "variables";
+
+.mat-header-row {
+  min-height: 48px;
+}
+mat-table{
+  background-color: mat-color($background, app-bar);
+  border: 1px solid mat-color($background, table-color);
+  .mat-row {
+    border-bottom-style: none;
+  }
+}
+
+.toggle-row-element {
+  font-size: 12px;
+  font-weight: 400;
+  color: mat-color($base, 500);
+  cursor: pointer;
+}
+.notes-details {
+  overflow: hidden;
+  padding-left: 97px;
+}
+mat-row.bid-details-row {
+  height: auto;
+  min-height: unset;
+  border-bottom-width: 0;
+  margin-bottom: 0.5rem;
+}
+.bgcolorwhite {
+  background-color: white;
+}
+.tableColor {
+  background-color: mat-color($background, app-bar);
+}
+.amount {
+  border: 1px solid mat-color($background, table-color);
+  background-color: mat-color($background, table-color);
+  padding: 4px;
+  input {
+    padding: 5px;
+    border: 0;
+    background-color: mat-color($background, table-color);
+    text-align: right;
+    color: mat-color($base, A400);
+    width: 120px;
+    font-size: larger;
+    font-weight: lighter;
+  }
+}
+.dollar-icon {
+  height: 26px;
+  width: 28px;
+}

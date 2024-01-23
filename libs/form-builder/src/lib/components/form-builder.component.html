@@ -1,0 +1,343 @@
+<ng-container *ngIf="form && fields">
+  <ng-container [formGroup]="form" >
+    <div [class]="containerCssClass" >
+      <ng-container *ngFor="let field of fields | keyvalue: orderByValue">
+        <ng-container *ngIf="shouldShow(field.value)">
+          <ng-container *ngIf="field.key as fieldName">
+            <ng-container *ngIf="field.value as fieldValue">
+              <ng-container
+                *ngIf="
+                  checkType(
+                    fieldValue,
+                    formFieldGroupTypes.number
+                  ) as fieldNumber
+                "
+              >
+                <app-field-text
+                  [className]="fieldNumber.cssClassName"
+                  type="number"
+                  [hideArrowsForNumber]="fieldNumber.hideArrowsForNumber"
+                  [numberOnly]="true"
+                  [formControlName]="fieldName"
+                  [showDollar]="fieldNumber?.isCurrency ?? false"
+                  [placeholder]="fieldNumber.placeholder ?? ''"
+                  [required]="
+                    fieldNumber.validators?.includes(validatorsRequired) ??
+                    false
+                  "
+                  [label]="fieldNumber.label"
+                >
+                </app-field-text>
+              </ng-container>
+              <ng-container
+                *ngIf="
+                  checkType(fieldValue, formFieldGroupTypes.files) as fieldFiles
+                "
+              >
+                <div>
+                  <label class="bold-dark">
+                    {{ fieldFiles.label | translate }}:
+                  </label>
+                  <div class="files">
+                    <app-files-list
+                      [files]="form?.get(fieldName)?.value ?? []"
+                      (filesChange)="fieldFiles.filesChange(fieldName, $event)"
+                    ></app-files-list>
+                    <div class="open-documents-dialog-icon-wrapper">
+                      <ocean-icon
+                        [iconType]="iconType.ADD"
+                        [classes]="['dashed-border-icon']"
+                        (click)="fieldFiles.openDocumentsDialog(fieldName)"
+                      >
+                      </ocean-icon>
+                    </div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container
+                *ngIf="
+                  checkType(fieldValue, formFieldGroupTypes.text) as fieldText
+                "
+              >
+                <app-field-text
+                  [className]="fieldText.cssClassName"
+                  type="text"
+                  [contextId]="fieldText?.contextId ?? ''"
+                  [formControlName]="fieldName"
+                  [placeholder]="fieldText.placeholder ?? ''"
+                  [required]="
+                    fieldText.validators?.includes(validatorsRequired) ?? false
+                  "
+                  [label]="fieldText.label"
+                  [noTailingSpace]="fieldText.noTailingSpace ?? false"
+                  [readonly]="readonly"
+                >
+                </app-field-text>
+              </ng-container>
+              <ng-container
+                *ngIf="
+                  checkType(fieldValue, formFieldGroupTypes.date) as fieldDate
+                "
+              >
+                <app-datepicker
+                  [ngClass]="fieldDate.cssClassName ?? ''"
+                  [placeholder]="fieldDate.placeholder ?? ''"
+                  [formControlName]="fieldName"
+                  [contextId]="fieldDate.contextId ?? ''"
+                  [required]="
+                    fieldDate.validators?.includes(validatorsRequired) ?? false
+                  "
+                  [minDate]="fieldDate.minDate"
+                  [maxDate]="fieldDate.maxDate"
+                  [label]="fieldDate.label"
+                >
+                </app-datepicker>
+              </ng-container>
+              <ng-container
+                *ngIf="
+                  checkType(
+                    fieldValue,
+                    formFieldGroupTypes.country
+                  ) as fieldCountry
+                "
+              >
+                <div [ngClass]="fieldCountry.cssClassName ?? ''">
+                  <label class="label" [for]="fieldCountry.type + fieldName">
+                    {{ fieldCountry.label | translate }}
+                    <span
+                      *ngIf="
+                        fieldCountry.validators?.includes(validatorsRequired) ??
+                        false
+                      "
+                      >*</span
+                    >
+                  </label>
+                  <div
+                    class="countryWrapper"
+                    (click)="form.get(fieldName)?.markAsTouched()"
+                  >
+                    <mat-select-country
+                      [id]="fieldCountry.type + fieldName"
+                      [placeHolder]="fieldCountry.placeholder ?? '' | translate"
+                      [name]="fieldName"
+                      [countries]="fieldCountry?.countries ?? []"
+                      [formControlName]="fieldName"
+                      (onCountrySelected)="
+                        onCountryChange(fieldCountry, $event)
+                      "
+                      [class.has-error]="
+                        form.get(fieldName)?.touched &&
+                        !form.get(fieldName)?.value
+                      "
+                    >
+                    </mat-select-country>
+                    <mat-error
+                      class="country-error"
+                      *ngIf="
+                        form.get(fieldName)?.touched &&
+                        form.get(fieldName)?.errors?.required
+                      "
+                    >
+                      {{ 'FORMS.LABELS.REQUIRED' | translate }}
+                    </mat-error>
+                    <div
+                      *ngIf="!form.get(fieldName)?.value"
+                      class="countryArrow"
+                    ></div>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container
+                *ngIf="
+                  checkType(fieldValue, formFieldGroupTypes.phone) as fieldPhone
+                "
+              >
+                <div
+                  ngClass="phone-control-wrapper {{ fieldPhone.cssClassName }}"
+                >
+                  <label class="label" [for]="fieldPhone.type + fieldName">
+                    {{ fieldPhone.label | translate }}
+                    <span
+                      *ngIf="
+                        fieldPhone.validators?.includes(validatorsRequired) ??
+                        false
+                      "
+                      >*</span
+                    >
+                  </label>
+                  <ngx-intl-tel-input
+                    [cssClass]="'phone-control'"
+                    [id]="fieldPhone.type + fieldName"
+                    data-testid="phone"
+                    [enablePlaceholder]="true"
+                    [selectedCountryISO]="
+                      fieldPhone?.interceptSelectedCountryISO(form) ??
+                      CountryISO.UnitedStates
+                    "
+                    (countryChange)="fieldPhone?.onCountryChange($event, form)"
+                    [phoneValidation]="true"
+                    [formControlName]="fieldName"
+                    [onlyCountries]="fieldPhone?.countries ?? []"
+                    [selectFirstCountry]="!!fieldPhone?.selectFirstCountry"
+                  >
+                  </ngx-intl-tel-input>
+                  <ng-container
+                    *ngIf="
+                      form.get(fieldName)?.touched &&
+                      form.get(fieldName)?.errors as errors
+                    "
+                  >
+                    <mat-error class="phone-error mt-4">
+                      {{
+                        (errors?.required
+                          ? 'FORMS.LABELS.REQUIRED'
+                          : 'FORMS.ERRORS.INVALID_PHONE'
+                        ) | translate
+                      }}</mat-error
+                    >
+                  </ng-container>
+                </div>
+              </ng-container>
+              <ng-container
+                *ngIf="
+                  checkType(
+                    fieldValue,
+                    formFieldGroupTypes.editable
+                  ) as fieldEditable
+                "
+              >
+                <div class="form-control-wrapper minus-margin-top-20">
+                  <app-field-text
+                    class="trim-text"
+                    [label]="(fieldEditable.label | translate) + ':'"
+                    [formControlName]="fieldName"
+                    [readonly]="!fieldEditable.isEditing"
+                  >
+                  </app-field-text>
+                  <ng-container *ngIf="form.get(fieldName)?.enabled">
+                    <ng-container
+                      *ngIf="fieldEditable.isEditing; else readonly"
+                    >
+                      <span
+                        *ngIf="form.get(fieldName)?.valid"
+                        (click)="
+                          fieldEditable.onDoneEditing(
+                            form.get(fieldName)?.value
+                          );
+                          fieldEditable.isEditing = false
+                        "
+                        class="update-btn"
+                      >
+                        {{ 'COMMON.BUTTONS.OK' | translate }}
+                      </span>
+                    </ng-container>
+                    <ng-template #readonly>
+                      <div class="edit-btn">
+                        <img
+                          src="/assets/icons/pencil-1x.png"
+                          class="edit-pencil-image"
+                        />
+                        <span
+                          (click)="
+                            fieldEditable.onStartEditing(fieldName);
+                            fieldEditable.isEditing = true
+                          "
+                        >
+                          {{ 'COMMON.BUTTONS.EDIT' | translate }}
+                        </span>
+                      </div>
+                    </ng-template>
+                  </ng-container>
+                </div>
+              </ng-container>
+              <ng-container
+                *ngIf="
+                  checkType(
+                    fieldValue,
+                    formFieldGroupTypes.checkbox
+                  ) as fieldCheckbox
+                "
+              >
+                <app-checkbox
+                  [className]="fieldCheckbox.cssClassName"
+                  [formControlName]="fieldName"
+                  [label]="fieldCheckbox.label"
+                  [placeholder]="fieldCheckbox.placeholder ?? ''"
+                ></app-checkbox>
+              </ng-container>
+              <ng-container
+                *ngIf="
+                  checkType(
+                    fieldValue,
+                    formFieldGroupTypes.select
+                  ) as fieldSelect
+                "
+              >
+                <label class="label" [for]="fieldSelect.type + fieldName">
+                  {{ fieldSelect.label | translate }}
+                  <span
+                    *ngIf="
+                      fieldSelect.validators?.includes(validatorsRequired) ??
+                      false
+                    "
+                    >*</span
+                  >
+                </label>
+                <mat-form-field [className]="fieldSelect.cssClassName">
+                  <mat-select
+                    [id]="fieldSelect.type + fieldName"
+                    [formControlName]="fieldName"
+                    [placeholder]="fieldSelect.placeholder"
+                    (selectionChange)="
+                      fieldSelect?.onValueSelected($event?.value)
+                    "
+                  >
+                    <mat-option
+                      *ngFor="let option of fieldSelect.options"
+                      [value]="fieldSelect.getOptionValue(option)"
+                    >
+                      {{ fieldSelect.getOptionTitle(option) }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </ng-container>
+              <ng-container
+                *ngIf="
+                  checkType(
+                    fieldValue,
+                    formFieldGroupTypes.textarea
+                  ) as fieldTextarea
+                "
+              >
+                <label class="label" [for]="fieldTextarea.type + fieldName">
+                  {{ fieldTextarea.label | translate }}
+                  <span
+                    *ngIf="
+                      fieldTextarea.validators?.includes(validatorsRequired) ??
+                      false
+                    "
+                    >*</span
+                  >
+                </label>
+                <app-field-textarea
+                  type="text"
+                  [className]="fieldTextarea.cssClassName"
+                  [contextId]="fieldTextarea?.contextId ?? ''"
+                  [formControlName]="fieldName"
+                  [placeholder]="fieldTextarea.placeholder ?? ''"
+                  [required]="
+                    fieldTextarea.validators?.includes(validatorsRequired) ??
+                    false
+                  "
+                  [noTailingSpace]="fieldTextarea.noTailingSpace ?? false"
+                  [rows]="fieldTextarea.rows"
+                >
+                </app-field-textarea>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+    </div>
+  </ng-container>
+</ng-container>

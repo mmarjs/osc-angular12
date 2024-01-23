@@ -1,0 +1,60 @@
+<div>
+  <layout-panel-wrapper class="w-100">
+    <div class="d-flex justify-content-end">
+      <img src="/assets/icons/contract.jpg" alt=""
+        style="height: 50px; width: 50px;">
+    </div>
+    <ng-container *ngIf="isLoading; else showStatus">
+      <div class="spinner-wrapper">
+        <mat-progress-spinner mode="indeterminate" [diameter]="80"
+          [strokeWidth]="5">
+        </mat-progress-spinner>
+      </div>
+    </ng-container>
+    <ng-template #showStatus>
+      <div
+        *ngIf="(document?.status ===  documentStatus.New && document?.userStatus === userStatus.NotCompleted) || 
+         (document?.status ===  documentStatus.InProgress && document?.userStatus === userStatus.NotCompleted)">
+        <div class="sign-page status">
+          <div class="sign-page--title">{{ 'DOCUMENTS.SIGN_TITLE' | translate }}
+          </div>
+          <div class="sign-page--text">{{ 'DOCUMENTS.SIGN_TEXT' | translate }}
+          </div>
+          <ng-container *ngIf="link">
+            <a mat-flat-button color="primary" (click)="viewDocument()">
+              {{ 'DOCUMENTS.REVIEW_AND_SIGN' | translate }}
+            </a>
+          </ng-container>
+        </div>
+      </div>
+      <div
+        *ngIf="document?.status === documentStatus.InProgress && document?.userStatus === userStatus.Completed">
+        <div class="status">
+          <h2>
+            {{ 'DOCUMENTS.CONTRACT_INPROGRESS' | translate }}
+          </h2>
+          <p>{{ 'DOCUMENTS.PLEASE_WAIT' | translate }}</p>
+          <p> {{ 'DOCUMENTS.YOU_WILL_RECIEVE_AN_EMAIL' | translate }} <br>
+            {{ 'DOCUMENTS.ONCE_EVERYONE_SIGNED' | translate }} </p>
+          <ng-template [ngTemplateOutlet]="reviewDocuments"></ng-template>
+        </div>
+      </div>
+      <div *ngIf="document?.status === documentStatus.Completed">
+        <div class="status" *ngIf="bid$ | async as bid">
+          <h2>{{ 'DOCUMENTS.GREAT_BOTH_SIGNED_SUCCESSFULLY' | translate }}</h2>
+          <div class="d-flex justify-content-center">
+            <app-button (btnClick)="gotoDepositPage()"
+              *ngIf="!(bid?.paymentItemDTO?.eventType === paymentStatus.SUCCEEDED);else reviewDocuments">
+              {{ 'DOCUMENTS.PAY_NOW' | translate }}</app-button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </layout-panel-wrapper>
+
+  <ng-template #reviewDocuments>
+    <app-button (btnClick)="viewDocument()">{{ 'DOCUMENTS.REVIEW_DOCUMENTS' |
+      translate }}</app-button>
+  </ng-template>
+
+</div>

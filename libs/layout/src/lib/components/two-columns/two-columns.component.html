@@ -1,0 +1,16 @@
+
+<ng-content select="h2"></ng-content>
+
+<div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign=" stretch" fxLayoutGap="4%" fxLayoutGap.lt-md="30px">
+  <div [fxFlex]="width" [fxFlexOrder]="reverse ? 2 : 1" fxLayout="column" fxLayoutGap="40px" fxLayoutGap.lt-md="30px">
+
+    <ng-content></ng-content>
+
+  </div>
+  <div [fxFlex]="100 - 4 - width" [fxFlexOrder]="reverse ? 1 : 2" fxLayout="column" fxLayoutGap="40px"
+    fxLayoutGap.lt-md="30px" class="right-col">
+
+    <ng-content select="[aside]"></ng-content>
+
+  </div>
+</div>

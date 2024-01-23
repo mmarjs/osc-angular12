@@ -1,0 +1,24 @@
+<div class="auction-detail-panel">
+  <ng-container *ngIf="images$ | async as images">
+    <ng-container *ngIf="images?.length > 0; else elseTemplate">
+      <app-carousel-view [media]="images"></app-carousel-view>
+    </ng-container>
+    <ng-template #elseTemplate>
+      <img src="/assets/images/no-image.png" alt="" class="default-img" />
+    </ng-template>
+  </ng-container>
+
+  <p>{{ auction.name }}</p>
+  <p>
+    <b>{{ 'FORMS.LABELS.TYPE' | translate }}: </b>
+    {{ 'APPLICATION.' + auction.type | translate }}
+  </p>
+  <p>
+    <b>{{ 'FORMS.LABELS.LISTED' | translate }}: </b
+    >{{ auction.auctionStartDate | date: 'shortDate' }}
+  </p>
+  <p>
+    <b>{{ 'FORMS.LABELS.ENDS' | translate }}: </b>
+    {{ auction.auctionEndDate | date: 'shortDate' }}
+  </p>
+</div>

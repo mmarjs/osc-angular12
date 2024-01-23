@@ -1,0 +1,10 @@
+<h2 id="testimonials">What People Are Saying</h2>
+
+<div fxLayout="row wrap" fxLayout.xs="column wrap" fxLayoutGap.xs="20px">
+  <div *ngFor="let row of testimonials" fxFlex="33" fxFlex.xs="100" fxLayout="column" fxLayoutAlign="space-between">
+    <blockquote>
+      "{{ row.message }}"
+    </blockquote>
+    <span>- {{ row.author }}</span>
+  </div>
+</div>

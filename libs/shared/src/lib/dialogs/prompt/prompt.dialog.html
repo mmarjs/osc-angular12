@@ -1,0 +1,8 @@
+<h3 matDialogTitle>{{ data.title }}</h3>
+
+<div mat-dialog-content style="overflow: inherit;">{{ data.content }}</div>
+
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="end stretch" fxLayoutGap="10px">
+  <button mat-stroked-button [matDialogClose]="false">{{ data.no }}</button>
+  <button mat-raised-button color="{{ data.color }}" [matDialogClose]="true">{{ data.yes }}</button>
+</div>

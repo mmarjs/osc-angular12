@@ -1,0 +1,19 @@
+<label *ngIf="label" for="{{ contextId }}-{{ formControlName }}" class="label">
+  {{ label | translate}}
+  <span *ngIf="_required && displayLabelSuffix" aria-hidden="true">*</span>
+</label>
+
+<mat-form-field floatLabel="never">
+    <ng-container matPrefix>
+        <ng-content select="[matPrefix]"></ng-content>
+    </ng-container>
+
+    <input id="{{ contextId }}-{{ formControlName }}" [matDatepickerFilter]="datepickerOptions" matInput [matDatepicker]="datePicker" [formControl]="_control" [min]="minDate" [max]="maxDate" [placeholder]="placeholder | translate" (dateInput)="onChange($event.value)"
+        (blur)="propagateTouch()" [disabled]="_readonly" [readonly]="true">
+    <mat-datepicker-toggle matSuffix [for]="datePicker" [disabled]="_readonly"></mat-datepicker-toggle>
+    <mat-datepicker #datePicker [startAt]="startDate" (closed)="propagateTouch()" [disabled]="_readonly"></mat-datepicker>
+
+    <mat-hint *ngIf="hintLabel">{{ hintLabel | translate}}</mat-hint>
+    <mat-error>{{ _control?.invalid ? (getErrorMsg | translate) : '' }}</mat-error>
+
+</mat-form-field>

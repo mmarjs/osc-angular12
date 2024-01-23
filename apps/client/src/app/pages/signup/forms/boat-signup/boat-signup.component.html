@@ -1,0 +1,55 @@
+<h2 class="title-process">{{'PROFILE.BOAT_DETAILS' | translate}}</h2>
+<mat-horizontal-stepper
+  #stepper
+  linear
+  labelPosition="bottom"
+  [linear]="true"
+  class="{{ 'last-edited-step-' + stepper.selectedIndex }}"
+>
+  <mat-step [stepControl]="description?.form" [completed]="description?.form?.valid">
+    <ng-template matStepLabel>{{'COMMON.BUTTONS.INFORMATION' | translate}}</ng-template>
+    <app-form-builder
+      [form]="description?.form"
+      [fields]="description?.fields"
+      containerCssClass="form"
+    >
+    </app-form-builder>
+    <div class="d-flex justify-content-end">
+      <button
+        mat-flat-button
+        matStepperNext
+        color="primary"
+        [disabled]="description?.form?.invalid"
+      >
+        {{'COMMON.BUTTONS.NEXT' | translate}}
+      </button>
+    </div>
+  </mat-step>
+  <mat-step [stepControl]="location?.form">
+    <ng-template matStepLabel>{{ 'FORMS.LABELS.LOCATION' | translate}}</ng-template>
+    <app-form-builder
+      [form]="location?.form"
+      [fields]="location?.fields"
+      containerCssClass="form"
+    >
+    </app-form-builder>
+    <div class="d-flex justify-content-end">
+      <button
+        mat-flat-button
+        matStepperPrevious
+        type="button"
+        class="mr-6">
+        {{'COMMON.BUTTONS.BACK' | translate}}
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="location?.form?.invalid || isParentValid"
+        (click)="onSubmit()"
+      >
+        {{'COMMON.BUTTONS.CREATE_ACCOUNT' | translate}}
+      </button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>

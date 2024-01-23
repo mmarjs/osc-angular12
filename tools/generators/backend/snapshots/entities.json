@@ -1,0 +1,2956 @@
+{
+  "Account": {
+    "businessLogo": {
+      "type": "string"
+    },
+    "businessName": {
+      "type": "string"
+    },
+    "businessPrimaryColor": {
+      "type": "string"
+    },
+    "businessURL": {
+      "type": "string"
+    },
+    "chargesEnabled": {
+      "type": "boolean"
+    },
+    "country": {
+      "type": "string"
+    },
+    "currenciesSupported": {
+      "type": "Array<string>"
+    },
+    "debitNegativeBalances": {
+      "type": "boolean"
+    },
+    "declineChargeOn": {
+      "type": "AccountDeclineChargeOn"
+    },
+    "defaultCurrency": {
+      "type": "string"
+    },
+    "detailsSubmitted": {
+      "type": "boolean"
+    },
+    "displayName": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "externalAccounts": {
+      "type": "ExternalAccountCollection"
+    },
+    "id": {
+      "type": "string"
+    },
+    "keys": {
+      "type": "Keys"
+    },
+    "legalEntity": {
+      "type": "LegalEntity"
+    },
+    "managed": {
+      "type": "boolean"
+    },
+    "metadata": {
+      "type": "any"
+    },
+    "object": {
+      "type": "string"
+    },
+    "productDescription": {
+      "type": "string"
+    },
+    "statementDescriptor": {
+      "type": "string"
+    },
+    "supportEmail": {
+      "type": "string"
+    },
+    "supportPhone": {
+      "type": "string"
+    },
+    "supportURL": {
+      "type": "string"
+    },
+    "timezone": {
+      "type": "string"
+    },
+    "tosAcceptance": {
+      "type": "AccountTosAcceptance"
+    },
+    "transferSchedule": {
+      "type": "AccountTransferSchedule"
+    },
+    "transfersEnabled": {
+      "type": "boolean"
+    },
+    "verification": {
+      "type": "Verification"
+    }
+  },
+  "AccountDeclineChargeOn": {
+    "avsFailure": {
+      "type": "boolean"
+    },
+    "cvcFailure": {
+      "type": "boolean"
+    }
+  },
+  "AccountTosAcceptance": {
+    "date": {
+      "type": "number"
+    },
+    "ip": {
+      "type": "string"
+    },
+    "userAgent": {
+      "type": "string"
+    }
+  },
+  "AccountTransferSchedule": {
+    "delayDays": {
+      "type": "number"
+    },
+    "interval": {
+      "type": "string"
+    },
+    "monthlyAnchor": {
+      "type": "number"
+    },
+    "weeklyAnchor": {
+      "type": "string"
+    }
+  },
+  "Address": {
+    "city": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "line1": {
+      "type": "string"
+    },
+    "line2": {
+      "type": "string"
+    },
+    "postalCode": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    }
+  },
+  "Application": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    }
+  },
+  "ApplicationFee": {
+    "account": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "number"
+    },
+    "amountRefunded": {
+      "type": "number"
+    },
+    "application": {
+      "type": "string"
+    },
+    "balanceTransaction": {
+      "type": "string"
+    },
+    "charge": {
+      "type": "string"
+    },
+    "created": {
+      "type": "number"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "livemode": {
+      "type": "boolean"
+    },
+    "object": {
+      "type": "string"
+    },
+    "originatingTransaction": {
+      "type": "string"
+    },
+    "refunded": {
+      "type": "boolean"
+    },
+    "refunds": {
+      "type": "FeeRefundCollection"
+    },
+    "user": {
+      "type": "string"
+    }
+  },
+  "AuditEvent": {
+    "data": {
+      "type": "any"
+    },
+    "principal": {
+      "type": "string"
+    },
+    "timestamp": {
+      "type": "Instant"
+    },
+    "type": {
+      "type": "string"
+    }
+  },
+  "BalanceTransaction": {
+    "amount": {
+      "type": "number"
+    },
+    "availableOn": {
+      "type": "number"
+    },
+    "created": {
+      "type": "number"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "fee": {
+      "type": "number"
+    },
+    "feeDetails": {
+      "type": "Array<Fee>"
+    },
+    "id": {
+      "type": "string"
+    },
+    "net": {
+      "type": "number"
+    },
+    "object": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "sourcedTransfers": {
+      "type": "TransferCollection"
+    },
+    "status": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    }
+  },
+  "BankAccount": {
+    "account": {
+      "type": "string"
+    },
+    "accountHolderName": {
+      "type": "string"
+    },
+    "accountHolderType": {
+      "type": "string"
+    },
+    "bankName": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "customer": {
+      "type": "string"
+    },
+    "defaultForCurrency": {
+      "type": "boolean"
+    },
+    "fingerprint": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "instanceURL": {
+      "type": "string"
+    },
+    "last4": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "any"
+    },
+    "object": {
+      "type": "string"
+    },
+    "routingNumber": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "validated": {
+      "type": "boolean"
+    }
+  },
+  "Bid": {
+    "bidAmount": {
+      "type": "number"
+    },
+    "bidItems": {
+      "type": "Array<BidItem>"
+    },
+    "description": {
+      "type": "string"
+    },
+    "id": {
+      "type": "number"
+    },
+    "minBid": {
+      "type": "number"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["ACCEPTED", "REJECTED", "NA", "IN_REVIEW"]
+    }
+  },
+  "BidDTO": {
+    "bidAmount": {
+      "type": "number"
+    },
+    "bidItems": {
+      "type": "Array<BidItemDTO>"
+    },
+    "description": {
+      "type": "string"
+    },
+    "id": {
+      "type": "number"
+    },
+    "job": {
+      "type": "JobDTO"
+    },
+    "minBid": {
+      "type": "number"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["ACCEPTED", "REJECTED", "NA", "IN_REVIEW"]
+    }
+  },
+  "BidItem": {
+    "amount": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string"
+    },
+    "id": {
+      "type": "number"
+    },
+    "quantity": {
+      "type": "number"
+    }
+  },
+  "BidItemDTO": {
+    "amount": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string"
+    },
+    "id": {
+      "type": "number"
+    },
+    "quantity": {
+      "type": "number"
+    }
+  },
+  "Boat": {
+    "about": {
+      "type": "string",
+      "enum": ["Maxlength10485760"]
+    },
+    "address": {
+      "type": "string",
+      "enum": ["Maxlength100"]
+    },
+    "address2": {
+      "type": "string",
+      "enum": ["Maxlength100"]
+    },
+    "city": {
+      "type": "string",
+      "enum": ["Maxlength100"]
+    },
+    "id": {
+      "type": "number"
+    },
+    "jobs": {
+      "type": "Array<Job>"
+    },
+    "makeModelYear": {
+      "type": "string",
+      "enum": ["Maxlength255"]
+    },
+    "name": {
+      "type": "string",
+      "enum": ["Maxlength100"]
+    },
+    "objects": {
+      "type": "StoredObjectDescriptor"
+    },
+    "state": {
+      "type": "string",
+      "enum": ["Maxlength50"]
+    },
+    "zipCode": {
+      "type": "string",
+      "enum": ["Maxlength10"]
+    }
+  },
+  "BoatInputDTO": {
+    "about": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "address2": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "id": {
+      "type": "number"
+    },
+    "makeModelYear": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "zipCode": {
+      "type": "string"
+    }
+  },
+  "BoatOutputDTO": {
+    "about": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "address2": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "id": {
+      "type": "number"
+    },
+    "images": {
+      "type": "Array<StoredObjectDescriptorDTO>"
+    },
+    "makeModelYear": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "zipCode": {
+      "type": "string"
+    }
+  },
+  "Card": {
+    "account": {
+      "type": "string"
+    },
+    "addressCity": {
+      "type": "string"
+    },
+    "addressCountry": {
+      "type": "string"
+    },
+    "addressLine1": {
+      "type": "string"
+    },
+    "addressLine1Check": {
+      "type": "string"
+    },
+    "addressLine2": {
+      "type": "string"
+    },
+    "addressState": {
+      "type": "string"
+    },
+    "addressZip": {
+      "type": "string"
+    },
+    "addressZipCheck": {
+      "type": "string"
+    },
+    "brand": {
+      "type": "string"
+    },
+    "country": {
+      "type": "string"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "customer": {
+      "type": "string"
+    },
+    "cvcCheck": {
+      "type": "string"
+    },
+    "defaultForCurrency": {
+      "type": "boolean"
+    },
+    "description": {
+      "type": "string"
+    },
+    "dynamicLast4": {
+      "type": "string"
+    },
+    "expMonth": {
+      "type": "number"
+    },
+    "expYear": {
+      "type": "number"
+    },
+    "fingerprint": {
+      "type": "string"
+    },
+    "funding": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "iin": {
+      "type": "string"
+    },
+    "instanceURL": {
+      "type": "string"
+    },
+    "issuer": {
+      "type": "string"
+    },
+    "last4": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "any"
+    },
+    "name": {
+      "type": "string"
+    },
+    "object": {
+      "type": "string"
+    },
+    "recipient": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "tokenizationMethod": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    }
+  },
+  "Charge": {
+    "amount": {
+      "type": "number"
+    },
+    "amountRefunded": {
+      "type": "number"
+    },
+    "application": {
+      "type": "string"
+    },
+    "applicationFee": {
+      "type": "string"
+    },
+    "applicationFeeObject": {
+      "type": "ApplicationFee"
+    },
+    "applicationObject": {
+      "type": "Application"
+    },
+    "balanceTransaction": {
+      "type": "string"
+    },
+    "balanceTransactionObject": {
+      "type": "BalanceTransaction"
+    },
+    "captured": {
+      "type": "boolean"
+    },
+    "card": {
+      "type": "Card"
+    },
+    "created": {
+      "type": "number"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "customer": {
+      "type": "string"
+    },
+    "customerObject": {
+      "type": "Customer"
+    },
+    "description": {
+      "type": "string"
+    },
+    "destination": {
+      "type": "string"
+    },
+    "destinationObject": {
+      "type": "Account"
+    },
+    "dispute": {
+      "type": "string"
+    },
+    "disputeObject": {
+      "type": "Dispute"
+    },
+    "disputed": {
+      "type": "boolean"
+    },
+    "failureCode": {
+      "type": "string"
+    },
+    "failureMessage": {
+      "type": "string"
+    },
+    "fraudDetails": {
+      "type": "FraudDetails"
+    },
+    "id": {
+      "type": "string"
+    },
+    "invoice": {
+      "type": "string"
+    },
+    "invoiceObject": {
+      "type": "Invoice"
+    },
+    "livemode": {
+      "type": "boolean"
+    },
+    "metadata": {
+      "type": "any"
+    },
+    "object": {
+      "type": "string"
+    },
+    "order": {
+      "type": "string"
+    },
+    "orderObject": {
+      "type": "Order"
+    },
+    "outcome": {
+      "type": "ChargeOutcome"
+    },
+    "paid": {
+      "type": "boolean"
+    },
+    "receiptEmail": {
+      "type": "string"
+    },
+    "receiptNumber": {
+      "type": "string"
+    },
+    "refunded": {
+      "type": "boolean"
+    },
+    "refunds": {
+      "type": "ChargeRefundCollection"
+    },
+    "review": {
+      "type": "string"
+    },
+    "reviewObject": {
+      "type": "Review"
+    },
+    "shipping": {
+      "type": "ShippingDetails"
+    },
+    "source": {
+      "type": "ExternalAccount"
+    },
+    "sourceTransfer": {
+      "type": "string"
+    },
+    "sourceTransferObject": {
+      "type": "Transfer"
+    },
+    "statementDescription": {
+      "type": "string"
+    },
+    "statementDescriptor": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "transfer": {
+      "type": "string"
+    },
+    "transferGroup": {
+      "type": "string"
+    },
+    "transferObject": {
+      "type": "Transfer"
+    }
+  },
+  "ChargeOutcome": {
+    "networkStatus": {
+      "type": "string"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "riskLevel": {
+      "type": "string"
+    },
+    "rule": {
+      "type": "ChargeOutcomeRule"
+    },
+    "ruleId": {
+      "type": "string"
+    },
+    "ruleObject": {
+      "type": "ChargeOutcomeRule"
+    },
+    "sellerMessage": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    }
+  },
+  "ChargeOutcomeRule": {
+    "action": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "predicate": {
+      "type": "string"
+    }
+  },
+  "ChargeRefundCollection": {
+    "count": {
+      "type": "number"
+    },
+    "data": {
+      "type": "Array<Refund>"
+    },
+    "hasMore": {
+      "type": "boolean"
+    },
+    "requestOptions": {
+      "type": "RequestOptions"
+    },
+    "requestParams": {
+      "type": "any"
+    },
+    "totalCount": {
+      "type": "number"
+    },
+    "url": {
+      "type": "string"
+    }
+  },
+  "ChargeRequestDTO": {
+    "amount": {
+      "type": "number"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "stripeEmail": {
+      "type": "string"
+    },
+    "stripeToken": {
+      "type": "string"
+    }
+  },
+  "Coupon": {
+    "amountOff": {
+      "type": "number"
+    },
+    "created": {
+      "type": "number"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "duration": {
+      "type": "string"
+    },
+    "durationInMonths": {
+      "type": "number"
+    },
+    "id": {
+      "type": "string"
+    },
+    "livemode": {
+      "type": "boolean"
+    },
+    "maxRedemptions": {
+      "type": "number"
+    },
+    "metadata": {
+      "type": "any"
+    },
+    "object": {
+      "type": "string"
+    },
+    "percentOff": {
+      "type": "number"
+    },
+    "redeemBy": {
+      "type": "number"
+    },
+    "timesRedeemed": {
+      "type": "number"
+    },
+    "valid": {
+      "type": "boolean"
+    }
+  },
+  "Customer": {
+    "accountBalance": {
+      "type": "number"
+    },
+    "businessVatId": {
+      "type": "string"
+    },
+    "cards": {
+      "type": "CustomerCardCollection"
+    },
+    "created": {
+      "type": "number"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "defaultCard": {
+      "type": "string"
+    },
+    "defaultSource": {
+      "type": "string"
+    },
+    "deleted": {
+      "type": "boolean"
+    },
+    "delinquent": {
+      "type": "boolean"
+    },
+    "description": {
+      "type": "string"
+    },
+    "discount": {
+      "type": "Discount"
+    },
+    "email": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "livemode": {
+      "type": "boolean"
+    },
+    "metadata": {
+      "type": "any"
+    },
+    "nextRecurringCharge": {
+      "type": "NextRecurringCharge"
+    },
+    "object": {
+      "type": "string"
+    },
+    "shipping": {
+      "type": "ShippingDetails"
+    },
+    "sources": {
+      "type": "ExternalAccountCollection"
+    },
+    "subscription": {
+      "type": "Subscription"
+    },
+    "subscriptions": {
+      "type": "CustomerSubscriptionCollection"
+    },
+    "trialEnd": {
+      "type": "number"
+    }
+  },
+  "CustomerCardCollection": {
+    "count": {
+      "type": "number"
+    },
+    "data": {
+      "type": "Array<Card>"
+    },
+    "hasMore": {
+      "type": "boolean"
+    },
+    "requestOptions": {
+      "type": "RequestOptions"
+    },
+    "requestParams": {
+      "type": "any"
+    },
+    "totalCount": {
+      "type": "number"
+    },
+    "url": {
+      "type": "string"
+    }
+  },
+  "CustomerSubscriptionCollection": {
+    "count": {
+      "type": "number"
+    },
+    "data": {
+      "type": "Array<Subscription>"
+    },
+    "hasMore": {
+      "type": "boolean"
+    },
+    "requestOptions": {
+      "type": "RequestOptions"
+    },
+    "requestParams": {
+      "type": "any"
+    },
+    "totalCount": {
+      "type": "number"
+    },
+    "url": {
+      "type": "string"
+    }
+  },
+  "DateOfBirth": {
+    "day": {
+      "type": "number"
+    },
+    "month": {
+      "type": "number"
+    },
+    "year": {
+      "type": "number"
+    }
+  },
+  "Discount": {
+    "coupon": {
+      "type": "Coupon"
+    },
+    "customer": {
+      "type": "string"
+    },
+    "end": {
+      "type": "number"
+    },
+    "id": {
+      "type": "string"
+    },
+    "object": {
+      "type": "string"
+    },
+    "start": {
+      "type": "number"
+    },
+    "subscription": {
+      "type": "string"
+    }
+  },
+  "Dispute": {
+    "amount": {
+      "type": "number"
+    },
+    "balanceTransaction": {
+      "type": "string"
+    },
+    "balanceTransactions": {
+      "type": "Array<BalanceTransaction>"
+    },
+    "charge": {
+      "type": "string"
+    },
+    "created": {
+      "type": "number"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "evidence": {
+      "type": "string"
+    },
+    "evidenceDetails": {
+      "type": "EvidenceDetails"
+    },
+    "evidenceDueBy": {
+      "type": "number"
+    },
+    "evidenceSubObject": {
+      "type": "EvidenceSubObject"
+    },
+    "id": {
+      "type": "string"
+    },
+    "isChargeRefundable": {
+      "type": "boolean"
+    },
+    "livemode": {
+      "type": "boolean"
+    },
+    "metadata": {
+      "type": "any"
+    },
+    "networkReasonCode": {
+      "type": "string"
+    },
+    "object": {
+      "type": "string"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    }
+  },
+  "Era": {
+    "value": {
+      "type": "number"
+    }
+  },
+  "EvidenceDetails": {
+    "dueBy": {
+      "type": "number"
+    },
+    "submissionCount": {
+      "type": "number"
+    }
+  },
+  "EvidenceSubObject": {
+    "accessActivityLog": {
+      "type": "string"
+    },
+    "billingAddress": {
+      "type": "string"
+    },
+    "cancellationPolicy": {
+      "type": "string"
+    },
+    "cancellationPolicyDisclosure": {
+      "type": "string"
+    },
+    "cancellationRebuttal": {
+      "type": "string"
+    },
+    "customerCommunication": {
+      "type": "string"
+    },
+    "customerEmailAddress": {
+      "type": "string"
+    },
+    "customerName": {
+      "type": "string"
+    },
+    "customerPurchaseIp": {
+      "type": "string"
+    },
+    "customerSignature": {
+      "type": "string"
+    },
+    "duplicateChargeDocumentation": {
+      "type": "string"
+    },
+    "duplicateChargeExplanation": {
+      "type": "string"
+    },
+    "duplicateChargeId": {
+      "type": "string"
+    },
+    "productDescription": {
+      "type": "string"
+    },
+    "receipt": {
+      "type": "string"
+    },
+    "refundPolicy": {
+      "type": "string"
+    },
+    "refundPolicyDisclosure": {
+      "type": "string"
+    },
+    "refundRefusalExplanation": {
+      "type": "string"
+    },
+    "serviceDate": {
+      "type": "string"
+    },
+    "serviceDocumentation": {
+      "type": "string"
+    },
+    "shippingAddress": {
+      "type": "string"
+    },
+    "shippingDate": {
+      "type": "string"
+    },
+    "shippingDocumentation": {
+      "type": "string"
+    },
+    "shippingTrackingNumber": {
+      "type": "string"
+    },
+    "uncategorizedFile": {
+      "type": "string"
+    },
+    "uncategorizedText": {
+      "type": "string"
+    }
+  },
+  "ExternalAccount": {
+    "account": {
+      "type": "string"
+    },
+    "customer": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "instanceURL": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "any"
+    },
+    "object": {
+      "type": "string"
+    }
+  },
+  "ExternalAccountCollection": {
+    "count": {
+      "type": "number"
+    },
+    "data": {
+      "type": "Array<ExternalAccount>"
+    },
+    "hasMore": {
+      "type": "boolean"
+    },
+    "requestOptions": {
+      "type": "RequestOptions"
+    },
+    "requestParams": {
+      "type": "any"
+    },
+    "totalCount": {
+      "type": "number"
+    },
+    "url": {
+      "type": "string"
+    }
+  },
+  "Fee": {
+    "amount": {
+      "type": "number"
+    },
+    "application": {
+      "type": "string"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    }
+  },
+  "FeeRefund": {
+    "amount": {
+      "type": "number"
+    },
+    "balanceTransaction": {
+      "type": "string"
+    },
+    "created": {
+      "type": "number"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "fee": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "instanceURL": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "any"
+    },
+    "object": {
+      "type": "string"
+    }
+  },
+  "FeeRefundCollection": {
+    "count": {
+      "type": "number"
+    },
+    "data": {
+      "type": "Array<FeeRefund>"
+    },
+    "hasMore": {
+      "type": "boolean"
+    },
+    "requestOptions": {
+      "type": "RequestOptions"
+    },
+    "requestParams": {
+      "type": "any"
+    },
+    "totalCount": {
+      "type": "number"
+    },
+    "url": {
+      "type": "string"
+    }
+  },
+  "FraudDetails": {
+    "stripeReport": {
+      "type": "string"
+    },
+    "userReport": {
+      "type": "string"
+    }
+  },
+  "Instant": {
+    "epochSecond": {
+      "type": "number"
+    },
+    "nano": {
+      "type": "number"
+    }
+  },
+  "Invoice": {
+    "amountDue": {
+      "type": "number"
+    },
+    "applicationFee": {
+      "type": "number"
+    },
+    "attemptCount": {
+      "type": "number"
+    },
+    "attempted": {
+      "type": "boolean"
+    },
+    "billing": {
+      "type": "string"
+    },
+    "charge": {
+      "type": "string"
+    },
+    "closed": {
+      "type": "boolean"
+    },
+    "created": {
+      "type": "number"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "customer": {
+      "type": "string"
+    },
+    "date": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string"
+    },
+    "discount": {
+      "type": "Discount"
+    },
+    "dueDate": {
+      "type": "number"
+    },
+    "endingBalance": {
+      "type": "number"
+    },
+    "forgiven": {
+      "type": "boolean"
+    },
+    "id": {
+      "type": "string"
+    },
+    "lines": {
+      "type": "InvoiceLineItemCollection"
+    },
+    "livemode": {
+      "type": "boolean"
+    },
+    "metadata": {
+      "type": "any"
+    },
+    "nextPaymentAttempt": {
+      "type": "number"
+    },
+    "number": {
+      "type": "string"
+    },
+    "object": {
+      "type": "string"
+    },
+    "paid": {
+      "type": "boolean"
+    },
+    "periodEnd": {
+      "type": "number"
+    },
+    "periodStart": {
+      "type": "number"
+    },
+    "receiptNumber": {
+      "type": "string"
+    },
+    "startingBalance": {
+      "type": "number"
+    },
+    "statementDescriptor": {
+      "type": "string"
+    },
+    "subscription": {
+      "type": "string"
+    },
+    "subscriptionProrationDate": {
+      "type": "number"
+    },
+    "subtotal": {
+      "type": "number"
+    },
+    "tax": {
+      "type": "number"
+    },
+    "taxPercent": {
+      "type": "number"
+    },
+    "total": {
+      "type": "number"
+    },
+    "webhooksDeliveredAt": {
+      "type": "number"
+    }
+  },
+  "InvoiceLineItem": {
+    "amount": {
+      "type": "number"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "discountable": {
+      "type": "boolean"
+    },
+    "id": {
+      "type": "string"
+    },
+    "livemode": {
+      "type": "boolean"
+    },
+    "metadata": {
+      "type": "any"
+    },
+    "object": {
+      "type": "string"
+    },
+    "period": {
+      "type": "InvoiceLineItemPeriod"
+    },
+    "plan": {
+      "type": "Plan"
+    },
+    "proration": {
+      "type": "boolean"
+    },
+    "quantity": {
+      "type": "number"
+    },
+    "subscription": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    }
+  },
+  "InvoiceLineItemCollection": {
+    "count": {
+      "type": "number"
+    },
+    "data": {
+      "type": "Array<InvoiceLineItem>"
+    },
+    "hasMore": {
+      "type": "boolean"
+    },
+    "requestOptions": {
+      "type": "RequestOptions"
+    },
+    "requestParams": {
+      "type": "any"
+    },
+    "totalCount": {
+      "type": "number"
+    },
+    "url": {
+      "type": "string"
+    }
+  },
+  "InvoiceLineItemPeriod": {
+    "end": {
+      "type": "number"
+    },
+    "start": {
+      "type": "number"
+    }
+  },
+  "IsoChronology": {
+    "calendarType": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    }
+  },
+  "Job": {
+    "auctionEndDate": {
+      "type": "LocalDate"
+    },
+    "auctionStartDate": {
+      "type": "LocalDate"
+    },
+    "bids": {
+      "type": "Array<Bid>"
+    },
+    "budget": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "id": {
+      "type": "number"
+    },
+    "jobItems": {
+      "type": "Array<JobItem>"
+    },
+    "name": {
+      "type": "string"
+    },
+    "objects": {
+      "type": "StoredObjectDescriptor"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "AUCTION_LIVE",
+        "AUCTION_CANCELLED",
+        "AUCTION_TIMEDOUT",
+        "JOB_IN_PROGRESS",
+        "COMPLETED",
+        "ACCEPTED"
+      ]
+    },
+    "type": {
+      "type": "string",
+      "enum": ["SURVEY", "REPAIR"]
+    }
+  },
+  "JobDTO": {
+    "auctionEndDate": {
+      "type": "LocalDate"
+    },
+    "auctionStartDate": {
+      "type": "LocalDate"
+    },
+    "boatId": {
+      "type": "number"
+    },
+    "budget": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "id": {
+      "type": "number"
+    },
+    "jobItems": {
+      "type": "Array<JobItemDTO>"
+    },
+    "name": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "AUCTION_LIVE",
+        "AUCTION_CANCELLED",
+        "AUCTION_TIMEDOUT",
+        "JOB_IN_PROGRESS",
+        "COMPLETED",
+        "ACCEPTED"
+      ]
+    },
+    "type": {
+      "type": "string",
+      "enum": ["SURVEY", "REPAIR"]
+    }
+  },
+  "JobItem": {
+    "description": {
+      "type": "string"
+    },
+    "id": {
+      "type": "number"
+    },
+    "title": {
+      "type": "string"
+    }
+  },
+  "JobItemDTO": {
+    "description": {
+      "type": "string"
+    },
+    "id": {
+      "type": "number"
+    },
+    "title": {
+      "type": "string"
+    }
+  },
+  "Keys": {
+    "publishable": {
+      "type": "string"
+    },
+    "secret": {
+      "type": "string"
+    }
+  },
+  "LegalEntity": {
+    "additionalOwners": {
+      "type": "Array<Owner>"
+    },
+    "address": {
+      "type": "Address"
+    },
+    "businessName": {
+      "type": "string"
+    },
+    "businessTaxIdProvided": {
+      "type": "boolean"
+    },
+    "dob": {
+      "type": "DateOfBirth"
+    },
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "personalAddress": {
+      "type": "Address"
+    },
+    "personalIdNumberProvided": {
+      "type": "boolean"
+    },
+    "ssnLast4Provided": {
+      "type": "boolean"
+    },
+    "type": {
+      "type": "string"
+    },
+    "verification": {
+      "type": "Verification"
+    }
+  },
+  "Link": {
+    "href": {
+      "type": "string"
+    },
+    "templated": {
+      "type": "boolean"
+    }
+  },
+  "LocalDate": {
+    "chronology": {
+      "type": "IsoChronology"
+    },
+    "dayOfMonth": {
+      "type": "number"
+    },
+    "dayOfWeek": {
+      "type": "string",
+      "enum": [
+        "MONDAY",
+        "TUESDAY",
+        "WEDNESDAY",
+        "THURSDAY",
+        "FRIDAY",
+        "SATURDAY",
+        "SUNDAY"
+      ]
+    },
+    "dayOfYear": {
+      "type": "number"
+    },
+    "era": {
+      "type": "Era"
+    },
+    "leapYear": {
+      "type": "boolean"
+    },
+    "month": {
+      "type": "string",
+      "enum": [
+        "JANUARY",
+        "FEBRUARY",
+        "MARCH",
+        "APRIL",
+        "MAY",
+        "JUNE",
+        "JULY",
+        "AUGUST",
+        "SEPTEMBER",
+        "OCTOBER",
+        "NOVEMBER",
+        "DECEMBER"
+      ]
+    },
+    "monthValue": {
+      "type": "number"
+    },
+    "year": {
+      "type": "number"
+    }
+  },
+  "LogoutUrlDTO": {
+    "url": {
+      "type": "string"
+    }
+  },
+  "ModelAndView": {
+    "empty": {
+      "type": "boolean"
+    },
+    "model": {
+      "type": "any"
+    },
+    "modelMap": {
+      "type": "any"
+    },
+    "reference": {
+      "type": "boolean"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "100",
+        "101",
+        "102",
+        "103",
+        "200",
+        "201",
+        "202",
+        "203",
+        "204",
+        "205",
+        "206",
+        "207",
+        "208",
+        "226",
+        "300",
+        "301",
+        "302",
+        "302",
+        "303",
+        "304",
+        "305",
+        "307",
+        "308",
+        "400",
+        "401",
+        "402",
+        "403",
+        "404",
+        "405",
+        "406",
+        "407",
+        "408",
+        "409",
+        "410",
+        "411",
+        "412",
+        "413",
+        "413",
+        "414",
+        "414",
+        "415",
+        "416",
+        "417",
+        "418",
+        "419",
+        "420",
+        "421",
+        "422",
+        "423",
+        "424",
+        "426",
+        "428",
+        "429",
+        "431",
+        "451",
+        "500",
+        "501",
+        "502",
+        "503",
+        "504",
+        "505",
+        "506",
+        "507",
+        "508",
+        "509",
+        "510",
+        "511"
+      ]
+    },
+    "view": {
+      "type": "View"
+    },
+    "viewName": {
+      "type": "string"
+    }
+  },
+  "NextRecurringCharge": {
+    "amount": {
+      "type": "number"
+    },
+    "date": {
+      "type": "string"
+    }
+  },
+  "Notification": {
+    "date": {
+      "type": "LocalDate"
+    },
+    "description": {
+      "type": "string"
+    },
+    "id": {
+      "type": "number"
+    },
+    "title": {
+      "type": "string"
+    },
+    "userId": {
+      "type": "number"
+    }
+  },
+  "NotificationDTO": {
+    "date": {
+      "type": "LocalDate"
+    },
+    "description": {
+      "type": "string"
+    },
+    "id": {
+      "type": "number"
+    },
+    "title": {
+      "type": "string"
+    },
+    "userId": {
+      "type": "number"
+    }
+  },
+  "Order": {
+    "amount": {
+      "type": "number"
+    },
+    "amountReturned": {
+      "type": "number"
+    },
+    "application": {
+      "type": "string"
+    },
+    "applicationFee": {
+      "type": "number"
+    },
+    "charge": {
+      "type": "string"
+    },
+    "created": {
+      "type": "number"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "customer": {
+      "type": "string"
+    },
+    "customerObject": {
+      "type": "Customer"
+    },
+    "email": {
+      "type": "string"
+    },
+    "externalCouponCode": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "items": {
+      "type": "Array<OrderItem>"
+    },
+    "livemode": {
+      "type": "boolean"
+    },
+    "metadata": {
+      "type": "any"
+    },
+    "object": {
+      "type": "string"
+    },
+    "returns": {
+      "type": "OrderReturnCollection"
+    },
+    "selectedShippingMethod": {
+      "type": "string"
+    },
+    "shipping": {
+      "type": "ShippingDetails"
+    },
+    "shippingMethods": {
+      "type": "Array<ShippingMethod>"
+    },
+    "status": {
+      "type": "string"
+    },
+    "statusTransitions": {
+      "type": "StatusTransitions"
+    },
+    "updated": {
+      "type": "number"
+    },
+    "upstreamId": {
+      "type": "string"
+    }
+  },
+  "OrderItem": {
+    "amount": {
+      "type": "number"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "object": {
+      "type": "string"
+    },
+    "parent": {
+      "type": "string"
+    },
+    "quantity": {
+      "type": "number"
+    },
+    "type": {
+      "type": "string"
+    }
+  },
+  "OrderReturn": {
+    "amount": {
+      "type": "number"
+    },
+    "created": {
+      "type": "number"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "items": {
+      "type": "Array<OrderItem>"
+    },
+    "livemode": {
+      "type": "boolean"
+    },
+    "object": {
+      "type": "string"
+    },
+    "order": {
+      "type": "string"
+    },
+    "refund": {
+      "type": "string"
+    }
+  },
+  "OrderReturnCollection": {
+    "count": {
+      "type": "number"
+    },
+    "data": {
+      "type": "Array<OrderReturn>"
+    },
+    "hasMore": {
+      "type": "boolean"
+    },
+    "requestOptions": {
+      "type": "RequestOptions"
+    },
+    "requestParams": {
+      "type": "any"
+    },
+    "totalCount": {
+      "type": "number"
+    },
+    "url": {
+      "type": "string"
+    }
+  },
+  "Owner": {
+    "address": {
+      "type": "Address"
+    },
+    "dob": {
+      "type": "DateOfBirth"
+    },
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "verification": {
+      "type": "Verification"
+    }
+  },
+  "PagedResponse<BoatOutputDTO>": {
+    "currentPageNo": {
+      "type": "number"
+    },
+    "data": {
+      "type": "Array<BoatOutputDTO>"
+    },
+    "totalPages": {
+      "type": "number"
+    },
+    "totalRecords": {
+      "type": "number"
+    }
+  },
+  "PagedResponse<JobDTO>": {
+    "currentPageNo": {
+      "type": "number"
+    },
+    "data": {
+      "type": "Array<JobDTO>"
+    },
+    "totalPages": {
+      "type": "number"
+    },
+    "totalRecords": {
+      "type": "number"
+    }
+  },
+  "PagedResponse<ShipyardOutputDTO>": {
+    "currentPageNo": {
+      "type": "number"
+    },
+    "data": {
+      "type": "Array<ShipyardOutputDTO>"
+    },
+    "totalPages": {
+      "type": "number"
+    },
+    "totalRecords": {
+      "type": "number"
+    }
+  },
+  "PagedResponse<SurveyorOutputDTO>": {
+    "currentPageNo": {
+      "type": "number"
+    },
+    "data": {
+      "type": "Array<SurveyorOutputDTO>"
+    },
+    "totalPages": {
+      "type": "number"
+    },
+    "totalRecords": {
+      "type": "number"
+    }
+  },
+  "PaymentDTO": {
+    "status": {
+      "type": "string",
+      "enum": ["INIT", "SUCCEEDED", "PENDING", "FAILED"]
+    },
+    "transactionId": {
+      "type": "string"
+    }
+  },
+  "Plan": {
+    "amount": {
+      "type": "number"
+    },
+    "created": {
+      "type": "number"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "interval": {
+      "type": "string"
+    },
+    "intervalCount": {
+      "type": "number"
+    },
+    "livemode": {
+      "type": "boolean"
+    },
+    "metadata": {
+      "type": "any"
+    },
+    "name": {
+      "type": "string"
+    },
+    "object": {
+      "type": "string"
+    },
+    "statementDescription": {
+      "type": "string"
+    },
+    "statementDescriptor": {
+      "type": "string"
+    },
+    "trialPeriodDays": {
+      "type": "number"
+    }
+  },
+  "Refund": {
+    "amount": {
+      "type": "number"
+    },
+    "balanceTransaction": {
+      "type": "string"
+    },
+    "charge": {
+      "type": "string"
+    },
+    "created": {
+      "type": "number"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "any"
+    },
+    "object": {
+      "type": "string"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "receiptNumber": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    }
+  },
+  "RefundDTO": {
+    "transactionId": {
+      "type": "string"
+    }
+  },
+  "RequestOptions": {
+    "apiKey": {
+      "type": "string"
+    },
+    "idempotencyKey": {
+      "type": "string"
+    },
+    "stripeAccount": {
+      "type": "string"
+    },
+    "stripeVersion": {
+      "type": "string"
+    }
+  },
+  "Reversal": {
+    "amount": {
+      "type": "number"
+    },
+    "balanceTransaction": {
+      "type": "string"
+    },
+    "created": {
+      "type": "number"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "instanceURL": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "any"
+    },
+    "object": {
+      "type": "string"
+    },
+    "transfer": {
+      "type": "string"
+    }
+  },
+  "ShippingDetails": {
+    "address": {
+      "type": "Address"
+    },
+    "name": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    }
+  },
+  "ShippingMethod": {
+    "amount": {
+      "type": "number"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    }
+  },
+  "Shipyard": {
+    "about": {
+      "type": "string",
+      "enum": ["Maxlength10485760"]
+    },
+    "address": {
+      "type": "string",
+      "enum": ["Maxlength50"]
+    },
+    "address2": {
+      "type": "string",
+      "enum": ["Maxlength50"]
+    },
+    "businessEmail": {
+      "type": "string",
+      "enum": ["Maxlength50"]
+    },
+    "city": {
+      "type": "string",
+      "enum": ["Maxlength50"]
+    },
+    "id": {
+      "type": "number"
+    },
+    "name": {
+      "type": "string",
+      "enum": ["Maxlength50"]
+    },
+    "objects": {
+      "type": "StoredObjectDescriptor"
+    },
+    "phone": {
+      "type": "string",
+      "enum": ["Maxlength50"]
+    },
+    "state": {
+      "type": "string",
+      "enum": ["Maxlength50"]
+    },
+    "website": {
+      "type": "string",
+      "enum": ["Maxlength50"]
+    },
+    "zipCode": {
+      "type": "string",
+      "enum": ["Maxlength50"]
+    }
+  },
+  "ShipyardInputDTO": {
+    "about": {
+      "type": "string",
+      "enum": ["Maxlength10485760"]
+    },
+    "address": {
+      "type": "string",
+      "enum": ["Maxlength50"],
+      "required": true
+    },
+    "address2": {
+      "type": "string",
+      "enum": ["Maxlength50"]
+    },
+    "businessEmail": {
+      "type": "string",
+      "enum": ["Maxlength100"]
+    },
+    "city": {
+      "type": "string",
+      "enum": ["Maxlength50"]
+    },
+    "id": {
+      "type": "number"
+    },
+    "name": {
+      "type": "string",
+      "enum": ["Maxlength50"],
+      "required": true
+    },
+    "phone": {
+      "type": "string",
+      "enum": ["Minlength7", "Maxlength50"],
+      "required": true
+    },
+    "state": {
+      "type": "string",
+      "enum": ["Maxlength50"]
+    },
+    "website": {
+      "type": "string",
+      "enum": ["Maxlength50"]
+    },
+    "zipCode": {
+      "type": "string",
+      "enum": ["Maxlength50"]
+    }
+  },
+  "ShipyardOutputDTO": {
+    "about": {
+      "type": "string",
+      "enum": ["Maxlength10485760"]
+    },
+    "address": {
+      "type": "string",
+      "enum": ["Maxlength50"],
+      "required": true
+    },
+    "address2": {
+      "type": "string",
+      "enum": ["Maxlength50"]
+    },
+    "businessEmail": {
+      "type": "string",
+      "enum": ["Maxlength100"]
+    },
+    "city": {
+      "type": "string",
+      "enum": ["Maxlength50"]
+    },
+    "id": {
+      "type": "number"
+    },
+    "images": {
+      "type": "Array<StoredObjectDescriptorDTO>"
+    },
+    "name": {
+      "type": "string",
+      "enum": ["Maxlength50"],
+      "required": true
+    },
+    "phone": {
+      "type": "string",
+      "enum": ["Minlength7", "Maxlength50"],
+      "required": true
+    },
+    "state": {
+      "type": "string",
+      "enum": ["Maxlength50"]
+    },
+    "website": {
+      "type": "string",
+      "enum": ["Maxlength50"]
+    },
+    "zipCode": {
+      "type": "string",
+      "enum": ["Maxlength50"]
+    }
+  },
+  "StatusTransitions": {
+    "canceled": {
+      "type": "number"
+    },
+    "fulfiled": {
+      "type": "number"
+    },
+    "paid": {
+      "type": "number"
+    },
+    "returned": {
+      "type": "number"
+    }
+  },
+  "StoredObjectDescriptor": {
+    "name": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    }
+  },
+  "StoredObjectDescriptorDTO": {
+    "name": {
+      "type": "string"
+    },
+    "objectId": {
+      "type": "string"
+    },
+    "url": {
+      "type": "string"
+    }
+  },
+  "StripeAccount": {
+    "stripeId": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["CONNECTED", "CHARGE"]
+    }
+  },
+  "Subscription": {
+    "applicationFeePercent": {
+      "type": "number"
+    },
+    "billing": {
+      "type": "string"
+    },
+    "cancelAtPeriodEnd": {
+      "type": "boolean"
+    },
+    "canceledAt": {
+      "type": "number"
+    },
+    "created": {
+      "type": "number"
+    },
+    "currentPeriodEnd": {
+      "type": "number"
+    },
+    "currentPeriodStart": {
+      "type": "number"
+    },
+    "customer": {
+      "type": "string"
+    },
+    "daysUntilDue": {
+      "type": "number"
+    },
+    "discount": {
+      "type": "Discount"
+    },
+    "endedAt": {
+      "type": "number"
+    },
+    "id": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "any"
+    },
+    "object": {
+      "type": "string"
+    },
+    "plan": {
+      "type": "Plan"
+    },
+    "quantity": {
+      "type": "number"
+    },
+    "start": {
+      "type": "number"
+    },
+    "status": {
+      "type": "string"
+    },
+    "subscriptionItems": {
+      "type": "SubscriptionItemCollection"
+    },
+    "taxPercent": {
+      "type": "number"
+    },
+    "trialEnd": {
+      "type": "number"
+    },
+    "trialStart": {
+      "type": "number"
+    }
+  },
+  "SubscriptionItem": {
+    "created": {
+      "type": "number"
+    },
+    "id": {
+      "type": "string"
+    },
+    "object": {
+      "type": "string"
+    },
+    "plan": {
+      "type": "Plan"
+    },
+    "quantity": {
+      "type": "number"
+    }
+  },
+  "SubscriptionItemCollection": {
+    "count": {
+      "type": "number"
+    },
+    "data": {
+      "type": "Array<SubscriptionItem>"
+    },
+    "hasMore": {
+      "type": "boolean"
+    },
+    "requestOptions": {
+      "type": "RequestOptions"
+    },
+    "requestParams": {
+      "type": "any"
+    },
+    "totalCount": {
+      "type": "number"
+    },
+    "url": {
+      "type": "string"
+    }
+  },
+  "Summary": {
+    "adjustmentCount": {
+      "type": "number"
+    },
+    "adjustmentGross": {
+      "type": "number"
+    },
+    "chargeCount": {
+      "type": "number"
+    },
+    "chargeFees": {
+      "type": "number"
+    },
+    "chargeGross": {
+      "type": "number"
+    },
+    "net": {
+      "type": "number"
+    },
+    "refundCount": {
+      "type": "number"
+    },
+    "refundFees": {
+      "type": "number"
+    },
+    "refundGross": {
+      "type": "number"
+    },
+    "validationCount": {
+      "type": "number"
+    },
+    "validationFees": {
+      "type": "number"
+    }
+  },
+  "Surveyor": {
+    "about": {
+      "type": "string",
+      "enum": ["Maxlength10485760"],
+      "required": true
+    },
+    "address": {
+      "type": "string",
+      "enum": ["Maxlength100"],
+      "required": true
+    },
+    "address2": {
+      "type": "string",
+      "enum": ["Maxlength100"],
+      "required": true
+    },
+    "city": {
+      "type": "string",
+      "enum": ["Maxlength100"],
+      "required": true
+    },
+    "id": {
+      "type": "number",
+      "required": true
+    },
+    "name": {
+      "type": "string",
+      "enum": ["Maxlength100"],
+      "required": true
+    },
+    "objects": {
+      "type": "StoredObjectDescriptor"
+    },
+    "state": {
+      "type": "string",
+      "enum": ["Maxlength50"],
+      "required": true
+    },
+    "zipCode": {
+      "type": "string",
+      "enum": ["Maxlength10"],
+      "required": true
+    }
+  },
+  "SurveyorInputDTO": {
+    "about": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "address2": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "id": {
+      "type": "number"
+    },
+    "name": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "zipCode": {
+      "type": "string"
+    }
+  },
+  "SurveyorOutputDTO": {
+    "about": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "address2": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "id": {
+      "type": "number"
+    },
+    "images": {
+      "type": "Array<StoredObjectDescriptorDTO>"
+    },
+    "name": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "zipCode": {
+      "type": "string"
+    }
+  },
+  "Transfer": {
+    "account": {
+      "type": "BankAccount"
+    },
+    "amount": {
+      "type": "number"
+    },
+    "amountReversed": {
+      "type": "number"
+    },
+    "applicationFee": {
+      "type": "string"
+    },
+    "balanceTransaction": {
+      "type": "string"
+    },
+    "bankAccount": {
+      "type": "BankAccount"
+    },
+    "created": {
+      "type": "number"
+    },
+    "currency": {
+      "type": "string"
+    },
+    "date": {
+      "type": "number"
+    },
+    "description": {
+      "type": "string"
+    },
+    "destination": {
+      "type": "string"
+    },
+    "destinationPayment": {
+      "type": "string"
+    },
+    "failureCode": {
+      "type": "string"
+    },
+    "failureMessage": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "livemode": {
+      "type": "boolean"
+    },
+    "metadata": {
+      "type": "any"
+    },
+    "object": {
+      "type": "string"
+    },
+    "otherTransfers": {
+      "type": "Array<string>"
+    },
+    "recipient": {
+      "type": "string"
+    },
+    "reversals": {
+      "type": "TransferReversalCollection"
+    },
+    "reversed": {
+      "type": "boolean"
+    },
+    "sourceTransaction": {
+      "type": "string"
+    },
+    "sourceType": {
+      "type": "string"
+    },
+    "statementDescription": {
+      "type": "string"
+    },
+    "statementDescriptor": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "Summary"
+    },
+    "transferGroup": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    }
+  },
+  "TransferCollection": {
+    "count": {
+      "type": "number"
+    },
+    "data": {
+      "type": "Array<Transfer>"
+    },
+    "hasMore": {
+      "type": "boolean"
+    },
+    "requestOptions": {
+      "type": "RequestOptions"
+    },
+    "requestParams": {
+      "type": "any"
+    },
+    "totalCount": {
+      "type": "number"
+    },
+    "url": {
+      "type": "string"
+    }
+  },
+  "TransferReversalCollection": {
+    "count": {
+      "type": "number"
+    },
+    "data": {
+      "type": "Array<Reversal>"
+    },
+    "hasMore": {
+      "type": "boolean"
+    },
+    "requestOptions": {
+      "type": "RequestOptions"
+    },
+    "requestParams": {
+      "type": "any"
+    },
+    "totalCount": {
+      "type": "number"
+    },
+    "url": {
+      "type": "string"
+    }
+  },
+  "UUID": {
+    "leastSignificantBits": {
+      "type": "number"
+    },
+    "mostSignificantBits": {
+      "type": "number"
+    }
+  },
+  "User": {
+    "authId": {
+      "type": "string"
+    },
+    "bids": {
+      "type": "Array<Bid>"
+    },
+    "boats": {
+      "type": "Array<Boat>"
+    },
+    "chargeAccount": {
+      "type": "StripeAccount"
+    },
+    "chargeAccounts": {
+      "type": "Array<StripeAccount>"
+    },
+    "email": {
+      "type": "string"
+    },
+    "firstName": {
+      "type": "string"
+    },
+    "id": {
+      "type": "number"
+    },
+    "jobs": {
+      "type": "Array<Job>"
+    },
+    "langKey": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "login": {
+      "type": "string"
+    },
+    "notifications": {
+      "type": "Array<Notification>"
+    },
+    "objects": {
+      "type": "StoredObjectDescriptor"
+    },
+    "payoutAccount": {
+      "type": "StripeAccount"
+    },
+    "payoutAccounts": {
+      "type": "Array<StripeAccount>"
+    },
+    "phoneNo": {
+      "type": "string",
+      "enum": ["Maxlength50"]
+    },
+    "reviews": {
+      "type": "Array<Review>"
+    },
+    "shipyards": {
+      "type": "Array<Shipyard>"
+    },
+    "surveyors": {
+      "type": "Array<Surveyor>"
+    },
+    "userTypes": {
+      "type": "Array<UserType>"
+    }
+  },
+  "UserFormDTO": {
+    "login": {
+      "type": "string"
+    },
+    "password": {
+      "type": "string"
+    }
+  },
+  "UserInputDTO": {
+    "boatDetails": {
+      "type": "Boat"
+    },
+    "email": {
+      "type": "string",
+      "enum": ["Maxlength100"],
+      "required": true
+    },
+    "firstName": {
+      "type": "string",
+      "enum": ["Maxlength50"]
+    },
+    "langKey": {
+      "type": "string",
+      "enum": ["Minlength2Maxlength5"]
+    },
+    "lastName": {
+      "type": "string",
+      "enum": ["Maxlength50"]
+    },
+    "login": {
+      "type": "string",
+      "enum": ["Patternis^[a-z0-9-]*$", "Minlength5", "Maxlength50"],
+      "required": true
+    },
+    "password": {
+      "type": "string",
+      "enum": ["Minlength5", "Maxlength30"],
+      "required": true
+    },
+    "phoneNo": {
+      "type": "string",
+      "enum": ["Minlength7", "Maxlength50"]
+    },
+    "shipyardDetails": {
+      "type": "Shipyard"
+    },
+    "surveyorDetails": {
+      "type": "Surveyor"
+    },
+    "userTypes": {
+      "type": "Array<UserType>"
+    }
+  },
+  "UserType": {
+    "id": {
+      "type": "number"
+    },
+    "type": {
+      "type": "string",
+      "enum": ["Maxlength255"]
+    }
+  },
+  "UserUpdateDTO": {
+    "firstName": {
+      "type": "string",
+      "enum": ["Maxlength50"]
+    },
+    "langKey": {
+      "type": "string",
+      "enum": ["Minlength2Maxlength5"]
+    },
+    "lastName": {
+      "type": "string",
+      "enum": ["Maxlength50"]
+    },
+    "phoneNumber": {
+      "type": "string",
+      "enum": ["Len[7", "50]"]
+    }
+  },
+  "Verification": {
+    "contacted": {
+      "type": "boolean"
+    },
+    "disabledReason": {
+      "type": "string"
+    },
+    "dueBy": {
+      "type": "number"
+    },
+    "fieldsNeeded": {
+      "type": "Array<string>"
+    }
+  },
+  "View": {
+    "contentType": {
+      "type": "string"
+    }
+  }
+}

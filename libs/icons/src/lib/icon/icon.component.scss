@@ -1,0 +1,11 @@
+@import "variables";
+
+.dashed-border-icon {
+  border: 2px dashed mat-color($base, A100);
+  cursor: pointer;
+  color: mat-color($base, A100);
+  font-size: 16px;
+  @include fxFlexJustify(center);
+  width: 20px;
+  height: 20px;
+}

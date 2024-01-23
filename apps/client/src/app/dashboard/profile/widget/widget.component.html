@@ -1,0 +1,25 @@
+<layout-panel-wrapper
+  [panelTitle]="'Hi, ' + user.firstName"
+  fontSet="far"
+  icon="fa-star"
+>
+  <div class="subpanel-content">
+
+    <div class="panel-body" fxFlexAlign="stretch">
+      {{ user.email }}
+      <ng-container *ngIf="user.phoneNo">
+        <br />
+        {{ user.phoneNo }}
+      </ng-container>
+    </div>
+
+    <div class="panel-actions" fxLayout="row">
+      <a appLink="PROFILE_EDIT">Edit Profile</a>
+      <span class="text-separator"></span>
+      <a appLink="PROFILE_PASSWORD">Change Password</a>
+      <!-- <span class="text-separator"></span>
+      <a appLink="PROFILE_RATINGS">View Ratings</a> -->
+    </div>
+
+  </div>
+</layout-panel-wrapper>

@@ -1,0 +1,37 @@
+<!-- <div class="card-layout-panel-container"> -->
+<layout-panel-wrapper [panelTitle]="'PAYMENT.PAYMENT_METHOD' | translate" fontSet="fas" icon="fa-credit-card">
+  <div  class="d-flex">
+    <div *ngFor="let option of paymentOptios" class="options">
+      <input type="radio" [value]="option" name="options" [checked]="option === 'Credit Card'"> <label>{{option}}</label>
+    </div>
+  </div>
+  <div ngxStripeCardGroup [elementsOptions]="elementsOptions" class="card-group">
+    <div class="card-control card-controlName-card-number">
+      <label class="label fs-25">
+        {{'FORMS.LABELS.CREDID_CARD_NUMBER' | translate}}
+      </label>
+      <ngx-stripe-card-number [options]="cardOptions" (change)="onChange($event,'cardValid')">
+      </ngx-stripe-card-number>
+    </div>
+    <div class="card-control card-controlName-expiration">
+      <label class="label fs-25">
+        {{'FORMS.LABELS.EXPIRATION' | translate}}
+      </label>
+      <ngx-stripe-card-expiry [options]="cardOptions" (change)="onChange($event,'expirationValid')">
+      </ngx-stripe-card-expiry>
+    </div>
+    <div class="card-control card-controlName-cvc">
+      <label class="label fs-25">
+        {{'FORMS.LABELS.CVC' | translate}}
+      </label>
+      <ngx-stripe-card-cvc [options]="cardOptions" (change)="onChange($event,'cvcValid')"></ngx-stripe-card-cvc>
+    </div>
+  </div>
+  <mat-error>{{ errorMsg }}</mat-error>
+</layout-panel-wrapper>
+<!-- <div class="credit-card-footer">
+    <app-button (click)="pay()" [disabled]="!creditCardValidation.isValid">
+      {{'COMMON.BUTTONS.DEPOSIT' | translate}}
+    </app-button>
+  </div> -->
+<!-- </div> -->

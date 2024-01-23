@@ -1,0 +1,18 @@
+h2{
+  text-align: left;
+}
+form{
+  padding: 0 !important;
+}
+
+.w-250{
+  width: 250px !important;
+}
+::ng-deep app-drop-down{
+  form{
+    label{
+    font-weight: 700!important;
+    }
+    padding: 0!important;
+  }
+}

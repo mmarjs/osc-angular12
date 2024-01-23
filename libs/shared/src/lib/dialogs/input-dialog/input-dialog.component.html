@@ -1,0 +1,13 @@
+<h3 matDialogTitle>{{ data.title }}</h3>
+
+<div mat-dialog-content>
+  <mat-form-field appearance="outline">
+    <mat-label>{{data.label}}</mat-label>
+    <input matInput [placeholder]="data.placeholder" #inputVal>
+  </mat-form-field>
+</div>
+
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="end stretch" fxLayoutGap="10px">
+  <button mat-stroked-button [matDialogClose]="false">{{'COMMON.BUTTONS.CLOSE' | translate}}</button>
+  <button mat-raised-button color="primary" (click)="dialogRef.close(inputVal.value)">{{'COMMON.BUTTONS.OK' | translate}}</button>
+</div>

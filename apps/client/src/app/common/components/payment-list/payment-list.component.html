@@ -1,0 +1,43 @@
+<div class="mt-1" *ngIf="savedCards$ | async as savedCards">
+  <div *ngFor="let card of savedCards" class="card">
+    <img [src]="getCardBrandImage(card)" class="cardBrands" />
+    <p class="cardName" data-testid="card-info">
+      <span data-testid="card-brand">
+        {{ extractDataFromJson(card.details).card.brand }}
+      </span>
+      <span style="font-size: 22px" *ngFor="let number of [0, 1, 2, 3]">
+        &#8226;
+      </span>
+      <span data-testid="card-last4">
+        {{ extractDataFromJson(card.details).card.last4 }}
+      </span>
+      <br />
+      <span class="cardExp" data-testid="card-exp">
+        {{ 'PAYMENT.EXPIRES' | translate }}
+        {{ getExpirationDate(card) }}
+      </span>
+    </p>
+    <div class="spacer"></div>
+    <input
+      type="radio"
+      name="card"
+      data-testid="card-radio"
+      [value]="card"
+      (change)="cardDetails.emit(card)"
+    />
+  </div>
+  <div class="no-card" *ngIf="!savedCards?.length">
+    <p class="cardName">
+    {{ 'PROFILE.NO_PAYMENT_METHODS_ARE_ADDED' | translate }}
+    </p>
+  </div>
+</div>
+<button
+  type="button"
+  mat-flat-button
+  color="primary"
+  (click)="openDialog()"
+  class="mt-1 payment"
+>
+  <mat-icon>add</mat-icon> {{ 'PAYMENT.ADD_PAYMENT_METHOD' | translate }}
+</button>

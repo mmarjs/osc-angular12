@@ -1,0 +1,28 @@
+img {
+  object-fit: contain;
+}
+
+.text-description {
+  font-size: 12px;
+}
+
+.img-boat {
+  height: 49px;
+  margin: 5px;
+  width: 90px;
+}
+
+.images-wrapper {
+  flex-wrap: wrap;
+  row-gap: 5px;
+}
+
+.pencil-icon {
+  height: 20px;
+  padding-left: 5px;
+}
+::ng-deep app-cancel-listing{
+  button{
+    margin-top: 15px !important;
+  }
+}

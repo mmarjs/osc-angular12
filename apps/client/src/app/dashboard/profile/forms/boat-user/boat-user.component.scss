@@ -1,0 +1,36 @@
+form{
+  padding: 0;
+}
+h2{
+  text-align: left;
+}
+.w-250{
+  width: 250px !important;
+}
+form{
+  ::ng-deep app-datepicker{
+    .mat-form-field{
+      display: block;
+    }
+  }
+}
+.cell-control {
+  label {
+    margin-bottom: 10px;
+  }
+
+  margin-bottom: 20px;
+
+  ::ng-deep ngx-intl-tel-input {
+    width: 100%;
+
+    input {
+      height: 34px;
+      width: 100%;
+    }
+  }
+
+  mat-error {
+    text-align: left;
+  }
+}

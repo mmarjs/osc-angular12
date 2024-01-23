@@ -1,0 +1,87 @@
+{
+  "npmScope": "ocean",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*",
+    "tsconfig.base.json": "*"
+  },
+  "projects": {
+    "animations": {
+      "tags": []
+    },
+    "api": {
+      "tags": []
+    },
+    "carousel": {
+      "tags": []
+    },
+    "client": {
+      "tags": ["frontend"]
+    },
+    "client-e2e": {
+      "tags": [],
+      "implicitDependencies": ["client"]
+    },
+    "components": {
+      "tags": []
+    },
+    "dialogs": {
+      "tags": []
+    },
+    "documents": {
+      "tags": []
+    },
+    "drafts": {
+      "tags": []
+    },
+    "features-bids": {
+      "tags": []
+    },
+    "file-drop": {
+      "tags": []
+    },
+    "forms-config": {
+      "tags": []
+    },
+    "icons": {
+      "tags": []
+    },
+    "internationalization": {
+      "tags": []
+    },
+    "layout": {
+      "tags": []
+    },
+    "libs-form-builder": {
+      "tags": []
+    },
+    "material": {
+      "tags": []
+    },
+    "shared": {
+      "tags": []
+    },
+    "storage": {
+      "tags": []
+    },
+    "stripe": {
+      "tags": []
+    },
+    "testing": {
+      "tags": []
+    }
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
+      }
+    }
+  },
+  "affected": {
+    "defaultBase": "master"
+  }
+}

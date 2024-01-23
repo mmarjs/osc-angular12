@@ -1,0 +1,121 @@
+@use "sass:math";
+@import "variables";
+
+app-page-who-we-are {
+  display: block;
+}
+
+.home-banner-container {
+  margin-left: 42px;
+
+  @media #{$lt-md} {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    width: 100%;
+  }
+
+  h1 {
+    margin-bottom: 50px;
+
+    p {
+      margin: 10px 0 0 0;
+    }
+  }
+
+  button {
+    min-width: 177px;
+  }
+}
+
+#about-us {
+  background-image: url("/assets/images/hero_new.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 240px;
+  height: 731px;
+}
+
+@media screen and (max-width: 500px) {
+  #about-us {
+    height: 531px;
+  }
+}
+
+#about-us {
+  strong {
+    color: mat-color($accent, default-contrast);
+    display: block;
+    line-height: 1.25em;
+    margin-bottom: 12px;
+    text-shadow: 1px 1px mat-color($accent, A200);
+
+    font-size: 2.5em;
+
+    @media #{$lt-md} {
+      font-size: 2em;
+    }
+
+    @media #{$xs} {
+      font-size: 1.5em;
+    }
+  }
+}
+
+.about-numbers {
+  max-width: 475px;
+  margin: 0 auto;
+  padding: 0 0 35px;
+
+  strong {
+    font-size: 5em;
+    line-height: 0.9em;
+
+    @media #{$lt-md} {
+      font-size: 3.5em;
+    }
+  }
+
+  span {
+    font-size: 1.5em;
+    line-height: 1em;
+  }
+
+  div {
+    text-align: center;
+
+    // shipyards
+    &:first-child {
+      strong {
+        color: mat-color($accent, A200);
+        text-shadow: 1px 1px gray;
+      }
+    }
+
+    // repairs
+    &:last-child {
+      strong {
+        color: mat-color($primary);
+        text-shadow: -1px 1px mat-color($accent, A200);
+      }
+    }
+  }
+}
+
+.about-details {
+  line-height: 120%;
+
+  p {
+    margin: 0 1em 1.5em;
+    text-align: center;
+  }
+}
+
+.about-we-are {
+  font-size: 1.5em;
+  margin: 0.5em 0 1.8em;
+  text-align: center;
+}

@@ -1,0 +1,71 @@
+.deposit-info {
+  margin-bottom: 18px;
+  font-size: 14px;
+}
+
+layout-two-columns {
+  padding: 0;
+}
+
+::ng-deep.escrow-deposit-container {
+  .mat-form-field-wrapper {
+    padding-bottom: 0 !important;
+  }
+}
+
+.submit-deposit-wrapper {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.deposit-success-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 180px 0 180px 0;
+  p {
+    font-size: 22px;
+  }
+  span {
+    margin: 0 5px;
+  }
+
+  a {
+    margin-left: 5px;
+  }
+}
+
+.dollar {
+  width: 26px;
+  height: 25px;
+  border: 1px solid;
+  text-align: center;
+  border-radius: 42px;
+  font-size: 18px;
+  padding-top: 2px;
+  color: #283B4D;
+  margin-top: 4px;
+}
+
+p {
+  color: #283B4D;
+}
+
+mat-error {
+  margin-top: 10px;
+}
+
+.minDeposit {
+  font-size: 14px;
+  margin: 10px 0 0 auto;
+}
+
+.dollarParent {
+  width: 35px;
+  background: #E0E0E5;
+  height: 35px;
+  text-align: center;
+  margin-top: 0.85rem;
+  border-radius: 2px;
+}

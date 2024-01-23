@@ -1,0 +1,17 @@
+app-drop-down {
+  margin: 0 5px 0 5px;
+}
+.header{
+  display: flex;
+  justify-content: center;
+}
+h2{
+  text-align: center;
+  margin-top: 15px;
+  font-weight: 400;
+}
+@media screen and (max-width: 950px) {
+  .header{
+    display: flex;
+  }
+}

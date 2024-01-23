@@ -1,0 +1,69 @@
+<layout-one-column>
+  <h2 class="title-page" #top>{{'BOATS.CREATE.TITLE' | translate}}</h2>
+
+  <mat-horizontal-stepper labelPosition="bottom" linear selectedIndex="0">
+
+    <mat-step [editable]="!createdBoat" [completed]="step1?.form?.valid">
+      <ng-template matStepLabel>
+        {{'BOATS.TABS.INFORMATION' | translate}}
+      </ng-template>
+
+      <layout-panel-simple>
+        <app-form-builder
+          [form]="step1.form"
+          [fields]="step1.fields"
+          [containerCssClass]="'form-container'"
+        >
+        </app-form-builder>
+
+        <app-form-actions-wrapper>
+          <button type="button" mat-stroked-button routerLink="../">
+            {{'COMMON.BUTTONS.CANCEL' | translate}}
+          </button>
+          <button type="button" mat-flat-button color="primary" [disabled]="!step1?.form?.valid" (click)="onNext()">
+            {{'COMMON.BUTTONS.NEXT' | translate}}
+          </button>
+        </app-form-actions-wrapper>
+      </layout-panel-simple>
+    </mat-step>
+
+    <mat-step [editable]="step1?.form?.valid  && !createdBoat" [completed]="step2?.form?.valid">
+      <ng-template matStepLabel>{{'BOATS.TABS.DESCRIPTION' | translate}}</ng-template>
+      <layout-panel-simple>
+        <app-form-builder
+          [form]="step2.form"
+          [fields]="step2.fields"
+          [containerCssClass]="'form-container'"
+        >
+        </app-form-builder>
+
+        <app-form-actions-wrapper>
+          <button type="button" mat-stroked-button (click)="onJump(createBoatStep.MainInfo)">
+            {{'COMMON.BUTTONS.BACK' | translate}}
+          </button>
+          <button type="button" mat-flat-button color="primary" [disabled]="!step2?.form?.valid" (click)="onNext()">
+            {{'COMMON.BUTTONS.SUBMIT' | translate}}
+          </button>
+        </app-form-actions-wrapper>
+      </layout-panel-simple>
+    </mat-step>
+
+    <mat-step [editable]="true" [completed]="step1?.form?.valid && step2?.form?.valid && step3.valid && step3.touched">
+      <ng-template matStepLabel>{{'BOATS.TABS.PICTURES_AND_MEDIA' | translate}}</ng-template>
+
+      <layout-panel-simple>
+        <app-boats-create-media class="panel-content" [form]="step3"></app-boats-create-media>
+
+        <app-form-actions-wrapper>
+          <button type="button" mat-stroked-button (click)="onLater()">
+            {{'COMMON.BUTTONS.LATER' | translate}}
+          </button>
+          <button type="button" mat-flat-button color="primary" (click)="onUploadImages()">
+            {{'COMMON.BUTTONS.UPLOAD_IMAGES' | translate}}
+          </button>
+        </app-form-actions-wrapper>
+      </layout-panel-simple>
+    </mat-step>
+
+  </mat-horizontal-stepper>
+</layout-one-column>

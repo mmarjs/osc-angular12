@@ -1,0 +1,28 @@
+<form [formGroup]="form">
+  <label *ngIf="label" for="{{ contextId }}-{{ formControlName }}" class="label">
+    {{ label |translate}}
+    <span *ngIf="!_readonly && _required" aria-hidden="true">*</span>
+  </label>
+  <ng-container matPrefix>
+    <ng-content select="[matPrefix]"></ng-content>
+  </ng-container>
+
+  <div class="status">
+    <mat-form-field floatLabel="never">
+      <mat-label>{{placeholder | translate}}</mat-label>
+      <mat-select formControlName="{{formControlName}}" (selectionChange)="onChange($event.value)" [disabled]="readonly">
+        <mat-option *ngFor="let item of items" [value]="item.value">
+          {{item.title}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <!--  <mat-hint *ngIf="hintLabel">{{ hintLabel }}</mat-hint>-->
+  <!--  <mat-error>{{ _control?.invalid ? getErrorMsg : '' }}</mat-error>-->
+
+  <ng-container matSuffix>
+    <ng-content select="[matSuffix]"></ng-content>
+  </ng-container>
+  <!--</mat-form-field>-->
+</form>

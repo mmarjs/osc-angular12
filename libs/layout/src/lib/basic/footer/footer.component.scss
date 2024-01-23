@@ -1,0 +1,30 @@
+@import "variables";
+
+footer {
+  background: mat-color($accent, A200);
+  color: mat-color($accent, default-contrast);
+  padding: 45px 30px;
+
+  a {
+    color: mat-color($accent, default-contrast);
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: .2s;
+
+    &:hover {
+      color: var(--primary);
+    }
+  }
+
+  .faq {
+    text-transform: uppercase;
+  }
+
+  .footer-logo {
+    padding-left: 1em;
+    -webkit-backface-visibility: hidden;
+    -ms-transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+  }
+}

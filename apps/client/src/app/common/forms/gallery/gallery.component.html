@@ -1,0 +1,46 @@
+<div [formGroup]="form" class="gallery-grid">
+  <div class="non-image-grid">
+    <ng-container
+      formArrayName="files"
+      *ngFor="let item of files.controls; let i = index"
+    >
+      <app-form-gallery-item
+        *ngIf="!isImageFiles(item)"
+        [type]="uploadItemType.OTHER"
+        [media]="media"
+        [formGroupName]="i"
+        [selected]="isItemMultiSelected(item)"
+        (unselected)="unselectFromMultiDeleting($event)"
+        (delete)="selectItem($event, item)"
+      >
+      </app-form-gallery-item>
+    </ng-container>
+  </div>
+
+  <div class="images-grid">
+    <ng-container
+      formArrayName="files"
+      *ngFor="let item of files.controls; let i = index"
+    >
+      <app-form-gallery-item
+        *ngIf="isImageFiles(item)"
+        [type]="uploadItemType.IMAGE"
+        [media]="media"
+        [formGroupName]="i"
+        [selected]="isItemMultiSelected(item)"
+        (unselected)="unselectFromMultiDeleting($event)"
+        (delete)="selectItem($event, item)"
+      >
+      </app-form-gallery-item>
+    </ng-container>
+
+    <app-form-gallery-upload
+      #uploader
+      [ngClass]="files.controls.length === 0 ? 'no-files' : ''"
+      [accept]="accept"
+      [multiple]="multiple"
+      (upload)="addItem($event)"
+    >
+    </app-form-gallery-upload>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<layout-panel-wrapper
+  panelTitle="My Notifications"
+  fontSet="far"
+  icon="fa-bell"
+>
+  <div class="subpanel-content" fxLayout="column" fxLayoutGap="20px">
+    <div fxFlexAlign="stretch">
+      You have <strong>3</strong> unread notifications. Most recent 5 are below
+    </div>
+
+    <app-notifications-list dense limit="5"></app-notifications-list>
+
+    <button type="button" mat-stroked-button appLink="NOTIFICATIONS">
+      View All Notifications
+    </button>
+  </div>
+</layout-panel-wrapper>

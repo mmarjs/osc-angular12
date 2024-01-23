@@ -1,0 +1,281 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    color: mat-color($foreground, text);
+    font-family: "BentonSansCond", "Helvetica Neue", sans-serif;
+    line-height: 1rem;
+    margin: 0;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 0.83em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    color: mat-color($accent, A200);
+    line-height: 1em;
+    margin-top: 0;
+}
+
+h2 {
+    font-size: 2em;
+    margin-bottom: 0.83em;
+    &.title-page {
+        margin-top: 0.83em;
+        font-weight: lighter;
+        text-align: center;
+    }
+    &.title-process {
+        margin-top: 0.83em;
+        font-weight: lighter;
+        text-align: center;
+    }
+}
+
+h3 {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 0.83em;
+}
+
+a {
+    color: mat-color($accent);
+}
+
+[hidden] {
+    display: none !important;
+}
+
+
+/**
+ * Utilities
+ */
+
+.loading-gif {
+    height: 16px;
+    margin-right: 4px;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.text-separator {
+    color: mat-color($foreground, secondary-text);
+    display: inline-block;
+    padding: 0 0.5em;
+    &::before {
+        content: "-";
+    }
+}
+
+.clickable {
+    cursor: pointer;
+    outline: none;
+}
+
+.banner-header {
+    background: mat-color($background, widget);
+    padding: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.bold-dark {
+    color: mat-color($base, A200);
+    font-weight: 700;
+}
+
+.bold-black {
+    color: black;
+    font-weight: 700;
+}
+
+.bold-primary {
+    color: mat-color($base, 500);
+    font-weight: 700;
+}
+
+.card-bg-widget {
+    background: mat-color($background, widget);
+    padding: 20px;
+}
+
+.pointer-events-off {
+    pointer-events: none;
+}
+
+.wizzard-back-btn {
+    margin: 0 0 25px -8px !important;
+    font-weight: 700 !important;
+    font-size: 18px !important;
+    .mat-button-wrapper {
+        display: flex;
+        align-items: center;
+        ocean-icon {
+            display: flex;
+        }
+    }
+}
+
+.dialog-subtitle {
+    font-size: 16px;
+    margin-top: 0;
+}
+
+.files-drop-label {
+    display: block;
+    margin-bottom: 0.84375em;
+}
+
+.image-mask {
+    background: #fff;
+    border: 1px solid mat-color($foreground, icons);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.light-txt {
+    font-size: 12px;
+    color: mat-color($foreground, light-txt);
+}
+
+//
+.iti {
+    display: block !important;
+}
+
+.iti .dropdown-menu.country-dropdown {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-color: mat-color($foreground, border);
+}
+
+.iti .iti__country-list {
+    box-shadow: none;
+    font-size: 14px;
+    margin-left: 0;
+    width: 244px;
+    max-height: 170px;
+}
+
+.iti__flag-container.open+input {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.iti .search-container input {
+    font-size: 14px;
+    border-color: mat-color($foreground, border);
+    border-radius: 0;
+    padding: 5px 10px;
+}
+
+.iti .search-container input:focus {
+    outline: none;
+}
+
+@media screen and (max-width: 479px) {
+    .iti .iti__country-list {
+        width: 88.3vw;
+    }
+}
+
+ngx-intl-tel-input input {
+    padding: 10px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: mat-color($foreground, border);
+    border-radius: 4px;
+    font-size: 16px;
+    color: mat-color($foreground, base);
+}
+
+ngx-intl-tel-input.ng-invalid.ng-touched input {
+    border: 1px solid mat-color($background, error);
+}
+
+ngx-intl-tel-input input:focus {
+    outline: none !important;
+}
+
+ngx-intl-tel-input input::-webkit-input-placeholder {
+    color: #bac2c7;
+}
+
+ngx-intl-tel-input input:-ms-input-placeholder {
+    color: #bac2c7;
+}
+
+ngx-intl-tel-input input::-ms-input-placeholder {
+    color: #bac2c7;
+}
+
+ngx-intl-tel-input input::placeholder {
+    color: #bac2c7;
+}
+
+ngx-intl-tel-input input[disabled] {
+    color: rgba(0, 0, 0, 0.38);
+}
+
+.to-lowercase {
+    text-transform: lowercase;
+}
+
+.disabled {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.carousel-html-content {
+    .carousel-cell {
+        background: aliceblue;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+    }
+}
+
+::ng-deep {
+    .auction-carousel {
+        position: relative;
+        .carousel-cells {
+            .carousel-cell {
+                img {
+                    object-fit: cover;
+                }
+            }
+        }
+    }
+}
+
+.carousel-thumbs {
+    margin-top: 20px;
+}
+
+.uploaded-image-full-width {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.text-align-center {
+    text-align: center;
+}

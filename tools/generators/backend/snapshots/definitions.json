@@ -1,0 +1,3607 @@
+{
+  "Account": {
+    "properties": {
+      "businessLogo": {
+        "type": "string"
+      },
+      "businessName": {
+        "type": "string"
+      },
+      "businessPrimaryColor": {
+        "type": "string"
+      },
+      "businessURL": {
+        "type": "string"
+      },
+      "chargesEnabled": {
+        "type": "boolean"
+      },
+      "country": {
+        "type": "string"
+      },
+      "currenciesSupported": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "debitNegativeBalances": {
+        "type": "boolean"
+      },
+      "declineChargeOn": {
+        "$ref": "#/definitions/AccountDeclineChargeOn"
+      },
+      "defaultCurrency": {
+        "type": "string"
+      },
+      "detailsSubmitted": {
+        "type": "boolean"
+      },
+      "displayName": {
+        "type": "string"
+      },
+      "email": {
+        "type": "string"
+      },
+      "externalAccounts": {
+        "$ref": "#/definitions/ExternalAccountCollection"
+      },
+      "id": {
+        "type": "string"
+      },
+      "keys": {
+        "$ref": "#/definitions/Keys"
+      },
+      "legalEntity": {
+        "$ref": "#/definitions/LegalEntity"
+      },
+      "managed": {
+        "type": "boolean"
+      },
+      "metadata": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
+      "object": {
+        "type": "string"
+      },
+      "productDescription": {
+        "type": "string"
+      },
+      "statementDescriptor": {
+        "type": "string"
+      },
+      "supportEmail": {
+        "type": "string"
+      },
+      "supportPhone": {
+        "type": "string"
+      },
+      "supportURL": {
+        "type": "string"
+      },
+      "timezone": {
+        "type": "string"
+      },
+      "tosAcceptance": {
+        "$ref": "#/definitions/AccountTosAcceptance"
+      },
+      "transferSchedule": {
+        "$ref": "#/definitions/AccountTransferSchedule"
+      },
+      "transfersEnabled": {
+        "type": "boolean"
+      },
+      "verification": {
+        "$ref": "#/definitions/Verification"
+      }
+    }
+  },
+  "AccountDeclineChargeOn": {
+    "properties": {
+      "avsFailure": {
+        "type": "boolean"
+      },
+      "cvcFailure": {
+        "type": "boolean"
+      }
+    }
+  },
+  "AccountTosAcceptance": {
+    "properties": {
+      "date": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "ip": {
+        "type": "string"
+      },
+      "userAgent": {
+        "type": "string"
+      }
+    }
+  },
+  "AccountTransferSchedule": {
+    "properties": {
+      "delayDays": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "interval": {
+        "type": "string"
+      },
+      "monthlyAnchor": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "weeklyAnchor": {
+        "type": "string"
+      }
+    }
+  },
+  "Address": {
+    "properties": {
+      "city": {
+        "type": "string"
+      },
+      "country": {
+        "type": "string"
+      },
+      "line1": {
+        "type": "string"
+      },
+      "line2": {
+        "type": "string"
+      },
+      "postalCode": {
+        "type": "string"
+      },
+      "state": {
+        "type": "string"
+      }
+    }
+  },
+  "Application": {
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      }
+    }
+  },
+  "ApplicationFee": {
+    "properties": {
+      "account": {
+        "type": "string"
+      },
+      "amount": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "amountRefunded": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "application": {
+        "type": "string"
+      },
+      "balanceTransaction": {
+        "type": "string"
+      },
+      "charge": {
+        "type": "string"
+      },
+      "created": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      },
+      "livemode": {
+        "type": "boolean"
+      },
+      "object": {
+        "type": "string"
+      },
+      "originatingTransaction": {
+        "type": "string"
+      },
+      "refunded": {
+        "type": "boolean"
+      },
+      "refunds": {
+        "$ref": "#/definitions/FeeRefundCollection"
+      },
+      "user": {
+        "type": "string"
+      }
+    }
+  },
+  "AuditEvent": {
+    "properties": {
+      "data": {
+        "type": "object"
+      },
+      "principal": {
+        "type": "string"
+      },
+      "timestamp": {
+        "$ref": "#/definitions/Instant"
+      },
+      "type": {
+        "type": "string"
+      }
+    }
+  },
+  "BalanceTransaction": {
+    "properties": {
+      "amount": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "availableOn": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "created": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "fee": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "feeDetails": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/Fee"
+        }
+      },
+      "id": {
+        "type": "string"
+      },
+      "net": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "object": {
+        "type": "string"
+      },
+      "source": {
+        "type": "string"
+      },
+      "sourcedTransfers": {
+        "$ref": "#/definitions/TransferCollection"
+      },
+      "status": {
+        "type": "string"
+      },
+      "type": {
+        "type": "string"
+      }
+    }
+  },
+  "BankAccount": {
+    "properties": {
+      "account": {
+        "type": "string"
+      },
+      "accountHolderName": {
+        "type": "string"
+      },
+      "accountHolderType": {
+        "type": "string"
+      },
+      "bankName": {
+        "type": "string"
+      },
+      "country": {
+        "type": "string"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "customer": {
+        "type": "string"
+      },
+      "defaultForCurrency": {
+        "type": "boolean"
+      },
+      "fingerprint": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      },
+      "instanceURL": {
+        "type": "string"
+      },
+      "last4": {
+        "type": "string"
+      },
+      "metadata": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
+      "object": {
+        "type": "string"
+      },
+      "routingNumber": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "validated": {
+        "type": "boolean"
+      }
+    }
+  },
+  "Bid": {
+    "properties": {
+      "bidAmount": {
+        "type": "number",
+        "format": "double"
+      },
+      "bidItems": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/BidItem"
+        }
+      },
+      "description": {
+        "type": "string"
+      },
+      "id": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "minBid": {
+        "type": "number",
+        "format": "double"
+      },
+      "status": {
+        "type": "string",
+        "enum": ["ACCEPTED", "REJECTED", "NA", "IN_REVIEW"]
+      }
+    }
+  },
+  "BidDTO": {
+    "properties": {
+      "bidAmount": {
+        "type": "number",
+        "format": "double"
+      },
+      "bidItems": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/BidItemDTO"
+        }
+      },
+      "description": {
+        "type": "string"
+      },
+      "id": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "job": {
+        "$ref": "#/definitions/JobDTO"
+      },
+      "minBid": {
+        "type": "number",
+        "format": "double"
+      },
+      "status": {
+        "type": "string",
+        "enum": ["ACCEPTED", "REJECTED", "NA", "IN_REVIEW"]
+      }
+    }
+  },
+  "BidItem": {
+    "properties": {
+      "amount": {
+        "type": "number",
+        "format": "double"
+      },
+      "description": {
+        "type": "string"
+      },
+      "id": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "quantity": {
+        "type": "number",
+        "format": "double"
+      }
+    }
+  },
+  "BidItemDTO": {
+    "properties": {
+      "amount": {
+        "type": "number",
+        "format": "double"
+      },
+      "description": {
+        "type": "string"
+      },
+      "id": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "quantity": {
+        "type": "number",
+        "format": "double"
+      }
+    }
+  },
+  "Boat": {
+    "properties": {
+      "about": {
+        "type": "string",
+        "description": "Boat about",
+        "enum": ["Maxlength10485760"]
+      },
+      "address": {
+        "type": "string",
+        "description": "Boat address",
+        "enum": ["Maxlength100"]
+      },
+      "address2": {
+        "type": "string",
+        "description": "Boat address2",
+        "enum": ["Maxlength100"]
+      },
+      "city": {
+        "type": "string",
+        "description": "Boat city",
+        "enum": ["Maxlength100"]
+      },
+      "id": {
+        "type": "integer",
+        "format": "int64",
+        "description": "Id value"
+      },
+      "jobs": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/Job"
+        }
+      },
+      "makeModelYear": {
+        "type": "string",
+        "description": "Make mode year",
+        "enum": ["Maxlength255"]
+      },
+      "name": {
+        "type": "string",
+        "description": "Boat name",
+        "enum": ["Maxlength100"]
+      },
+      "objects": {
+        "type": "object",
+        "additionalProperties": {
+          "$ref": "#/definitions/StoredObjectDescriptor"
+        }
+      },
+      "state": {
+        "type": "string",
+        "description": "Boat state",
+        "enum": ["Maxlength50"]
+      },
+      "zipCode": {
+        "type": "string",
+        "description": "Boat zip code",
+        "enum": ["Maxlength10"]
+      }
+    }
+  },
+  "BoatInputDTO": {
+    "properties": {
+      "about": {
+        "type": "string"
+      },
+      "address": {
+        "type": "string"
+      },
+      "address2": {
+        "type": "string"
+      },
+      "city": {
+        "type": "string"
+      },
+      "id": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "makeModelYear": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "state": {
+        "type": "string"
+      },
+      "zipCode": {
+        "type": "string"
+      }
+    }
+  },
+  "BoatOutputDTO": {
+    "properties": {
+      "about": {
+        "type": "string"
+      },
+      "address": {
+        "type": "string"
+      },
+      "address2": {
+        "type": "string"
+      },
+      "city": {
+        "type": "string"
+      },
+      "id": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/StoredObjectDescriptorDTO"
+        }
+      },
+      "makeModelYear": {
+        "type": "string"
+      },
+      "name": {
+        "type": "string"
+      },
+      "state": {
+        "type": "string"
+      },
+      "zipCode": {
+        "type": "string"
+      }
+    }
+  },
+  "Card": {
+    "properties": {
+      "account": {
+        "type": "string"
+      },
+      "addressCity": {
+        "type": "string"
+      },
+      "addressCountry": {
+        "type": "string"
+      },
+      "addressLine1": {
+        "type": "string"
+      },
+      "addressLine1Check": {
+        "type": "string"
+      },
+      "addressLine2": {
+        "type": "string"
+      },
+      "addressState": {
+        "type": "string"
+      },
+      "addressZip": {
+        "type": "string"
+      },
+      "addressZipCheck": {
+        "type": "string"
+      },
+      "brand": {
+        "type": "string"
+      },
+      "country": {
+        "type": "string"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "customer": {
+        "type": "string"
+      },
+      "cvcCheck": {
+        "type": "string"
+      },
+      "defaultForCurrency": {
+        "type": "boolean"
+      },
+      "description": {
+        "type": "string"
+      },
+      "dynamicLast4": {
+        "type": "string"
+      },
+      "expMonth": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "expYear": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "fingerprint": {
+        "type": "string"
+      },
+      "funding": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      },
+      "iin": {
+        "type": "string"
+      },
+      "instanceURL": {
+        "type": "string"
+      },
+      "issuer": {
+        "type": "string"
+      },
+      "last4": {
+        "type": "string"
+      },
+      "metadata": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
+      "name": {
+        "type": "string"
+      },
+      "object": {
+        "type": "string"
+      },
+      "recipient": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "tokenizationMethod": {
+        "type": "string"
+      },
+      "type": {
+        "type": "string"
+      }
+    }
+  },
+  "Charge": {
+    "properties": {
+      "amount": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "amountRefunded": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "application": {
+        "type": "string"
+      },
+      "applicationFee": {
+        "type": "string"
+      },
+      "applicationFeeObject": {
+        "$ref": "#/definitions/ApplicationFee"
+      },
+      "applicationObject": {
+        "$ref": "#/definitions/Application"
+      },
+      "balanceTransaction": {
+        "type": "string"
+      },
+      "balanceTransactionObject": {
+        "$ref": "#/definitions/BalanceTransaction"
+      },
+      "captured": {
+        "type": "boolean"
+      },
+      "card": {
+        "$ref": "#/definitions/Card"
+      },
+      "created": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "customer": {
+        "type": "string"
+      },
+      "customerObject": {
+        "$ref": "#/definitions/Customer"
+      },
+      "description": {
+        "type": "string"
+      },
+      "destination": {
+        "type": "string"
+      },
+      "destinationObject": {
+        "$ref": "#/definitions/Account"
+      },
+      "dispute": {
+        "type": "string"
+      },
+      "disputeObject": {
+        "$ref": "#/definitions/Dispute"
+      },
+      "disputed": {
+        "type": "boolean"
+      },
+      "failureCode": {
+        "type": "string"
+      },
+      "failureMessage": {
+        "type": "string"
+      },
+      "fraudDetails": {
+        "$ref": "#/definitions/FraudDetails"
+      },
+      "id": {
+        "type": "string"
+      },
+      "invoice": {
+        "type": "string"
+      },
+      "invoiceObject": {
+        "$ref": "#/definitions/Invoice"
+      },
+      "livemode": {
+        "type": "boolean"
+      },
+      "metadata": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
+      "object": {
+        "type": "string"
+      },
+      "order": {
+        "type": "string"
+      },
+      "orderObject": {
+        "$ref": "#/definitions/Order"
+      },
+      "outcome": {
+        "$ref": "#/definitions/ChargeOutcome"
+      },
+      "paid": {
+        "type": "boolean"
+      },
+      "receiptEmail": {
+        "type": "string"
+      },
+      "receiptNumber": {
+        "type": "string"
+      },
+      "refunded": {
+        "type": "boolean"
+      },
+      "refunds": {
+        "$ref": "#/definitions/ChargeRefundCollection"
+      },
+      "review": {
+        "type": "string"
+      },
+      "reviewObject": {
+        "$ref": "#/definitions/Review"
+      },
+      "shipping": {
+        "$ref": "#/definitions/ShippingDetails"
+      },
+      "source": {
+        "$ref": "#/definitions/ExternalAccount"
+      },
+      "sourceTransfer": {
+        "type": "string"
+      },
+      "sourceTransferObject": {
+        "$ref": "#/definitions/Transfer"
+      },
+      "statementDescription": {
+        "type": "string"
+      },
+      "statementDescriptor": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "transfer": {
+        "type": "string"
+      },
+      "transferGroup": {
+        "type": "string"
+      },
+      "transferObject": {
+        "$ref": "#/definitions/Transfer"
+      }
+    }
+  },
+  "ChargeOutcome": {
+    "properties": {
+      "networkStatus": {
+        "type": "string"
+      },
+      "reason": {
+        "type": "string"
+      },
+      "riskLevel": {
+        "type": "string"
+      },
+      "rule": {
+        "$ref": "#/definitions/ChargeOutcomeRule"
+      },
+      "ruleId": {
+        "type": "string"
+      },
+      "ruleObject": {
+        "$ref": "#/definitions/ChargeOutcomeRule"
+      },
+      "sellerMessage": {
+        "type": "string"
+      },
+      "type": {
+        "type": "string"
+      }
+    }
+  },
+  "ChargeOutcomeRule": {
+    "properties": {
+      "action": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      },
+      "predicate": {
+        "type": "string"
+      }
+    }
+  },
+  "ChargeRefundCollection": {
+    "properties": {
+      "count": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/Refund"
+        }
+      },
+      "hasMore": {
+        "type": "boolean"
+      },
+      "requestOptions": {
+        "$ref": "#/definitions/RequestOptions"
+      },
+      "requestParams": {
+        "type": "object"
+      },
+      "totalCount": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "url": {
+        "type": "string"
+      }
+    }
+  },
+  "ChargeRequestDTO": {
+    "properties": {
+      "amount": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "stripeEmail": {
+        "type": "string"
+      },
+      "stripeToken": {
+        "type": "string"
+      }
+    }
+  },
+  "Coupon": {
+    "properties": {
+      "amountOff": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "created": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "duration": {
+        "type": "string"
+      },
+      "durationInMonths": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "id": {
+        "type": "string"
+      },
+      "livemode": {
+        "type": "boolean"
+      },
+      "maxRedemptions": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "metadata": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
+      "object": {
+        "type": "string"
+      },
+      "percentOff": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "redeemBy": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "timesRedeemed": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "valid": {
+        "type": "boolean"
+      }
+    }
+  },
+  "Customer": {
+    "properties": {
+      "accountBalance": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "businessVatId": {
+        "type": "string"
+      },
+      "cards": {
+        "$ref": "#/definitions/CustomerCardCollection"
+      },
+      "created": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "defaultCard": {
+        "type": "string"
+      },
+      "defaultSource": {
+        "type": "string"
+      },
+      "deleted": {
+        "type": "boolean"
+      },
+      "delinquent": {
+        "type": "boolean"
+      },
+      "description": {
+        "type": "string"
+      },
+      "discount": {
+        "$ref": "#/definitions/Discount"
+      },
+      "email": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      },
+      "livemode": {
+        "type": "boolean"
+      },
+      "metadata": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
+      "nextRecurringCharge": {
+        "$ref": "#/definitions/NextRecurringCharge"
+      },
+      "object": {
+        "type": "string"
+      },
+      "shipping": {
+        "$ref": "#/definitions/ShippingDetails"
+      },
+      "sources": {
+        "$ref": "#/definitions/ExternalAccountCollection"
+      },
+      "subscription": {
+        "$ref": "#/definitions/Subscription"
+      },
+      "subscriptions": {
+        "$ref": "#/definitions/CustomerSubscriptionCollection"
+      },
+      "trialEnd": {
+        "type": "integer",
+        "format": "int64"
+      }
+    }
+  },
+  "CustomerCardCollection": {
+    "properties": {
+      "count": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/Card"
+        }
+      },
+      "hasMore": {
+        "type": "boolean"
+      },
+      "requestOptions": {
+        "$ref": "#/definitions/RequestOptions"
+      },
+      "requestParams": {
+        "type": "object"
+      },
+      "totalCount": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "url": {
+        "type": "string"
+      }
+    }
+  },
+  "CustomerSubscriptionCollection": {
+    "properties": {
+      "count": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/Subscription"
+        }
+      },
+      "hasMore": {
+        "type": "boolean"
+      },
+      "requestOptions": {
+        "$ref": "#/definitions/RequestOptions"
+      },
+      "requestParams": {
+        "type": "object"
+      },
+      "totalCount": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "url": {
+        "type": "string"
+      }
+    }
+  },
+  "DateOfBirth": {
+    "properties": {
+      "day": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "month": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "year": {
+        "type": "integer",
+        "format": "int32"
+      }
+    }
+  },
+  "Discount": {
+    "properties": {
+      "coupon": {
+        "$ref": "#/definitions/Coupon"
+      },
+      "customer": {
+        "type": "string"
+      },
+      "end": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "id": {
+        "type": "string"
+      },
+      "object": {
+        "type": "string"
+      },
+      "start": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "subscription": {
+        "type": "string"
+      }
+    }
+  },
+  "Dispute": {
+    "properties": {
+      "amount": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "balanceTransaction": {
+        "type": "string"
+      },
+      "balanceTransactions": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/BalanceTransaction"
+        }
+      },
+      "charge": {
+        "type": "string"
+      },
+      "created": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "evidence": {
+        "type": "string"
+      },
+      "evidenceDetails": {
+        "$ref": "#/definitions/EvidenceDetails"
+      },
+      "evidenceDueBy": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "evidenceSubObject": {
+        "$ref": "#/definitions/EvidenceSubObject"
+      },
+      "id": {
+        "type": "string"
+      },
+      "isChargeRefundable": {
+        "type": "boolean"
+      },
+      "livemode": {
+        "type": "boolean"
+      },
+      "metadata": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
+      "networkReasonCode": {
+        "type": "string"
+      },
+      "object": {
+        "type": "string"
+      },
+      "reason": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "Era": {
+    "properties": {
+      "value": {
+        "type": "integer",
+        "format": "int32"
+      }
+    }
+  },
+  "EvidenceDetails": {
+    "properties": {
+      "dueBy": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "submissionCount": {
+        "type": "integer",
+        "format": "int32"
+      }
+    }
+  },
+  "EvidenceSubObject": {
+    "properties": {
+      "accessActivityLog": {
+        "type": "string"
+      },
+      "billingAddress": {
+        "type": "string"
+      },
+      "cancellationPolicy": {
+        "type": "string"
+      },
+      "cancellationPolicyDisclosure": {
+        "type": "string"
+      },
+      "cancellationRebuttal": {
+        "type": "string"
+      },
+      "customerCommunication": {
+        "type": "string"
+      },
+      "customerEmailAddress": {
+        "type": "string"
+      },
+      "customerName": {
+        "type": "string"
+      },
+      "customerPurchaseIp": {
+        "type": "string"
+      },
+      "customerSignature": {
+        "type": "string"
+      },
+      "duplicateChargeDocumentation": {
+        "type": "string"
+      },
+      "duplicateChargeExplanation": {
+        "type": "string"
+      },
+      "duplicateChargeId": {
+        "type": "string"
+      },
+      "productDescription": {
+        "type": "string"
+      },
+      "receipt": {
+        "type": "string"
+      },
+      "refundPolicy": {
+        "type": "string"
+      },
+      "refundPolicyDisclosure": {
+        "type": "string"
+      },
+      "refundRefusalExplanation": {
+        "type": "string"
+      },
+      "serviceDate": {
+        "type": "string"
+      },
+      "serviceDocumentation": {
+        "type": "string"
+      },
+      "shippingAddress": {
+        "type": "string"
+      },
+      "shippingDate": {
+        "type": "string"
+      },
+      "shippingDocumentation": {
+        "type": "string"
+      },
+      "shippingTrackingNumber": {
+        "type": "string"
+      },
+      "uncategorizedFile": {
+        "type": "string"
+      },
+      "uncategorizedText": {
+        "type": "string"
+      }
+    }
+  },
+  "ExternalAccount": {
+    "properties": {
+      "account": {
+        "type": "string"
+      },
+      "customer": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      },
+      "instanceURL": {
+        "type": "string"
+      },
+      "metadata": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
+      "object": {
+        "type": "string"
+      }
+    }
+  },
+  "ExternalAccountCollection": {
+    "properties": {
+      "count": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/ExternalAccount"
+        }
+      },
+      "hasMore": {
+        "type": "boolean"
+      },
+      "requestOptions": {
+        "$ref": "#/definitions/RequestOptions"
+      },
+      "requestParams": {
+        "type": "object"
+      },
+      "totalCount": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "url": {
+        "type": "string"
+      }
+    }
+  },
+  "Fee": {
+    "properties": {
+      "amount": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "application": {
+        "type": "string"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "type": {
+        "type": "string"
+      }
+    }
+  },
+  "FeeRefund": {
+    "properties": {
+      "amount": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "balanceTransaction": {
+        "type": "string"
+      },
+      "created": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "fee": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      },
+      "instanceURL": {
+        "type": "string"
+      },
+      "metadata": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
+      "object": {
+        "type": "string"
+      }
+    }
+  },
+  "FeeRefundCollection": {
+    "properties": {
+      "count": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/FeeRefund"
+        }
+      },
+      "hasMore": {
+        "type": "boolean"
+      },
+      "requestOptions": {
+        "$ref": "#/definitions/RequestOptions"
+      },
+      "requestParams": {
+        "type": "object"
+      },
+      "totalCount": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "url": {
+        "type": "string"
+      }
+    }
+  },
+  "FraudDetails": {
+    "properties": {
+      "stripeReport": {
+        "type": "string"
+      },
+      "userReport": {
+        "type": "string"
+      }
+    }
+  },
+  "Instant": {
+    "properties": {
+      "epochSecond": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "nano": {
+        "type": "integer",
+        "format": "int32"
+      }
+    }
+  },
+  "Invoice": {
+    "properties": {
+      "amountDue": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "applicationFee": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "attemptCount": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "attempted": {
+        "type": "boolean"
+      },
+      "billing": {
+        "type": "string"
+      },
+      "charge": {
+        "type": "string"
+      },
+      "closed": {
+        "type": "boolean"
+      },
+      "created": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "customer": {
+        "type": "string"
+      },
+      "date": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "description": {
+        "type": "string"
+      },
+      "discount": {
+        "$ref": "#/definitions/Discount"
+      },
+      "dueDate": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "endingBalance": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "forgiven": {
+        "type": "boolean"
+      },
+      "id": {
+        "type": "string"
+      },
+      "lines": {
+        "$ref": "#/definitions/InvoiceLineItemCollection"
+      },
+      "livemode": {
+        "type": "boolean"
+      },
+      "metadata": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
+      "nextPaymentAttempt": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "number": {
+        "type": "string"
+      },
+      "object": {
+        "type": "string"
+      },
+      "paid": {
+        "type": "boolean"
+      },
+      "periodEnd": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "periodStart": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "receiptNumber": {
+        "type": "string"
+      },
+      "startingBalance": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "statementDescriptor": {
+        "type": "string"
+      },
+      "subscription": {
+        "type": "string"
+      },
+      "subscriptionProrationDate": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "subtotal": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "tax": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "taxPercent": {
+        "type": "number",
+        "format": "double"
+      },
+      "total": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "webhooksDeliveredAt": {
+        "type": "integer",
+        "format": "int64"
+      }
+    }
+  },
+  "InvoiceLineItem": {
+    "properties": {
+      "amount": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "discountable": {
+        "type": "boolean"
+      },
+      "id": {
+        "type": "string"
+      },
+      "livemode": {
+        "type": "boolean"
+      },
+      "metadata": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
+      "object": {
+        "type": "string"
+      },
+      "period": {
+        "$ref": "#/definitions/InvoiceLineItemPeriod"
+      },
+      "plan": {
+        "$ref": "#/definitions/Plan"
+      },
+      "proration": {
+        "type": "boolean"
+      },
+      "quantity": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "subscription": {
+        "type": "string"
+      },
+      "type": {
+        "type": "string"
+      }
+    }
+  },
+  "InvoiceLineItemCollection": {
+    "properties": {
+      "count": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/InvoiceLineItem"
+        }
+      },
+      "hasMore": {
+        "type": "boolean"
+      },
+      "requestOptions": {
+        "$ref": "#/definitions/RequestOptions"
+      },
+      "requestParams": {
+        "type": "object"
+      },
+      "totalCount": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "url": {
+        "type": "string"
+      }
+    }
+  },
+  "InvoiceLineItemPeriod": {
+    "properties": {
+      "end": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "start": {
+        "type": "integer",
+        "format": "int64"
+      }
+    }
+  },
+  "IsoChronology": {
+    "properties": {
+      "calendarType": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      }
+    }
+  },
+  "Job": {
+    "properties": {
+      "auctionEndDate": {
+        "$ref": "#/definitions/LocalDate"
+      },
+      "auctionStartDate": {
+        "$ref": "#/definitions/LocalDate"
+      },
+      "bids": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/Bid"
+        }
+      },
+      "budget": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "id": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "jobItems": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/JobItem"
+        }
+      },
+      "name": {
+        "type": "string"
+      },
+      "objects": {
+        "type": "object",
+        "additionalProperties": {
+          "$ref": "#/definitions/StoredObjectDescriptor"
+        }
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "AUCTION_LIVE",
+          "AUCTION_CANCELLED",
+          "AUCTION_TIMEDOUT",
+          "JOB_IN_PROGRESS",
+          "COMPLETED",
+          "ACCEPTED"
+        ]
+      },
+      "type": {
+        "type": "string",
+        "enum": ["SURVEY", "REPAIR"]
+      }
+    }
+  },
+  "JobDTO": {
+    "properties": {
+      "auctionEndDate": {
+        "$ref": "#/definitions/LocalDate"
+      },
+      "auctionStartDate": {
+        "$ref": "#/definitions/LocalDate"
+      },
+      "boatId": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "budget": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "id": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "jobItems": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/JobItemDTO"
+        }
+      },
+      "name": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "AUCTION_LIVE",
+          "AUCTION_CANCELLED",
+          "AUCTION_TIMEDOUT",
+          "JOB_IN_PROGRESS",
+          "COMPLETED",
+          "ACCEPTED"
+        ]
+      },
+      "type": {
+        "type": "string",
+        "enum": ["SURVEY", "REPAIR"]
+      }
+    }
+  },
+  "JobItem": {
+    "properties": {
+      "description": {
+        "type": "string"
+      },
+      "id": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "title": {
+        "type": "string"
+      }
+    }
+  },
+  "JobItemDTO": {
+    "properties": {
+      "description": {
+        "type": "string"
+      },
+      "id": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "title": {
+        "type": "string"
+      }
+    }
+  },
+  "Keys": {
+    "properties": {
+      "publishable": {
+        "type": "string"
+      },
+      "secret": {
+        "type": "string"
+      }
+    }
+  },
+  "LegalEntity": {
+    "properties": {
+      "additionalOwners": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/Owner"
+        }
+      },
+      "address": {
+        "$ref": "#/definitions/Address"
+      },
+      "businessName": {
+        "type": "string"
+      },
+      "businessTaxIdProvided": {
+        "type": "boolean"
+      },
+      "dob": {
+        "$ref": "#/definitions/DateOfBirth"
+      },
+      "firstName": {
+        "type": "string"
+      },
+      "lastName": {
+        "type": "string"
+      },
+      "personalAddress": {
+        "$ref": "#/definitions/Address"
+      },
+      "personalIdNumberProvided": {
+        "type": "boolean"
+      },
+      "ssnLast4Provided": {
+        "type": "boolean"
+      },
+      "type": {
+        "type": "string"
+      },
+      "verification": {
+        "$ref": "#/definitions/Verification"
+      }
+    }
+  },
+  "Link": {
+    "properties": {
+      "href": {
+        "type": "string"
+      },
+      "templated": {
+        "type": "boolean"
+      }
+    }
+  },
+  "LocalDate": {
+    "properties": {
+      "chronology": {
+        "$ref": "#/definitions/IsoChronology"
+      },
+      "dayOfMonth": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "dayOfWeek": {
+        "type": "string",
+        "enum": [
+          "MONDAY",
+          "TUESDAY",
+          "WEDNESDAY",
+          "THURSDAY",
+          "FRIDAY",
+          "SATURDAY",
+          "SUNDAY"
+        ]
+      },
+      "dayOfYear": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "era": {
+        "$ref": "#/definitions/Era"
+      },
+      "leapYear": {
+        "type": "boolean"
+      },
+      "month": {
+        "type": "string",
+        "enum": [
+          "JANUARY",
+          "FEBRUARY",
+          "MARCH",
+          "APRIL",
+          "MAY",
+          "JUNE",
+          "JULY",
+          "AUGUST",
+          "SEPTEMBER",
+          "OCTOBER",
+          "NOVEMBER",
+          "DECEMBER"
+        ]
+      },
+      "monthValue": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "year": {
+        "type": "integer",
+        "format": "int32"
+      }
+    }
+  },
+  "LogoutUrlDTO": {
+    "properties": {
+      "url": {
+        "type": "string",
+        "description": "The logout URL"
+      }
+    }
+  },
+  "ModelAndView": {
+    "properties": {
+      "empty": {
+        "type": "boolean"
+      },
+      "model": {
+        "type": "object"
+      },
+      "modelMap": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object"
+        }
+      },
+      "reference": {
+        "type": "boolean"
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "100",
+          "101",
+          "102",
+          "103",
+          "200",
+          "201",
+          "202",
+          "203",
+          "204",
+          "205",
+          "206",
+          "207",
+          "208",
+          "226",
+          "300",
+          "301",
+          "302",
+          "302",
+          "303",
+          "304",
+          "305",
+          "307",
+          "308",
+          "400",
+          "401",
+          "402",
+          "403",
+          "404",
+          "405",
+          "406",
+          "407",
+          "408",
+          "409",
+          "410",
+          "411",
+          "412",
+          "413",
+          "413",
+          "414",
+          "414",
+          "415",
+          "416",
+          "417",
+          "418",
+          "419",
+          "420",
+          "421",
+          "422",
+          "423",
+          "424",
+          "426",
+          "428",
+          "429",
+          "431",
+          "451",
+          "500",
+          "501",
+          "502",
+          "503",
+          "504",
+          "505",
+          "506",
+          "507",
+          "508",
+          "509",
+          "510",
+          "511"
+        ]
+      },
+      "view": {
+        "$ref": "#/definitions/View"
+      },
+      "viewName": {
+        "type": "string"
+      }
+    }
+  },
+  "NextRecurringCharge": {
+    "properties": {
+      "amount": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "date": {
+        "type": "string"
+      }
+    }
+  },
+  "Notification": {
+    "properties": {
+      "date": {
+        "$ref": "#/definitions/LocalDate"
+      },
+      "description": {
+        "type": "string"
+      },
+      "id": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "title": {
+        "type": "string"
+      },
+      "userId": {
+        "type": "integer",
+        "format": "int64"
+      }
+    }
+  },
+  "NotificationDTO": {
+    "properties": {
+      "date": {
+        "$ref": "#/definitions/LocalDate"
+      },
+      "description": {
+        "type": "string"
+      },
+      "id": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "title": {
+        "type": "string"
+      },
+      "userId": {
+        "type": "integer",
+        "format": "int64"
+      }
+    }
+  },
+  "Order": {
+    "properties": {
+      "amount": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "amountReturned": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "application": {
+        "type": "string"
+      },
+      "applicationFee": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "charge": {
+        "type": "string"
+      },
+      "created": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "customer": {
+        "type": "string"
+      },
+      "customerObject": {
+        "$ref": "#/definitions/Customer"
+      },
+      "email": {
+        "type": "string"
+      },
+      "externalCouponCode": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      },
+      "items": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/OrderItem"
+        }
+      },
+      "livemode": {
+        "type": "boolean"
+      },
+      "metadata": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
+      "object": {
+        "type": "string"
+      },
+      "returns": {
+        "$ref": "#/definitions/OrderReturnCollection"
+      },
+      "selectedShippingMethod": {
+        "type": "string"
+      },
+      "shipping": {
+        "$ref": "#/definitions/ShippingDetails"
+      },
+      "shippingMethods": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/ShippingMethod"
+        }
+      },
+      "status": {
+        "type": "string"
+      },
+      "statusTransitions": {
+        "$ref": "#/definitions/StatusTransitions"
+      },
+      "updated": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "upstreamId": {
+        "type": "string"
+      }
+    }
+  },
+  "OrderItem": {
+    "properties": {
+      "amount": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "object": {
+        "type": "string"
+      },
+      "parent": {
+        "type": "string"
+      },
+      "quantity": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "type": {
+        "type": "string"
+      }
+    }
+  },
+  "OrderReturn": {
+    "properties": {
+      "amount": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "created": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      },
+      "items": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/OrderItem"
+        }
+      },
+      "livemode": {
+        "type": "boolean"
+      },
+      "object": {
+        "type": "string"
+      },
+      "order": {
+        "type": "string"
+      },
+      "refund": {
+        "type": "string"
+      }
+    }
+  },
+  "OrderReturnCollection": {
+    "properties": {
+      "count": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/OrderReturn"
+        }
+      },
+      "hasMore": {
+        "type": "boolean"
+      },
+      "requestOptions": {
+        "$ref": "#/definitions/RequestOptions"
+      },
+      "requestParams": {
+        "type": "object"
+      },
+      "totalCount": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "url": {
+        "type": "string"
+      }
+    }
+  },
+  "Owner": {
+    "properties": {
+      "address": {
+        "$ref": "#/definitions/Address"
+      },
+      "dob": {
+        "$ref": "#/definitions/DateOfBirth"
+      },
+      "firstName": {
+        "type": "string"
+      },
+      "lastName": {
+        "type": "string"
+      },
+      "verification": {
+        "$ref": "#/definitions/Verification"
+      }
+    }
+  },
+  "PaymentDTO": {
+    "properties": {
+      "status": {
+        "type": "string",
+        "enum": ["INIT", "SUCCEEDED", "PENDING", "FAILED"]
+      },
+      "transactionId": {
+        "type": "string"
+      }
+    }
+  },
+  "Plan": {
+    "properties": {
+      "amount": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "created": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      },
+      "interval": {
+        "type": "string"
+      },
+      "intervalCount": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "livemode": {
+        "type": "boolean"
+      },
+      "metadata": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
+      "name": {
+        "type": "string"
+      },
+      "object": {
+        "type": "string"
+      },
+      "statementDescription": {
+        "type": "string"
+      },
+      "statementDescriptor": {
+        "type": "string"
+      },
+      "trialPeriodDays": {
+        "type": "integer",
+        "format": "int32"
+      }
+    }
+  },
+  "Refund": {
+    "properties": {
+      "amount": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "balanceTransaction": {
+        "type": "string"
+      },
+      "charge": {
+        "type": "string"
+      },
+      "created": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      },
+      "metadata": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
+      "object": {
+        "type": "string"
+      },
+      "reason": {
+        "type": "string"
+      },
+      "receiptNumber": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    }
+  },
+  "RefundDTO": {
+    "properties": {
+      "transactionId": {
+        "type": "string"
+      }
+    }
+  },
+  "RequestOptions": {
+    "properties": {
+      "apiKey": {
+        "type": "string"
+      },
+      "idempotencyKey": {
+        "type": "string"
+      },
+      "stripeAccount": {
+        "type": "string"
+      },
+      "stripeVersion": {
+        "type": "string"
+      }
+    }
+  },
+  "Response«BoatOutputDTO»": {
+    "properties": {
+      "currentPageNo": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/BoatOutputDTO"
+        }
+      },
+      "totalPages": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "totalRecords": {
+        "type": "integer",
+        "format": "int64"
+      }
+    }
+  },
+  "Response«JobDTO»": {
+    "properties": {
+      "currentPageNo": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/JobDTO"
+        }
+      },
+      "totalPages": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "totalRecords": {
+        "type": "integer",
+        "format": "int64"
+      }
+    }
+  },
+  "Response«ShipyardOutputDTO»": {
+    "properties": {
+      "currentPageNo": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/ShipyardOutputDTO"
+        }
+      },
+      "totalPages": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "totalRecords": {
+        "type": "integer",
+        "format": "int64"
+      }
+    }
+  },
+  "Response«SurveyorOutputDTO»": {
+    "properties": {
+      "currentPageNo": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/SurveyorOutputDTO"
+        }
+      },
+      "totalPages": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "totalRecords": {
+        "type": "integer",
+        "format": "int64"
+      }
+    }
+  },
+  "Reversal": {
+    "properties": {
+      "amount": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "balanceTransaction": {
+        "type": "string"
+      },
+      "created": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      },
+      "instanceURL": {
+        "type": "string"
+      },
+      "metadata": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
+      "object": {
+        "type": "string"
+      },
+      "transfer": {
+        "type": "string"
+      }
+    }
+  },
+  "ShippingDetails": {
+    "properties": {
+      "address": {
+        "$ref": "#/definitions/Address"
+      },
+      "name": {
+        "type": "string"
+      },
+      "phone": {
+        "type": "string"
+      }
+    }
+  },
+  "ShippingMethod": {
+    "properties": {
+      "amount": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      }
+    }
+  },
+  "Shipyard": {
+    "properties": {
+      "about": {
+        "type": "string",
+        "description": "Shipyard about",
+        "enum": ["Maxlength10485760"]
+      },
+      "address": {
+        "type": "string",
+        "description": "Shipyard address",
+        "enum": ["Maxlength50"]
+      },
+      "address2": {
+        "type": "string",
+        "description": "Shipyard address 2",
+        "enum": ["Maxlength50"]
+      },
+      "businessEmail": {
+        "type": "string",
+        "description": "Shipyard business email address",
+        "enum": ["Maxlength50"]
+      },
+      "city": {
+        "type": "string",
+        "description": "Shipyard city",
+        "enum": ["Maxlength50"]
+      },
+      "id": {
+        "type": "integer",
+        "format": "int64",
+        "description": "Id value"
+      },
+      "name": {
+        "type": "string",
+        "description": "Shipyard name",
+        "enum": ["Maxlength50"]
+      },
+      "objects": {
+        "type": "object",
+        "additionalProperties": {
+          "$ref": "#/definitions/StoredObjectDescriptor"
+        }
+      },
+      "phone": {
+        "type": "string",
+        "description": "Shipyard phoneNumber number",
+        "enum": ["Maxlength50"]
+      },
+      "state": {
+        "type": "string",
+        "description": "Shipyard state",
+        "enum": ["Maxlength50"]
+      },
+      "website": {
+        "type": "string",
+        "description": "Shipyard website",
+        "enum": ["Maxlength50"]
+      },
+      "zipCode": {
+        "type": "string",
+        "description": "Shipyard zipcode",
+        "enum": ["Maxlength50"]
+      }
+    }
+  },
+  "ShipyardInputDTO": {
+    "required": ["address", "name", "phone"],
+    "properties": {
+      "about": {
+        "type": "string",
+        "description": "About shipyard information",
+        "enum": ["Maxlength10485760"]
+      },
+      "address": {
+        "type": "string",
+        "description": "The shipyard address",
+        "enum": ["Maxlength50"]
+      },
+      "address2": {
+        "type": "string",
+        "description": "The shipyard address 2",
+        "enum": ["Maxlength50"]
+      },
+      "businessEmail": {
+        "type": "string",
+        "description": "The business email address",
+        "enum": ["Maxlength100"]
+      },
+      "city": {
+        "type": "string",
+        "description": "The city",
+        "enum": ["Maxlength50"]
+      },
+      "id": {
+        "type": "integer",
+        "format": "int64",
+        "description": "The shipyard id"
+      },
+      "name": {
+        "type": "string",
+        "description": "The shipyard name",
+        "enum": ["Maxlength50"]
+      },
+      "phone": {
+        "type": "string",
+        "description": "The shipyard phone number",
+        "enum": ["Minlength7", "Maxlength50"]
+      },
+      "state": {
+        "type": "string",
+        "description": "The state",
+        "enum": ["Maxlength50"]
+      },
+      "website": {
+        "type": "string",
+        "description": "The website URL",
+        "enum": ["Maxlength50"]
+      },
+      "zipCode": {
+        "type": "string",
+        "description": "The zipcode",
+        "enum": ["Maxlength50"]
+      }
+    }
+  },
+  "ShipyardOutputDTO": {
+    "required": ["address", "name", "phone"],
+    "properties": {
+      "about": {
+        "type": "string",
+        "description": "About shipyard information",
+        "enum": ["Maxlength10485760"]
+      },
+      "address": {
+        "type": "string",
+        "description": "The shipyard address",
+        "enum": ["Maxlength50"]
+      },
+      "address2": {
+        "type": "string",
+        "description": "The shipyard address 2",
+        "enum": ["Maxlength50"]
+      },
+      "businessEmail": {
+        "type": "string",
+        "description": "The business email address",
+        "enum": ["Maxlength100"]
+      },
+      "city": {
+        "type": "string",
+        "description": "The city",
+        "enum": ["Maxlength50"]
+      },
+      "id": {
+        "type": "integer",
+        "format": "int64",
+        "description": "The shipyard id"
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/StoredObjectDescriptorDTO"
+        }
+      },
+      "name": {
+        "type": "string",
+        "description": "The shipyard name",
+        "enum": ["Maxlength50"]
+      },
+      "phone": {
+        "type": "string",
+        "description": "The shipyard phone number",
+        "enum": ["Minlength7", "Maxlength50"]
+      },
+      "state": {
+        "type": "string",
+        "description": "The state",
+        "enum": ["Maxlength50"]
+      },
+      "website": {
+        "type": "string",
+        "description": "The website URL",
+        "enum": ["Maxlength50"]
+      },
+      "zipCode": {
+        "type": "string",
+        "description": "The zipcode",
+        "enum": ["Maxlength50"]
+      }
+    }
+  },
+  "StatusTransitions": {
+    "properties": {
+      "canceled": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "fulfiled": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "paid": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "returned": {
+        "type": "integer",
+        "format": "int64"
+      }
+    }
+  },
+  "StoredObjectDescriptor": {
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "url": {
+        "type": "string"
+      }
+    }
+  },
+  "StoredObjectDescriptorDTO": {
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "objectId": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "url": {
+        "type": "string"
+      }
+    }
+  },
+  "StripeAccount": {
+    "properties": {
+      "stripeId": {
+        "type": "string"
+      },
+      "type": {
+        "type": "string",
+        "enum": ["CONNECTED", "CHARGE"]
+      }
+    }
+  },
+  "Subscription": {
+    "properties": {
+      "applicationFeePercent": {
+        "type": "number",
+        "format": "double"
+      },
+      "billing": {
+        "type": "string"
+      },
+      "cancelAtPeriodEnd": {
+        "type": "boolean"
+      },
+      "canceledAt": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "created": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "currentPeriodEnd": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "currentPeriodStart": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "customer": {
+        "type": "string"
+      },
+      "daysUntilDue": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "discount": {
+        "$ref": "#/definitions/Discount"
+      },
+      "endedAt": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "id": {
+        "type": "string"
+      },
+      "metadata": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
+      "object": {
+        "type": "string"
+      },
+      "plan": {
+        "$ref": "#/definitions/Plan"
+      },
+      "quantity": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "start": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "status": {
+        "type": "string"
+      },
+      "subscriptionItems": {
+        "$ref": "#/definitions/SubscriptionItemCollection"
+      },
+      "taxPercent": {
+        "type": "number",
+        "format": "double"
+      },
+      "trialEnd": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "trialStart": {
+        "type": "integer",
+        "format": "int64"
+      }
+    }
+  },
+  "SubscriptionItem": {
+    "properties": {
+      "created": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "id": {
+        "type": "string"
+      },
+      "object": {
+        "type": "string"
+      },
+      "plan": {
+        "$ref": "#/definitions/Plan"
+      },
+      "quantity": {
+        "type": "integer",
+        "format": "int32"
+      }
+    }
+  },
+  "SubscriptionItemCollection": {
+    "properties": {
+      "count": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/SubscriptionItem"
+        }
+      },
+      "hasMore": {
+        "type": "boolean"
+      },
+      "requestOptions": {
+        "$ref": "#/definitions/RequestOptions"
+      },
+      "requestParams": {
+        "type": "object"
+      },
+      "totalCount": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "url": {
+        "type": "string"
+      }
+    }
+  },
+  "Summary": {
+    "properties": {
+      "adjustmentCount": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "adjustmentGross": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "chargeCount": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "chargeFees": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "chargeGross": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "net": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "refundCount": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "refundFees": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "refundGross": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "validationCount": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "validationFees": {
+        "type": "integer",
+        "format": "int64"
+      }
+    }
+  },
+  "Surveyor": {
+    "required": [
+      "about",
+      "address",
+      "address2",
+      "city",
+      "id",
+      "name",
+      "state",
+      "zipCode"
+    ],
+    "properties": {
+      "about": {
+        "type": "string",
+        "description": "Surveyor about",
+        "enum": ["Maxlength10485760"]
+      },
+      "address": {
+        "type": "string",
+        "description": "Surveyor address",
+        "enum": ["Maxlength100"]
+      },
+      "address2": {
+        "type": "string",
+        "description": "Surveyor address 2",
+        "enum": ["Maxlength100"]
+      },
+      "city": {
+        "type": "string",
+        "description": "Surveyor city",
+        "enum": ["Maxlength100"]
+      },
+      "id": {
+        "type": "integer",
+        "format": "int64",
+        "description": "Id value"
+      },
+      "name": {
+        "type": "string",
+        "description": "Surveyor name",
+        "enum": ["Maxlength100"]
+      },
+      "objects": {
+        "type": "object",
+        "additionalProperties": {
+          "$ref": "#/definitions/StoredObjectDescriptor"
+        }
+      },
+      "state": {
+        "type": "string",
+        "description": "Surveyor state",
+        "enum": ["Maxlength50"]
+      },
+      "zipCode": {
+        "type": "string",
+        "description": "Surveyor zipcode",
+        "enum": ["Maxlength10"]
+      }
+    }
+  },
+  "SurveyorInputDTO": {
+    "properties": {
+      "about": {
+        "type": "string"
+      },
+      "address": {
+        "type": "string"
+      },
+      "address2": {
+        "type": "string"
+      },
+      "city": {
+        "type": "string"
+      },
+      "id": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "name": {
+        "type": "string"
+      },
+      "state": {
+        "type": "string"
+      },
+      "zipCode": {
+        "type": "string"
+      }
+    }
+  },
+  "SurveyorOutputDTO": {
+    "properties": {
+      "about": {
+        "type": "string"
+      },
+      "address": {
+        "type": "string"
+      },
+      "address2": {
+        "type": "string"
+      },
+      "city": {
+        "type": "string"
+      },
+      "id": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/StoredObjectDescriptorDTO"
+        }
+      },
+      "name": {
+        "type": "string"
+      },
+      "state": {
+        "type": "string"
+      },
+      "zipCode": {
+        "type": "string"
+      }
+    }
+  },
+  "Transfer": {
+    "properties": {
+      "account": {
+        "$ref": "#/definitions/BankAccount"
+      },
+      "amount": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "amountReversed": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "applicationFee": {
+        "type": "string"
+      },
+      "balanceTransaction": {
+        "type": "string"
+      },
+      "bankAccount": {
+        "$ref": "#/definitions/BankAccount"
+      },
+      "created": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "currency": {
+        "type": "string"
+      },
+      "date": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "description": {
+        "type": "string"
+      },
+      "destination": {
+        "type": "string"
+      },
+      "destinationPayment": {
+        "type": "string"
+      },
+      "failureCode": {
+        "type": "string"
+      },
+      "failureMessage": {
+        "type": "string"
+      },
+      "id": {
+        "type": "string"
+      },
+      "livemode": {
+        "type": "boolean"
+      },
+      "metadata": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
+      "object": {
+        "type": "string"
+      },
+      "otherTransfers": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "recipient": {
+        "type": "string"
+      },
+      "reversals": {
+        "$ref": "#/definitions/TransferReversalCollection"
+      },
+      "reversed": {
+        "type": "boolean"
+      },
+      "sourceTransaction": {
+        "type": "string"
+      },
+      "sourceType": {
+        "type": "string"
+      },
+      "statementDescription": {
+        "type": "string"
+      },
+      "statementDescriptor": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "summary": {
+        "$ref": "#/definitions/Summary"
+      },
+      "transferGroup": {
+        "type": "string"
+      },
+      "type": {
+        "type": "string"
+      }
+    }
+  },
+  "TransferCollection": {
+    "properties": {
+      "count": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/Transfer"
+        }
+      },
+      "hasMore": {
+        "type": "boolean"
+      },
+      "requestOptions": {
+        "$ref": "#/definitions/RequestOptions"
+      },
+      "requestParams": {
+        "type": "object"
+      },
+      "totalCount": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "url": {
+        "type": "string"
+      }
+    }
+  },
+  "TransferReversalCollection": {
+    "properties": {
+      "count": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "data": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/Reversal"
+        }
+      },
+      "hasMore": {
+        "type": "boolean"
+      },
+      "requestOptions": {
+        "$ref": "#/definitions/RequestOptions"
+      },
+      "requestParams": {
+        "type": "object"
+      },
+      "totalCount": {
+        "type": "integer",
+        "format": "int32"
+      },
+      "url": {
+        "type": "string"
+      }
+    }
+  },
+  "UUID": {
+    "properties": {
+      "leastSignificantBits": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "mostSignificantBits": {
+        "type": "integer",
+        "format": "int64"
+      }
+    }
+  },
+  "User": {
+    "properties": {
+      "authId": {
+        "type": "string"
+      },
+      "bids": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/Bid"
+        }
+      },
+      "boats": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/Boat"
+        }
+      },
+      "chargeAccount": {
+        "$ref": "#/definitions/StripeAccount"
+      },
+      "chargeAccounts": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/StripeAccount"
+        }
+      },
+      "email": {
+        "type": "string"
+      },
+      "firstName": {
+        "type": "string"
+      },
+      "id": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "jobs": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/Job"
+        }
+      },
+      "langKey": {
+        "type": "string"
+      },
+      "lastName": {
+        "type": "string"
+      },
+      "login": {
+        "type": "string"
+      },
+      "notifications": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/Notification"
+        }
+      },
+      "objects": {
+        "type": "object",
+        "additionalProperties": {
+          "$ref": "#/definitions/StoredObjectDescriptor"
+        }
+      },
+      "payoutAccount": {
+        "$ref": "#/definitions/StripeAccount"
+      },
+      "payoutAccounts": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/StripeAccount"
+        }
+      },
+      "phoneNo": {
+        "type": "string",
+        "description": "User phoneNo number",
+        "enum": ["Maxlength50"]
+      },
+      "reviews": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/Review"
+        }
+      },
+      "shipyards": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/Shipyard"
+        }
+      },
+      "surveyors": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/Surveyor"
+        }
+      },
+      "userTypes": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/UserType"
+        }
+      }
+    }
+  },
+  "UserFormDTO": {
+    "properties": {
+      "login": {
+        "type": "string"
+      },
+      "password": {
+        "type": "string"
+      }
+    }
+  },
+  "UserInputDTO": {
+    "required": ["email", "login", "password"],
+    "properties": {
+      "boatDetails": {
+        "description": "Boat details",
+        "$ref": "#/definitions/Boat"
+      },
+      "email": {
+        "type": "string",
+        "description": "Email address",
+        "enum": ["Maxlength100"]
+      },
+      "firstName": {
+        "type": "string",
+        "description": "First name",
+        "enum": ["Maxlength50"]
+      },
+      "langKey": {
+        "type": "string",
+        "description": "Language key",
+        "enum": ["Minlength2Maxlength5"]
+      },
+      "lastName": {
+        "type": "string",
+        "description": "Last name",
+        "enum": ["Maxlength50"]
+      },
+      "login": {
+        "type": "string",
+        "description": "The username",
+        "enum": ["Patternis^[a-z0-9-]*$", "Minlength5", "Maxlength50"]
+      },
+      "password": {
+        "type": "string",
+        "description": "The password",
+        "enum": ["Minlength5", "Maxlength30"]
+      },
+      "phoneNo": {
+        "type": "string",
+        "description": "User phone number",
+        "enum": ["Minlength7", "Maxlength50"]
+      },
+      "shipyardDetails": {
+        "description": "Shipyard details",
+        "$ref": "#/definitions/Shipyard"
+      },
+      "surveyorDetails": {
+        "description": "Surveyor details",
+        "$ref": "#/definitions/Surveyor"
+      },
+      "userTypes": {
+        "type": "array",
+        "description": "User type",
+        "items": {
+          "$ref": "#/definitions/UserType"
+        }
+      }
+    }
+  },
+  "UserType": {
+    "properties": {
+      "id": {
+        "type": "integer",
+        "format": "int64",
+        "description": "Id value"
+      },
+      "type": {
+        "type": "string",
+        "description": "User type",
+        "enum": ["Maxlength255"]
+      }
+    }
+  },
+  "UserUpdateDTO": {
+    "properties": {
+      "firstName": {
+        "type": "string",
+        "description": "First name",
+        "enum": ["Maxlength50"]
+      },
+      "langKey": {
+        "type": "string",
+        "description": "Language key",
+        "enum": ["Minlength2Maxlength5"]
+      },
+      "lastName": {
+        "type": "string",
+        "description": "Last name",
+        "enum": ["Maxlength50"]
+      },
+      "phoneNumber": {
+        "type": "string",
+        "description": "User Phone number",
+        "enum": ["Len[7", "50]"]
+      }
+    }
+  },
+  "Verification": {
+    "properties": {
+      "contacted": {
+        "type": "boolean"
+      },
+      "disabledReason": {
+        "type": "string"
+      },
+      "dueBy": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "fieldsNeeded": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "View": {
+    "properties": {
+      "contentType": {
+        "type": "string"
+      }
+    }
+  }
+}

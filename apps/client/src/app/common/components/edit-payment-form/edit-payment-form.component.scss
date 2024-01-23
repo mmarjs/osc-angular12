@@ -1,0 +1,37 @@
+
+  .header {
+    font-family: 'BentonSansCond';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 48px;
+    color: #283B4D;
+
+    p {
+      margin: .5rem 0 1rem 0;
+    }
+  }
+
+  .cardBrands {
+    height: 47px;
+    width: 43px;
+    object-fit: contain;
+    margin-left: .25rem;
+  }
+
+  .cardName{
+    margin-left:5px;
+    text-transform: capitalize;
+  }
+  .fs-22{
+    font-size:22px;
+  }
+
+  .card{
+    background: #D8D9DA;
+  }
+
+  .cardNumber { 
+    padding: 5px;
+    margin: 10px 0 25px 0;
+  }

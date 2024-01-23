@@ -1,0 +1,18 @@
+<layout-two-columns noTitle>
+  <h2 class="title-page">Finances</h2>
+
+
+  <!-- Side Content -->
+
+  <app-finances-menu aside></app-finances-menu>
+
+  <!-- Main Content -->
+
+  <div fxFlexFill>
+    <!-- Needs to wrap this or fxLayoutGap margins the outlet -->
+    <router-outlet></router-outlet>
+  </div>
+
+
+
+</layout-two-columns>

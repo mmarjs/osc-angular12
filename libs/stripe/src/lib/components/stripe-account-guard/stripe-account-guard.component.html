@@ -1,0 +1,45 @@
+<ng-container *ngIf="isLoading$ | async; else guard">
+  <mat-progress-spinner
+    class="loading"
+    mode="indeterminate"
+    [diameter]="100"
+    [strokeWidth]="5"
+  ></mat-progress-spinner>
+</ng-container>
+<ng-template #guard>
+  <ng-container [ngSwitch]="(stripeAccountState$ | async)">
+    <ng-container *ngSwitchCase="STRIPE_ACCOUNT_STATES.VALID">
+      <ng-content></ng-content>
+    </ng-container>
+    <ng-container *ngSwitchCase="STRIPE_ACCOUNT_STATES.NOT_CREATED">
+      <div class="stripe-guard-container" fxLayout="column" fxLayoutAlign="center center">
+        <p class="desc">
+          {{ 'PROFILE.PAYMENT_NO_STRIPE_ACCOUNT' | translate }}
+        </p>
+        <app-button
+          color="warn"
+          class="button"
+          [routerLink]="[CREATE_STRIPE_ACCOUNT_URL]"
+          [state]="{method: STRIPE_PROVIDER_METHOD.CREATE}"
+        >
+          {{ 'STRIPE.ACCOUNT.CREATE' | translate }}
+        </app-button>
+      </div>
+    </ng-container>
+    <ng-container *ngSwitchCase="STRIPE_ACCOUNT_STATES.PROCEED">
+      <div class="stripe-guard-container" fxLayout="column" fxLayoutAlign="center center">
+        <p class="desc">
+          {{ 'PROFILE.STRIPE_ACCOUNT_PROCEED' | translate }}
+        </p>
+        <app-button
+          color="warn"
+          class="button"
+          [routerLink]="[CREATE_STRIPE_ACCOUNT_URL]"
+          [state]="{method: STRIPE_PROVIDER_METHOD.READ}"
+        >
+          {{ 'STRIPE.ACCOUNT.EDIT' | translate }}
+        </app-button>
+      </div>
+    </ng-container>
+  </ng-container>
+</ng-template>

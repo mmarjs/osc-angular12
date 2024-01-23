@@ -1,0 +1,82 @@
+<h2 class="title-page" #top>{{'AUCTIONS.LIST_BOAT' | translate}}</h2>
+
+<mat-horizontal-stepper
+  labelPosition="bottom"
+  linear
+  #stepper
+  [linear]="true"
+  class="{{ 'last-edited-step-' + stepper.selectedIndex }}"
+  *ngIf="boat$ | async as boat"
+>
+  <mat-step [editable]="description.valid" [completed]="description.valid">
+    <ng-template matStepLabel>{{'AUCTIONS.CREATE.STEPS.WORK_DESCRIPTION' | translate}}</ng-template>
+
+    <app-work-description
+      [form]="description"
+      [boat]="boat"
+      [auction]="auction"
+      [isEdit]="isEditMode"
+      [isLoadingImages]="isLoadingImages$ | async"
+      [jobImages]="jobImages"
+    >
+    </app-work-description>
+
+    <app-form-actions-wrapper>
+      <button type="button" mat-stroked-button (click)="saveAsDraft()" [disabled]="description.invalid">
+        {{'COMMON.BUTTONS.SAVE_DRAFT' | translate}}
+      </button>
+      <button mat-flat-button color="primary" matStepperNext [disabled]="description.invalid">
+        {{'COMMON.BUTTONS.NEXT' | translate}} : {{auctionType | capitalize}} {{'COMMON.BUTTONS.INFORMATION' |
+        translate}}
+      </button>
+    </app-form-actions-wrapper>
+  </mat-step>
+
+  <mat-step [editable]="information.valid" [completed]="information.valid">
+    <ng-template matStepLabel>{{auctionType | capitalize}} {{'AUCTIONS.CREATE.STEPS.INFORMATION' | translate}}</ng-template>
+
+    <app-survey-information
+      [selectedTab]="stepper.selectedIndex"
+      [form]="information"
+      [descriptionForm]="description"
+      [boat]="boat"
+      [isEdit]="isEditMode"
+      [isLoadingImages]="isLoadingImages$ | async"
+      [jobImages]="jobImages"
+      [auction]="auction"
+    ></app-survey-information>
+
+    <app-form-actions-wrapper>
+      <button type="button" mat-stroked-button (click)="saveAsDraft()" [disabled]="information.invalid || description.invalid">
+        {{'COMMON.BUTTONS.SAVE_DRAFT' | translate}}
+      </button>
+      <button type="button" mat-flat-button color="primary" matStepperNext [disabled]="information.invalid || description.invalid">
+        {{'COMMON.BUTTONS.NEXT_PREVIEWS_AND_LIST' | translate}}
+      </button>
+    </app-form-actions-wrapper>
+
+  </mat-step>
+
+  <mat-step [editable]="form.valid" [completed]="form.valid">
+    <ng-template matStepLabel>{{'AUCTIONS.CREATE.STEPS.PREVIEWS/LIST' | translate}}</ng-template>
+
+    <app-preview
+      *ngIf="stepper.selectedIndex === 2"
+      [boat]="boat"
+      [form]="form"
+      [isCreateSuccess]="isCreateSuccess$ | async"
+      [isStarted]="auction?.isStarted"
+      [images]="(files | fileAsDataUrl) | async"
+      [extImages]="jobImages"
+    ></app-preview>
+
+    <app-form-actions-wrapper *ngIf="!(isCreateSuccess$ | async)">
+      <button type="button" mat-stroked-button (click)="saveAsDraft()">
+        {{'COMMON.BUTTONS.SAVE_DRAFT' | translate}}
+      </button>
+      <button type="button" mat-flat-button color="primary" (click)="saveJob()" [disabled]="form.invalid">
+        {{'COMMON.BUTTONS.SUBMIT' | translate}}
+      </button>
+    </app-form-actions-wrapper>
+  </mat-step>
+</mat-horizontal-stepper>

@@ -1,0 +1,67 @@
+<mat-datasource [dataSource]="source">
+    <mat-table [dataSource]="source" matSort>
+
+        <ng-container matColumnDef="name">
+            <mat-header-cell mat-header-cell mat-sort-header *matHeaderCellDef> {{'COMMON.TABLE.HEADER.NAME' | translate}}
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start"> {{element.name}}
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="auctionStartDate">
+            <mat-header-cell mat-header-cell mat-sort-header *matHeaderCellDef> {{'COMMON.TABLE.HEADER.START_DATE' | translate}}
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+                {{element.auctionStartDate | date:'mediumDate'}}
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="type">
+            <mat-header-cell mat-header-cell mat-sort-header *matHeaderCellDef> {{'COMMON.TABLE.HEADER.TYPE' | translate}}
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+                {{ 'APPLICATION.'+ element.type | translate}}
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+            <mat-header-cell mat-header-cell mat-sort-header *matHeaderCellDef class="justify-content-center"> {{'AUCTIONS.STATUS.TITLE' | translate}}
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center center">
+              {{'AUCTIONS.STATUS.' + element.status | translate}}
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+            <mat-header-cell mat-header-cell *matHeaderCellDef> {{'COMMON.TABLE.HEADER.ACTIONS' | translate}}
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element" fxLayout="row" fxLayoutAlign="center center">
+                <button mat-icon-button color="accent" [appLink]="['BIDS', { id: element.id }]" >
+                    <ocean-icon [iconType]="iconType.DETAILS"></ocean-icon>
+                </button>
+                <button
+                  *ngIf="element?.status !== jobAwarded"
+                  (click)="onDeleteAuction(element.id)"
+                  mat-icon-button
+                  aria-label="Delete"
+                  color="accent"
+                >
+                    <ocean-icon [iconType]="iconType.DELETE"></ocean-icon>
+                </button>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="columns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: columns;"></mat-row>
+    </mat-table>
+
+    <mat-datasource-empty>
+        {{'AUCTIONS.EMPTY.TITLE' | translate}}
+    </mat-datasource-empty>
+    <mat-datasource-empty>
+      {{'AUCTIONS.EMPTY.DESC' | translate}}
+    </mat-datasource-empty>
+</mat-datasource>
+
+<!-- PAGINATOR -->
+<mat-paginator [length]="source.total" [pageSize]="source.pageSize" [pageSizeOptions]="[5, 10, 15, 20]"></mat-paginator>

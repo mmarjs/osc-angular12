@@ -1,0 +1,35 @@
+<div class="boat-card-details" *ngIf="boat">
+  <h2>{{ title }}</h2>
+  <div class="boat-card-details-content">
+    <div class="boat-image">
+      <ng-container *ngIf="boat?.imageTransforms?.length; else blockImgTemp">
+        <img [src]="boat.imageTransforms[0] | transform: 'thumb'" alt="" />
+      </ng-container>
+      <ng-template #blockImgTemp>
+        <img src="/assets/images/no-image.png" alt="" class="default-img" />
+      </ng-template>
+    </div>
+
+    <div class="boat-info" *ngIf="!!boatInfoForm">
+      <mat-progress-spinner
+        *ngIf="isLoading$ | async"
+        mode="indeterminate"
+        class="loading"
+        [diameter]="70"
+        [strokeWidth]="5"
+      ></mat-progress-spinner>
+
+      <app-form-builder
+        [form]="boatInfoForm"
+        [fields]="formFields"
+      ></app-form-builder>
+    </div>
+  </div>
+
+  <div class="inf" *ngIf="form" [formGroup]="form">
+    <p class="text-justify job-name-text">
+      <b>{{ jobName }}</b>
+    </p>
+    <p class="text-justify job-description-text">{{ jobDescription }}</p>
+  </div>
+</div>

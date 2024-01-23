@@ -1,0 +1,3 @@
+<ng-container *ngIf="timeCounter$ | async as timeCounter">
+  <span class="units-txt">{{timeCounter.days}} days, {{timeCounter.hours}} hours, {{timeCounter.minutes}} minutes</span>
+</ng-container>

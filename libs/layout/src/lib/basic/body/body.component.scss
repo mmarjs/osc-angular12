@@ -1,0 +1,23 @@
+@import "variables";
+@import "../basic.vars";
+
+.layout-basic {
+  > main {
+    margin-top: $header-height;
+
+    @media #{$xs} {
+      margin-top: $header-height-xs;
+    }
+
+    /* Router */
+    .router-wrapper {
+      @include fxLayoutAlign(flex-start, stretch, column);
+    }
+
+    router-outlet + * {
+      box-sizing: border-box;
+      flex: 1 0 auto;
+      word-break: break-word;
+    }
+  }
+}
