@@ -7,12 +7,16 @@ describe('Auctions Reducer', () => {
   it('should set initialState if AuctionsActionTypes.InitAuction action called', () => {
     const initAuction = AuctionsActions.initAuction();
 
-    const result = auctionsReducer({
-      isCreating: true,
-      isCreateSuccess: true,
-      isBidCreating: true,
-      isBidCreated: true,
-    }, initAuction);
+    const result = auctionsReducer(
+      {
+        isCreating: true,
+        isCreateSuccess: true,
+        isBidCreating: true,
+        isBidCreated: true,
+        hasBid: false,
+      },
+      initAuction
+    );
 
     expect(result).toEqual(initialState);
   });
@@ -20,11 +24,12 @@ describe('Auctions Reducer', () => {
   it('should set isCreating = true if AuctionsActionTypes.CreateAuction action called', () => {
     const jobDTO: JobDTO = {
       id: 1,
-      name: 'name'
+      name: 'name',
     };
 
     const action = AuctionsActions.createAuction({
-      auction: jobDTO
+      auction: jobDTO,
+      files: [],
     });
 
     const result = auctionsReducer(initialState, action);
@@ -35,11 +40,12 @@ describe('Auctions Reducer', () => {
   it('should set isCreateSuccess = false if AuctionsActionTypes.CreateAuction action called', () => {
     const jobDTO: JobDTO = {
       id: 1,
-      name: 'name'
+      name: 'name',
     };
 
     const action = AuctionsActions.createAuction({
-      auction: jobDTO
+      auction: jobDTO,
+      files: [],
     });
 
     const result = auctionsReducer(initialState, action);
@@ -50,11 +56,11 @@ describe('Auctions Reducer', () => {
   it('should set selectedAuction if AuctionsActionTypes.SetSelectedAuction action called', () => {
     const jobDTO: JobDTO = {
       id: 1,
-      name: 'name'
+      name: 'name',
     };
 
     const action = AuctionsActions.setSelectedAuction({
-      auction: jobDTO
+      auction: jobDTO,
     });
 
     const result = auctionsReducer(initialState, action);
@@ -65,11 +71,11 @@ describe('Auctions Reducer', () => {
   it('should set isCreating = false if AuctionsActionTypes.CreateAuctionSuccess action called', () => {
     const jobDTO: JobDTO = {
       id: 1,
-      name: 'name'
+      name: 'name',
     };
 
     const action = AuctionsActions.createAuctionSuccess({
-      auction: jobDTO
+      auction: jobDTO,
     });
 
     const result = auctionsReducer(initialState, action);
@@ -80,11 +86,11 @@ describe('Auctions Reducer', () => {
   it('should set isCreateSuccess = false if AuctionsActionTypes.CreateAuctionSuccess action called', () => {
     const jobDTO: JobDTO = {
       id: 1,
-      name: 'name'
+      name: 'name',
     };
 
     const action = AuctionsActions.createAuctionSuccess({
-      auction: jobDTO
+      auction: jobDTO,
     });
 
     const result = auctionsReducer(initialState, action);
@@ -95,11 +101,11 @@ describe('Auctions Reducer', () => {
   it('should set selectedAuction if AuctionsActionTypes.CreateAuctionSuccess action called', () => {
     const jobDTO: JobDTO = {
       id: 1,
-      name: 'name'
+      name: 'name',
     };
 
     const action = AuctionsActions.createAuctionSuccess({
-      auction: jobDTO
+      auction: jobDTO,
     });
 
     const result = auctionsReducer(initialState, action);
@@ -109,7 +115,7 @@ describe('Auctions Reducer', () => {
 
   it('should set isCreating = false if AuctionsActionTypes.CreateAuctionFailure action called', () => {
     const action = AuctionsActions.createAuctionFailure({
-      error: null
+      error: null,
     });
     const result = auctionsReducer(initialState, action);
     expect(result).toHaveProperty('isCreating', false);
@@ -117,7 +123,7 @@ describe('Auctions Reducer', () => {
 
   it('should set isCreateSuccess = false if AuctionsActionTypes.CreateAuctionFailure action called', () => {
     const action = AuctionsActions.createAuctionFailure({
-      error: null
+      error: null,
     });
     const result = auctionsReducer(initialState, action);
     expect(result).toHaveProperty('isCreateSuccess', false);
@@ -126,11 +132,12 @@ describe('Auctions Reducer', () => {
   it('should set isCreating = true if AuctionsActionTypes.EditAuction action called', () => {
     const jobDTO: JobDTO = {
       id: 1,
-      name: 'name'
+      name: 'name',
     };
 
     const action = AuctionsActions.editAuction({
-      auction: jobDTO
+      auction: jobDTO,
+      files: [],
     });
 
     const result = auctionsReducer(initialState, action);
@@ -141,11 +148,12 @@ describe('Auctions Reducer', () => {
   it('should set isCreateSuccess = false if AuctionsActionTypes.EditAuction action called', () => {
     const jobDTO: JobDTO = {
       id: 1,
-      name: 'name'
+      name: 'name',
     };
 
     const action = AuctionsActions.editAuction({
-      auction: jobDTO
+      auction: jobDTO,
+      files: [],
     });
 
     const result = auctionsReducer(initialState, action);
@@ -156,11 +164,11 @@ describe('Auctions Reducer', () => {
   it('should set isCreating = false if AuctionsActionTypes.EditAuctionSuccess action called', () => {
     const jobDTO: JobDTO = {
       id: 1,
-      name: 'name'
+      name: 'name',
     };
 
     const action = AuctionsActions.editAuctionSuccess({
-      auction: jobDTO
+      auction: jobDTO,
     });
 
     const result = auctionsReducer(initialState, action);
@@ -171,11 +179,11 @@ describe('Auctions Reducer', () => {
   it('should set isCreateSuccess = false if AuctionsActionTypes.EditAuctionSuccess action called', () => {
     const jobDTO: JobDTO = {
       id: 1,
-      name: 'name'
+      name: 'name',
     };
 
     const action = AuctionsActions.editAuctionSuccess({
-      auction: jobDTO
+      auction: jobDTO,
     });
 
     const result = auctionsReducer(initialState, action);
@@ -186,11 +194,11 @@ describe('Auctions Reducer', () => {
   it('should set selectedAuction if AuctionsActionTypes.EditAuctionSuccess action called', () => {
     const jobDTO: JobDTO = {
       id: 1,
-      name: 'name'
+      name: 'name',
     };
 
     const action = AuctionsActions.editAuctionSuccess({
-      auction: jobDTO
+      auction: jobDTO,
     });
 
     const result = auctionsReducer(initialState, action);
@@ -200,7 +208,7 @@ describe('Auctions Reducer', () => {
 
   it('should set isCreating = false if AuctionsActionTypes.EditAuctionFailure action called', () => {
     const action = AuctionsActions.editAuctionFailure({
-      error: null
+      error: null,
     });
     const result = auctionsReducer(initialState, action);
     expect(result).toHaveProperty('isCreating', false);
@@ -208,7 +216,7 @@ describe('Auctions Reducer', () => {
 
   it('should set isCreateSuccess = false if AuctionsActionTypes.EditAuctionFailure action called', () => {
     const action = AuctionsActions.editAuctionFailure({
-      error: null
+      error: null,
     });
     const result = auctionsReducer(initialState, action);
     expect(result).toHaveProperty('isCreateSuccess', false);
@@ -217,11 +225,11 @@ describe('Auctions Reducer', () => {
   it('should set isBidCreating = true if AuctionsActionTypes.CreateBidOnAuction action called', () => {
     const bidMock: BidDTO = {
       id: 1,
-      job: null
+      job: null,
     };
 
     const action = AuctionsActions.createBidOnAuction({
-      bid: bidMock
+      bid: bidMock,
     });
 
     const result = auctionsReducer(initialState, action);
@@ -232,11 +240,11 @@ describe('Auctions Reducer', () => {
   it('should set isBidCreated = false if AuctionsActionTypes.CreateBidOnAuction action called', () => {
     const bidMock: BidDTO = {
       id: 1,
-      job: null
+      job: null,
     };
 
     const action = AuctionsActions.createBidOnAuction({
-      bid: bidMock
+      bid: bidMock,
     });
 
     const result = auctionsReducer(initialState, action);
@@ -247,11 +255,11 @@ describe('Auctions Reducer', () => {
   it('should set isBidCreating = false if AuctionsActionTypes.CreateBidOnAuctionSuccess action called', () => {
     const bidDTO: BidDTO = {
       id: 1,
-      job: null
+      job: null,
     };
 
     const action = AuctionsActions.createBidOnAuctionSuccess({
-      bid: bidDTO
+      bid: bidDTO,
     });
 
     const result = auctionsReducer(initialState, action);
@@ -262,11 +270,11 @@ describe('Auctions Reducer', () => {
   it('should set isBidCreated = false if AuctionsActionTypes.CreateBidOnAuctionSuccess action called', () => {
     const bidDTO: BidDTO = {
       id: 1,
-      job: null
+      job: null,
     };
 
     const action = AuctionsActions.createBidOnAuctionSuccess({
-      bid: bidDTO
+      bid: bidDTO,
     });
 
     const result = auctionsReducer(initialState, action);
@@ -277,11 +285,11 @@ describe('Auctions Reducer', () => {
   it('should set selectedBid if AuctionsActionTypes.CreateBidOnAuctionSuccess action called', () => {
     const bidDTO: BidDTO = {
       id: 1,
-      job: null
+      job: null,
     };
 
     const action = AuctionsActions.createBidOnAuctionSuccess({
-      bid: bidDTO
+      bid: bidDTO,
     });
 
     const result = auctionsReducer(initialState, action);
@@ -291,7 +299,7 @@ describe('Auctions Reducer', () => {
 
   it('should set isBidCreating = false if AuctionsActionTypes.CreateBidOnAuctionFailure action called', () => {
     const action = AuctionsActions.createBidOnAuctionFailure({
-      error: null
+      error: null,
     });
     const result = auctionsReducer(initialState, action);
     expect(result).toHaveProperty('isBidCreating', false);
@@ -299,7 +307,7 @@ describe('Auctions Reducer', () => {
 
   it('should set isBidCreated = false if AuctionsActionTypes.CreateBidOnAuctionFailure action called', () => {
     const action = AuctionsActions.createBidOnAuctionFailure({
-      error: null
+      error: null,
     });
     const result = auctionsReducer(initialState, action);
     expect(result).toHaveProperty('isBidCreated', false);
@@ -307,20 +315,21 @@ describe('Auctions Reducer', () => {
 
   it('should set selectedBid = null if AuctionsActionTypes.CreateBidOnAuctionFailure action called', () => {
     const action = AuctionsActions.createBidOnAuctionFailure({
-      error: null
+      error: null,
     });
     const result = auctionsReducer(initialState, action);
-    expect(result).toHaveProperty('selectedBid', null);
+    expect(result).toHaveProperty('selectedBid', undefined);
   });
 
   it('should set isBidCreating = false if AuctionsActionTypes.GetBidByAuctionSuccess action called', () => {
     const bidDTO: BidDTO = {
       id: 1,
-      job: null
+      job: null,
     };
 
     const action = AuctionsActions.getBidByAuctionSuccess({
-      bid: bidDTO
+      bid: bidDTO,
+      hasBid: true,
     });
 
     const result = auctionsReducer(initialState, action);
@@ -331,11 +340,12 @@ describe('Auctions Reducer', () => {
   it('should set isBidCreated = true if AuctionsActionTypes.GetBidByAuctionSuccess action called', () => {
     const bidDTO: BidDTO = {
       id: 1,
-      job: null
+      job: null,
     };
 
     const action = AuctionsActions.getBidByAuctionSuccess({
-      bid: bidDTO
+      bid: bidDTO,
+      hasBid: true,
     });
 
     const result = auctionsReducer(initialState, action);
@@ -346,11 +356,12 @@ describe('Auctions Reducer', () => {
   it('should set selectedBid if AuctionsActionTypes.GetBidByAuctionSuccess action called', () => {
     const bidDTO: BidDTO = {
       id: 1,
-      job: null
+      job: null,
     };
 
     const action = AuctionsActions.getBidByAuctionSuccess({
-      bid: bidDTO
+      bid: bidDTO,
+      hasBid: true,
     });
 
     const result = auctionsReducer(initialState, action);

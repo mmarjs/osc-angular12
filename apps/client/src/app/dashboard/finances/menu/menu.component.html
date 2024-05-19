@@ -4,13 +4,12 @@
 >
   <div class="subpanel-content">
     <mat-nav-list class="ocean-menu">
-
       <ng-container *ngFor="let link of links">
-
         <mat-list-item
-        [attr.disabled]="link.route.toString() === currentUrl ? '' : null"
-        [routerLink]="[ link.route ]">
-          <mat-icon mat-list-icon>{{ link.icon }}</mat-icon>
+          [attr.disabled]="link.route.toString() === currentUrl ? '' : null"
+          [routerLink]="[ link.route ]"
+        >
+          <ocean-icon [iconType]="link.icon" mat-list-icon></ocean-icon>
           <span matLine>{{ link.title }}</span>
         </mat-list-item>
 

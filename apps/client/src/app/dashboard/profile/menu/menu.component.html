@@ -2,12 +2,12 @@
   <ng-template matMenuContent>
     <button mat-menu-item *ngFor="let link of links" [disabled]="link.route.toString() === currentUrl"
       [routerLink]="[ link.route ]">
-      <mat-icon mat-list-icon>{{ link.icon }}</mat-icon>
+      <ocean-icon [iconType]="link.icon" mat-list-icon></ocean-icon>
       <span matLine>{{ link.title | translate}}</span>
     </button>
   </ng-template>
 </mat-menu>
 
 <button type="button" mat-raised-button [matMenuTriggerFor]="profileMenu">
-  {{'PROFILE.MENU' | translate}} <mat-icon>expand_more</mat-icon>
+  {{'PROFILE.MENU' | translate}} <ocean-icon [iconType]="iconType.EXPAND_MORE"></ocean-icon>
 </button>

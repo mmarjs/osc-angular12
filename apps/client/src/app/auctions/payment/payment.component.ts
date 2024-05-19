@@ -1,15 +1,35 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
 // tslint:disable: nx-enforce-module-boundaries
-import { Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { JobProvider } from '@ocean/api/services';
 import { JobDTO, PaymentMethod } from '@ocean/api/shared';
 import { AuctionsFacade, BoatsFacade, RouterFacade } from '@ocean/client/state';
+import { ImageFacadeService } from '@ocean/client/state/images/image-facade.service';
 import { LocalizationService } from '@ocean/internationalization';
 import { NotifierService } from '@ocean/shared/services';
-import { CreditCardComponent } from '@ocean/stripe';
 import { untilDestroyed } from 'ngx-take-until-destroy';
-import { catchError, delay, map, Observable, of, switchMap, tap } from 'rxjs';
+import {
+  catchError,
+  combineLatestWith,
+  delay,
+  map,
+  Observable,
+  of,
+  switchMap,
+  tap,
+} from 'rxjs';
+import { IconType } from '@ocean/icons';
+
+const STEPS = [
+  { translation: 'AUCTIONS.WIZARD_STEPS.WORK_DESCRIPTION', completed: true },
+  {
+    translation: 'AUCTIONS.WIZARD_STEPS.SURVEY_INFORMATION',
+    completed: true,
+  },
+  { translation: 'AUCTIONS.WIZARD_STEPS.LIST_BOAT', completed: true },
+  { translation: 'AUCTIONS.WIZARD_STEPS.START_AUCTION', completed: false },
+];
 
 @Component({
   selector: 'app-payment',
@@ -17,39 +37,43 @@ import { catchError, delay, map, Observable, of, switchMap, tap } from 'rxjs';
   styleUrls: ['./payment.component.scss'],
 })
 export class PaymentComponent implements OnDestroy {
-  @ViewChild(CreditCardComponent) oceanCard!: CreditCardComponent;
-  @ViewChild('dashboardElement') dashboardElement!: ElementRef<HTMLElement>;
-  cardDetails: PaymentMethod;
-  auction$: Observable<JobDTO> = this.activatedRoute.parent.data.pipe(
+  readonly auction$: Observable<JobDTO> = this.activatedRoute.parent.data.pipe(
     map(({ auction }) => auction)
   );
-  steps: { translation: string; completed: boolean }[] = [
-    { translation: 'AUCTIONS.WIZARD_STEPS.WORK_DESCRIPTION', completed: true },
-    {
-      translation: 'AUCTIONS.WIZARD_STEPS.SURVEY_INFORMATION',
-      completed: true,
-    },
-    { translation: 'AUCTIONS.WIZARD_STEPS.LIST_BOAT', completed: true },
-    { translation: 'AUCTIONS.WIZARD_STEPS.START_AUCTION', completed: false },
-  ];
+
+  readonly images$ = this.imageFacadeService.local$.pipe(
+    combineLatestWith(this.auction$),
+    switchMap(([_, auction]) =>
+      this.imageFacadeService.images$(auction?.id).pipe(
+        map((images) => images),
+        catchError(() => of([]))
+      )
+    )
+  );
+
   readonly depositAmount = 10;
-  depositSuccess: boolean = false;
-  hasPaid: boolean;
+  readonly steps = STEPS;
+  readonly iconType = IconType;
+
+  depositSuccess = false;
+  cardDetails: PaymentMethod;
+
   constructor(
-    private activatedRoute: ActivatedRoute,
-    private jobProvider: JobProvider,
-    private notifier: NotifierService,
-    private routerFacade: RouterFacade,
-    private auctionsFacade: AuctionsFacade,
-    private boatFacade: BoatsFacade,
-    private localizationService: LocalizationService
+    private readonly activatedRoute: ActivatedRoute,
+    private readonly jobProvider: JobProvider,
+    private readonly notifier: NotifierService,
+    private readonly routerFacade: RouterFacade,
+    private readonly auctionsFacade: AuctionsFacade,
+    private readonly boatFacade: BoatsFacade,
+    private readonly localizationService: LocalizationService,
+    private readonly imageFacadeService: ImageFacadeService
   ) {}
 
-  setCard(card: PaymentMethod): void {
+  setCard(card: PaymentMethod) {
     this.cardDetails = card;
   }
 
-  pay({ id: auctionId }: JobDTO): void {
+  pay({ id: auctionId }: JobDTO) {
     const data = {
       autoConfirm: true,
       offSession: true,
@@ -89,10 +113,10 @@ export class PaymentComponent implements OnDestroy {
         }),
         tap(() => {
           this.depositSuccess = true;
-          requestAnimationFrame(() => {
-            this.dashboardElement?.nativeElement?.scrollIntoView({
-              behavior: 'smooth',
-            });
+          // smooth scroll to top
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
           });
         }),
         untilDestroyed(this)
@@ -105,14 +129,16 @@ export class PaymentComponent implements OnDestroy {
       });
   }
 
-  goToDashboard(): void {
+  goToDashboard() {
     this.routerFacade.go({ path: [`/dashboard`] });
   }
 
-  onEditAuction(auction: JobDTO): void {
+  onEditAuction(auction: JobDTO) {
     this.auctionsFacade.setSelectedAuction(auction);
     this.boatFacade.setSelectedBoat(auction.boat);
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy() {
+    return;
+  }
 }

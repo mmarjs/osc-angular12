@@ -1,6 +1,11 @@
 // tslint:disable: nx-enforce-module-boundaries
 import { Routes } from '@angular/router';
-import { BidResolver, BoatResolver, JobResolver } from '@ocean/api/resolvers';
+import {
+  AuctionBidResolver,
+  BidResolver,
+  BoatResolver,
+  JobResolver,
+} from '@ocean/api/resolvers';
 import { UserTypeTitles } from '@ocean/api/shared';
 import { BasicLayout } from '@ocean/layout';
 import { DATA, PATHS } from '@ocean/shared';
@@ -11,7 +16,8 @@ import {
   AuctionsListComponent,
   AuctionCreateComponent,
   DetailComponent,
-  PaymentComponent, SignComponent
+  PaymentComponent,
+  SignComponent,
 } from './auctions.barrel';
 import { RoleGuard } from '@ocean/layout/guards';
 import { PayCommissionComponent } from './pay-commission/pay-commission.component';
@@ -48,6 +54,7 @@ export const routes: Routes = [
                 path: PATHS.AUCTION_DETAIL,
                 component: DetailComponent,
                 canActivate: [RoleGuard],
+                resolve: { preloaded: AuctionBidResolver },
                 data: {
                   ...DATA.AUCTION_DETAIL,
                   roles: [
@@ -105,7 +112,11 @@ export const routes: Routes = [
                 canActivate: [RoleGuard],
                 data: {
                   ...DATA.AUCTION_PAYMENT,
-                  roles: [UserTypeTitles.ADMIN, UserTypeTitles.SHIPYARD, UserTypeTitles.SURVEYOR],
+                  roles: [
+                    UserTypeTitles.ADMIN,
+                    UserTypeTitles.SHIPYARD,
+                    UserTypeTitles.SURVEYOR,
+                  ],
                 },
               },
               {

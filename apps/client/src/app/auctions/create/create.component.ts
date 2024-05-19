@@ -1,16 +1,25 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Boat, Job, JobDTO, JobItem, JobTypes } from '@ocean/api/shared';
+import { Boat, Job, JobDTO, JobTypes } from '@ocean/api/shared';
 import { take, tap } from 'rxjs/operators';
 import { filter, Observable, Subscription } from 'rxjs';
-import { AuctionsFacade, BoatsFacade, DraftsFacade, RouterFacade, } from '@ocean/client/state';
+import {
+  AuctionsFacade,
+  BoatsFacade,
+  DraftsFacade,
+  RouterFacade,
+} from '@ocean/client/state';
 import { FormUtils } from '@ocean/shared/utils/form.utils';
 import { DraftDialogs } from '@ocean/api/data';
 import { untilDestroyed } from 'ngx-take-until-destroy';
-import { MediaResponse } from '@ocean/api/client';
+import { MediaResponse, MediaService } from '@ocean/api/client';
 import { UserFacade } from '@ocean/api/state';
 import * as moment from 'moment';
-import { duplicateValidator } from '@ocean/shared/utils/duplicate-validator';
 import { ImageFacadeService } from '@ocean/client/state/images/image-facade.service';
 import { SharedCreateBoatForm } from './shared-form';
 
@@ -31,28 +40,42 @@ const initialFormValue = {
   selector: 'app-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuctionCreateComponent implements OnInit, OnDestroy {
-  form: FormGroup;
+  form = this.fb.group(
+    {
+      description: this.fb.group({
+        type: ['', Validators.required],
+        name: ['', Validators.required],
+        description: ['', Validators.required],
+        medias: this.fb.group({
+          files: this.fb.array([]),
+        }),
+        syncing: [], // Used for sync boat-info fields
+      }),
+      auctionEndDate: ['', Validators.required],
+    },
+    {
+      validator: FormUtils.endDateValidator('auctionEndDate'),
+    }
+  );
+
   isCreateSuccess$: Observable<boolean> = this.auctionsFacade.isCreateSuccess$;
   selectedAuction: JobDTO;
   boat: Boat;
-  boat$ = this.boatFacade.selectedBoat$.pipe(tap(boat => this.boat = boat));
+  boat$ = this.boatFacade.selectedBoat$.pipe(tap((boat) => (this.boat = boat)));
   isEditMode: boolean;
   auction: JobDTO = {};
   userId: string;
-  isLoadingImages$ = this.imageFacadeService.isLoadingImages(this.auction?.id);
-  jobImages: MediaResponse[];
+  isLoadingImages$ = this.imageFacadeService.isLoadingImages$;
+  jobImages: MediaResponse[] = [];
   isUpdatingSubscription: Subscription;
   updateDraft: boolean;
   imageSubscription: Subscription;
 
   get description(): FormGroup {
     return this.form?.get('description') as FormGroup;
-  }
-
-  get information(): FormGroup {
-    return this.form?.get('information') as FormGroup;
   }
 
   get auctionType(): string {
@@ -77,9 +100,9 @@ export class AuctionCreateComponent implements OnInit, OnDestroy {
     private draftDialogs: DraftDialogs,
     private userFacade: UserFacade,
     private readonly builder: FormBuilder,
-    private readonly sharedForm: SharedCreateBoatForm
-  ) {
-  }
+    private readonly sharedForm: SharedCreateBoatForm,
+    private readonly mediaService: MediaService
+  ) {}
 
   ngOnInit(): void {
     this.userFacade.id$
@@ -88,6 +111,17 @@ export class AuctionCreateComponent implements OnInit, OnDestroy {
     this.auctionsFacade.init();
     this.handleAuctionFormRender();
     this.handleGetAuction();
+
+    this.imageFacadeService.cache();
+    this.mediasForm
+      ?.get('files')
+      ?.valueChanges?.pipe(
+        untilDestroyed(this),
+        filter(
+          (value) => this.imageFacadeService.getLocalImages(value)?.length > 0
+        )
+      )
+      ?.subscribe((value) => this.imageFacadeService.cache(value));
   }
 
   private subscribeToImages(id: number) {
@@ -95,7 +129,7 @@ export class AuctionCreateComponent implements OnInit, OnDestroy {
       this.imageSubscription.unsubscribe();
     }
     this.imageSubscription = this.imageFacadeService
-      .images$(id)
+      .remote$(id)
       .pipe(untilDestroyed(this))
       .subscribe((images) => {
         this.jobImages = images;
@@ -103,15 +137,18 @@ export class AuctionCreateComponent implements OnInit, OnDestroy {
         if (Array.isArray(images)) {
           const files = this.mediasForm?.get('files');
 
-          if (files instanceof FormArray && images.length) {
+          if (files instanceof FormArray) {
             files.clear();
-            images.forEach((img) => {
-              files.push(
-                this.builder.group({
-                  file: img.fileURL,
-                })
-              );
-            });
+
+            if (images.length) {
+              images.forEach((img) => {
+                files.push(
+                  this.builder.group({
+                    file: img.fileURL,
+                  })
+                );
+              });
+            }
           }
         }
       });
@@ -131,49 +168,27 @@ export class AuctionCreateComponent implements OnInit, OnDestroy {
   }
 
   private handleAuctionFormRender() {
-    this.routerFacade.queryParams$.pipe(
-      filter(queryParams => !!queryParams.draft),
-      take(1),
-      tap((queryParams) => {
-        this.updateDraft = true;
-        this.draftsFacade.setSelectedDraft(queryParams.draft);
-      })
-    )
+    this.routerFacade.queryParams$
+      .pipe(
+        filter((queryParams) => !!queryParams.draft),
+        take(1),
+        tap((queryParams) => {
+          this.updateDraft = true;
+          this.draftsFacade.setSelectedDraft(queryParams.draft);
+        })
+      )
       .subscribe();
   }
 
   private initAuctionForm(job: Job | JobDTO = initialFormValue) {
-    this.form = this.fb.group(
-      {
-        description: this.fb.group({
-          type: [job.type, Validators.required],
-
-          name: [job.name, Validators.required],
-          description: [job.description, Validators.required],
-
-          medias: this.fb.group({
-            files: this.fb.array([]),
-          }),
-
-          syncing: [] // Used for sync boat-info fields
-        }),
-        information: this.fb.group({
-          jobItems: this.fb.array(
-            job?.jobItems?.map?.((item) =>
-              this.fb.group({
-                title: [item.title, Validators.required],
-                description: [item.description, Validators.required],
-              })
-            ) ?? [],
-            [Validators.required, duplicateValidator('title')]
-          ),
-        }),
-        auctionEndDate: [job.auctionEndDate, Validators.required],
+    this.form.patchValue({
+      description: {
+        type: job.type,
+        name: job.name,
+        description: job.description,
       },
-      {
-        validator: FormUtils.endDateValidator('auctionEndDate'),
-      }
-    );
+      auctionEndDate: job.auctionEndDate,
+    });
 
     this.sharedForm.form = this.form;
   }
@@ -183,11 +198,45 @@ export class AuctionCreateComponent implements OnInit, OnDestroy {
 
     return {
       auctionEndDate: edt,
-      ...this.form.value.information,
+      jobItems: [
+        {
+          title: this.form.value.description.name,
+          description: this.form.value.description.description,
+        },
+      ],
       ...this.form.value.description,
       boatId: this.boat.id,
       currencyCode: 'USD',
     };
+  }
+
+  deleteUnusedGalleryImages() {
+    if (!Array.isArray(this.files)) {
+      return;
+    }
+
+    const isNotMediaFile = (
+      media: Record<string, unknown>,
+      entity: MediaResponse
+    ) => (typeof media === 'object' ? media?.file !== entity.fileURL : false);
+
+    let files: MediaResponse[];
+
+    if (this.files?.length === 0) {
+      files = this.jobImages ?? [];
+    } else {
+      files =
+        this.jobImages?.filter(
+          (entity) =>
+            !!this.files?.some((media) => isNotMediaFile(media, entity))
+        ) ?? [];
+    }
+
+    if (files.length) {
+      this.mediaService.deleteMultipleFiles({
+        files,
+      });
+    }
   }
 
   saveJob() {
@@ -207,30 +256,21 @@ export class AuctionCreateComponent implements OnInit, OnDestroy {
   saveAsDraft() {
     const endDate = new Date(new Date().setDate(new Date().getDate() + 2));
     const edt = moment(this.form.value.auctionEndDate || endDate).format();
-    const jobItems = [
-      {
-        title: 'Job Title',
-        description: 'Job Description',
-      },
-    ];
-    const items = (this.form.value.information.jobItems as JobItem[]).filter(
-      (item) => {
-        item.title = item.title ? item.title : 'Job Title';
-        item.description = item.description
-          ? item.description
-          : 'Job Description';
-        return item.title !== '' && item.description !== '';
-      }
-    );
-    const info = items.length ? items : {jobItems};
+
     this.form.value.description.description =
       this.form.value.description.description || 'Auction Description';
     this.form.value.description.name =
       this.form.value.description.name || 'Auction Name';
+
     const draft = {
       content: {
         auctionEndDate: edt,
-        jobItems: info,
+        jobItems: [
+          {
+            title: this.form.value.description.name,
+            description: this.form.value.description.description,
+          },
+        ],
         ...this.form.value.description,
         boatId: this.boat.id,
         currencyCode: 'USD',
@@ -274,6 +314,7 @@ export class AuctionCreateComponent implements OnInit, OnDestroy {
   }
 
   onLater() {
+    this.deleteUnusedGalleryImages();
     this.routerFacade.go({
       path: ['/dashboard'],
     });

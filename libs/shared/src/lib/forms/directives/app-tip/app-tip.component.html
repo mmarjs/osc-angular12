@@ -1,0 +1,13 @@
+<mat-card class="tooltip">
+  <mat-card-content>
+    <b class="title">{{ properties.title | translate }}</b>
+    <ul class="list" *ngIf="isListOfTips; else text">
+      <li class="item" *ngFor="let item of properties.tip | translate">
+        {{ item }}
+      </li>
+    </ul>
+    <ng-template #text>
+      {{ properties.tip | translate }}
+    </ng-template>
+  </mat-card-content>
+</mat-card>

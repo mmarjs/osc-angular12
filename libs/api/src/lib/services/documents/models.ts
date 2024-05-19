@@ -3,12 +3,13 @@ export enum DocumentStatus {
   InProgress = 'InProgress',
   Completed = 'Completed',
   Declined = 'Declined',
-  Revoked = 'Revoked'
+  Revoked = 'Revoked',
 }
 
 export enum UserStatus {
   Completed = 'Completed',
   NotCompleted = 'NotCompleted',
+  Declined = 'Declined',
 }
 
 export interface Document {
@@ -16,10 +17,9 @@ export interface Document {
   title: string;
   externalDocumentId: string;
   status: DocumentStatus;
-  userStatus: UserStatus
+  userStatus: UserStatus;
 }
 
 export interface DocumentSignLink {
   signLink: string;
 }
-

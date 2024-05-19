@@ -4,8 +4,9 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
-import { TranslatePipe } from '@ngx-translate/core';
-import { JobProvider } from '@ocean/api/services';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { UserAuctionsDatasource } from '@ocean/api/data';
+import { JobProvider, JobStatus } from '@ocean/api/services';
 import { IconsModule } from '@ocean/icons';
 import { LocalizationService } from '@ocean/internationalization';
 import { MatDataSourceModule } from '@ocean/material';
@@ -15,6 +16,8 @@ import userEvent from '@testing-library/user-event';
 import { MockDirective, MockPipe, MockProvider } from 'ng-mocks';
 import { of } from 'rxjs';
 import { MyAuctionsTableComponent } from './my-auctions-table.component';
+import { translateServiceMock } from '@ocean/testing/mocks/translate-service-mock';
+import { AuctionsFacade } from '@ocean/client/state';
 
 const fakeAuction = {
   id: 2764110,
@@ -49,7 +52,6 @@ const fakeAuction = {
     about: 'wwd',
     model: null,
     flag: 'AFG',
-    officialNumber: null,
     loa: null,
     beam: null,
     draft: null,
@@ -65,29 +67,35 @@ const fakeAuction = {
   commissionPaid: 10,
 };
 
-const makeFakeDataSource = (data: any[]) => ({
-  setSort: jest.fn(),
-  setFilter: jest.fn(),
-  setPaginator: jest.fn(),
-  datasource: data,
-  rawResult: () => data,
-  rawTotal: () => data.length,
-  filteredData: () => data,
-  sortData: () => data,
-  connect: () => of(data),
-  disconnect: () => {},
+const mockAuctionFacade = {
+  refreshed$: of(false),
   refresh: () => {},
-  rawDefault: () => ({
-    data: data,
-    currentPageNo: 0,
-    totalPages: 1,
-    totalRecords: 0,
-  }),
-});
+};
+
+const makeFakeDataSource = (data: any[]): UserAuctionsDatasource =>
+  ({
+    setSort: jest.fn(),
+    setFilter: jest.fn(),
+    setPaginator: jest.fn(),
+    datasource: data,
+    rawResult: () => data,
+    rawTotal: () => data.length,
+    filteredData: () => data,
+    sortData: () => data,
+    connect: () => of(data),
+    disconnect: () => {},
+    refresh: () => {},
+    rawDefault: () => ({
+      data: data,
+      currentPageNo: 0,
+      totalPages: 1,
+      totalRecords: 0,
+    }),
+  } as any);
 
 describe('MyAuctionsTableComponent', () => {
   it('should render data properly', async () => {
-    const cmp = await render(MyAuctionsTableComponent, {
+    await render(MyAuctionsTableComponent, {
       imports: [
         MatTableModule,
         MatDialogModule,
@@ -102,6 +110,8 @@ describe('MyAuctionsTableComponent', () => {
         MockProvider(LocalizationService, {
           translate: (key) => key as string,
         }),
+        { provide: TranslateService, useValue: translateServiceMock },
+        { provide: AuctionsFacade, useValue: mockAuctionFacade },
       ],
       componentProperties: {
         source: makeFakeDataSource([fakeAuction]) as any,
@@ -123,8 +133,8 @@ describe('MyAuctionsTableComponent', () => {
   });
 
   it('should delete properly', async () => {
-    const source = makeFakeDataSource([fakeAuction]) as any;
-    const cmp = await render(MyAuctionsTableComponent, {
+    const source = makeFakeDataSource([fakeAuction]);
+    await render(MyAuctionsTableComponent, {
       imports: [
         MatTableModule,
         MatDialogModule,
@@ -145,6 +155,8 @@ describe('MyAuctionsTableComponent', () => {
         MockProvider(LocalizationService, {
           translate: (key) => key as string,
         }),
+        { provide: TranslateService, useValue: translateServiceMock },
+        { provide: AuctionsFacade, useValue: mockAuctionFacade },
       ],
       componentProperties: {
         source: source,
@@ -163,5 +175,61 @@ describe('MyAuctionsTableComponent', () => {
 
     await waitFor(() => expect(jobMock.markAsCancel).toHaveBeenCalled());
     await waitFor(() => expect(source.refresh).toHaveBeenCalled());
+  });
+
+  it('should auction in progress with end date in past should be marked as expired', async () => {
+    const source = makeFakeDataSource([
+      {
+        ...fakeAuction,
+        status: JobStatus.AUCTION_LIVE,
+        auctionEndDate: (() => {
+          const date = new Date();
+          date.setMonth(date.getMonth() - 1);
+          return date.toISOString();
+        })(),
+      },
+    ]);
+
+    await render(MyAuctionsTableComponent, {
+      imports: [
+        MatTableModule,
+        MatDialogModule,
+        MatDataSourceModule,
+        MatPaginatorModule,
+        MatIconModule,
+        MatButtonModule,
+        IconsModule,
+      ],
+      declarations: [
+        MockPipe(TranslatePipe, (value) => value),
+        MockDirective(LinkDirective),
+      ],
+      providers: [
+        MockProvider(JobProvider, {
+          markAsCancel: jest.fn().mockReturnValue(of({})),
+        }),
+        MockProvider(LocalizationService, {
+          translate: (key) => key as string,
+        }),
+        { provide: TranslateService, useValue: translateServiceMock },
+        { provide: AuctionsFacade, useValue: mockAuctionFacade },
+      ],
+      componentProperties: {
+        source: source,
+      },
+    });
+
+    expect(
+      screen.queryByRole('cell', { name: 'Vlad test 07/03' })
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole('cell', { name: 'Mar 7, 2023' })
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole('cell', { name: 'APPLICATION.REPAIR' })
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole('cell', { name: 'AUCTIONS.STATUS.EXPIRED' })
+    ).toBeInTheDocument();
   });
 });

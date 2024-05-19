@@ -1,4 +1,12 @@
-
 <app-password-protection>
+  <div *ngIf="(isRequestProcessing | async) === true" class="progress-indicator-notification" role="note">
+    <span class="progress-indicator-label">{{ 'APPLICATION.PROCESSING_REQUEST' | translate }}</span>
+    <mat-progress-spinner
+      mode="indeterminate"
+      [diameter]="40"
+      [strokeWidth]="5"
+    >
+    </mat-progress-spinner>
+  </div>
   <router-outlet></router-outlet>
 </app-password-protection>

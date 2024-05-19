@@ -51,7 +51,7 @@ export enum UserTypeTitles {
  * Variables
  */
 
-export const userTypes = ['ADMIN', 'BOAT_OWNER', 'SHIPYARD', 'SURVEYOR'];
+export const userTypes = ['ADMIN', 'BOAT_OWNER', 'SHIPYARD', 'SURVEYOR'] as const;
 
 export function getUserTypes(withAdmin = false): Array<UserType> {
   return userTypes
@@ -62,7 +62,7 @@ export function getUserTypes(withAdmin = false): Array<UserType> {
     .filter(v => v.type !== 'ADMIN' || withAdmin);
 }
 
-export function getUserType(type: string): UserType | null {
+export function getUserType(type: UserTypeTitles): UserType | null {
   if (!type || !userTypes.includes(type)) {
     return null;
   }

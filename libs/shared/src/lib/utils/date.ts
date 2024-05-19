@@ -1,12 +1,17 @@
-import { TimeCounter } from '@ocean/api/shared';
 import * as moment from 'moment';
-import { unitOfTime } from 'moment';
+import type { unitOfTime } from 'moment';
+
+const DAY = 1000 * 60 * 60 * 24;
 
 export function getTimezoneOffset(): number {
   return new Date().getTimezoneOffset();
 }
 
-export function diff(date: Date, dateDiff: Date, unit?: unitOfTime.Diff): number {
+export function diff(
+  date: Date,
+  dateDiff: Date,
+  unit?: unitOfTime.Diff
+): number {
   return moment(date).diff(moment(dateDiff), unit);
 }
 
@@ -14,7 +19,7 @@ export function isBefore(isBeforeDate: Date, dateToCheck: Date = new Date()) {
   return moment(isBeforeDate).isBefore(dateToCheck);
 }
 
-export function getTimeDiffBetweenDates(date: Date, dateDiff: Date): TimeCounter {
+export function getTimeDiffBetweenDates(date: Date, dateDiff: Date) {
   const futureDate = moment(dateDiff);
 
   if (futureDate.isBefore(date)) {
@@ -25,9 +30,18 @@ export function getTimeDiffBetweenDates(date: Date, dateDiff: Date): TimeCounter
   const duration = moment.duration(timeDiff);
 
   return {
-    days: duration.days(),
+    days: futureDate.diff(date, 'days'),
     hours: duration.hours(),
     minutes: duration.minutes(),
-    seconds: duration.seconds()
+    seconds: duration.seconds(),
   };
+}
+
+export function getDiffInDays(
+  date: Date | string,
+  today: Date | string
+): number {
+  return Math.floor(
+    (new Date(date).getTime() - new Date(today).getTime()) / DAY
+  );
 }

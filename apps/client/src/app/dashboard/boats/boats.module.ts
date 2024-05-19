@@ -12,10 +12,12 @@ import { SharedDirectivesModule, SharedFormsModule } from '@ocean/shared';
 import { BoatsComponents, BoatsExports } from './boats.barrel';
 import { BoatsImports } from './boats.imports';
 import { routes } from './boats.routing';
+import { IconsModule } from '@ocean/icons';
 
 @NgModule({
   imports: [
     CommonModule,
+    IconsModule,
     LayoutComponentsModule,
     MatDataSourceModule,
     SharedDirectivesModule,
@@ -24,9 +26,9 @@ import { routes } from './boats.routing';
     AppComponentsModule,
     ComponentsModule,
     RouterModule.forChild(routes),
-    ...BoatsImports
+    ...BoatsImports,
   ],
   exports: [RouterModule, ...BoatsExports],
-  declarations: BoatsComponents
+  declarations: BoatsComponents,
 })
-export class BoatsModule { }
+export class BoatsModule {}

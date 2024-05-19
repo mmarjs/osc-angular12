@@ -68,6 +68,17 @@ app-radio-button {
   }
 }
 
+.mat-flat-button ocean-icon {
+  position: relative;
+  margin-right: 1em;
+  .mat-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
 .media-imgages-wrapper {
   background: rgba(237, 234, 230, 0.5);
   padding: 20px;
@@ -103,6 +114,7 @@ app-radio-button {
   position: relative;
   text-align: left;
   font-weight: bold;
+  display: inline-block;
 }
 
 .tooltipA h3 {
@@ -145,7 +157,7 @@ app-field-textarea {
   .tooltipA .right {
     width: 530px;
     top: 85px;
-    margin-left: 20px;
+    margin-left: 30px;
     -webkit-transform: translate(0, -50%);
     transform: translate(0, -50%);
     padding: 0;
@@ -216,11 +228,6 @@ layout-two-columns {
   margin: 0px -4px;
   text-align: center;
   font-size: 12px;
-}
-
-.title-tooltipA b {
-  font-size: 27px;
-  color: #283b4d;
 }
 
 .tooltip-info {

@@ -30,7 +30,7 @@ import {
   selectedAuctionTestData,
 } from '@ocean/testing/helpers/Models/testData';
 import { TestMatModule, TestModule } from '@ocean/testing/helpers/test.module';
-import { render, screen } from '@testing-library/angular';
+import { render, screen, waitFor } from '@testing-library/angular';
 import { MockProvider } from 'ng-mocks';
 import { of } from 'rxjs';
 import { BoatDetailsComponent } from '../auctions.barrel';
@@ -38,33 +38,33 @@ import { AuctionInfoComponent } from './auction-info/auction-info.component';
 import { DetailComponent } from './detail.component';
 import { JobStatus } from '@ocean/api/services';
 import { Bid, BidStatus } from '@ocean/api/shared';
+import userEvent from '@testing-library/user-event';
 
 const bid: Bid = {
   id: 2804410,
   status: BidStatus.ACCEPTED,
-  description: "test",
+  description: 'test',
   autoBid: false,
   bidAmount: 250,
   minBid: null,
   approximateDuration: 20,
   workStartDate: '10/09/22',
-  bidderName: "John Santos",
-  address: "881 NW 13th Ave",
-  address2: "881 NW 13th Ave",
-  city: "Miami",
-  state: "FL",
-  zipCode: "33125",
-  country: "USA",
+  bidderName: 'John Santos',
+  address: '881 NW 13th Ave',
+  address2: '881 NW 13th Ave',
+  city: 'Miami',
+  state: 'FL',
+  zipCode: '33125',
+  country: 'USA',
   startDeposit: 1,
   awayFromProvidersYard: false,
   yardOwner: null,
   job: {
-      id: 2749010,
-      status: JobStatus.AWARDED,
-      auctionEndDate: '15/09/22'
+    id: 2749010,
+    status: JobStatus.AWARDED,
+    auctionEndDate: '15/09/22',
   },
- }
-
+};
 
 const mockActivatedRoute = {
   data: of({
@@ -88,18 +88,20 @@ const DialogMock = {
 const customMockAuctionsFacade = (_bid = {}) => ({
   ...mockAuctionsFacade,
   selectedBid$: of(_bid),
-  resetSelectedBid: () => {}
+  resetSelectedBid: jest.fn(),
+  markAsInProgress: jest.fn(),
 });
 
 const mockBidsFacade = {
   selectAcceptedBid$: of({ bid: bid }),
-  bids$: of([{ bid: bid}]),
+  bids$: of([bid]),
   loadBids: jest.fn,
   editBid: jest.fn,
-}
+};
 
 const mockDocumentsFacadeService = {
   shouldSignDocument$: of(true),
+  loadDocuments: jest.fn(),
   documents$: of([
     {
       id: '1',
@@ -108,12 +110,12 @@ const mockDocumentsFacadeService = {
       userStatus: UserStatus.Completed,
       status: DocumentStatus.New,
     },
-  ])
-}
+  ]),
+};
 
 const mockLocalization = {
-  translate: (key: string) => key
-}
+  translate: (key: string) => key,
+};
 
 let actions$: any;
 
@@ -142,13 +144,16 @@ const deps: TestModuleMetadata = {
       },
     }),
     provideMockActions(() => actions$),
-    {provide: AuctionsFacade, useValue: customMockAuctionsFacade()},
+    { provide: AuctionsFacade, useValue: customMockAuctionsFacade() },
     MockProvider(ActivatedRoute, mockActivatedRoute as any),
-    { provide: BidItemsFacade, useValue: mockBidItemsFacade },
-    { provide: LocalizationService, useValue: mockLocalization},
+    {
+      provide: BidItemsFacade,
+      useValue: { ...mockBidItemsFacade, initBidItems: jest.fn(() => true) },
+    },
+    { provide: LocalizationService, useValue: mockLocalization },
     { provide: MatDialog, useValue: DialogMock },
     { provide: BidsFacade, useValue: mockBidsFacade },
-    { provide: DocumentsFacadeService, useValue: mockDocumentsFacadeService}
+    { provide: DocumentsFacadeService, useValue: mockDocumentsFacadeService },
   ],
   schemas: [NO_ERRORS_SCHEMA],
 };
@@ -173,10 +178,11 @@ describe('DetailComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('check ngOnInit', () =>{
+  describe('check ngOnInit', () => {
     it('should call ngOnInit', () => {
       const param = [];
       const auctionsFacade = TestBed.inject(AuctionsFacade);
+      const mockBidItemsFacade = TestBed.inject(BidItemsFacade);
       const spy1 = jest.spyOn(auctionsFacade, 'init');
       const spy2 = jest.spyOn(mockBidItemsFacade, 'initBidItems');
       component.ngOnInit();
@@ -187,6 +193,7 @@ describe('DetailComponent', () => {
 
   describe('on updateOne', () => {
     it('should call bidItemsFacade.updateOne', () => {
+      const mockBidItemsFacade = TestBed.inject(BidItemsFacade);
       const spy = jest.spyOn(mockBidItemsFacade, 'updateOne');
       component.updateOne({
         id: 1,
@@ -207,6 +214,7 @@ describe('DetailComponent', () => {
 
   describe('on removeLineItem', () => {
     it('should call bidItemsFacade.initBidItems and deleteBidItem', () => {
+      const mockBidItemsFacade = TestBed.inject(BidItemsFacade);
       const spy = jest.spyOn(mockBidItemsFacade, 'initBidItems');
       const spy2 = jest.spyOn(mockBidItemsFacade, 'deleteBidItem');
       component.removeLineItem(123);
@@ -223,6 +231,7 @@ describe('DetailComponent', () => {
       amount: 150,
     };
     it('should call bidItemsFacade.initBidItems and addBidItem', () => {
+      const mockBidItemsFacade = TestBed.inject(BidItemsFacade);
       const spy = jest.spyOn(mockBidItemsFacade, 'initBidItems');
       const spy2 = jest.spyOn(mockBidItemsFacade, 'addBidItem');
       component.addLineItem(jobItem);
@@ -232,25 +241,26 @@ describe('DetailComponent', () => {
   });
 
   describe('on bidSubmit', () => {
-    it('should call auctionsFacade.createBid', () => {
+    it('should call auctionsFacade.createBid', async () => {
       const auctionsFacade = TestBed.inject(AuctionsFacade);
       const spy = jest.spyOn(auctionsFacade, 'createBid');
-      component.auction = {
+      component.auction$ = of({
         id: 10,
         name: '',
-      };
-      component.bid = null;
-      component.bidSubmit(500);
+      });
+      component.bid$ = of(undefined);
+      await component.bidSubmit(500);
       expect(spy).toBeCalled();
     });
-    it('should call bidsFacade.editBid', () => {
+    it('should call bidsFacade.editBid', async () => {
+      const mockBidsFacade = TestBed.inject(BidsFacade);
       const spy = jest.spyOn(mockBidsFacade, 'editBid');
-      component.auction = {
+      component.auction$ = of({
         id: 10,
         name: '',
-      };
-      component.bid = DummyBidData;
-      component.bidSubmit(500);
+      });
+      component.bid$ = of(DummyBidData);
+      await component.bidSubmit(500);
       expect(spy).toBeCalled();
     });
   });
@@ -261,6 +271,23 @@ describe('DetailComponent', () => {
     it('should render with proper information', async () => {
       const cmp = await render(DetailComponent, {
         ...deps,
+        providers: [
+          ...deps.providers,
+          {
+            provide: AuctionsFacade,
+            useValue: customMockAuctionsFacade(DummyPaidBidData),
+          },
+          MockProvider(ActivatedRoute, {
+            data: of({
+              preloaded: {
+                isWorkInProgress: false,
+                isAbleToSignDocument: false,
+                isFullAmountPaid: false,
+                isBidAmountPaid: false,
+              },
+            }),
+          } as any),
+        ],
       });
 
       cmp.detectChanges();
@@ -268,8 +295,8 @@ describe('DetailComponent', () => {
       expect(screen.getByText("122' qqqq 2022")).toBeInTheDocument();
       expect(screen.getByText('Bangalore, Karnataka')).toBeInTheDocument();
       expect(screen.getByText('560069')).toBeInTheDocument();
-      expect(screen.getAllByText(/Jul 15, 2022/i)).toHaveLength(2);
-      expect(screen.getAllByText(/Jul 18, 2022/i)).toHaveLength(2);
+      expect(screen.getByText(/Jul 15, 2022/i)).toBeInTheDocument();
+      expect(screen.getByText(/Jul 18, 2022/i)).toBeInTheDocument();
     });
 
     describe('Accepted Bid', () => {
@@ -307,15 +334,23 @@ describe('DetailComponent', () => {
           ...deps,
           providers: [
             ...deps.providers,
-            MockProvider(DocumentsFacadeService, {
-              shouldSignDocument$: of(true),
-            }),
-            {provide: AuctionsFacade, useValue: customMockAuctionsFacade(bid)},
+            {
+              provide: AuctionsFacade,
+              useValue: customMockAuctionsFacade(bid),
+            },
             MockProvider(ActivatedRoute, {
               data: of({
                 title: DATA.AUCTION_DETAIL_EDIT.title,
                 bid: bid,
                 auction: selectedAuctionTestData,
+                preloaded: {
+                  isWorkInProgress: true,
+                  isAbleToSignDocument: true,
+                  isFullAmountPaid: false,
+                  isBidAmountPaid: false,
+                  message:
+                    'AUCTIONS.DETAILS.BID_STATUSES.ACCEPTED.SIGN_DOCUMENTS',
+                },
               }),
             } as any),
           ],
@@ -345,15 +380,23 @@ describe('DetailComponent', () => {
           ...deps,
           providers: [
             ...deps.providers,
-            MockProvider(DocumentsFacadeService, {
-              shouldSignDocument$: of(false),
-            }),
-            {provide: AuctionsFacade, useValue: customMockAuctionsFacade(bid)},
+            {
+              provide: AuctionsFacade,
+              useValue: customMockAuctionsFacade(bid),
+            },
             MockProvider(ActivatedRoute, {
               data: of({
                 title: DATA.AUCTION_DETAIL_EDIT.title,
                 bid: bid,
                 auction: selectedAuctionTestData,
+                preloaded: {
+                  isWorkInProgress: true,
+                  isAbleToSignDocument: false,
+                  isFullAmountPaid: false,
+                  isBidAmountPaid: false,
+                  message:
+                    'AUCTIONS.DETAILS.BID_STATUSES.ACCEPTED.WAIT_FOR_BOAT_OWNER',
+                },
               }),
             } as any),
           ],
@@ -367,7 +410,7 @@ describe('DetailComponent', () => {
         });
 
         cmp.detectChanges();
-        
+
         expect(
           screen.queryByRole('button', { name: 'BIDS.DOCUMENTS' })
         ).not.toBeInTheDocument();
@@ -383,8 +426,69 @@ describe('DetailComponent', () => {
           ...deps,
           providers: [
             ...deps.providers,
-            {provide: AuctionsFacade, useValue: customMockAuctionsFacade(DummyPaidBidData)},
+            {
+              provide: AuctionsFacade,
+              useValue: customMockAuctionsFacade(DummyPaidBidData),
+            },
+            MockProvider(ActivatedRoute, {
+              data: of({
+                preloaded: {
+                  isWorkInProgress: false,
+                  isAbleToSignDocument: false,
+                  isFullAmountPaid: true,
+                  isBidAmountPaid: true,
+                },
+              }),
+            } as any),
             MockProvider(DocumentsFacadeService, {
+              documents$: of([
+                {
+                  id: '1',
+                  title: 'title',
+                  externalDocumentId: 'externalDocumentId',
+                  userStatus: UserStatus.Completed,
+                  status: DocumentStatus.New,
+                },
+              ]),
+            }),
+          ],
+        });
+
+        TestBed.inject(MockStore).setState({
+          auctions: {
+            selectedAuction: selectedAuctionTestData,
+            selectedBid: DummyPaidBidData,
+          },
+        });
+
+        cmp.detectChanges();
+
+        expect(
+          screen.queryByRole('button', { name: /BIDS.BID_START_REPAIR/i })
+        ).toBeInTheDocument();
+      });
+
+      it('should make all calls to start work process', async () => {
+        const cmp = await render(DetailComponent, {
+          ...deps,
+          providers: [
+            ...deps.providers,
+            {
+              provide: AuctionsFacade,
+              useValue: customMockAuctionsFacade(DummyPaidBidData),
+            },
+            MockProvider(ActivatedRoute, {
+              data: of({
+                preloaded: {
+                  isWorkInProgress: false,
+                  isAbleToSignDocument: false,
+                  isFullAmountPaid: true,
+                  isBidAmountPaid: true,
+                },
+              }),
+            } as any),
+            MockProvider(DocumentsFacadeService, {
+              loadDocuments: jest.fn(),
               documents$: of([
                 {
                   id: '1',
@@ -410,6 +514,16 @@ describe('DetailComponent', () => {
         expect(
           screen.queryByRole('button', { name: 'BIDS.BID_START_REPAIR' })
         ).toBeInTheDocument();
+
+        await userEvent.click(
+          screen.queryByRole('button', { name: 'BIDS.BID_START_REPAIR' })
+        );
+
+        await waitFor(() => {
+          expect(
+            TestBed.inject(AuctionsFacade).markAsInProgress
+          ).toHaveBeenCalledWith(selectedAuctionTestData.id);
+        });
       });
     });
   });

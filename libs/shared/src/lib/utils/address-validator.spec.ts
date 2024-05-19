@@ -1,14 +1,21 @@
-import { FormBuilder } from '@angular/forms';
-import { ADDRESS_ERROR_NAME, addressValidator } from './address-validator';
+import { FormBuilder, FormControl } from '@angular/forms';
+import { addressValidator, ADDRESS_ERROR_NAME } from './address-validator';
 
 describe('address validator', () => {
   const fb = new FormBuilder();
   const key = 'address';
   const form = fb.group({
-    [key]: ['', addressValidator]
+    [key]: ['', addressValidator(false)]
   });
 
-  it('should return null', () => expect(addressValidator(undefined)).toEqual(null));
+  it('should return null', () => expect(addressValidator(false)(undefined)).toEqual(null));
+
+  it('should allow empty value for optional', () => {
+    const validator = addressValidator(true);
+    expect(validator(
+      new FormControl('')
+    )).toEqual(null);
+  });
 
   it.each([
     '',

@@ -6,7 +6,7 @@
     font-size: 40px;
   }
 
-  mat-icon {
+  ::ng-deep mat-icon {
     color: #5a8ea0;
     font-size: 40px;
     text-align: right;

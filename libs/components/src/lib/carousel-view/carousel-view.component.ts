@@ -1,6 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { MediaResponse, MediaTransform, transformMedia } from '@ocean/api/client';
+import {
+  MediaResponse,
+  MediaTransform,
+  transformMedia,
+} from '@ocean/api/client';
+import { IconType } from '@ocean/icons';
 
 @Component({
   selector: 'app-carousel-view',
@@ -8,9 +13,11 @@ import { MediaResponse, MediaTransform, transformMedia } from '@ocean/api/client
   styleUrls: ['./carousel-view.component.scss'],
 })
 export class CarouselViewComponent {
-  @Output() handleCarouselUseCaseEvents = new EventEmitter<any>();
-  @Input() media: MediaResponse[] = [];
-  mediaTransform = MediaTransform;
+  readonly mediaTransform = MediaTransform;
+  readonly iconType = IconType;
+
+  @Input()
+  readonly media: MediaResponse[] = [];
 
   download(url: string, name: string) {
     const link = document.createElement('a');

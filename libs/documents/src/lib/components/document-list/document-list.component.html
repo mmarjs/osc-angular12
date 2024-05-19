@@ -1,42 +1,44 @@
-<ng-container *ngIf="jobId$ | async as jobId">
-  <h3 class="document-page--title" *ngIf="jobId">
-    {{ 'DOCUMENTS.TITLE' | translate: { job_id: jobId } }}
-  </h3>
-  <a class="document-page--go-back" [routerLink]="['/auctions', jobId, 'details']">
-    {{ 'DOCUMENTS.GO_BACK_TO_JOB' | translate }}
-  </a>
-</ng-container>
-<div class="document-list" *ngIf="documents$ | async as documents">
-  <div *ngFor="let document of documents$ | async" class="document-card">
-    <div class="flex">
-      <div class="document-card--title">{{ document.title }}</div>
-      <div class="document-card--description">
-        <span> {{ 'DOCUMENTS.STATUS' | translate }} </span>
-        :&nbsp;
-        <span> {{ document.userStatus }} </span>
+<app-stripe-account-guard>
+  <ng-container *ngIf="jobId$ | async as jobId">
+    <h3 class="document-page--title" *ngIf="jobId">
+      {{ 'DOCUMENTS.TITLE' | translate: {job_id: jobId} }}
+    </h3>
+    <a class="document-page--go-back" [routerLink]="['/auctions', jobId, 'details']">
+      {{ 'DOCUMENTS.GO_BACK_TO_JOB' | translate }}
+    </a>
+  </ng-container>
+  <div class="document-list" *ngIf="documents$ | async as documents">
+    <div *ngFor="let document of documents$ | async" class="document-card">
+      <div class="flex">
+        <div class="document-card--title">{{ document.title }}</div>
+        <div class="document-card--description">
+          <span> {{ 'DOCUMENTS.STATUS' | translate }} </span>
+          :&nbsp;
+          <span> {{ formatDocumentStatus(document.userStatus) | translate }} </span>
+        </div>
       </div>
-    </div>
 
-    <button
-      mat-flat-button
-      color="primary"
-      class="document-card--button"
-      *ngIf="document.userStatus == userStatus.NotCompleted"
-      [routerLink]="['/documents', 'sign', document.id]"
+      <button
+        mat-flat-button
+        color="primary"
+        class="document-card--button"
+        *ngIf="document.userStatus == userStatus.NotCompleted"
+        [routerLink]="['/documents', 'sign', document.id]"
+      >
+        {{ 'DOCUMENTS.SIGN_BTN' | translate }}
+      </button>
+    </div>
+    <div
+      *ngIf="!(isLoading$ | async) && !documents.length"
+      class="document-list--empty"
     >
-      {{ 'DOCUMENTS.SIGN_BTN' | translate }}
-    </button>
+      {{ 'DOCUMENTS.EMPTY' | translate }}
+    </div>
+    <mat-progress-spinner
+      *ngIf="isLoading$ | async"
+      mode="indeterminate"
+      [diameter]="40"
+      [strokeWidth]="5"
+    ></mat-progress-spinner>
   </div>
-  <div
-    *ngIf="!(isLoading$ | async) && !documents.length"
-    class="document-list--empty"
-  >
-    {{ 'DOCUMENTS.EMPTY' | translate }}
-  </div>
-  <mat-progress-spinner
-    *ngIf="isLoading$ | async"
-    mode="indeterminate"
-    [diameter]="40"
-    [strokeWidth]="5"
-  ></mat-progress-spinner>
-</div>
+</app-stripe-account-guard>

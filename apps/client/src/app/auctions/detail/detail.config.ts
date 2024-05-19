@@ -5,8 +5,10 @@ import {
   FormFieldListModel,
   FormFieldModel,
 } from '@ocean/libs/form-builder';
+import { conditionalValidator } from '@ocean/shared/utils';
 import { addressValidator } from '@ocean/shared/utils/address-validator';
 import { CustomValidator } from '@ocean/shared/utils/nospace-validator';
+import { NumberValidator } from '@ocean/shared/utils/number-validator';
 import { textValidator } from '@ocean/shared/utils/text-validator';
 
 function getBeforeTodayDate(): Date {
@@ -38,7 +40,7 @@ export type TypedForm = Required<
   }
 >;
 
-export function getDetailFormConfig(): FormFieldListModel<
+export function getDetailFieldsConfig(): FormFieldListModel<
   TypedForm,
   FormFieldModel
 > {
@@ -49,9 +51,11 @@ export function getDetailFormConfig(): FormFieldListModel<
       placeholder: '',
       type: FormFieldGroupTypes.number,
       hideArrowsForNumber: false,
+      min: 1,
       validators: [
         Validators.required,
         Validators.min(1),
+        NumberValidator.onlyIntegers(),
         CustomValidator.dontAllowOnlyZeros(),
       ],
     },
@@ -91,7 +95,8 @@ export function getDetailFormConfig(): FormFieldListModel<
       placeholder: 'FORMS.PLACEHOLDERS.ADDRESS',
       type: FormFieldGroupTypes.text,
       validators: [
-        addressValidator,
+        Validators.required,
+        addressValidator(false),
         Validators.maxLength(100),
         CustomValidator.dontAllowOnlyZeros(),
       ],
@@ -100,13 +105,18 @@ export function getDetailFormConfig(): FormFieldListModel<
       order: 6,
       contextId: 'location',
       defaultValue: '',
-      label: '',
+      label: 'FORMS.LABELS.ADDRESS2',
       placeholder: 'FORMS.PLACEHOLDERS.ADDRESS2',
       type: FormFieldGroupTypes.text,
       validators: [
-        addressValidator,
-        Validators.maxLength(100),
-        CustomValidator.dontAllowOnlyZeros(),
+        conditionalValidator(
+          Validators.compose([
+            addressValidator(true),
+            Validators.maxLength(100),
+            CustomValidator.dontAllowOnlyZeros(),
+          ]),
+          (form) => form?.value?.address2?.length > 0
+        ),
       ],
     },
     city: {
@@ -118,6 +128,7 @@ export function getDetailFormConfig(): FormFieldListModel<
       type: FormFieldGroupTypes.text,
       noTailingSpace: true,
       validators: [
+        Validators.required,
         textValidator,
         Validators.maxLength(100),
         Validators.pattern('[a-zA-Z][a-zA-Z ]+'),
@@ -132,6 +143,7 @@ export function getDetailFormConfig(): FormFieldListModel<
       type: FormFieldGroupTypes.text,
       noTailingSpace: true,
       validators: [
+        Validators.required,
         textValidator,
         Validators.maxLength(50),
         Validators.pattern('[a-zA-Z][a-zA-Z ]+'),

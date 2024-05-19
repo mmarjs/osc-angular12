@@ -1,0 +1,22 @@
+<app-stripe-account-guard *ngIf="(userType$ | async) as userType">
+  <app-payment-details></app-payment-details>
+  <layout-panel-wrapper
+    *ngIf="userType === USER_TYPES.SHIPYARD || userType === USER_TYPES.SURVEYOR"
+    class="mt-1"
+    [panelTitle]="'STRIPE.TITLE' | translate"
+  >
+    <div class="mt-1">
+      <p>
+        {{ 'STRIPE.MANAGE' | translate }}
+      </p>
+      <app-button
+        color="primary"
+        class="button"
+        [routerLink]="[STRIPE_URL]"
+        [state]="{method: STRIPE_PROVIDER_METHOD.READ}"
+      >
+        {{ 'STRIPE.ACCOUNT.MANAGE' | translate }}
+      </app-button>
+    </div>
+  </layout-panel-wrapper>
+</app-stripe-account-guard>

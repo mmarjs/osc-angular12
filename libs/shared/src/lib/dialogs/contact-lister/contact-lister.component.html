@@ -1,7 +1,7 @@
 <div class="header">
   <div class="d-flex justify-content-space-between">
     <h3 class="bold-dark">{{'COMMON.INFO.CONTACT_LISTER' | translate}}</h3>
-    <mat-icon>picture_in_picture</mat-icon>
+    <ocean-icon [iconType]="iconType.PICTURE_IN_PICTURE"></ocean-icon>
   </div>
   <p *ngIf="!isSend">{{'COMMON.INFO.COMPLETE_THE_FORM_BELOW_TO_CONTACT' | translate}}
      <span>{{'COMMON.INFO.BIG_BLUE' | translate}}</span></p>

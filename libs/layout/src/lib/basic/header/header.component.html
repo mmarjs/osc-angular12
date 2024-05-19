@@ -1,35 +1,37 @@
 <header>
-  <span fxHide fxShow.xs>
-    <button type="button" mat-stroked-button (click)="doLogin()" *ngIf="!(userName$ | async)">
-      {{'COMMON.BUTTONS.LOGIN' | translate}}
-    </button>
-  </span>
+  <ng-container *ngIf="shouldShowNavigation">
+    <span fxHide fxShow.xs>
+      <button type="button" mat-stroked-button (click)="doLogin()" *ngIf="!(userName$ | async)">
+        {{'COMMON.BUTTONS.LOGIN' | translate}}
+      </button>
+    </span>
 
-  <div class="logo-wrapper">
-    <div appLink="HOME" class="logo"></div>
-  </div>
-
-  <button type="button" mat-icon-button color="accent" fxHide fxShow.xs (click)="showNav()">
-    <mat-icon aria-label="Open navigation menu">menu</mat-icon>
-  </button>
-
-  <div fxShow fxHide.xs fxLayout="column" fxLayoutAlign="space-between end" class="header-menu-container">
-    <layout-basic-menu></layout-basic-menu>
-
-    <div fxLayout="row" fxLayoutAlign="space-between end">
-      <layout-basic-navtop></layout-basic-navtop>
-      <ng-container *ngIf="!(userName$ | async)">
-        <ng-container *ngIf="isSignup$ | async; else signUpBtn">
-          <button type="button" mat-raised-button color="primary">
-            {{ 'COMMON.BUTTONS.COMPLETE_FORM_BELOW' | translate }}
-          </button>
-        </ng-container>
-        <ng-template #signUpBtn>
-          <button type="button" mat-raised-button color="primary" appLink="SIGNUP">
-            {{ 'COMMON.BUTTONS.GET_STARTED' | translate }}
-          </button>
-        </ng-template>
-      </ng-container>
+    <div class="logo-wrapper">
+      <div appLink="HOME" class="logo"></div>
     </div>
-  </div>
+
+    <button type="button" mat-icon-button color="accent" fxHide fxShow.xs (click)="showNav()">
+      <ocean-icon [iconType]="iconType.MENU" aria-label="Open navigation menu"></ocean-icon>
+    </button>
+
+    <div fxShow fxHide.xs fxLayout="column" fxLayoutAlign="space-between end" class="header-menu-container">
+      <layout-basic-menu></layout-basic-menu>
+
+      <div fxLayout="row" fxLayoutAlign="space-between end">
+        <layout-basic-navtop></layout-basic-navtop>
+        <ng-container *ngIf="!(userName$ | async)">
+          <ng-container *ngIf="!(isSignup$ | async)">
+            <button type="button" mat-raised-button color="primary" appLink="SIGNUP">
+              {{ 'COMMON.BUTTONS.GET_STARTED' | translate }}
+            </button>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="!shouldShowNavigation">
+    <div class="logo-wrapper">
+      <div class="logo"></div>
+    </div>
+  </ng-container>
 </header>

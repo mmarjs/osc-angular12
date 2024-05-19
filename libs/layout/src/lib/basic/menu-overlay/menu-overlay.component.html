@@ -1,5 +1,5 @@
 <button type="button" mat-icon-button color="accent" (click)="closeMenu()">
-  <mat-icon aria-label="Close navigation menu">close</mat-icon>
+  <ocean-icon [iconType]="iconType.CLOSE" aria-label="Close navigation menu"></ocean-icon>
 </button>
 
 <ng-container *ngIf="loggedIn then logged; else guest"></ng-container>
@@ -30,9 +30,9 @@
     <button type="button" mat-list-item (click)="goTo('PROFILE')">
       {{'COMMON.MENU.PROFILE' | translate}}
     </button>
-    <button type="button" mat-list-item (click)="goTo('NOTIFICATIONS')">
-      {{'COMMON.MENU.NOTTIFICATIONS' | translate}}
-    </button>
+    <!--    <button type="button" mat-list-item (click)="goTo('NOTIFICATIONS')">-->
+    <!--      {{'COMMON.MENU.NOTTIFICATIONS' | translate}}-->
+    <!--    </button>-->
     <button type="button" mat-list-item (click)="onLogout()">
       {{'COMMON.BUTTONS.LOGOUT' | translate}}
     </button>

@@ -85,7 +85,7 @@ export class FormUtils {
    * @param field FormControl to check
    */
   static isRequired(field: AbstractControl) {
-    if (field.validator) {
+    if (field?.validator) {
       const validator = field.validator(field);
       if (validator && validator.required) {
         return true;

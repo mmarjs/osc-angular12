@@ -1,74 +1,84 @@
-import { MatSelectCountryComponent } from '@angular-material-extensions/select-country';
-import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserTypeTitle, UserTypeTitles } from '@ocean/api/shared';
-import { LocalizationService } from '@ocean/internationalization';
+import { Shipyard, UserTypeTitle } from '@ocean/api/shared';
 import { FormUtils } from '@ocean/shared';
+import { addressValidator } from '@ocean/shared/utils/address-validator';
 import { CustomValidator } from '@ocean/shared/utils/nospace-validator';
-import { CountryISO } from 'ngx-intl-tel-input';
-import { untilDestroyed } from 'ngx-take-until-destroy';
-import { distinctUntilChanged, tap } from 'rxjs';
+import { textValidator } from '@ocean/shared/utils/text-validator';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-shipyard-surveyor-signup',
   templateUrl: './shipyard-surveyor-signup.component.html',
-  styleUrls: ['./shipyard-surveyor-signup.component.scss']
+  styleUrls: ['./shipyard-surveyor-signup.component.scss'],
 })
-export class ShipyardSurveyorSignupComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ShipyardSurveyorSignupComponent {
   @Input() role: UserTypeTitle;
   @Input() isParentValid: boolean;
+  @Output() formValue = new EventEmitter<Shipyard>();
+
   step1: FormGroup = this.builder.group({
-    name: ['', [Validators.required, CustomValidator.startWithSpaceValidator, CustomValidator.dontAllowOnlyZeros(this.localizationService), Validators.pattern('[a-zA-Z][a-zA-Z ]+')]],
+    name: [
+      '',
+      [
+        Validators.required,
+        CustomValidator.startWithSpaceValidator,
+        CustomValidator.dontAllowOnlyZeros(),
+      ],
+    ],
     country: ['', Validators.required],
-    phone: ['', [Validators.required, CustomValidator.startWithSpaceValidator, CustomValidator.dontAllowOnlyZeros(this.localizationService)]],
-    businessEmail: ['', [Validators.required, CustomValidator.noWhiteSpace, CustomValidator.dontAllowOnlyZeros(this.localizationService)]],
-    website: ['', [CustomValidator.startWithSpaceValidator, CustomValidator.dontAllowOnlyZeros(this.localizationService), CustomValidator.noWhiteSpace]],
-  })
+    phone: [
+      '',
+      [
+        Validators.required,
+        CustomValidator.startWithSpaceValidator,
+        CustomValidator.dontAllowOnlyZeros(),
+      ],
+    ],
+    businessEmail: [
+      '',
+      [
+        Validators.required,
+        CustomValidator.noWhiteSpace,
+        CustomValidator.dontAllowOnlyZeros(),
+      ],
+    ],
+    website: [
+      '',
+      [
+        CustomValidator.startWithSpaceValidator,
+        CustomValidator.dontAllowOnlyZeros(),
+        CustomValidator.noWhiteSpace,
+      ],
+    ],
+  });
+
   step2: FormGroup = this.builder.group({
-    address: ['', [CustomValidator.startWithSpaceValidator, CustomValidator.dontAllowOnlyZeros(this.localizationService)]],
-    address2: ['', [CustomValidator.startWithSpaceValidator, CustomValidator.dontAllowOnlyZeros(this.localizationService)]],
-    city: ['', [Validators.required, Validators.pattern("^[a-zA-Z ]*$"), CustomValidator.startWithSpaceValidator, CustomValidator.dontAllowOnlyZeros(this.localizationService)]],
-    state: ['', [Validators.required, Validators.pattern("^[a-zA-Z ]*$"), CustomValidator.startWithSpaceValidator, CustomValidator.dontAllowOnlyZeros(this.localizationService)]],
-    zipCode: ['', [Validators.required, CustomValidator.startWithSpaceValidator, CustomValidator.dontAllowOnlyZeros(this.localizationService)]]
-  })
-  CountryISO = CountryISO;
-  countryAlpha2Code: string;
-  notSelectedError = false;
-  userTypes = UserTypeTitles;
-  @Output() formValue = new EventEmitter();
-  defaultCountry:string = 'us'
-  @ViewChild('matCountry') matCountry: MatSelectCountryComponent;
+    address: ['', [addressValidator]],
+    address2: ['', [addressValidator]],
+    city: ['', [Validators.required, textValidator]],
+    state: ['', [Validators.required, textValidator]],
+    zipCode: ['', [Validators.required, FormUtils.zipCodeValidator]],
+  });
+
+  countryAlpha2Code$ = this.countryCtrl.valueChanges.pipe(
+    map((country) => country?.alpha2Code?.toLowerCase())
+  );
+
   get countryCtrl() {
     return this.step1.get('country');
   }
   get phoneCtrl() {
     return this.step1.get('phone');
   }
-  constructor(private builder: FormBuilder, private localizationService: LocalizationService) { }
 
-  ngOnInit(): void {
-    this.countryCtrl.valueChanges
-      .pipe(
-        distinctUntilChanged(),
-        tap(change =>
-
-          FormUtils.validateZipCtrlByCountry(change, this.step2.get('zipCode'))
-        ),
-        untilDestroyed(this)
-      )
-      .subscribe(data => {
-        this.countryAlpha2Code = data?.alpha2Code?.toLowerCase();
-      });
-  }
-  ngAfterViewInit() {
-    this.matCountry.onBlur = () => {
-      this.countryCtrl.markAsTouched();
-    }
-  }
+  constructor(private builder: FormBuilder) {}
 
   onSubmit() {
-    this.formValue.emit({ ...this.step1.value, ...this.step2.value })
+    this.formValue.emit({
+      ...this.step1.value,
+      ...this.step2.value,
+      phone: this.step1.value.phone.internationalNumber,
+    });
   }
-
-  ngOnDestroy(): void { }
 }

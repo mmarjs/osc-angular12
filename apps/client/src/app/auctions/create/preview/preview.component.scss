@@ -48,6 +48,17 @@ layout-two-columns {
   margin-bottom: 20px;
 }
 
+.mat-flat-button ocean-icon {
+  position: relative;
+  margin-right: 1em;
+  .mat-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
 @media screen and (min-width: 1200px) {
   app-auctions-previews .form {
     margin-left: -90px;

@@ -6,9 +6,10 @@ export interface StripeForm {
   lastName: string;
   email: string;
   businessUrl: string;
-  ssnLast4: string;
   phone: ChangeData;
-  taxId: string;
+  taxIdOrSSN: boolean;
+  taxId?: string;
+  ssnLast4?: string;
   dob: string;
   gender: string;
   city: string;

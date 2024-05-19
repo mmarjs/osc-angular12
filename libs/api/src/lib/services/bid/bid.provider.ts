@@ -3,6 +3,7 @@ import { ClientService, Params } from '@ocean/api/client';
 import { Bid, BidDTO, BidItemDTO } from '@ocean/api/shared';
 
 import {
+  AuctionBid,
   BidAcceptBidRequest,
   BidAddItemRequest,
   BidCreateBidRequest,
@@ -18,7 +19,7 @@ import {
 })
 export class BidProvider {
   public constructor(private readonly api: ClientService) {}
-  baseUrl:string='/api/bids'
+  baseUrl = '/api/bids';
   /**
    * CreateBid
    * Responses: 200, 201, 401, 403, 404
@@ -134,22 +135,20 @@ export class BidProvider {
     });
   }
 
-
-  public getBidByAuctionId(auctionId:number) {
-    return this.api.request<BidDTO>({
+  public getBidByAuctionId(auctionId: number) {
+    return this.api.request<AuctionBid>({
       url: `${this.baseUrl}/jobs/${auctionId}/users/current`,
       method: 'GET',
     });
   }
 
-  public getMyBids(request:GetMyBids) {
+  public getMyBids(request: GetMyBids) {
     return this.api.request({
       url: `${this.baseUrl}/users/current`,
       method: 'GET',
-      params: request.pageable
+      params: request.pageable,
     });
   }
-
 
   public editBidWithoutBidId(request: BidCreateBidRequest) {
     const params = new Params(request, [], [], ['bidDto']);
@@ -159,5 +158,4 @@ export class BidProvider {
       data: params.forBody,
     });
   }
-
 }

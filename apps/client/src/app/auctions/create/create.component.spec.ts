@@ -50,7 +50,7 @@ import { Observable, of } from 'rxjs';
 import { BoatInfoComponent } from './boat-info';
 import { AuctionCreateComponent } from './create.component';
 import { PreviewComponent } from './preview';
-import { SurveyInformationComponent } from './survey-information';
+
 const moment = require('moment');
 
 describe('CreateComponent', () => {
@@ -62,6 +62,7 @@ describe('CreateComponent', () => {
     uploadImages: jest.fn(),
     getFilesByTags: (obj: any) => of(imageTransFormData),
     uploadMultipleFilesWithTransformation: (obj: any) => of(imageTransFormData),
+    deleteMultipleFiles: () => of(true),
   };
 
   const mockDraftsDialogs = {
@@ -79,7 +80,13 @@ describe('CreateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TestModule, TestStoreEnvModule, ReactiveFormsModule, MatDialogModule, MatSnackBarModule],
+      imports: [
+        TestModule,
+        TestStoreEnvModule,
+        ReactiveFormsModule,
+        MatDialogModule,
+        MatSnackBarModule,
+      ],
       declarations: [AuctionCreateComponent],
       providers: [
         { provide: AuctionsFacade, useValue: mockAuctionsFacade },
@@ -124,7 +131,6 @@ describe('CreateComponent', () => {
   it('should init getters', () => {
     component.ngOnInit();
     expect(component.description).toBeTruthy();
-    expect(component.information).toBeTruthy();
     expect(component.auctionType).toEqual('REPAIR');
     expect(component.mediasForm).toBeTruthy();
     expect(component.files).toBeTruthy();
@@ -267,7 +273,6 @@ describe('CreateComponent integration', () => {
         MatDialogModule,
         MatSnackBarModule,
         FormActionsWrapperComponent,
-        SurveyInformationComponent,
         IconsModule,
         LayoutComponentsModule,
         BoatInfoComponent,
@@ -283,6 +288,8 @@ describe('CreateComponent integration', () => {
       componentProperties: {},
     });
 
-    expect(screen.queryByText(/SURVEY AUCTIONS.CREATE.STEPS.INFORMATION/i)).toBeInTheDocument();
+    expect(
+      screen.queryByText(/AUCTIONS.CREATE.STEPS.WORK_DESCRIPTION/i)
+    ).toBeInTheDocument();
   });
 });

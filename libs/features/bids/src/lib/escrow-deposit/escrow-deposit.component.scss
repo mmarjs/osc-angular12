@@ -37,8 +37,8 @@ layout-two-columns {
 }
 
 .dollar {
-  width: 26px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
   border: 1px solid;
   text-align: center;
   border-radius: 42px;
@@ -68,4 +68,8 @@ mat-error {
   text-align: center;
   margin-top: 0.85rem;
   border-radius: 2px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

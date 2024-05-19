@@ -9,10 +9,14 @@ describe('LegalComponent', () => {
   let component: LegalComponent;
   let fixture: ComponentFixture<LegalComponent>;
 
-  beforeEach(async () => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
-      declarations: [LegalComponent, MockComponent(TwoColumnsComponent), MockComponent(MenuComponentComponent)],
+      declarations: [
+        LegalComponent,
+        MockComponent(TwoColumnsComponent),
+        MockComponent(MenuComponentComponent),
+      ],
     }).compileComponents();
   });
 

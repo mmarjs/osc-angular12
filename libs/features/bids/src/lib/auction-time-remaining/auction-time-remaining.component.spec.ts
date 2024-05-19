@@ -1,35 +1,41 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+/* eslint-disable @nrwl/nx/enforce-module-boundaries */
+import { TestBed } from '@angular/core/testing';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterTestingModule } from '@angular/router/testing';
 import { TranslatePipe } from '@ngx-translate/core';
-// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
-import { PartialsModule } from '@ocean/shared/partials/partials.module';
-import { MockModule, MockPipe } from 'ng-mocks';
-
+import { AuctionsFacade } from '@ocean/client/state';
+import { LinkDirective } from '@ocean/shared';
+import { ButtonComponent } from '@ocean/shared/partials/button/button.component';
+import { TimeRemainingComponent } from '@ocean/shared/partials/time-remaining/time-remaining.component';
+import { render, screen } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
+import { MockPipe, MockProvider, ngMocks } from 'ng-mocks';
 import { AuctionTimeRemainingComponent } from './auction-time-remaining.component';
 
+ngMocks.autoSpy('jest');
+
 describe('AuctionTimeRemainingComponent', () => {
-  let component: AuctionTimeRemainingComponent;
-  let fixture: ComponentFixture<AuctionTimeRemainingComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports:[
-        MockModule( PartialsModule ),
-      ],
+  it('should extend auction', async () => {
+    await render(AuctionTimeRemainingComponent, {
+      imports: [MatButtonModule, RouterTestingModule],
       declarations: [
-
-        AuctionTimeRemainingComponent,
         MockPipe(TranslatePipe, (v) => v),
+        LinkDirective,
+        TimeRemainingComponent,
+        ButtonComponent,
       ],
-    }).compileComponents();
-  });
+      providers: [MockProvider(AuctionsFacade)],
+      componentProperties: {
+        auctionId: 1089,
+      },
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(AuctionTimeRemainingComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    const facade = TestBed.inject(AuctionsFacade);
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+    userEvent.click(
+      screen.getByRole('button', { name: 'BIDS.EXTEND_AUCTION' })
+    );
+
+    expect(facade.extendAuctionEndDate).toHaveBeenCalledWith(1089);
   });
 });

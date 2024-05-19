@@ -1,81 +1,85 @@
 <div class="contain" *ngIf="!isCreateSuccess">
-    <button mat-icon-button matStepperPrevious class="wizzard-back-btn">
+  <button mat-flat-button matStepperPrevious>
     <ocean-icon [iconType]="iconType.CHEVRON_LEFT"></ocean-icon>
-    {{'COMMON.BUTTONS.BACK' | translate}}
+    <span>{{'COMMON.BUTTONS.BACK' | translate}}</span>
   </button>
-    <div class="home-title">{{'AUCTIONS.CREATE.PREVIEW_YOUR_LISTING' | translate}}</div>
-    <layout-two-columns [width]="50">
-        <div class="carousel">
-            <ng-container *ngIf="allImage && allImage.length;else tempImg">
-                <app-auction-carousel [images]="allImage"></app-auction-carousel>
-            </ng-container>
-            <ng-template #tempImg>
-                <img src="/assets/images/no-image.png" alt="" class="default-img-big">
-            </ng-template>
-        </div>
-        <div class="auction-info" aside>
-            <div class="inf">{{jobName}}</div>
-            <div class="details-card">
-                <p><label class="text-justify text"><b class="">{{'FORMS.LABELS.BOAT_LENGTH' | translate}}, {{'FORMS.LABELS.BOAT_TYPE' |
-                            translate}}, {{'FORMS.LABELS.BOAT_YEAR' | translate}}: </b>
-                        {{boat?.length}}, {{boat?.type}}, {{boat?.makeModelYear}} </label></p>
-                <div class="information" style="display: flex; justify-content: space-between;">
-                    <form [formGroup]="addressForm">
-                    <div class="form-control-wrapper">
-                        <app-field-text label="{{'FORMS.LABELS.LOCATION' | translate}} :" [readonly]="!isEditLocation"
-                            [(ngModel)]="location" style="width: fit-content;" formControlName="address">
-                        </app-field-text>
-                        <ng-container *ngIf="isEditLocation;else readonlyLocationTemp">
-                            <span (click)="handleUpdateLocation()" class="update-btn" [class.disable]="addressForm.get('address').invalid">
-                                {{'COMMON.BUTTONS.OK' | translate}}
-                            </span>
-                        </ng-container>
-                        <ng-template #readonlyLocationTemp>
-                            <img src="/assets/icons/pencil-1x.png" style="margin-left:20px; margin-right: 5px;">
-                            <span (click)="isEditLocation = true" class="update-btn">
-                                {{'COMMON.BUTTONS.EDIT' | translate}}
-                            </span>
-                        </ng-template>
-                    </div>
-                    <div class="form-control-wrapper zip-control" data-testid="zipcode" style="margin-right: 40px;">
-                        <app-field-text label="{{'FORMS.LABELS.ZIP_CODE' | translate}} :" [readonly]="!isEditZipCode" [(ngModel)]="zip"
-                            style="width: fit-content;" formControlName="zipCode">
-                        </app-field-text>
-                        <ng-container *ngIf="isEditZipCode;else readonlyZipTemp">
-                            <span data-testid="zipcode-ok" (click)="handleUpdateZip()" class="update-btn" [class.disable]="addressForm.get('zipCode').invalid">
-                                {{'COMMON.BUTTONS.OK' | translate}}
-                            </span>
-                        </ng-container>
-                        <ng-template #readonlyZipTemp>
-                            <img src="/assets/icons/pencil-1x.png" style="margin-left:20px; margin-right: 5px;">
-                            <span data-testid="zipcode-edit" (click)="isEditZipCode = true" class="update-btn">
-                                {{'COMMON.BUTTONS.EDIT' | translate}}
-                            </span>
-                        </ng-template>
-                    </div>
-                    </form>
-                </div>
-                <p><label class="text text-justify"> <b>{{'FORMS.LABELS.DESCRIPTION' | translate}}: </b> </label>
-                    <br>{{jobDescription}}
-                </p>
-            </div>
-        </div>
+  <div class="home-title">
+    {{ 'AUCTIONS.CREATE.PREVIEW_YOUR_LISTING' | translate }}
+  </div>
+  <layout-two-columns [width]="50">
+    <div class="carousel">
+      <ng-container *ngIf="allImage && allImage.length; else tempImg">
+        <app-auction-carousel [images]="allImage"></app-auction-carousel>
+      </ng-container>
+      <ng-template #tempImg>
+        <img src="/assets/images/no-image.png" alt="" class="default-img-big" />
+      </ng-template>
+    </div>
+    <div class="auction-info" aside>
+      <div class="inf">{{ jobName }}</div>
+      <div class="details-card">
+        <p>
+          <label class="text-justify text">
+            <b>
+              {{ 'FORMS.LABELS.BOAT_LENGTH' | translate }} ,
+            </b>
+            {{ boat?.length }}
+          </label>
+        </p>
+        <p>
+          <label class="text-justify text">
+            <b>
+              {{ 'FORMS.LABELS.BOAT_TYPE' | translate }},
+            </b>
+            {{ boat?.type }}
+          </label>
+        </p>
+        <p>
+          <label class="text-justify text">
+            <b>
+              {{ 'FORMS.LABELS.BOAT_YEAR' | translate }}:
+            </b>
+            {{ boat?.makeModelYear }}
+          </label>
+        </p>
 
-    </layout-two-columns>
+        <p>
+          <label class="text-justify text">
+            <b> {{ 'FORMS.LABELS.LOCATION' | translate }}: </b>
+            {{ boat?.address }}
+          </label>
+        </p>
+        <p>
+          <label class="text-justify text">
+            <b> {{ 'FORMS.LABELS.ZIP_CODE' | translate }}: </b>
+            {{ boat?.zipCode }}
+          </label>
+        </p>
+        <p>
+          <label class="text text-justify">
+            <b>{{ 'FORMS.LABELS.DESCRIPTION' | translate }}: </b>
+          </label>
+          <br />{{ jobDescription }}
+        </p>
+      </div>
+    </div>
+  </layout-two-columns>
 
-    <layout-two-columns [width]="25" class="middle-layout">
-        <div class="budget-details">
-            <h3><b>{{'AUCTIONS.BIDS' | translate}}</b></h3>
-            <hr>
-            <p><b>{{'FORMS.LABELS.LISTED' | translate}}: </b>{{auctionStartDate | date:'shortDate'}}</p>
-            <p><b>{{'FORMS.LABELS.ENDS' | translate}}: </b> {{auctionEndDate | date:'shortDate'}} </p>
-        </div>
-        <div aside>
-            <div class="inf survey-items-title">{{auctionType | capitalize}} {{'AUCTIONS.LIST_ITEMS' | translate}}</div>
-            <app-survey-items-table [jobItems]="jobItems"></app-survey-items-table>
-        </div>
-    </layout-two-columns>
-
-    <app-finalize [form]="form" [isStarted]="isStarted"></app-finalize>
-
+  <layout-two-columns [width]="25" class="middle-layout">
+    <div class="budget-details">
+      <h3>
+        <b>{{ 'AUCTIONS.BIDS' | translate }}</b>
+      </h3>
+      <hr />
+      <p>
+        <b>{{ 'FORMS.LABELS.LISTED' | translate }}: </b
+        >{{ auctionStartDate | date: 'shortDate' }}
+      </p>
+      <p>
+        <b>{{ 'FORMS.LABELS.ENDS' | translate }}: </b>
+        {{ auctionEndDate | date: 'shortDate' }}
+      </p>
+    </div>
+  </layout-two-columns>
+  <app-finalize [form]="form" [isStarted]="isStarted"></app-finalize>
 </div>

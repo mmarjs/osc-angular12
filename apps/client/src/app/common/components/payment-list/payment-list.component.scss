@@ -49,10 +49,16 @@ layout-panel-wrapper {
   margin-top: 15px;
 }
 
-mat-icon {
-  cursor: pointer;
-}
-
 .payment {
-  width: 210px;
+  width: 205px;
+  ocean-icon {
+    position: relative;
+    margin-right: 1em;
+    ::ng-deep .mat-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
 }

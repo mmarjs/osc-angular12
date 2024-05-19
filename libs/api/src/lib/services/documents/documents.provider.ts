@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ClientService } from '@ocean/api/client';
 import { Document, DocumentSignLink } from './models';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DocumentProvider {
   public constructor(private readonly api: ClientService) {}
+
   baseUrl: string = '/api/documents';
 
   public getDocuments() {

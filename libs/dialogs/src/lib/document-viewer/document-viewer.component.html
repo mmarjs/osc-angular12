@@ -2,6 +2,6 @@
   <div class="d-flex">
     <h2>{{ 'DOCUMENTS.CONTRACT' | translate }}</h2>
   </div>
-  <mat-icon (click)="closeDocument()" class="cursor-pointer">close</mat-icon>
+  <ocean-icon [iconType]="iconType.CLOSE" (click)="closeDocument()" class="cursor-pointer"></ocean-icon>
 </div>
-<iframe [src]="link"  height="94%" width="100%"></iframe>
+<iframe [src]="link" (load)="onPageLoad()" height="94%" width="100%"></iframe>

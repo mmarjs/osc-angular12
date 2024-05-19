@@ -10,5 +10,5 @@
 
 <span>{{'PROFILE.I_AM_A' | translate}}</span>
 <button type="button" mat-raised-button [matMenuTriggerFor]="accMenu" [disabled]="true">
-  {{userFacade.userType$ | async | formatType}} <mat-icon>expand_more</mat-icon>
+  {{userFacade.userType$ | async | formatType}} <ocean-icon [iconType]="iconType.EXPAND_MORE"></ocean-icon>
 </button>

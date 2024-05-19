@@ -1,15 +1,15 @@
 <form [formGroup]="form">
   <layout-two-columns [width]="60">
     <div class="form-description">
-      <button mat-icon-button appLink="DASHBOARD" class="wizzard-back-btn">
-        <ocean-icon [iconType]="iconType.CHEVRON_LEFT"></ocean-icon>
-        {{ 'COMMON.BUTTONS.CANCEL' | translate }}
+      <button mat-flat-button appLink="DASHBOARD">
+        <ocean-icon as="CANCEL" [iconType]="iconType.CHEVRON_LEFT"></ocean-icon>
+        <span>{{ 'COMMON.BUTTONS.CANCEL' | translate }}</span>
       </button>
       <div class="block-title">
+        <b class="title-tooltipA">
+          {{ 'FORMS.LABELS.I_AM_LOOKING_FOR' | translate }}
+        </b>
         <div class="tooltipA">
-          <span class="title-tooltipA">
-            {{ 'FORMS.LABELS.I_AM_LOOKING_FOR' | translate }}
-          </span>
           <img src="/assets/info.png" class="ml-10"/>
           <div class="right">
             <div class="text-content">
@@ -18,14 +18,14 @@
                   <b>{{ 'FORMS.LABELS.SERVICE_TYPES' | translate }}</b>
                 </p>
                 <p class="tooltip-info">
-                  {{ 'AUCTIONS.CREATE.SERVICE_TYPE_DESCRIPTION' }}
+                  {{ 'AUCTIONS.CREATE.SERVICE_TYPE_DESCRIPTION' | translate }}
                 </p>
                 <div class="tooltip-types">
                   <div class="block-tooltip-type">
                     <p class="text-center">
                       <b>{{ 'FORMS.LABELS.REPAIRS' | translate }}</b>
                     </p>
-                    <p>{{ 'AUCTIONS.CREATE.REPAIRS_DESCRIPTION' }}</p>
+                    <p>{{ 'AUCTIONS.CREATE.REPAIRS_DESCRIPTION' | translate }}</p>
                   </div>
 
                   <div class="block-tooltip-type">
@@ -58,7 +58,9 @@
           formControlName="type"
           class="auction"
           [itemsRadioButton]="jobTypesValues | async"
-          [readonly]="auction?.isFinished || auction?.status === jobStatus.DRAFT"
+          [readonly]="
+            auction?.isFinished || auction?.status === jobStatus.DRAFT
+          "
           [class.mt-10]="auction?.status === jobStatus.DRAFT"
         >
         </app-radio-button>
@@ -110,9 +112,6 @@
             </div>
           </ng-container>
           <ng-template #imagesTemp>
-            <ng-container *ngIf="jobImages && jobImages.length">
-              <app-carousel-view [media]="jobImages"></app-carousel-view>
-            </ng-container>
             <!-- <ng-template #noImageTemp>
                 <h3 class="text-align-center">
                     {{'MEDIA.NO_IMAGES_UPLOADED' | translate}}
@@ -124,12 +123,12 @@
           <h3 style="line-height: initial; width: 100%">
             {{ 'AUCTIONS.CREATE.SUPPORTED_FILES_TITLE' | translate }}
           </h3>
-          <img
-            src="/assets/icons/camera.png"
-            alt=""
-            style="width: 50px; margin-left: 10px"
-          />
-          <!-- <i class="icon camera-icon"></i> -->
+          <ocean-icon
+            fontSet="fas"
+            fontIcon="fa-camera"
+            as="CAMERA"
+            class="large-icon"
+          ></ocean-icon>
         </div>
         <p>{{ 'AUCTIONS.CREATE.SUPPORTED_FILES' | translate }}</p>
         <app-form-gallery

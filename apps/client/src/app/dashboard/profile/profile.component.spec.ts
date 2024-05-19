@@ -2,7 +2,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -13,7 +12,8 @@ import { AuthService, MediaService } from '@ocean/api/client';
 import { AccountSwitchComponent } from '@ocean/client/common/components/account-switch/account-switch.component';
 import {
   FormGalleryComponent,
-  FormGalleryUploadComponent
+  FormGalleryItemComponent,
+  FormGalleryUploadComponent,
 } from '@ocean/client/common/forms';
 import { IconsModule } from '@ocean/icons';
 import { LocalizationService } from '@ocean/internationalization';
@@ -22,7 +22,7 @@ import { FormControlUpdateOnSubmitComponent } from '@ocean/shared/forms/form-con
 import { FormatTypePipe } from '@ocean/shared/pipes/format-type.pipe';
 import { NotifierService } from '@ocean/shared/services';
 import { render, screen } from '@testing-library/angular';
-import { MockModule, MockPipe, MockProvider } from 'ng-mocks';
+import { MockComponent, MockModule, MockPipe, MockProvider } from 'ng-mocks';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { ProfileMenuComponent } from './menu';
 import { ProfilePasswordComponent } from './password';
@@ -30,6 +30,24 @@ import { PaymentDetailsComponent } from './payment-details/payment-details.compo
 import { PersonalInformationComponent } from './personal-information/personal-information.component';
 import { ProfileComponent } from './profile.component';
 import { StripeProvider } from '@ocean/api/services';
+import { StripeIntegrationDetailsComponent } from './stripe-integration-details/stripe-integration-details.component';
+import userEvent from '@testing-library/user-event';
+import { TransformPipe } from '@ocean/shared/pipes/transform.pipe';
+import { of } from 'rxjs';
+import { TestBed } from '@angular/core/testing';
+import { UserFacade } from '@ocean/api/state';
+import { translateServiceMock } from '@ocean/testing/mocks/translate-service-mock';
+import { ButtonComponent } from '@ocean/shared/partials/button/button.component';
+import {
+  LinkDirective,
+  NumberOnlyDirective,
+  TextFieldComponent,
+  TrimInputDirective,
+} from '@ocean/shared';
+import { MatButtonModule } from '@angular/material/button';
+import { FormBuilderComponent } from '@ocean/libs/form-builder';
+import { JobDialogs } from '@ocean/api/data';
+import { TextMaskModule } from 'angular2-text-mask';
 
 describe('ProfileComponent', () => {
   let actions$: any;
@@ -41,25 +59,35 @@ describe('ProfileComponent', () => {
       ReactiveFormsModule,
       MockModule(FlexLayoutModule),
       MockModule(NgxIntlTelInputModule),
-      MockModule(IconsModule),
-      MatIconModule,
+      IconsModule,
       MatFormFieldModule,
       MatInputModule,
       LayoutComponentsModule,
       MatMenuModule,
       MatDialogModule,
+      MatButtonModule,
+      TextMaskModule,
     ],
     declarations: [
+      TrimInputDirective,
+      NumberOnlyDirective,
+      TextFieldComponent,
+      FormBuilderComponent,
+      LinkDirective,
+      ButtonComponent,
       ProfileMenuComponent,
       ProfilePasswordComponent,
       AccountSwitchComponent,
       PersonalInformationComponent,
       FormControlUpdateOnSubmitComponent,
       PaymentDetailsComponent,
+      MockPipe(TransformPipe, () => 'https://ocean.io'),
       MockPipe(TranslatePipe, (value: string) => value),
       MockPipe(FormatTypePipe, (value: string) => value),
+      MockComponent(StripeIntegrationDetailsComponent),
       ProfileComponent,
       FormGalleryComponent,
+      FormGalleryItemComponent,
       FormGalleryUploadComponent,
     ],
     providers: [
@@ -75,14 +103,22 @@ describe('ProfileComponent', () => {
                 address: '7900 W 110th St',
                 email: 'john-doe@mail.com',
                 id: 170,
+                authId: 170,
               },
             },
           },
         },
       }),
+      MockProvider(JobDialogs),
       provideMockActions(() => actions$),
+      UserFacade,
       MockProvider(LocalizationService),
-      MockProvider(MediaService),
+      MockProvider(MediaService, {
+        deleteFile: jest.fn().mockReturnValue(of({})),
+        getFilesByTags: jest
+          .fn()
+          .mockReturnValue(of([{ publicId: 'publicId' }])),
+      } as any),
       MockProvider(NotifierService),
       MockProvider(AuthService),
       MockProvider(TranslateService),
@@ -92,22 +128,28 @@ describe('ProfileComponent', () => {
         },
         createAccount() {
           return undefined;
-        }
+        },
       }),
+      { provide: TranslateService, useValue: translateServiceMock },
     ],
   };
 
-  it('should render', async () => {
+  it('should allow to delete avatar', async () => {
     await render(ProfileComponent, deps);
 
-    expect(screen.queryByLabelText(/FORMS.LABELS.FIRST_NAME/i)).toHaveValue(
-      'John'
-    );
-    expect(screen.queryByLabelText(/FORMS.LABELS.LAST_NAME/i)).toHaveValue(
-      'Doe'
-    );
-    expect(screen.queryByLabelText(/FORMS.LABELS.EMAIL_ADDRESS/i)).toHaveValue(
-      'john-doe@mail.com'
-    );
+    const mediaMock = TestBed.inject(MediaService);
+
+    userEvent.hover(screen.getByTestId('avatar'));
+
+    jest.mocked(mediaMock.getFilesByTags).mockReset();
+
+    const deleteButton = screen.getByRole('button', { name: /delete avatar/i });
+    userEvent.click(deleteButton);
+
+    expect(mediaMock.deleteFile).toHaveBeenCalledWith({ fileId: 'publicId' });
+    expect(mediaMock.getFilesByTags).toHaveBeenCalledWith({
+      tags: 'avatar-170',
+    });
+    expect(mediaMock.getFilesByTags).toHaveBeenCalledTimes(1);
   });
 });

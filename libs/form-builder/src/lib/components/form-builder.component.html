@@ -1,6 +1,6 @@
 <ng-container *ngIf="form && fields">
-  <ng-container [formGroup]="form" >
-    <div [class]="containerCssClass" >
+  <ng-container [formGroup]="form">
+    <div [class]="containerCssClass">
       <ng-container *ngFor="let field of fields | keyvalue: orderByValue">
         <ng-container *ngIf="shouldShow(field.value)">
           <ng-container *ngIf="field.key as fieldName">
@@ -26,6 +26,9 @@
                     false
                   "
                   [label]="fieldNumber.label"
+                  [min]="$any(fieldNumber.min)"
+                  [onlyIntegers]="fieldNumber.onlyIntegers"
+                  [numberValidate]="fieldNumber.numberValidate"
                 >
                 </app-field-text>
               </ng-container>
@@ -71,6 +74,7 @@
                   [label]="fieldText.label"
                   [noTailingSpace]="fieldText.noTailingSpace ?? false"
                   [readonly]="readonly"
+                  [inputMask]="fieldText?.mask"
                 >
                 </app-field-text>
               </ng-container>
@@ -109,16 +113,16 @@
                         fieldCountry.validators?.includes(validatorsRequired) ??
                         false
                       "
-                      >*</span
+                    >*</span
                     >
                   </label>
                   <div
                     class="countryWrapper"
                     (click)="form.get(fieldName)?.markAsTouched()"
                   >
-                    <mat-select-country
+                    <app-country
                       [id]="fieldCountry.type + fieldName"
-                      [placeHolder]="fieldCountry.placeholder ?? '' | translate"
+                      [placeholder]="fieldCountry.placeholder ?? '' | translate"
                       [name]="fieldName"
                       [countries]="fieldCountry?.countries ?? []"
                       [formControlName]="fieldName"
@@ -130,7 +134,7 @@
                         !form.get(fieldName)?.value
                       "
                     >
-                    </mat-select-country>
+                    </app-country>
                     <mat-error
                       class="country-error"
                       *ngIf="
@@ -140,10 +144,6 @@
                     >
                       {{ 'FORMS.LABELS.REQUIRED' | translate }}
                     </mat-error>
-                    <div
-                      *ngIf="!form.get(fieldName)?.value"
-                      class="countryArrow"
-                    ></div>
                   </div>
                 </div>
               </ng-container>
@@ -162,19 +162,25 @@
                         fieldPhone.validators?.includes(validatorsRequired) ??
                         false
                       "
-                      >*</span
+                    >*</span
                     >
                   </label>
                   <ngx-intl-tel-input
                     [cssClass]="'phone-control'"
                     [id]="fieldPhone.type + fieldName"
                     data-testid="phone"
+                    [searchCountryFlag]="true"
+                    [enableAutoCountrySelect]="true"
                     [enablePlaceholder]="true"
                     [selectedCountryISO]="
-                      fieldPhone?.interceptSelectedCountryISO(form) ??
-                      CountryISO.UnitedStates
+                      !fieldPhone.disableISOInterceptor
+                        ? fieldPhone?.interceptSelectedCountryISO(form) ?? CountryISO.UnitedStates
+                        : CountryISO.UnitedStates"
+                    (countryChange)="
+                      !fieldPhone.disableCountryChangeInterceptor
+                        ? fieldPhone?.onCountryChange($event, form)
+                        : undefined
                     "
-                    (countryChange)="fieldPhone?.onCountryChange($event, form)"
                     [phoneValidation]="true"
                     [formControlName]="fieldName"
                     [onlyCountries]="fieldPhone?.countries ?? []"
@@ -187,14 +193,8 @@
                       form.get(fieldName)?.errors as errors
                     "
                   >
-                    <mat-error class="phone-error mt-4">
-                      {{
-                        (errors?.required
-                          ? 'FORMS.LABELS.REQUIRED'
-                          : 'FORMS.ERRORS.INVALID_PHONE'
-                        ) | translate
-                      }}</mat-error
-                    >
+                    <mat-error class="phone-error mt-4" *ngIf="errors?.required">{{ 'FORMS.LABELS.REQUIRED' | translate }}</mat-error>
+                    <mat-error class="phone-error mt-4" *ngIf="!errors?.validatePhoneNumber?.valid">{{ 'FORMS.ERRORS.INVALID_PHONE' | translate }}</mat-error>
                   </ng-container>
                 </div>
               </ng-container>
@@ -218,8 +218,10 @@
                     <ng-container
                       *ngIf="fieldEditable.isEditing; else readonly"
                     >
-                      <span
+                      <ocean-icon
                         *ngIf="form.get(fieldName)?.valid"
+                        as="ACCEPT"
+                        [iconType]="iconType.CHECK"
                         (click)="
                           fieldEditable.onDoneEditing(
                             form.get(fieldName)?.value
@@ -227,24 +229,16 @@
                           fieldEditable.isEditing = false
                         "
                         class="update-btn"
-                      >
-                        {{ 'COMMON.BUTTONS.OK' | translate }}
-                      </span>
+                      ></ocean-icon>
                     </ng-container>
                     <ng-template #readonly>
                       <div class="edit-btn">
-                        <img
-                          src="/assets/icons/pencil-1x.png"
-                          class="edit-pencil-image"
-                        />
-                        <span
+                        <ocean-icon
+                          [iconType]="iconType.EDIT"
                           (click)="
                             fieldEditable.onStartEditing(fieldName);
                             fieldEditable.isEditing = true
-                          "
-                        >
-                          {{ 'COMMON.BUTTONS.EDIT' | translate }}
-                        </span>
+                          "></ocean-icon>
                       </div>
                     </ng-template>
                   </ng-container>
@@ -280,10 +274,10 @@
                       fieldSelect.validators?.includes(validatorsRequired) ??
                       false
                     "
-                    >*</span
+                  >*</span
                   >
                 </label>
-                <mat-form-field [className]="fieldSelect.cssClassName">
+                <mat-form-field>
                   <mat-select
                     [id]="fieldSelect.type + fieldName"
                     [formControlName]="fieldName"
@@ -299,6 +293,15 @@
                       {{ fieldSelect.getOptionTitle(option) }}
                     </mat-option>
                   </mat-select>
+                  <mat-error
+                    class="country-error"
+                    *ngIf="
+                        form.get(fieldName)?.touched &&
+                        form.get(fieldName)?.errors?.required
+                      "
+                  >
+                    {{ 'FORMS.LABELS.REQUIRED' | translate }}
+                  </mat-error>
                 </mat-form-field>
               </ng-container>
               <ng-container
@@ -316,7 +319,7 @@
                       fieldTextarea.validators?.includes(validatorsRequired) ??
                       false
                     "
-                    >*</span
+                  >*</span
                   >
                 </label>
                 <app-field-textarea

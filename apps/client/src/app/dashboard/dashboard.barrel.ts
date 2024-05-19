@@ -30,6 +30,7 @@ import { PaymentDetailsComponent } from './profile/payment-details/payment-detai
 import { BoatUserComponent } from './profile/forms/boat-user/boat-user.component';
 import { ShipyardUserComponent } from './profile/forms/shipyard-user/shipyard-user.component';
 import { MyBidsWidgetComponent } from './my-bids-widget/my-bids-widget.component';
+import { StripeIntegrationDetailsComponent } from './profile/stripe-integration-details/stripe-integration-details.component';
 
 export const DashboardComponents = [
   DashboardIndexComponent,
@@ -64,18 +65,13 @@ export const DashboardComponents = [
   BoatUserComponent,
   ShipyardUserComponent,
   MyBidsWidgetComponent,
+  StripeIntegrationDetailsComponent,
 ];
 
 export const DashboardEntryComponents = [];
 
-// exports for routing
 export {
   DashboardIndexComponent,
-  // FinancesComponent,
-  // FinancesBankComponent,
-  // FinancesTransactionsComponent,
-  // FinancesTransferComponent,
-  // MessagesComponent,
   NotificationsComponent,
   ProfileComponent,
   ProfileFormComponent,

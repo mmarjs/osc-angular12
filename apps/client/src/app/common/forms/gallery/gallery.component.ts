@@ -173,7 +173,7 @@ export class FormGalleryComponent {
     private readonly builder: FormBuilder,
     private readonly notifier: NotifierService,
     private readonly dialog: MatDialog,
-    private readonly localizationService: LocalizationService,
+    private readonly localizationService: LocalizationService
   ) {}
 
   isItemMultiSelected(item: AbstractControl): boolean {
@@ -196,6 +196,20 @@ export class FormGalleryComponent {
       return this.notifier.error(
         this.localizationService.translate('MEDIA.INVALID_FORMAT', {
           file: file.name,
+        })
+      );
+    }
+
+    if (
+      this.files?.value?.some((entity) =>
+        entity instanceof File
+          ? entity?.name === file?.name
+          : entity?.file?.name === file?.name
+      )
+    ) {
+      return this.notifier.info(
+        this.localizationService.translate('MEDIA.DUPLICATED_FILE', {
+          name: file.name,
         })
       );
     }

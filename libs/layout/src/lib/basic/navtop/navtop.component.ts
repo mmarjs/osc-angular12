@@ -1,30 +1,30 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { UserTypeTitles } from '@ocean/api/shared';
 import { UserFacade } from '@ocean/api/state';
-import { untilDestroyed } from 'ngx-take-until-destroy';
 import { Observable } from 'rxjs';
+import { DOCUMENT } from '@angular/common';
+import { scrollToHowItWorksSection } from '@ocean/layout/helpers/scroll-to-how-it-works-section';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'layout-basic-navtop',
   templateUrl: './navtop.component.html',
-  styleUrls: ['./navtop.component.scss']
+  styleUrls: ['./navtop.component.scss'],
 })
-export class NavtopComponent implements OnInit, OnDestroy {
-  loggedIn: boolean;
-  userRole$: Observable<string> = this.user.userType$;
-  userRoles = UserTypeTitles;
-  constructor(private user: UserFacade) {
-    this.user.loggedIn$
-      .pipe(untilDestroyed(this))
-      .subscribe(loggedIn => (this.loggedIn = loggedIn));
-  }
+export class NavtopComponent {
+  readonly userRole$: Observable<string> = this.user.userType$;
+  readonly userRoles = UserTypeTitles;
+  readonly scrollToHowItWorksSection = scrollToHowItWorksSection.bind(this);
+  readonly loggedIn$ = this.user.loggedIn$;
 
-  ngOnInit() { }
-
-  ngOnDestroy() { }
+  constructor(
+    public readonly user: UserFacade,
+    @Inject(DOCUMENT) private readonly document: Document,
+    // used in scrollToHowItWorksSection binding
+    private readonly router: Router
+  ) {}
 
   onLogout() {
-    // TODO prompt for confirmation of only in the CanDeactivate guard?
     this.user.logout();
   }
 }

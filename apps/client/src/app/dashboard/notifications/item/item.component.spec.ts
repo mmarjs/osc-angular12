@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { DashboardImports } from '../../dashboard.imports';
 import { NotificationsItemComponent } from './item.component';
+import { IconsModule } from '@ocean/icons';
+import { TranslateService } from '@ngx-translate/core';
+import { translateServiceMock } from '@ocean/testing/mocks/translate-service-mock';
+import { MatListModule } from '@angular/material/list';
 
 describe('NotificationsItemComponent', () => {
   let component: NotificationsItemComponent;
@@ -8,8 +11,11 @@ describe('NotificationsItemComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [...DashboardImports],
-      declarations: [NotificationsItemComponent]
+      imports: [MatListModule, IconsModule],
+      declarations: [NotificationsItemComponent],
+      providers: [
+        { provide: TranslateService, useValue: translateServiceMock },
+      ],
     }).compileComponents();
   }));
 

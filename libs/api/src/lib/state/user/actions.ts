@@ -38,7 +38,7 @@ export const UserActions = {
   setUpIntentSuccess: createAction('[User] Set Up Intent Success', props<{ payment: PaymentSetUpIntent }>()),
   setUpIntentFailure: createAction('[User] Set Up Intent Failure', props<{ payment: PaymentSetUpIntentFailure }>()),
 
-  getUserCards: createAction('[User] Get User Cards'),
+  getUserCards: createAction('[User] Get User Cards', props<{ lastLength?: number }>()),
   getUserCardsSuccess: createAction('[User] Get User Cards Success', props<{ paymentMethods: PaymentMethod[] }>()),
   getUserCardsFailure: createAction('[User] Get User Cards Failure', props<{ error?: Error }>()),
 

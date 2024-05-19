@@ -1,0 +1,65 @@
+@use '@angular/material' as mat;
+@import '../../../shared/styles';
+
+$card-container-wide-screen: 24%;
+$card-container-medium-screen: 49%;
+$card-container-small-screen: 100%;
+$card-number-input-size: 25%;
+$card-number-last4-font-size-in-rem: 1rem;
+$card-number-hidden-font-size-in-rem: 2.25rem;
+
+.card {
+  @include mat.elevation(3);
+  color: $primary-text-color;
+  width: $card-container-wide-screen;
+  min-width: $card-container-wide-screen;
+  height: $container-height-in-px;
+  max-height: $container-height-in-px;
+  background: $card-background;
+
+  &:hover {
+    @extend .marked;
+  }
+}
+
+.marked {
+  background: $selected-background;
+  cursor: pointer;
+}
+
+.card-number {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+
+  input {
+    width: $card-number-input-size;
+    color: $primary-text-color;
+    font-size: $card-number-last4-font-size-in-rem;
+    background: 0;
+    border: 0;
+    outline: 0;
+  }
+
+  input[type="password"] {
+    font-size: $card-number-hidden-font-size-in-rem;
+    cursor: pointer;
+  }
+}
+
+@media (max-width: $breakpoint-large-in-px) {
+  .card {
+    width: $card-container-medium-screen;
+    min-width: $card-container-medium-screen;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: $breakpoint-small-in-px) {
+  .card {
+    width: $card-container-small-screen;
+    min-width: $card-container-small-screen;
+    margin-bottom: 1rem;
+  }
+}

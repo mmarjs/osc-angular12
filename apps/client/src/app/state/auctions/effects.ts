@@ -1,25 +1,31 @@
+import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
-import { of, switchMap, tap, zip } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 import {
   BidProvider,
   DocumentProvider,
   JobProvider,
 } from '@ocean/api/services';
-import { NotifierService } from '@ocean/shared/services';
 import { BidStatus } from '@ocean/api/shared';
+import { UserFacade } from '@ocean/api/state';
+import { ImageFacadeService } from '@ocean/client/state/images/image-facade.service';
 import { PATHS } from '@ocean/shared';
+import { NotifierService } from '@ocean/shared/services';
+import { of, switchMap, tap } from 'rxjs';
+import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
+import { AuctionsFacade } from '.';
 import { RouterFacade } from '../router';
 import { AuctionsActions } from './actions';
-import { AuctionsFacade } from '.';
-import { ImageFacadeService } from '@ocean/client/state/images/image-facade.service';
-import { UserFacade } from '@ocean/api/state';
 
 @Injectable()
 export class AuctionsEffects {
+  private readonly auctionExtendDays = 90;
+
   constructor(
+    private readonly roter: Router,
+    private readonly location: Location,
     private readonly notifier: NotifierService,
     private readonly translate: TranslateService,
     private readonly jobProvider: JobProvider,
@@ -38,7 +44,9 @@ export class AuctionsEffects {
       ofType(AuctionsActions.getAuctionById),
       mergeMap(({ id }) => this.jobProvider.findById({ id })),
       map((auction) => AuctionsActions.setSelectedAuction({ auction })),
-      tap((resp) => AuctionsActions.getAuctionByIdSuccess({ auction: resp.auction })),
+      tap((resp) =>
+        AuctionsActions.getAuctionByIdSuccess({ auction: resp.auction })
+      ),
       catchError((err) => {
         this.notifier.error(err?.message ?? 'Error');
         return of(
@@ -54,32 +62,37 @@ export class AuctionsEffects {
     this.actions$.pipe(
       ofType(AuctionsActions.createAuction),
       switchMap(({ auction, files }) =>
-        zip(this.jobProvider.createJob({ job: auction }), of(files))
+        this.jobProvider
+          .createJob({ job: auction })
+          .pipe(map((auctionCreated) => ({ auction: auctionCreated, files })))
       ),
-      map(([auction, files]) => {
+      tap(({ auction, files }) => {
         this.imagesFacade.updateImages(files, auction.id, auction.name);
-        return AuctionsActions.setSelectedAuction({ auction });
-        // return AuctionsActions.createAuctionSuccess({auction});
       }),
-      tap((response) => {
-        AuctionsActions.createAuctionSuccess({ auction: response.auction });
+      map(({ auction }) => auction),
+      tap((auction) =>
+        AuctionsActions.createAuctionSuccess({ auction: auction })
+      ),
+      tap((auction) => {
+        const draftUrl = this.roter
+          .createUrlTree(
+            [PATHS.AUCTIONS, auction.boatId, PATHS.AUCTION_CREATE],
+            { queryParams: { draft: auction.id } }
+          )
+          .toString();
+
+        this.location.replaceState(draftUrl); // replace in history to make back button work correctly
+        const paymentUrl = this.roter.createUrlTree([
+          PATHS.AUCTIONS,
+          auction.id,
+          PATHS.AUCTION_PAYMENT,
+        ]);
+        this.routerFacade$.go({ path: [paymentUrl.toString()] });
       }),
-      tap(({ auction }) => {
-        const translateValue = this.translate.instant(
-          'AUCTIONS.AUCTION_CREATED'
-        );
-        this.notifier.success(translateValue);
-        this.routerFacade$.go({
-          path: [`/auctions/${auction.id}/payment`],
-        });
-      }),
+      map((auction) => AuctionsActions.setSelectedAuction({ auction })),
       catchError((err) => {
         this.notifier.error(err?.message ?? 'Error');
-        return of(
-          AuctionsActions.createAuctionFailure({
-            error: err,
-          })
-        );
+        return of(AuctionsActions.createAuctionFailure({ error: err }));
       })
     )
   );
@@ -194,9 +207,11 @@ export class AuctionsEffects {
       switchMap(({ id }) =>
         this.bidProvider
           .getBidByAuctionId(id)
-          .pipe(catchError((err) => of(null)))
+          .pipe(catchError(() => of(null)))
       ),
-      map((bid) => AuctionsActions.getBidByAuctionSuccess({ bid }))
+      map(({ bid, hasBid }) =>
+        AuctionsActions.getBidByAuctionSuccess({ hasBid, bid })
+      )
     )
   );
 
@@ -209,7 +224,7 @@ export class AuctionsEffects {
       switchMap(({ id }) => this.jobProvider.markAsCompleted({ id })),
       mergeMap((auction) => [
         AuctionsActions.getAuctionById({ id: auction.id }),
-      ]),
+      ])
     )
   );
 
@@ -251,5 +266,42 @@ export class AuctionsEffects {
         );
       })
     )
+  );
+
+  extendEndDate$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuctionsActions.extendEndDate),
+      map((action) => {
+        const endDate = new Date();
+        endDate.setDate(endDate.getDate() + this.auctionExtendDays);
+        return { ...action, endDate };
+      }),
+      switchMap(({ id, endDate }) =>
+        this.jobProvider.extendEndDate(id, { auctionEndDate: endDate })
+      ),
+      map((auction) => AuctionsActions.extendEndDateSuccess({ auction })),
+      tap(() => {
+        const translateValue = this.translate.instant(
+          'AUCTIONS.AUCTION_EXTENED',
+          { days: this.auctionExtendDays }
+        );
+        this.notifier.success(translateValue);
+      })
+    )
+  );
+
+  refreshed$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(AuctionsActions.refresh),
+        map((status) => {
+          return AuctionsActions.refresh({
+            status: !status,
+          });
+        })
+      ),
+    {
+      dispatch: false,
+    }
   );
 }

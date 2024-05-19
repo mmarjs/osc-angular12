@@ -2,15 +2,20 @@ import { MediaResponse } from '@ocean/api/client';
 
 export const KEY = 'images';
 
-export interface State {
-  images: {
-    [entityId: string]: {
-      data: MediaResponse[];
-      isLoadingImages: boolean;
-    };
+interface Images {
+  [entityId: string]: {
+    data: MediaResponse[];
   };
 }
 
+export interface State {
+  images: Images;
+  local: File[];
+  isLoadingImages: boolean;
+}
+
 export const initialState: State = {
-  images: {}
+  images: {},
+  local: [],
+  isLoadingImages: false,
 };

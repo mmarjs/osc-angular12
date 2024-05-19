@@ -28,7 +28,14 @@ export class DocumentListComponent implements OnInit, OnDestroy {
     });
   }
 
-  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method, @typescript-eslint/no-empty-function
-  ngOnDestroy() {}
+  formatDocumentStatus(type: UserStatus) {
+    return `DOCUMENTS.STATUSES.${type
+      .replace(/([A-Z])/g, '_$1')
+      .substring(1)
+      .toUpperCase()}`;
+  }
 
+  ngOnDestroy() {
+    return;
+  }
 }

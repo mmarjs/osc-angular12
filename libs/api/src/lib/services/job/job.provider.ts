@@ -6,7 +6,7 @@ import {
   PagedResponse,
   StoredObjectDescriptorDTO,
 } from '@ocean/api/shared';
-import { map, Observable, switchMap } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import {
   JobCreateJobRequest,
@@ -20,7 +20,7 @@ import {
   JobListRequest,
   JobLiveListRequest,
   JobMarkAsAcceptedRequest,
-  JobMarkAsCompletedRequest, JobStatus,
+  JobMarkAsCompletedRequest,
   JobUploadImageRequest,
   JobUploadObjectRequest,
 } from './requests';
@@ -137,7 +137,10 @@ export class JobProvider {
       url: `${this.baseUrl}/users/current`,
       method: 'GET',
       params: {
-        sort: sortForRequestValues([request.pageable.sort, request.pageable.direction]),
+        sort: sortForRequestValues([
+          request.pageable.sort,
+          request.pageable.direction,
+        ]),
         ...paginationForRequestValues(request.pageable),
         status: request.status.join(','),
       },
@@ -217,11 +220,11 @@ export class JobProvider {
       })
       .pipe(
         map((job) => {
-            return ({
-                ...job,
-                isStarted: new Date() >= new Date(job.auctionStartDate as string),
-                isFinished: new Date() <= new Date(job.auctionEndDate as string),
-            });
+          return {
+            ...job,
+            isStarted: new Date() >= new Date(job.auctionStartDate as string),
+            isFinished: new Date() <= new Date(job.auctionEndDate as string),
+          };
         })
       );
   }
@@ -229,7 +232,7 @@ export class JobProvider {
   public markAsInProgress(request: JobMarkAsInProgressRequest) {
     return this.api.request({
       url: `${this.baseUrl}/${request.id}/progress`,
-      method: 'PUT'
+      method: 'PUT',
     });
   }
 
@@ -331,6 +334,25 @@ export class JobProvider {
     return this.api.request({
       url: `${this.baseUrl}/start/${auctionId}`,
       method: 'PUT',
+    });
+  }
+
+  /**
+   * extend end date of the auction
+   * @param {number} jobId - auction id
+   * @param {String | Date} data.auctionEndDate - new end date in ISO format or Date object
+   * Responses: 204
+   * */
+  public extendEndDate(jobId: number, data: { auctionEndDate: Date | string }) {
+    return this.api.request<JobDTO>({
+      url: `${this.baseUrl}/${jobId}/extendEndDate`,
+      method: 'POST',
+      data: {
+        auctionEndDate:
+          typeof data.auctionEndDate === 'string'
+            ? data.auctionEndDate
+            : data.auctionEndDate.toISOString(),
+      },
     });
   }
 

@@ -3,6 +3,7 @@
  */
 
 import { StoredObjectDescriptor } from './storedObjectDescriptor';
+import { Country } from '@angular-material-extensions/select-country';
 
 export interface Shipyard {
   about?: string;
@@ -17,4 +18,5 @@ export interface Shipyard {
   state?: string;
   website?: string;
   zipCode?: string;
+  country?: Country;
 }

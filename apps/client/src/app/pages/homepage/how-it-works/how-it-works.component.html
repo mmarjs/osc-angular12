@@ -1,219 +1,363 @@
-<h2 id="how-it-works">{{'HOW_IT_WORKS.TITLE' | translate}}</h2>
+<h2 [id]="HOW_IT_WORKS_SECTION_ID">{{ 'HOW_IT_WORKS.TITLE' | translate }}</h2>
 
 <mat-tab-group mat-stretch-tabs>
   <mat-tab [label]="'APPLICATION.BOAT_OWNER' | translate">
     <div fxLayout="row wrap" fxLayout.xs="column">
-      <div class="role-action" fxLayout="column" fxLayoutAlign="start center" fxFlex="33">
+      <div
+        class="role-action"
+        [appLink]="['SIGNUP', { role: userType.BOAT_OWNER }]"
+        fxLayout="column"
+        fxLayoutAlign="start center"
+        fxFlex="33"
+      >
         <i class="account-icon"></i>
         <span>
-          {{'COMMON.BUTTONS.CREATE_ACCOUNT' | translate}}
+          {{ 'COMMON.BUTTONS.CREATE_ACCOUNT' | translate }}
         </span>
         <small>
-          {{'HOW_IT_WORKS.TABS.BOAT_OWNER.CREATE_ACCOUNT' | translate}}
+          {{ 'HOW_IT_WORKS.TABS.BOAT_OWNER.CREATE_ACCOUNT' | translate }}
         </small>
       </div>
-      <div class="role-action" fxLayout="column" fxLayoutAlign="start center" fxFlex="33">
+      <div
+        class="role-action"
+        [appLink]="['SIGNUP', { role: userType.BOAT_OWNER }]"
+        fxLayout="column"
+        fxLayoutAlign="start center"
+        fxFlex="33"
+      >
         <i class="boat-icon"></i>
         <span>
-          {{'COMMON.BUTTONS.POST_YOUR_JOB' | translate}}
+          {{ 'COMMON.BUTTONS.POST_YOUR_JOB' | translate }}
         </span>
         <small>
-          {{'HOW_IT_WORKS.TABS.BOAT_OWNER.POST_YOUR_JOB' | translate}}
+          {{ 'HOW_IT_WORKS.TABS.BOAT_OWNER.POST_YOUR_JOB' | translate }}
         </small>
       </div>
-      <div class="role-action" fxLayout="column" fxLayoutAlign="start center" fxFlex="33">
+      <div
+        class="role-action"
+        [appLink]="['SIGNUP', { role: userType.BOAT_OWNER }]"
+        fxLayout="column"
+        fxLayoutAlign="start center"
+        fxFlex="33"
+      >
         <i class="bid-icon"></i>
         <span>
-          {{'HOW_IT_WORKS.ICONS.BOAT_OWNER.BIDDING_BEGIN' | translate}}
+          {{ 'HOW_IT_WORKS.ICONS.BOAT_OWNER.BIDDING_BEGIN' | translate }}
         </span>
         <small>
-          {{'HOW_IT_WORKS.TABS.BOAT_OWNER.BIDDING_BEGIN' | translate}}
+          {{ 'HOW_IT_WORKS.TABS.BOAT_OWNER.BIDDING_BEGIN' | translate }}
         </small>
       </div>
-      <div class="role-action" fxLayout="column" fxLayoutAlign="start center" fxFlex="33">
+      <div
+        class="role-action"
+        [appLink]="['SIGNUP', { role: userType.BOAT_OWNER }]"
+        fxLayout="column"
+        fxLayoutAlign="start center"
+        fxFlex="33"
+      >
         <i class="edit-icon"></i>
         <span>
-          {{'HOW_IT_WORKS.ICONS.BOAT_OWNER.CERTIFIED_PROS' | translate}}
+          {{ 'HOW_IT_WORKS.ICONS.BOAT_OWNER.CERTIFIED_PROS' | translate }}
         </span>
         <small>
-          {{'HOW_IT_WORKS.TABS.BOAT_OWNER.CERTIFIED_PROS' | translate}}
+          {{ 'HOW_IT_WORKS.TABS.BOAT_OWNER.CERTIFIED_PROS' | translate }}
         </small>
       </div>
-      <div class="role-action" fxLayout="column" fxLayoutAlign="start center" fxFlex="33">
+      <div
+        class="role-action"
+        [appLink]="['SIGNUP', { role: userType.BOAT_OWNER }]"
+        fxLayout="column"
+        fxLayoutAlign="start center"
+        fxFlex="33"
+      >
         <i class="check-icon"></i>
         <span>
-          {{'HOW_IT_WORKS.ICONS.BOAT_OWNER.BEST_OFFER' | translate}}
+          {{ 'HOW_IT_WORKS.ICONS.BOAT_OWNER.BEST_OFFER' | translate }}
         </span>
         <small>
-          {{'HOW_IT_WORKS.TABS.BOAT_OWNER.BEST_OFFER' | translate}}
+          {{ 'HOW_IT_WORKS.TABS.BOAT_OWNER.BEST_OFFER' | translate }}
         </small>
       </div>
-      <div class="role-action" fxLayout="column" fxLayoutAlign="start center" fxFlex="33">
+      <div
+        class="role-action"
+        [appLink]="['SIGNUP', { role: userType.BOAT_OWNER }]"
+        fxLayout="column"
+        fxLayoutAlign="start center"
+        fxFlex="33"
+      >
         <i class="settings-icon"></i>
         <span>
-          {{'HOW_IT_WORKS.ICONS.BOAT_OWNER.MONITOR_REPAIR_PROCESS' | translate}}
+          {{
+            'HOW_IT_WORKS.ICONS.BOAT_OWNER.MONITOR_REPAIR_PROCESS' | translate
+          }}
         </span>
         <small>
-          {{'HOW_IT_WORKS.TABS.BOAT_OWNER.MONITOR_REPAIR_PROCESS' | translate}}
+          {{
+            'HOW_IT_WORKS.TABS.BOAT_OWNER.MONITOR_REPAIR_PROCESS' | translate
+          }}
         </small>
       </div>
-      <div class="role-action" fxLayout="column" fxLayoutAlign="start center" fxFlex="33">
+      <div
+        class="role-action"
+        [appLink]="['SIGNUP', { role: userType.BOAT_OWNER }]"
+        fxLayout="column"
+        fxLayoutAlign="start center"
+        fxFlex="33"
+      >
         <i class="success-icon"></i>
         <span>
-          {{'HOW_IT_WORKS.ICONS.BOAT_OWNER.REPAIR_FINISHED' | translate}}
+          {{ 'HOW_IT_WORKS.ICONS.BOAT_OWNER.REPAIR_FINISHED' | translate }}
         </span>
         <small>
-          {{'HOW_IT_WORKS.TABS.BOAT_OWNER.REPAIR_FINISHED' | translate}}
+          {{ 'HOW_IT_WORKS.TABS.BOAT_OWNER.REPAIR_FINISHED' | translate }}
         </small>
       </div>
-      <div class="role-action" fxLayout="column" fxLayoutAlign="start center" fxFlex="33">
+      <div
+        class="role-action"
+        [appLink]="['SIGNUP', { role: userType.BOAT_OWNER }]"
+        fxLayout="column"
+        fxLayoutAlign="start center"
+        fxFlex="33"
+      >
         <i class="dollar-icon"></i>
         <span>
-          {{'HOW_IT_WORKS.ICONS.BOAT_OWNER.BEGIN_PAYMENTS' | translate}}
+          {{ 'HOW_IT_WORKS.ICONS.BOAT_OWNER.BEGIN_PAYMENTS' | translate }}
         </span>
         <small>
-          {{'HOW_IT_WORKS.TABS.BOAT_OWNER.BEGIN_PAYMENTS' | translate}}
+          {{ 'HOW_IT_WORKS.TABS.BOAT_OWNER.BEGIN_PAYMENTS' | translate }}
         </small>
       </div>
-      <div class="role-action" fxLayout="column" fxLayoutAlign="start center" fxFlex="33">
+      <div
+        class="role-action"
+        [appLink]="['SIGNUP', { role: userType.BOAT_OWNER }]"
+        fxLayout="column"
+        fxLayoutAlign="start center"
+        fxFlex="33"
+      >
         <i class="action-icon"></i>
         <span>
-          {{'HOW_IT_WORKS.ICONS.BOAT_OWNER.BACK_ON_WATER' | translate}}
+          {{ 'HOW_IT_WORKS.ICONS.BOAT_OWNER.BACK_ON_WATER' | translate }}
         </span>
         <small>
-          {{'HOW_IT_WORKS.TABS.BOAT_OWNER.BACK_ON_WATER' | translate}}
+          {{ 'HOW_IT_WORKS.TABS.BOAT_OWNER.BACK_ON_WATER' | translate }}
         </small>
       </div>
-      <div *ngIf="!loggedIn" fxFlex="100" fxLayoutAlign="center">
-        <button type="button" mat-flat-button color="primary" [appLink]="['SIGNUP', { role: 'BOAT_OWNER' }]">
-          {{'COMMON.BUTTONS.SIGN_UP_BOAT_OWNER' | translate}}
+      <div *ngIf="!(isLogged$ | async)" fxFlex="100" fxLayoutAlign="center">
+        <button
+          type="button"
+          mat-flat-button
+          color="primary"
+          [appLink]="['SIGNUP', { role: userType.BOAT_OWNER }]"
+        >
+          {{ 'COMMON.BUTTONS.SIGN_UP_BOAT_OWNER' | translate }}
         </button>
       </div>
     </div>
   </mat-tab>
   <mat-tab [label]="'APPLICATION.SHIPYARD' | translate">
     <div fxLayout="row wrap" fxLayout.xs="column">
-      <div class="role-action" fxLayout="column" fxLayoutAlign="start center" fxFlex="33">
+      <div
+        class="role-action"
+        [appLink]="['SIGNUP', { role: userType.SHIPYARD }]"
+        fxLayout="column"
+        fxLayoutAlign="start center"
+        fxFlex="33"
+      >
         <i class="account-icon"></i>
         <span>
-          {{'COMMON.BUTTONS.CREATE_ACCOUNT' | translate}}
+          {{ 'COMMON.BUTTONS.CREATE_ACCOUNT' | translate }}
         </span>
         <small>
-          {{'HOW_IT_WORKS.TABS.SHIPYARD.CREATE_ACCOUNT' | translate}}
+          {{ 'HOW_IT_WORKS.TABS.SHIPYARD.CREATE_ACCOUNT' | translate }}
         </small>
       </div>
-      <div class="role-action" fxLayout="column" fxLayoutAlign="start center" fxFlex="33">
+      <div
+        class="role-action"
+        [appLink]="['SIGNUP', { role: userType.SHIPYARD }]"
+        fxLayout="column"
+        fxLayoutAlign="start center"
+        fxFlex="33"
+      >
         <i class="location-icon"></i>
         <span>
-          {{'HOW_IT_WORKS.ICONS.SHIPYARD.FIND_REPAIR_JOBS' | translate}}
+          {{ 'HOW_IT_WORKS.ICONS.SHIPYARD.FIND_REPAIR_JOBS' | translate }}
         </span>
         <small>
-          {{'HOW_IT_WORKS.TABS.SHIPYARD.FIND_REPAIR_JOBS' | translate}}
+          {{ 'HOW_IT_WORKS.TABS.SHIPYARD.FIND_REPAIR_JOBS' | translate }}
         </small>
       </div>
-      <div class="role-action" fxLayout="column" fxLayoutAlign="start center" fxFlex="33">
+      <div
+        class="role-action"
+        [appLink]="['SIGNUP', { role: userType.SHIPYARD }]"
+        fxLayout="column"
+        fxLayoutAlign="start center"
+        fxFlex="33"
+      >
         <i class="bid-icon"></i>
         <span>
-          {{'HOW_IT_WORKS.ICONS.SHIPYARD.BID_ON_JOBS' | translate}}
+          {{ 'HOW_IT_WORKS.ICONS.SHIPYARD.BID_ON_JOBS' | translate }}
         </span>
         <small>
-          {{'HOW_IT_WORKS.TABS.SHIPYARD.BID_ON_JOBS' | translate}}
+          {{ 'HOW_IT_WORKS.TABS.SHIPYARD.BID_ON_JOBS' | translate }}
         </small>
       </div>
-      <div class="role-action" fxLayout="column" fxLayoutAlign="start center" fxFlex="33">
+      <div
+        class="role-action"
+        [appLink]="['SIGNUP', { role: userType.SHIPYARD }]"
+        fxLayout="column"
+        fxLayoutAlign="start center"
+        fxFlex="33"
+      >
         <i class="boat-icon"></i>
         <span>
-          {{'HOW_IT_WORKS.ICONS.SHIPYARD.GET_WORK' | translate}}
+          {{ 'HOW_IT_WORKS.ICONS.SHIPYARD.GET_WORK' | translate }}
         </span>
         <small>
-          {{'HOW_IT_WORKS.TABS.SHIPYARD.GET_WORK' | translate}}
+          {{ 'HOW_IT_WORKS.TABS.SHIPYARD.GET_WORK' | translate }}
         </small>
       </div>
-      <div class="role-action" fxLayout="column" fxLayoutAlign="start center" fxFlex="33">
+      <div
+        class="role-action"
+        [appLink]="['SIGNUP', { role: userType.SHIPYARD }]"
+        fxLayout="column"
+        fxLayoutAlign="start center"
+        fxFlex="33"
+      >
         <i class="camera-icon"></i>
         <span>
-          {{'HOW_IT_WORKS.ICONS.SHIPYARD.SEND_UPDATES' | translate}}
+          {{ 'HOW_IT_WORKS.ICONS.SHIPYARD.SEND_UPDATES' | translate }}
         </span>
         <small>
-          {{'HOW_IT_WORKS.TABS.SHIPYARD.SEND_UPDATES' | translate}}
+          {{ 'HOW_IT_WORKS.TABS.SHIPYARD.SEND_UPDATES' | translate }}
         </small>
       </div>
-      <div class="role-action" fxLayout="column" fxLayoutAlign="start center" fxFlex="33">
+      <div
+        class="role-action"
+        [appLink]="['SIGNUP', { role: userType.SHIPYARD }]"
+        fxLayout="column"
+        fxLayoutAlign="start center"
+        fxFlex="33"
+      >
         <i class="dollar-icon"></i>
         <span>
-          {{'HOW_IT_WORKS.ICONS.SHIPYARD.GET_PAID' | translate}}
+          {{ 'HOW_IT_WORKS.ICONS.SHIPYARD.GET_PAID' | translate }}
         </span>
         <small>
-          {{'HOW_IT_WORKS.TABS.SHIPYARD.GET_PAID' | translate}}
+          {{ 'HOW_IT_WORKS.TABS.SHIPYARD.GET_PAID' | translate }}
         </small>
       </div>
-      <div *ngIf="!loggedIn" fxFlex="100" fxLayoutAlign="center">
-        <button type="button" mat-flat-button color="primary" [appLink]="['SIGNUP', { role: 'SHIPYARD' }]">
-            {{'COMMON.BUTTONS.SIGN_UP_SHIPYARD' | translate}}
+      <div *ngIf="!(isLogged$ | async)" fxFlex="100" fxLayoutAlign="center">
+        <button
+          type="button"
+          mat-flat-button
+          color="primary"
+          [appLink]="['SIGNUP', { role: userType.SHIPYARD }]"
+        >
+          {{ 'COMMON.BUTTONS.SIGN_UP_SHIPYARD' | translate }}
         </button>
       </div>
-
     </div>
   </mat-tab>
   <mat-tab [label]="'APPLICATION.SURVEYOR' | translate">
     <div fxLayout="row wrap" fxLayout.xs="column">
-      <div class="role-action" fxLayout="column" fxLayoutAlign="start center" fxFlex="33">
+      <div
+        class="role-action"
+        [appLink]="['SIGNUP', { role: userType.SURVEYOR }]"
+        fxLayout="column"
+        fxLayoutAlign="start center"
+        fxFlex="33"
+      >
         <i class="account-icon"></i>
         <span>
-          {{'COMMON.BUTTONS.CREATE_ACCOUNT' | translate}}
+          {{ 'COMMON.BUTTONS.CREATE_ACCOUNT' | translate }}
         </span>
         <small>
-          {{'HOW_IT_WORKS.TABS.SURVEYOR.CREATE_ACCOUNT' | translate}}
+          {{ 'HOW_IT_WORKS.TABS.SURVEYOR.CREATE_ACCOUNT' | translate }}
         </small>
       </div>
-      <div class="role-action" fxLayout="column" fxLayoutAlign="start center" fxFlex="33">
+      <div
+        class="role-action"
+        [appLink]="['SIGNUP', { role: userType.SURVEYOR }]"
+        fxLayout="column"
+        fxLayoutAlign="start center"
+        fxFlex="33"
+      >
         <i class="location-icon"></i>
         <span>
-          {{'HOW_IT_WORKS.ICONS.SURVEYOR.FIND_JOBS' | translate}}
+          {{ 'HOW_IT_WORKS.ICONS.SURVEYOR.FIND_JOBS' | translate }}
         </span>
         <small>
-          {{'HOW_IT_WORKS.TABS.SURVEYOR.FIND_JOBS' | translate}}
+          {{ 'HOW_IT_WORKS.TABS.SURVEYOR.FIND_JOBS' | translate }}
         </small>
       </div>
-      <div class="role-action" fxLayout="column" fxLayoutAlign="start center" fxFlex="33">
+      <div
+        class="role-action"
+        [appLink]="['SIGNUP', { role: userType.SURVEYOR }]"
+        fxLayout="column"
+        fxLayoutAlign="start center"
+        fxFlex="33"
+      >
         <i class="bid-icon"></i>
         <span>
-          {{'HOW_IT_WORKS.ICONS.SURVEYOR.BID_ON_JOBS' | translate}}
+          {{ 'HOW_IT_WORKS.ICONS.SURVEYOR.BID_ON_JOBS' | translate }}
         </span>
         <small>
-          {{'HOW_IT_WORKS.TABS.SURVEYOR.BID_ON_JOBS' | translate}}
+          {{ 'HOW_IT_WORKS.TABS.SURVEYOR.BID_ON_JOBS' | translate }}
         </small>
       </div>
-      <div class="role-action" fxLayout="column" fxLayoutAlign="start center" fxFlex="33">
+      <div
+        class="role-action"
+        [appLink]="['SIGNUP', { role: userType.SURVEYOR }]"
+        fxLayout="column"
+        fxLayoutAlign="start center"
+        fxFlex="33"
+      >
         <i class="boat-icon"></i>
         <span>
-          {{'HOW_IT_WORKS.ICONS.SURVEYOR.GET_WORK' | translate}}
+          {{ 'HOW_IT_WORKS.ICONS.SURVEYOR.GET_WORK' | translate }}
         </span>
         <small>
-          {{'HOW_IT_WORKS.TABS.SURVEYOR.GET_WORK' | translate}}
+          {{ 'HOW_IT_WORKS.TABS.SURVEYOR.GET_WORK' | translate }}
         </small>
       </div>
-      <div class="role-action" fxLayout="column" fxLayoutAlign="start center" fxFlex="33">
+      <div
+        class="role-action"
+        [appLink]="['SIGNUP', { role: userType.SURVEYOR }]"
+        fxLayout="column"
+        fxLayoutAlign="start center"
+        fxFlex="33"
+      >
         <i class="dollar-icon"></i>
         <span>
-          {{'HOW_IT_WORKS.ICONS.SURVEYOR.GET_PAID' | translate}}
+          {{ 'HOW_IT_WORKS.ICONS.SURVEYOR.GET_PAID' | translate }}
         </span>
         <small>
-          {{'HOW_IT_WORKS.TABS.SURVEYOR.GET_PAID' | translate}}
+          {{ 'HOW_IT_WORKS.TABS.SURVEYOR.GET_PAID' | translate }}
         </small>
       </div>
-      <div class="role-action" fxLayout="column" fxLayoutAlign="start center" fxFlex="33">
+      <div
+        class="role-action"
+        [appLink]="['SIGNUP', { role: userType.SURVEYOR }]"
+        fxLayout="column"
+        fxLayoutAlign="start center"
+        fxFlex="33"
+      >
         <i class="comment-icon"></i>
         <span>
-          {{'HOW_IT_WORKS.ICONS.SURVEYOR.FEEDBACK' | translate}}
+          {{ 'HOW_IT_WORKS.ICONS.SURVEYOR.FEEDBACK' | translate }}
         </span>
         <small>
-          {{'HOW_IT_WORKS.TABS.SURVEYOR.FEEDBACK' | translate}}
+          {{ 'HOW_IT_WORKS.TABS.SURVEYOR.FEEDBACK' | translate }}
         </small>
       </div>
-      <div *ngIf="!loggedIn" fxFlex="100" fxLayoutAlign="center">
-        <button type="button" mat-flat-button color="primary" [appLink]="['SIGNUP', { role: 'SURVEYOR' }]">
-          {{'COMMON.BUTTONS.SIGN_UP_SURVEYOR' | translate}}
+      <div *ngIf="!(isLogged$ | async)" fxFlex="100" fxLayoutAlign="center">
+        <button
+          type="button"
+          mat-flat-button
+          color="primary"
+          [appLink]="['SIGNUP', { role: userType.SURVEYOR }]"
+        >
+          {{ 'COMMON.BUTTONS.SIGN_UP_SURVEYOR' | translate }}
         </button>
       </div>
     </div>

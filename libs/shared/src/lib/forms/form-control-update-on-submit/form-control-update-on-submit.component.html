@@ -40,10 +40,7 @@
         <img src="/assets/images/loading.gif" alt="Loading..." *ngIf="isLoading; else loadedTemp"
              class="loading-gif">
         <ng-template #loadedTemp>
-          <mat-icon>edit</mat-icon>
-          <span>{{control.disabled ? ('COMMON.BUTTONS.EDIT' | translate) :
-            ('COMMON.BUTTONS.OK' |translate)}}
-          </span>
+          <ocean-icon [as]="control.disabled ? 'EDIT' : 'ACCEPT'" [iconType]="control.disabled ? iconType.EDIT : iconType.CHECK"></ocean-icon>
         </ng-template>
       </button>
     </div>

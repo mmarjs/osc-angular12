@@ -28,6 +28,29 @@ import { ComponentsModule } from '@ocean/components';
 import { ContractDocumentComponent } from './contract-document/contract-document.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
+export const ROUTE_MAPPING  = {
+  reviewBids: 'review-bids',
+  deposit: 'deposit/:bidId',
+  reviewWork: 'review-work/:bidId',
+  documents: 'documents/:bidId'
+} as const;
+
+// create ts type that will extract all parts of string prefixed by ':' and return them as keys
+type RouteParams<T extends string> = T extends `${infer _Start}:${infer Param}/${infer Rest}`
+  ? { [k in Param | keyof RouteParams<Rest>]: string }
+  : T extends `${infer _Start}:${infer Param}`
+  ? { [k in Param]: string }
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  : {};
+
+export function urlBuilder<T extends string>(route: T, params: RouteParams<T>) {
+  return route.replace(/:\w+/g, (param: string) => {
+    const paramName = param.slice(1) as keyof RouteParams<T>;
+    const value = params[paramName] as unknown as string;
+    return value;
+  });
+}
+
 @NgModule({
   imports: [
     RouterModule.forChild([
@@ -36,7 +59,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         component: BidsShellComponent,
         children: [
           {
-            path: '',
+            path: ROUTE_MAPPING.reviewBids,
             pathMatch: 'full',
             component: BidsComponent,
             data: {
@@ -44,21 +67,21 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
             },
           },
           {
-            path: 'deposit/:bidId',
+            path: ROUTE_MAPPING.deposit,
             component: EscrowDepositComponent,
             data: {
               title: 'BIDS.PAYMENT',
             },
           },
           {
-            path: 'review-work/:bidId',
+            path: ROUTE_MAPPING.reviewWork,
             component: ReviewWorkComponent,
             data: {
               title: 'BIDS.REVIEW_WORK',
             },
           },
           {
-            path: 'documents/:bidId',
+            path: ROUTE_MAPPING.documents,
             component: ContractDocumentComponent,
             data: {
               title: 'BIDS.DOCUMENTS',

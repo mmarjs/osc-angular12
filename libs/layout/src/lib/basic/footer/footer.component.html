@@ -1,43 +1,13 @@
 <footer class="footer-container" fxLayout="column" fxLayoutGap="40px" fxLayoutGap.lt-md="20px">
   <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="space-between center" fxLayoutGap.lt-md="20px">
     <nav fxLayout="row" fxLayoutGap="25px" fxFlexAlign.lt-md="center">
-      <a appLink="HOME" fragment="how-it-works">{{'COMMON.MENU.WHO_WE_ARE' | translate}}</a>
+      <a appLink="HOME" (click)="scrollToHowItWorksSection()">{{'COMMON.MENU.WHO_WE_ARE' | translate}}</a>
       <a appLink="FAQ" class="faq">{{'COMMON.MENU.FAQ' | translate}}</a>
       <a appLink="USER_AGREEMENT">{{'COMMON.MENU.LEGAL' | translate}}</a>
       <a appLink="PRIVACY_POLICY">{{'COMMON.MENU.PRIVACY_POLICY' | translate}}</a>
       <a appLink="COOKIE_POLICY">{{'COMMON.MENU.COOKIE_POLICY' | translate}}</a>
       <a appLink="USER_AGREEMENT">{{'COMMON.MENU.TERMS_OF_SERVICE' | translate}}</a>
     </nav>
-
-    <!--    <div fxLayout="row" fxLayoutAlign=" center" fxLayoutGap="20px">-->
-    <!--      <span>-->
-    <!--        Follow Us:-->
-    <!--      </span>-->
-    <!--      <ul fxLayout="row" fxLayoutGap="20px">-->
-    <!--        <li>-->
-    <!--          <a title="Instagram" routerLink=".">-->
-    <!--            <mat-icon fontSet="fab" fontIcon="fa-instagram"></mat-icon>-->
-    <!--          </a>-->
-    <!--        </li>-->
-    <!--        <li>-->
-    <!--          <a title="Facebook" routerLink=".">-->
-    <!--            <mat-icon fontSet="fab" fontIcon="fa-facebook-square"></mat-icon>-->
-    <!--          </a>-->
-    <!--        </li>-->
-    <!--        <li>-->
-    <!--          <a title="Twitter" routerLink=".">-->
-    <!--            <mat-icon fontSet="fab" fontIcon="fa-twitter"></mat-icon>-->
-    <!--          </a>-->
-    <!--        </li>-->
-    <!--        <li>-->
-    <!--          <a title="LinkedIn" routerLink=".">-->
-    <!--            <mat-icon fontSet="fab" fontIcon="fa-linkedin"></mat-icon>-->
-    <!--          </a>-->
-    <!--        </li>-->
-    <!--      </ul>-->
-    <!--    </div>-->
-    <!--  </div>-->
-
     <div fxLayout="column">
       <div fxLayout="row" fxLayoutAlign="end end" fxLayoutAlign.lt-md="center center">
         <span date-testid="copyright">{{'APPLICATION.COPYRIGHT' | translate}} &copy; {{today.getFullYear()}}</span>

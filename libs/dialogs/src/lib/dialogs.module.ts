@@ -17,7 +17,7 @@ import { UploadBidDocumentsComponent } from './upload-bid-documents.component';
 import { AppFormsModule } from '@ocean/client/common/forms';
 import { SharedFormsModule } from '@ocean/shared';
 import { DocumentViewerComponent } from './document-viewer/document-viewer.component';
-import { MatIconModule } from '@angular/material/icon';
+import { IconsModule } from '@ocean/icons';
 
 @NgModule({
   imports: [
@@ -31,10 +31,31 @@ import { MatIconModule } from '@angular/material/icon';
     FileDropModule,
     AppFormsModule,
     SharedFormsModule,
-    MatIconModule
+    IconsModule,
   ],
-  declarations: [ConfirmDialogComponent, PromptDialogComponent, InputDialogComponent, ContactListerDialogComponent, BidItemNoteDialogComponent, UploadBidDocumentsComponent, DocumentViewerComponent],
-  entryComponents: [ConfirmDialogComponent, PromptDialogComponent, InputDialogComponent, ContactListerDialogComponent, BidItemNoteDialogComponent],
-  exports: [ConfirmDialogComponent, PromptDialogComponent, InputDialogComponent, ContactListerDialogComponent, BidItemNoteDialogComponent,DocumentViewerComponent]
+  declarations: [
+    ConfirmDialogComponent,
+    PromptDialogComponent,
+    InputDialogComponent,
+    ContactListerDialogComponent,
+    BidItemNoteDialogComponent,
+    UploadBidDocumentsComponent,
+    DocumentViewerComponent,
+  ],
+  entryComponents: [
+    ConfirmDialogComponent,
+    PromptDialogComponent,
+    InputDialogComponent,
+    ContactListerDialogComponent,
+    BidItemNoteDialogComponent,
+  ],
+  exports: [
+    ConfirmDialogComponent,
+    PromptDialogComponent,
+    InputDialogComponent,
+    ContactListerDialogComponent,
+    BidItemNoteDialogComponent,
+    DocumentViewerComponent,
+  ],
 })
-export class DialogsModule { }
+export class DialogsModule {}

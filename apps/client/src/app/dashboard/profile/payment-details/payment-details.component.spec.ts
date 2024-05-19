@@ -1,56 +1,53 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatDialogModule } from '@angular/material/dialog';
-import { provideMockActions } from '@ngrx/effects/testing';
-import { provideMockStore } from '@ngrx/store/testing';
-import { MockComponent, MockPipe, MockProvider } from 'ng-mocks';
-import { PaymentDetailsComponent } from './payment-details.component';
-import { PanelWrapperComponent } from '@ocean/layout';
+import { TestBed } from '@angular/core/testing';
+import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { StripeProvider } from '@ocean/api/services';
-import { NotifierService } from '@ocean/shared/services';
-import { LocalizationService } from '@ocean/internationalization';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { UserFacade } from '@ocean/api/state';
+import { LayoutComponentsModule } from '@ocean/layout';
+import { StripeAccountGuardComponent } from '@ocean/stripe';
+import { render, screen } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
+import { MockComponent, MockPipe, MockProvider } from 'ng-mocks';
+import { BehaviorSubject, of } from 'rxjs';
+import { PaymentDetailsComponent } from './payment-details.component';
 
 describe('PaymentDetailsComponent', () => {
-  let component: PaymentDetailsComponent;
-  let fixture: ComponentFixture<PaymentDetailsComponent>;
-  let actions$: any;
+  const getSavedCardsMock$ = new BehaviorSubject([]);
+  const isLoadingMock$ = new BehaviorSubject(false);
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [MatDialogModule, ReactiveFormsModule, FormsModule, MatIconModule],
+  afterEach(() => {
+    getSavedCardsMock$.next([]);
+    isLoadingMock$.next(false);
+  });
+
+  it('should reload cards list after adding new card', async () => {
+    await render(PaymentDetailsComponent, {
+      imports: [LayoutComponentsModule, MatIconModule],
       declarations: [
-        PaymentDetailsComponent,
         MockPipe(TranslatePipe, (value: string) => value),
-        MockComponent(PanelWrapperComponent)
+        MockComponent(StripeAccountGuardComponent),
       ],
       providers: [
-        provideMockStore(),
-        provideMockActions(() => actions$),
-        MockProvider(StripeProvider, {
-          getStripeAccountErrors() {
-            return undefined;
-          },
-          createAccount() {
-            return undefined;
-          }
+        MockProvider(UserFacade, {
+          getSavedCards$: getSavedCardsMock$.asObservable(),
+          isLoading$: isLoadingMock$.asObservable(),
+          loadSavedCards: jest.fn(),
         }),
-        MockProvider(NotifierService, {error: jest.fn()}),
-        MockProvider(LocalizationService),
-        MockProvider(TranslateService)
+        MockProvider(MatDialog, {
+          open: () => {
+            return { afterClosed: () => of(true) };
+          },
+        } as any),
+        MockProvider(TranslateService),
       ],
-    }).compileComponents();
-  });
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(PaymentDetailsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    const userFacadeMock = TestBed.inject(UserFacade);
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+    userEvent.click(
+      screen.getByRole('button', { name: 'PROFILE.ADD_PAYMENT_METHOD' })
+    );
+
+    expect(userFacadeMock.loadSavedCards).toHaveBeenCalled();
   });
 });

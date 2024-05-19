@@ -14,6 +14,12 @@
     </mat-option>
   </mat-autocomplete>
 
-  <mat-icon *ngIf="!_readonly && hasSelected" class="icon-remove" [matTooltip]="tooltip" (click)="onRemove()" matSuffix>
-    cancel</mat-icon>
+  <ocean-icon
+    [iconType]="iconType.CANCEL"
+    *ngIf="!_readonly && hasSelected"
+    matSuffix
+    class="icon-remove"
+    [matTooltip]="tooltip"
+    (click)="onRemove()"
+  ></ocean-icon>
 </mat-form-field>

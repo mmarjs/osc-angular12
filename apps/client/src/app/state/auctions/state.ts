@@ -10,7 +10,9 @@ export interface State {
   isBidCreated?: boolean;
   selectedAuction?: JobDTO;
   selectedBid?: BidDTO;
-  selectedDocument?: Document
+  selectedDocument?: Document;
+  hasBid: boolean;
+  refresh: boolean;
 }
 
 export const initialState: State = {
@@ -18,4 +20,7 @@ export const initialState: State = {
   isCreateSuccess: false,
   isBidCreating: false,
   isBidCreated: false,
+  selectedBid: undefined,
+  hasBid: false,
+  refresh: false,
 };

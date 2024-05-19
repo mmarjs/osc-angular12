@@ -15,24 +15,20 @@ import {
   Job,
   Pageable,
   PagedResponse,
-  PaymentEvent,
 } from '@ocean/api/shared';
 import { IconType } from '@ocean/icons';
 import { toggle } from '@ocean/animations';
-import { catchError, Observable, of, Subscription, tap, forkJoin } from 'rxjs';
+import { catchError, Observable, of, Subscription, tap } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router } from '@angular/router';
 import { BidsFacade } from '@ocean/client/state';
 import { BidProvider, JobProvider, JobStatus } from '@ocean/api/services';
 import { SortItem } from '@ocean/shared';
 
-type StatusType = 'SIGN' | 'PAY' | 'START_REPAIR';
-
 @Component({
   selector: 'ocean-bids-table',
   templateUrl: './bids-table.component.html',
   styleUrls: ['./bids-table.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [toggle()],
 })
 export class BidsTableComponent implements OnInit, OnDestroy {
@@ -59,11 +55,10 @@ export class BidsTableComponent implements OnInit, OnDestroy {
   pageable: Pageable;
   bidItems: BidItem[];
   expandedElementId: number | null;
-  paymentStatus = PaymentEvent;
 
-  bidByIdSubscription$: Subscription | undefined;
-  paginatorSubscription$: Subscription | undefined;
-  sourceSubscription$: Subscription | undefined;
+  bidByIdSubscription$?: Subscription;
+  paginatorSubscription$?: Subscription;
+  sourceSubscription$?: Subscription;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
@@ -73,34 +68,36 @@ export class BidsTableComponent implements OnInit, OnDestroy {
     private readonly bidProvider: BidProvider,
     private readonly jobProvider: JobProvider,
     private readonly cd: ChangeDetectorRef
-  ) {}
+  ) { }
+
+  canUpdateBid(element: Bid) {
+    const canUpdateBidStatuses = [BidStatus.NA, BidStatus.IN_REVIEW];
+    if (canUpdateBidStatuses.includes(element.status)) {
+      return true;
+    }
+
+    const canUpdateBidJobStatuses = [JobStatus.AUCTION_LIVE, JobStatus.DRAFT];
+    if (canUpdateBidJobStatuses.includes(element.job.status)) {
+      return true;
+    }
+
+    return false;
+  }
 
   ngOnInit() {
     this.paginatorSubscription$ = this.paginator.page.subscribe((res) => {
-      const pageable = {
-        page: res.pageIndex,
-        size: res.pageSize,
-        sort: this.sortValue
-          ? `${this.sortValue?.active},${this.sortValue?.direction}`
-          : null,
-      };
       if (!this.isReviewBids) {
+        const pageable = {
+          page: res.pageIndex,
+          size: res.pageSize,
+          sort: this.sortValue
+            ? `${this.sortValue?.active},${this.sortValue?.direction}`
+            : null,
+        };
         this.bidsFacade.loadMyBids({ pageable });
       }
     });
   }
-
-  ngOnChanges() {
-    if (this.source)
-      this.sourceSubscription$ = forkJoin(this.source?.data
-        .map((bid: Bid) => this.bidProvider.findById({ id: bid?.id})))
-        .subscribe(data => {
-          const tempData = this.source.data.map((cell, index) => {
-            return {...cell, ...data[index]}
-          })
-          this.source = {...this.source, data: tempData};
-        });
-    }
 
   ngOnDestroy(): void {
     this.bidByIdSubscription$?.unsubscribe();
@@ -109,7 +106,12 @@ export class BidsTableComponent implements OnInit, OnDestroy {
   }
 
   onNavigate(bid: Bid) {
-    this.router.navigate([`auctions/${bid.job.id}/edit-details/${bid.id}`]);
+    const jobId = bid.job.id;
+    if (this.canUpdateBid(bid)) {
+      this.router.navigate([`auctions/${jobId}/edit-details/${bid.id}`]);
+    } else {
+      this.router.navigate([`auctions/${jobId}/details`]);
+    }
   }
 
   isAuctionEnded(auction: Job) {
@@ -119,27 +121,6 @@ export class BidsTableComponent implements OnInit, OnDestroy {
       currentDate > endDate || auction.status === JobStatus.AUCTION_CANCELLED
     );
   }
-
-  getBidStatus(bid: Bid): StatusType | null {
-    // nothing if bid is not accepted and job is not awarded
-    if (
-      bid.status !== BidStatus.ACCEPTED ||
-      bid.job.status !== JobStatus.AWARDED
-    ) {
-      return null;
-    }
-
-    if (bid.job.commissionPaid > bid.startDeposit) {
-      return 'START_REPAIR';
-    }
-
-    if (bid.job.commissionPaid <= bid.startDeposit) {
-      return 'PAY';
-    }
-
-    return 'SIGN';
-  }
-
   onBidDetails(bid: Bid) {
     if (this.expandedElementId === bid.id) {
       this.isBidLoading = true;

@@ -6,3 +6,4 @@ export * from './lib/forms';
 export * from './lib/pipes';
 export * from './lib/routing';
 export * from './lib/utils';
+export * from './lib/broadcast';

@@ -14,6 +14,7 @@ import { SignDocumentComponent } from './components/sign-document/sign-document.
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { DialogsModule } from '@ocean/dialogs';
+import { StripeModule } from '@ocean/stripe';
 
 export const ROUTES = {
   LIST: '',
@@ -36,10 +37,10 @@ export const ROUTES = {
         ],
       },
     ]),
+    StripeModule,
     TranslateModule,
     StoreModule.forFeature(documentsFeatureKey, reducer),
     EffectsModule.forFeature([DocumentEffects]),
-
     MatButtonModule,
     MatProgressSpinnerModule,
     DialogsModule,

@@ -52,10 +52,6 @@
               <p class="bidding-profile-location">
                 {{ isReviewBids ? element.state : element.boat.state }}
               </p>
-              <div class="rating">
-                <span>&#9733;</span>
-                <span> 97% {{ 'BIDS.RATING' | translate }}</span>
-              </div>
             </div>
           </div>
         </mat-cell>
@@ -116,7 +112,7 @@
                   (btnClick)="acceptBid.emit(element)"
                   [disabled]="element.status !== bidStatus.IN_REVIEW"
                 >
-                  <ocean-icon [iconType]="iconType.CHECK"></ocean-icon>
+                  <ocean-icon as="ACCEPT" [iconType]="iconType.CHECK"></ocean-icon>
                   {{ 'COMMON.BUTTONS.ACCEPT' | translate }}
                 </app-button>
                 <app-button
@@ -125,14 +121,11 @@
                   (btnClick)="rejectBid.emit(element.id)"
                   [disabled]="element.status !== bidStatus.IN_REVIEW"
                 >
-                  <ocean-icon [iconType]="iconType.CLOSE"></ocean-icon>
+                  <ocean-icon as="REJECT" [iconType]="iconType.CLOSE"></ocean-icon>
                   {{ 'COMMON.BUTTONS.REJECT' | translate }}
                 </app-button>
               </div>
               <div class="bids-template-buttons-container">
-                <!-- Todo <app-button color="accent" (btnClick)="sendMessage.emit()">
-                  {{ 'COMMON.BUTTONS.SEND_MESSAGE' | translate }}
-                </app-button> -->
                 <app-button
                   color="accent"
                   (btnClick)="onViewBidDetails(element)"
@@ -144,44 +137,16 @@
           </ng-container>
           <ng-template #mybidsComponentButtons>
             <div class="mybids-buttons">
-              <app-button
-                (btnClick)="onNavigate(element)"
-                [disabled]="
-                  element.status === bidStatus.LOST ||
-                  element.status === bidStatus.AUCTION_CANCELLED ||
-                  element?.paymentItemDTO?.eventType === paymentStatus.SUCCEEDED
-                "
-              >
-                {{ 'COMMON.BUTTONS.UPDATE_BID' | translate }}
+              <app-button (btnClick)="onNavigate(element)">
+                {{
+                  (canUpdateBid(element)
+                    ? 'COMMON.BUTTONS.UPDATE_BID'
+                    : 'COMMON.BUTTONS.VIEW_BID'
+                  ) | translate
+                }}
               </app-button>
               <app-button color="accent" (btnClick)="onViewBidDetails(element)">
                 {{ 'COMMON.BUTTONS.VIEW_BID_DETAILS' | translate }}
-              </app-button>
-              <app-button
-                *ngIf="getBidStatus(element) === 'START_REPAIR'"
-                color="accent"
-                (btnClick)="onStartProgress(element)"
-              >
-                {{ 'BIDS.BID_START_REPAIR' | translate }}
-              </app-button>
-              <app-button
-                *ngIf="getBidStatus(element) === 'PAY'"
-                color="accent"
-                [routerLink]="[
-                  '/auctions',
-                  element?.job?.id,
-                  'deposit',
-                  element?.id
-                ]"
-              >
-                {{ 'BIDS.PAY' | translate }}
-              </app-button>
-              <app-button
-                *ngIf="getBidStatus(element) === 'SIGN'"
-                color="accent"
-                [routerLink]="['/documents', 'job', element?.job?.id]"
-              >
-                {{ 'BIDS.DOCUMENTS' | translate }}
               </app-button>
             </div>
           </ng-template>

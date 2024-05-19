@@ -3,6 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute } from '@angular/router';
 import { JobProvider } from '@ocean/api/services';
+import { UserFacade } from '@ocean/api/state';
 import { PaymentListComponent } from '@ocean/client/common/components/payment-list/payment-list.component';
 import { AuctionsFacade, BoatsFacade, RouterFacade } from '@ocean/client/state';
 import { LocalizationService } from '@ocean/internationalization';
@@ -166,5 +167,67 @@ describe('PaymentComponent integration', () => {
     await waitFor(() => {
       expect(screen.getByText('APPLICATION.SUCCESS!')).toBeInTheDocument();
     });
+  });
+
+  it('should hide Card selector and submit button when payment succeed', async () => {
+    const cmp = await render(PaymentComponent, {
+      imports: [
+        TestModule,
+        TestStoreEnvModule,
+        TestMatModule,
+        LayoutModule,
+        MatIconModule,
+        MatButtonModule,
+      ],
+      declarations: [
+        PaymentComponent,
+        CancelListingComponent,
+        LinkDirective,
+        PanelWrapperComponent,
+        PaymentListComponent,
+        ButtonComponent,
+      ],
+      providers: [
+        { provide: ActivatedRoute, useValue: activatedRoute },
+        MockProvider(LocalizationService, { translate: (key: string) => key }),
+        { provide: JobProvider, useValue: mockJobProvider },
+        {
+          provide: RouterFacade,
+          useValue: {
+            queryParams$: of({ draft: 'draft' }),
+            go: jest.fn(() => true),
+          },
+        },
+        MockProvider(UserFacade, {
+          loadSavedCards: jest.fn(),
+          getSavedCards$: of([
+            {
+              id: 456,
+              stripeMethodId: 'pm_1M4HYSJl1yaxJafBHo3zTrkC',
+              type: 'card',
+              details:
+                '{"id": "pm_1M4HYSJl1yaxJafBHo3zTrkC", "card": {"brand": "visa", "last4": "1789", "checks": {"cvc_check": "pass"}, "country": "US", "funding": "credit", "exp_year": 2023, "networks": {"available": ["visa"]}, "exp_month": 4, "fingerprint": "XnRED9cBJejmUgz2", "three_d_secure_usage": {"supported": true}}, "type": "card", "object": "payment_method", "created": 1668489568, "customer": {"id": "cus_MbWRppavhpIE01"}, "livemode": false, "metadata": {"trace_id": "4a29d7ba13a1893b"}, "billing_details": {"address": {"country": "IN"}}}',
+            },
+          ]),
+        }),
+        { provide: AuctionsFacade, useValue: mockAuctionsFacade },
+        { provide: BoatsFacade, useValue: mockBoatsFacade },
+        { provide: NotifierService, useValue: mockNotifierService },
+      ],
+    });
+
+    await userEvent.click(
+      screen.getByTestId('card-radio')
+    );
+
+    await userEvent.click(
+      screen.queryByRole('button', { name: 'COMMON.BUTTONS.SUBMIT' })
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText('APPLICATION.SUCCESS!')).toBeInTheDocument();
+    });
+
+    expect(screen.queryByTestId('payment-cmp')).not.toBeInTheDocument();
   });
 });

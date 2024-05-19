@@ -1,13 +1,13 @@
 import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { delay, filter, of, switchMap, last, flatMap } from 'rxjs';
-import { map, take } from 'rxjs/operators';
-import { untilDestroyed } from 'ngx-take-until-destroy';
-import { StripeService } from 'ngx-stripe';
-import { StripeElements, StripeError } from '@stripe/stripe-js';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserFacade } from '@ocean/api/state';
-import { NotifierService } from '@ocean/shared/services';
 import { LocalizationService } from '@ocean/internationalization';
+import { NotifierService } from '@ocean/shared/services';
+import { StripeElements, StripeError } from '@stripe/stripe-js';
+import { StripeService } from 'ngx-stripe';
+import { untilDestroyed } from 'ngx-take-until-destroy';
+import { delay, of, switchMap } from 'rxjs';
+import { first, tap } from 'rxjs/operators';
 import { createStripeElementsOptions } from './create-stripe-elements-options';
 
 @Component({
@@ -36,7 +36,7 @@ export class PaymentModalComponent implements OnInit, OnDestroy {
     this.userFacade
       .setUpIntentSuccess$
       .pipe(
-        filter(value => value !== undefined),
+        first(value => value !== undefined),
         switchMap(paymentIntent => {
           if (typeof paymentIntent !== 'object' || typeof paymentIntent?.clientSecret !== 'string') {
             this.notifier.error(this.localizationService.translate('PAYMENT.UNABLE_TO_SETUP_INTENT'));
@@ -44,7 +44,8 @@ export class PaymentModalComponent implements OnInit, OnDestroy {
           }
           return this.stripe.elements(createStripeElementsOptions(paymentIntent?.clientSecret));
         }),
-        map(elements => {
+        delay(1000),
+        tap(elements => {
           this.elements = elements;
 
           elements
@@ -54,15 +55,6 @@ export class PaymentModalComponent implements OnInit, OnDestroy {
         untilDestroyed(this)
       )
       .subscribe();
-
-    this.dialogRef
-      .afterClosed()
-      .pipe(
-        filter(Boolean),
-        delay(500),
-        untilDestroyed(this),
-      )
-      .subscribe(() => this.userFacade.loadSavedCards());
   }
 
   ngOnDestroy() {
@@ -79,19 +71,19 @@ export class PaymentModalComponent implements OnInit, OnDestroy {
     })
       .pipe(
         untilDestroyed(this),
-        take(1),
+        first()
       )
-      .subscribe(({error}) => {
+      .subscribe(({error, setupIntent}) => {
         if (error) {
           this.onStripeError(error);
         } else {
           this.notifier.success(this.localizationService.translate('PAYMENT.PAYMENT_METHOD_ADDED_SUCCESSFULLY'));
-          this.close();
+          this.close(setupIntent.status === 'succeeded');
         }
       });
   }
 
-  close() {
-    this.dialogRef.close();
+  close(result: boolean = false) {
+    this.dialogRef.close(result);
   }
 }

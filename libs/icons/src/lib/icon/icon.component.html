@@ -1,6 +1,20 @@
-<ng-container *ngIf="fontIcon;else materialIconTemp">
-  <mat-icon aria-label="Notifications" [fontSet]="fontSet" [fontIcon]="fontIcon"></mat-icon>
+<ng-container *ngIf="fontIcon; else materialIconTemp">
+  <mat-icon
+    [fontSet]="fontSet"
+    [fontIcon]="fontIcon"
+    [matTooltip]="tooltip | translate"
+    [matTooltipHideDelay]="tooltipHideDelay"
+    [matTooltipPosition]="tooltipPosition"
+  >
+  </mat-icon>
 </ng-container>
 <ng-template #materialIconTemp>
-  <mat-icon [ngClass]="classes">{{iconType}}</mat-icon>
+  <mat-icon
+    [matTooltip]="tooltip | translate"
+    [matTooltipHideDelay]="tooltipHideDelay"
+    [matTooltipPosition]="tooltipPosition"
+    [ngClass]="classes"
+  >
+    {{iconType}}
+  </mat-icon>
 </ng-template>

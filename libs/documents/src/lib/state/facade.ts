@@ -12,6 +12,7 @@ import {
   selectDocuments,
   selectDocumentsLoading,
 } from './selectors';
+import { Document } from './models';
 
 @Injectable({
   providedIn: 'root',
@@ -22,11 +23,7 @@ export class DocumentsFacadeService {
   selectedDocument$ = this.store.pipe(select(selectDocument));
 
   shouldSignDocument$ = this.documents$.pipe(
-    map((documents) =>
-      documents.some(
-        (document) => document.userStatus === UserStatus.NotCompleted
-      )
-    )
+    map((documents) => this.hasActiveValidDocument(documents))
   );
 
   constructor(private store: Store<Slice>) {}
@@ -43,5 +40,11 @@ export class DocumentsFacadeService {
       // load all documents
       this.store.dispatch(loadDocuments());
     }
+  }
+
+  hasActiveValidDocument(documents?: Document[]) {
+    return documents?.some(
+      (document) => document.userStatus === UserStatus.NotCompleted
+    );
   }
 }

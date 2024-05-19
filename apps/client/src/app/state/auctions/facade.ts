@@ -11,8 +11,7 @@ import { Document } from 'libs/documents/src/lib/state/models';
   providedIn: 'root',
 })
 export class AuctionsFacade {
-  constructor(private store: Store<PartialState>) {
-  }
+  constructor(private store: Store<PartialState>) {}
 
   isCreating$: Observable<boolean> = this.store.pipe(
     select(auctionsQuery.getIsCreating)
@@ -38,86 +37,134 @@ export class AuctionsFacade {
     select(auctionsQuery.getSelectedDocument)
   );
 
-  selectedBid$: Observable<BidDTO> = this.store.pipe(select(auctionsQuery.getSelectedBid));
+  selectedBid$: Observable<BidDTO> = this.store.pipe(
+    select(auctionsQuery.getSelectedBid)
+  );
+
+  refreshed$: Observable<boolean> = this.store.pipe(
+    select(auctionsQuery.getRefreshStatus)
+  );
 
   init() {
     this.store.dispatch(AuctionsActions.initAuction());
   }
 
+  refresh() {
+    this.store.dispatch(
+      AuctionsActions.refresh({
+        status: true,
+      })
+    );
+  }
+
   getAuctionById(id: number) {
-    this.store.dispatch(AuctionsActions.getAuctionById({
-      id
-    }));
+    this.store.dispatch(
+      AuctionsActions.getAuctionById({
+        id,
+      })
+    );
   }
 
   setSelectedAuction(auction?: JobDTO) {
-    this.store.dispatch(AuctionsActions.setSelectedAuction({
-      auction
-    }));
+    this.store.dispatch(
+      AuctionsActions.setSelectedAuction({
+        auction,
+      })
+    );
   }
 
   create(jobDto: JobDTO, files: File[]) {
-    this.store.dispatch(AuctionsActions.createAuction({
-      auction: jobDto,
-      files
-    }));
+    this.store.dispatch(
+      AuctionsActions.createAuction({
+        auction: jobDto,
+        files,
+      })
+    );
   }
 
   edit(jobDto: JobDTO, files: File[]) {
-    this.store.dispatch(AuctionsActions.editAuction({
-      auction: jobDto,
-      files
-    }));
+    this.store.dispatch(
+      AuctionsActions.editAuction({
+        auction: jobDto,
+        files,
+      })
+    );
   }
 
   createBid(bidDto: BidDTO) {
-    this.store.dispatch(AuctionsActions.createBidOnAuction({
-      bid: bidDto
-    }));
+    this.store.dispatch(
+      AuctionsActions.createBidOnAuction({
+        bid: bidDto,
+      })
+    );
   }
 
   pay(auctionId: string) {
-    this.store.dispatch(AuctionsActions.payAuction({
-      id: auctionId
-    }));
+    this.store.dispatch(
+      AuctionsActions.payAuction({
+        id: auctionId,
+      })
+    );
   }
 
   cancel(auctionId: number) {
-    this.store.dispatch(AuctionsActions.auctionCancel({
-      id: auctionId
-    }));
+    this.store.dispatch(
+      AuctionsActions.auctionCancel({
+        id: auctionId,
+      })
+    );
   }
 
   getBidByAuction(auctionId: number) {
-    this.store.dispatch(AuctionsActions.getBidByAuction({
-      id: auctionId
-    }));
+    this.store.dispatch(
+      AuctionsActions.getBidByAuction({
+        id: auctionId,
+      })
+    );
   }
 
   resetSelectedBid() {
     this.store.dispatch(AuctionsActions.resetSelectedBid());
   }
 
-  getDocuments(jobId: number | undefined){
-    this.store.dispatch(AuctionsActions.getDocuments({auctionId : jobId}));
+  getDocuments(jobId: number | undefined) {
+    if (
+      (typeof jobId === 'number' || typeof jobId === 'string') &&
+      !isNaN(+jobId)
+    ) {
+      this.store.dispatch(AuctionsActions.getDocuments({ auctionId: +jobId }));
+    }
   }
 
   setSelectedDocument(document: Document | undefined) {
-    this.store.dispatch(AuctionsActions.setSelectedDocument({
-      document
-    }));
+    this.store.dispatch(
+      AuctionsActions.setSelectedDocument({
+        document,
+      })
+    );
   }
 
   markAsInProgress(auctionId: number) {
-    this.store.dispatch(AuctionsActions.markAsInProgress({
-      id: auctionId
-    }));
+    this.store.dispatch(
+      AuctionsActions.markAsInProgress({
+        id: auctionId,
+      })
+    );
   }
 
   markAsCompleted(auctionId: number) {
-    this.store.dispatch(AuctionsActions.markAsCompleted({
-      id: auctionId
-    }));
+    this.store.dispatch(
+      AuctionsActions.markAsCompleted({
+        id: auctionId,
+      })
+    );
   }
 
+  extendAuctionEndDate(auctionId: number) {
+    this.store.dispatch(
+      AuctionsActions.extendEndDate({
+        id: auctionId,
+      })
+    );
+  }
 }

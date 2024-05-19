@@ -4,7 +4,6 @@ import {
   EventEmitter,
   HostListener,
   Input,
-  OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
@@ -14,20 +13,17 @@ import {
   templateUrl: './upload.component.html',
   styleUrls: ['./upload.component.scss'],
 })
-export class FormGalleryUploadComponent implements OnInit {
+export class FormGalleryUploadComponent {
+  @ViewChild('file', { static: true }) input: ElementRef;
+
   @Input()
   accept: string;
 
   @Input()
   multiple: boolean;
 
-  @Output() upload = new EventEmitter<File>();
-
-  @ViewChild('file', { static: true }) input: ElementRef;
-
-  constructor() { }
-
-  ngOnInit() { }
+  @Output()
+  upload = new EventEmitter<File>();
 
   @HostListener('click')
   onclick() {
@@ -36,5 +32,6 @@ export class FormGalleryUploadComponent implements OnInit {
 
   doUpload(files: FileList) {
     Array.from(files).map((file) => this.upload.emit(file));
+    this.input.nativeElement.value = null;
   }
 }

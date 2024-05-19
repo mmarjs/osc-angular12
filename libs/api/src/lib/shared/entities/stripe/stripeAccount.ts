@@ -1,7 +1,7 @@
 interface Address {
   city: string;
   line1: string;
-  line2: string;
+  line2?: string;
   postalCode: string;
   state: string;
   country: string;
@@ -17,7 +17,7 @@ export interface StripeAccount {
     lastName: string;
     phone: string;
     dob: string;
-    taxId: string;
+    taxId?: string;
     gender: string;
     address: Address;
   };

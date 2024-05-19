@@ -1,6 +1,6 @@
 <div fxFlex fxFlexAlign="stretch" class="messages-board">
   <div fxLayout="row" fxLayoutAlign=" center" fxLayoutGap="10px" class="messages-header">
-    <mat-icon>account_circle</mat-icon>
+    <ocean-icon [iconType]="iconType.ACCOUNT_CIRCLE"></ocean-icon>
 
     <div fxFlex fxLayout="column">
       <strong>#Robert</strong>
@@ -19,33 +19,36 @@
 
     <ng-container *ngFor="let message of thread.messages">
       <div class="message-heading" *ngIf="message.timestamp"
-      [class.message-input]="uid !== message.author"
-      [class.message-output]="uid === message.author">
+           [class.message-input]="uid !== message.author"
+           [class.message-output]="uid === message.author">
         {{ message.timestamp }}
       </div>
       <div class="message-wrap"
-      [class.message-input]="uid !== message.author"
-      [class.message-output]="uid === message.author">
+           [class.message-input]="uid !== message.author"
+           [class.message-output]="uid === message.author">
         <span class="message-text" [innerHTML]="message.content"></span>
-        <mat-icon class="message-avatar"
+        <ocean-icon
+          class="message-avatar"
           [fxFlexOrder]="uid === message.author ? -1 : 1"
-        >account_circle</mat-icon>
+          [iconType]="iconType.ACCOUNT_CIRCLE"
+        ></ocean-icon>
       </div>
     </ng-container>
   </div>
 
   <div class="messages-footer">
     <textarea rows="2"
-      [formControl]="newMessage"
-      [appDetectKey]="13"
-      (keyPressed)="doSend()"
-      placeholder="Type your message here..."
+              [formControl]="newMessage"
+              [appDetectKey]="13"
+              (keyPressed)="doSend()"
+              placeholder="Type your message here..."
     ></textarea>
   </div>
 
 </div>
 
 <button type="button" mat-raised-button color="primary"
-[disabled]="!newMessage.value" (click)="doSend()">
-  <mat-icon>send</mat-icon> Send Message
+        [disabled]="!newMessage.value" (click)="doSend()">
+  <ocean-icon [iconType]="iconType.SEND"></ocean-icon>
+  Send Message
 </button>

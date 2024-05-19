@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-
 import { ImageFacadeService } from './image-facade.service';
 
 describe('ImageFacadeService', () => {

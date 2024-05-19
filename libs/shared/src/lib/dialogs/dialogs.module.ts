@@ -11,10 +11,37 @@ import { SharedFormsModule } from '../forms';
 import { SharedDirectivesModule } from '../directives';
 import { RouterModule } from '@angular/router';
 import { TwoInputsDialogComponent } from './two-inputs/two-inputs-dialog.component';
+
 @NgModule({
-  imports: [CommonModule, ...AppDialogsImports, SharedFormsModule, SharedDirectivesModule,RouterModule],
-  declarations: [ConfirmDialogComponent, PromptDialogComponent, InputDialogComponent, ContactListerComponent, AceptBidComponent,TwoInputsDialogComponent],
-  entryComponents: [ConfirmDialogComponent, PromptDialogComponent, InputDialogComponent, ContactListerComponent, AceptBidComponent],
-  exports: [ConfirmDialogComponent, PromptDialogComponent, InputDialogComponent, ContactListerComponent, AceptBidComponent,TwoInputsDialogComponent]
+  imports: [
+    CommonModule,
+    ...AppDialogsImports,
+    SharedFormsModule,
+    SharedDirectivesModule,
+    RouterModule,
+  ],
+  declarations: [
+    ConfirmDialogComponent,
+    PromptDialogComponent,
+    InputDialogComponent,
+    ContactListerComponent,
+    AceptBidComponent,
+    TwoInputsDialogComponent,
+  ],
+  entryComponents: [
+    ConfirmDialogComponent,
+    PromptDialogComponent,
+    InputDialogComponent,
+    ContactListerComponent,
+    AceptBidComponent,
+  ],
+  exports: [
+    ConfirmDialogComponent,
+    PromptDialogComponent,
+    InputDialogComponent,
+    ContactListerComponent,
+    AceptBidComponent,
+    TwoInputsDialogComponent,
+  ],
 })
-export class SharedDialogsModule { }
+export class SharedDialogsModule {}

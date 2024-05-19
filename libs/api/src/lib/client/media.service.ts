@@ -50,15 +50,20 @@ export interface MediaTransformation {
 }
 
 export function transformMedia(media: MediaResponse, name: MediaTransform) {
-  return media.transformationsList?.find(mediaTransform => mediaTransform.transformations === 't_' + name)?.secureFileURL
-    || media.secureFileURL;
+  return (
+    media?.transformationsList?.find(
+      (mediaTransform) => mediaTransform?.transformations === 't_' + name
+    )?.secureFileURL ??
+    media?.secureFileURL ??
+    media?.fileURL
+  );
 }
 
 export enum MediaTransform {
   CAROUSEL_MAIN = 'carousel_main',
   CAROUSEL_THUMB = 'carousel_thumb',
   THUMB = 'thumb',
-  AVATAR = 'avatar'
+  AVATAR = 'avatar',
 }
 
 @Injectable({
@@ -71,7 +76,7 @@ export class MediaService {
     private clientService: ClientService,
     private notifier: NotifierService,
     private translate: TranslateService
-  ) { }
+  ) {}
 
   getFilesByTags(params): Observable<MediaResponse[]> {
     return this.clientService.request<MediaResponse[]>({
@@ -81,9 +86,11 @@ export class MediaService {
     });
   }
 
-  uploadFileWithTransformation(payload: MediaParams): Observable<MediaResponse> {
+  uploadFileWithTransformation(
+    payload: MediaParams
+  ): Observable<MediaResponse> {
     const formData = new FormData();
-    Object.keys(payload).forEach(key => {
+    Object.keys(payload).forEach((key) => {
       formData.append(key, payload[key]);
     });
     return this.clientService.request<MediaResponse>({
@@ -94,18 +101,30 @@ export class MediaService {
     });
   }
 
-  uploadMultipleFilesWithTransformation({ files, transformations, tags, title }: MediaParamsMultiple): Observable<MediaResponse[]> {
+  uploadMultipleFilesWithTransformation({
+    files,
+    transformations,
+    tags,
+    title,
+  }: MediaParamsMultiple): Observable<MediaResponse[]> {
     const uploadFiles$ = files.map((file) => {
-      return this.uploadFileWithTransformation({ file, tags, title, transformations });
+      return this.uploadFileWithTransformation({
+        file,
+        tags,
+        title,
+        transformations,
+      });
     });
     return forkJoin(uploadFiles$).pipe(
-      tap(() => this.notifier.success(this.translate.instant('MEDIA.IMAGES_UPLOADED'))),
+      tap(() =>
+        this.notifier.success(this.translate.instant('MEDIA.IMAGES_UPLOADED'))
+      )
     );
   }
 
-  updateFileWithTransformation(payload: MediaParams & {fileId: string}) {
+  updateFileWithTransformation(payload: MediaParams & { fileId: string }) {
     const formData = new FormData();
-    Object.keys(payload).forEach(key => {
+    Object.keys(payload).forEach((key) => {
       formData.append(key, payload[key]);
     });
     return this.clientService.request<MediaResponse>({
@@ -116,7 +135,10 @@ export class MediaService {
     });
   }
 
-  uploadFile(body: FormData, params: Partial<MediaParams>): Observable<MediaResponse> {
+  uploadFile(
+    body: FormData,
+    params: Partial<MediaParams>
+  ): Observable<MediaResponse> {
     return this.clientService
       .request<MediaResponse>({
         url: `${this.MEDIA_URL}/upload`,
@@ -137,7 +159,9 @@ export class MediaService {
       return this.deleteFile({ fileId: file.publicId });
     });
     return forkJoin(deletedFiles$).pipe(
-      tap(() => this.notifier.success(this.translate.instant('MEDIA.IMAGES_DELETED'))),
+      tap(() =>
+        this.notifier.success(this.translate.instant('MEDIA.IMAGES_DELETED'))
+      )
     );
   }
 
@@ -147,8 +171,8 @@ export class MediaService {
       url: `${this.MEDIA_URL}/delete`,
       method: 'DELETE',
       data: {
-        ...payload
-      }
+        ...payload,
+      },
     });
   }
 }

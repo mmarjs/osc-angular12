@@ -7,7 +7,7 @@
   ></mat-progress-spinner>
 </ng-container>
 <ng-template #guard>
-  <ng-container [ngSwitch]="(stripeAccountState$ | async)">
+  <ng-container [ngSwitch]="(stripeAccountValidation$ | async)">
     <ng-container *ngSwitchCase="STRIPE_ACCOUNT_STATES.VALID">
       <ng-content></ng-content>
     </ng-container>
@@ -19,7 +19,7 @@
         <app-button
           color="warn"
           class="button"
-          [routerLink]="[CREATE_STRIPE_ACCOUNT_URL]"
+          [routerLink]="[STRIPE_URL]"
           [state]="{method: STRIPE_PROVIDER_METHOD.CREATE}"
         >
           {{ 'STRIPE.ACCOUNT.CREATE' | translate }}
@@ -34,7 +34,7 @@
         <app-button
           color="warn"
           class="button"
-          [routerLink]="[CREATE_STRIPE_ACCOUNT_URL]"
+          [routerLink]="[STRIPE_URL]"
           [state]="{method: STRIPE_PROVIDER_METHOD.READ}"
         >
           {{ 'STRIPE.ACCOUNT.EDIT' | translate }}

@@ -2,10 +2,19 @@ import { TestBed } from '@angular/core/testing';
 import { FormBuilderComponent } from './form-builder.component';
 import { FormFieldListModel } from '../models/FormFieldList.model';
 import { FormFieldGroupTypes } from '../models/FormFieldGroupTypes';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators, } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { render, screen } from '@testing-library/angular';
 import { FormBuilderService } from '../services/form-builder.service';
-import { NumberOnlyDirective, TrimInputDirective, } from '@ocean/shared/directives';
+import {
+  NumberOnlyDirective,
+  TrimInputDirective,
+} from '@ocean/shared/directives';
 import { TextFieldComponent } from '@ocean/shared/forms';
 import { MockModule, MockPipe, MockProvider } from 'ng-mocks';
 import { LocalizationService } from '@ocean/internationalization';
@@ -13,7 +22,10 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { DatepickerComponent } from '@ocean/shared/forms/fields/datepicker/datepicker.component';
-import { MatSelectCountryLangToken, MatSelectCountryModule, } from '@angular-material-extensions/select-country';
+import {
+  MatSelectCountryLangToken,
+  MatSelectCountryModule,
+} from '@angular-material-extensions/select-country';
 import { CountryISO, NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -24,11 +36,12 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CheckboxComponent } from '@ocean/shared/forms/fields/checkbox/checkbox.component';
 import { SelectFieldModel } from '@ocean/libs/form-builder';
 import { MatSelectModule } from '@angular/material/select';
+import { AppFormsModule } from '@ocean/client/common/forms';
+import { CountryComponent } from '@ocean/shared/forms/autocompleters/country/country.component';
 
 describe('FormBuilderComponent', () => {
   beforeEach(() => {
-    jest.spyOn(console, 'warn').mockImplementation(() => {
-    });
+    jest.spyOn(console, 'warn').mockImplementation(() => {});
   });
 
   afterEach(() => {
@@ -239,34 +252,34 @@ describe('FormBuilderComponent', () => {
     };
 
     const cmp = await render(FormBuilderComponent, {
-      ...{
-        imports: [
-          ReactiveFormsModule,
-          FormsModule,
-          MatFormFieldModule,
-          MatInputModule,
-          MatSelectCountryModule,
-        ],
-        declarations: [
-          FormBuilderComponent,
-          MockPipe(TranslatePipe, (v) => v),
-          TrimInputDirective,
-          NumberOnlyDirective,
-        ],
-        providers: [
-          FormBuilderService,
-          MockProvider(MatSelectCountryLangToken),
-          MockProvider(LocalizationService),
-          MockProvider(JobDialogs),
-        ],
-      },
+      imports: [
+        ReactiveFormsModule,
+        FormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectCountryModule,
+        AppFormsModule,
+      ],
+      declarations: [
+        FormBuilderComponent,
+        MockPipe(TranslatePipe, (v) => v),
+        TrimInputDirective,
+        NumberOnlyDirective,
+        CountryComponent,
+      ],
+      providers: [
+        FormBuilderService,
+        MockProvider(MatSelectCountryLangToken),
+        MockProvider(LocalizationService),
+        MockProvider(JobDialogs),
+      ],
     });
-    const formBuilder = TestBed.inject(FormBuilder);
+    const formBuilder = TestBed.inject(FormBuilderService);
+
+    const form = formBuilder.buildReactiveForm(formBlock);
 
     cmp.rerender({
-      form: formBuilder.group({
-        country: ['', [Validators.required]],
-      }),
+      form,
       fields: formBlock,
     });
 
@@ -281,7 +294,6 @@ describe('FormBuilderComponent', () => {
         aria-required="false"
         class="mat-input-element mat-form-field-autofill-control mat-autocomplete-trigger cdk-text-field-autofill-monitored"
         data-placeholder="country.placeholder"
-        disabled=""
         matinput=""
         name="country"
         role="combobox"
@@ -430,30 +442,29 @@ describe('FormBuilderComponent', () => {
 
     expect(screen.queryByLabelText(/name.placeholder/i)).toBeInTheDocument();
     expect(screen.queryByLabelText(/age.placeholder/i)).not.toBeInTheDocument();
-    
+
     await userEvent.type(screen.getByLabelText(/name.placeholder/i), 'test');
     cmp.detectChanges();
   });
 
   it('should create select field', async () => {
-    const selectedValueFn = jest.fn(option => option);
+    const selectedValueFn = jest.fn((option) => option);
 
-    const fields: FormFieldListModel<{ gender: SelectFieldModel }, SelectFieldModel> = {
+    const fields: FormFieldListModel<
+      { gender: SelectFieldModel },
+      SelectFieldModel
+    > = {
       gender: {
         order: 0,
         label: 'select.label',
         placeholder: 'select.placeholder',
         defaultValue: '',
         value: '',
-        options: [
-          'male',
-          'female',
-          'other'
-        ],
+        options: ['male', 'female', 'other'],
         type: FormFieldGroupTypes.select,
-        getOptionTitle: value => value,
-        getOptionValue: value => value,
-        onValueSelected: selectedValueFn
+        getOptionTitle: (value) => value,
+        getOptionValue: (value) => value,
+        onValueSelected: selectedValueFn,
       },
     };
 
@@ -464,9 +475,7 @@ describe('FormBuilderComponent', () => {
         MatFormFieldModule,
         MatSelectModule,
       ],
-      declarations: [
-        MockPipe(TranslatePipe, (v) => v),
-      ],
+      declarations: [MockPipe(TranslatePipe, (v) => v)],
       providers: [
         FormBuilderService,
         MockProvider(LocalizationService),
@@ -478,7 +487,8 @@ describe('FormBuilderComponent', () => {
     const form = fb.buildReactiveForm(fields);
 
     cmp.rerender({
-      form, fields,
+      form,
+      fields,
     });
 
     expect(screen.getByLabelText(/select.placeholder/i)).toBeInTheDocument();

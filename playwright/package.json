@@ -1,0 +1,25 @@
+{
+  "name": "playwright-osc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "debug": "npx playwright test --headed",
+    "test": "npx playwright test",
+    "pw:report": "npx playwright show-report",
+    "test:email": "npx playwright test --grep @email",
+    "test:fast": "npx playwright test --grep-invert @email"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.31.2"
+  },
+  "dependencies": {
+    "@faker-js/faker": "7.6.0",
+    "dotenv": "^16.0.3",
+    "mailinator-client": "1.0.3",
+    "zod": "3.21.4"
+  }
+}

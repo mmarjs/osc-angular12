@@ -10,7 +10,7 @@ import {
   Output,
   QueryList,
   SkipSelf,
-  ViewChildren
+  ViewChildren,
 } from '@angular/core';
 import {
   AbstractControl,
@@ -21,11 +21,13 @@ import {
   FormGroup,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
-  Validators
+  Validators,
 } from '@angular/forms';
 import { MatInput } from '@angular/material/input';
 import { FormUtils } from '@ocean/shared/utils';
 import { filter } from 'rxjs/operators';
+import { IconType } from '@ocean/icons';
+import { TipProperties } from '@ocean/shared/forms/directives/app-tip/shared';
 
 @Component({
   selector: 'app-field-password-confirm',
@@ -35,13 +37,13 @@ import { filter } from 'rxjs/operators';
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => PasswordConfirmFieldComponent),
-      multi: true
+      multi: true,
     },
     {
       provide: NG_VALIDATORS,
       useExisting: forwardRef(() => PasswordConfirmFieldComponent),
-      multi: true
-    }
+      multi: true,
+    },
   ],
   // tslint:disable-next-line:use-host-property-decorator
   host: {
@@ -49,17 +51,20 @@ import { filter } from 'rxjs/operators';
     '[class.mat-input-invalid]': '_control?.invalid && _control?.touched',
     '[class.mat-form-field-invalid]': '_control?.invalid && _control?.touched',
     '[class.mat-form-field-disabled]': '_control?.disabled',
-    '[class.mat-form-field-autofilled]': '_control?.autofilled'
-  }
+    '[class.mat-form-field-autofilled]': '_control?.autofilled',
+  },
 })
 export class PasswordConfirmFieldComponent
-  implements ControlValueAccessor, OnInit {
+  implements ControlValueAccessor, OnInit
+{
   form: FormGroup;
+  hidePassword1 = true;
+  hidePassword2 = true;
 
   @Input() formControlName: string;
   @Input() contextId: string;
   @Input() label: string;
-  @Input() minLength = 5;
+  @Input() minLength = 8;
   @Input() maxLength = 30;
 
   @Output() change = new EventEmitter<string>();
@@ -68,6 +73,13 @@ export class PasswordConfirmFieldComponent
 
   _control: AbstractControl | undefined;
 
+  readonly iconType = IconType;
+
+  readonly passwordTips: TipProperties = {
+    title: 'TOOLTIP.PASSWORD.TITLE',
+    tip: 'TOOLTIP.PASSWORD.CONDITIONS',
+  };
+
   /**
    * Status Controls
    */
@@ -75,28 +87,34 @@ export class PasswordConfirmFieldComponent
   get disabled() {
     return this._disabled;
   }
+
   set disabled(value: boolean) {
     this._disabled = coerceBooleanProperty(value);
     this._disabled ? this.form.disable() : this.form.enable();
   }
+
   _disabled = false;
 
   @Input()
   get readonly() {
     return this._readonly;
   }
+
   set readonly(value) {
     this._readonly = coerceBooleanProperty(value);
   }
+
   _readonly: boolean;
 
   @Input()
   get required() {
     return this._required;
   }
+
   set required(value) {
     this._required = coerceBooleanProperty(value);
   }
+
   _required: boolean;
 
   get getErrorMsg() {
@@ -119,7 +137,7 @@ export class PasswordConfirmFieldComponent
     @SkipSelf()
     private parent: ControlContainer,
     private builder: FormBuilder
-  ) { }
+  ) {}
 
   ngOnInit() {
     if (this.formControlName) {
@@ -130,13 +148,13 @@ export class PasswordConfirmFieldComponent
       // once the control gets valid
       // this component needs to update its fields validity
       this._control.statusChanges
-        .pipe(filter(status => status === 'VALID'))
+        .pipe(filter((status) => status === 'VALID'))
         .subscribe(() => FormUtils.updateValidity(this.form));
     }
 
     this.form = this.builder.group({
       password: '',
-      confirm: ''
+      confirm: '',
     });
 
     this.form.valueChanges.subscribe(() => this.onChange());
@@ -159,8 +177,8 @@ export class PasswordConfirmFieldComponent
     this.form.get('confirm').setValidators(validators);
   }
 
-  propagateChange = (data: any) => { };
-  propagateTouch = () => { };
+  propagateChange = (data: any) => {};
+  propagateTouch = () => {};
 
   onChange() {
     const value = (this.form.get('password') as FormControl).value;
@@ -211,7 +229,7 @@ export class PasswordConfirmFieldComponent
 
   private updateErrorState() {
     if (this._control) {
-      this._inputs.forEach(input => {
+      this._inputs.forEach((input) => {
         input.errorState = this._control.invalid;
         input.stateChanges.next();
       });

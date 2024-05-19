@@ -90,5 +90,4 @@ export * from './bidItem';
 export * from './invoiceLineItemPeriod';
 export * from './jobTypes';
 export * from './draft';
-export * from './time-counter';
 export * from './stripe';

@@ -7,6 +7,9 @@ import { ProfileWidgetComponent } from '../profile';
 import { NotificationsIndexComponent } from './index/index';
 import { NotificationsComponent } from './notifications.component';
 import { NotificationsWidgetComponent } from './widget';
+import { IconsModule } from '@ocean/icons';
+import { TranslateService } from '@ngx-translate/core';
+import { translateServiceMock } from '@ocean/testing/mocks/translate-service-mock';
 
 describe('NotificationsComponent', () => {
   let component: NotificationsComponent;
@@ -14,15 +17,18 @@ describe('NotificationsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
+      imports: [RouterTestingModule, IconsModule],
       declarations: [
         LinkDirectiveMock,
         MockComponent(NotificationsIndexComponent),
         // MockComponent(MessagesWidgetComponent),
         MockComponent(NotificationsWidgetComponent),
         MockComponent(ProfileWidgetComponent),
-        NotificationsComponent
-      ]
+        NotificationsComponent,
+      ],
+      providers: [
+        { provide: TranslateService, useValue: translateServiceMock },
+      ],
     }).compileComponents();
   }));
 

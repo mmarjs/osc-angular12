@@ -1,18 +1,19 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { of, ReplaySubject } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {
   API_ENVIRONMENT,
-  ApiError, EditPayment,
+  ApiError,
+  EditPayment,
   EditPaymentMethod,
   PaymentMethod,
   PaymentSetUpIntent,
   User,
   UserInputDTO,
-  UserUpdateDTO
+  UserUpdateDTO,
 } from '@ocean/api/shared';
 import { mockEnvironment, StoreTesting } from '@ocean/testing';
 import { SessionEffects } from './effects';
@@ -26,20 +27,34 @@ import { Router } from '@angular/router';
 import { AppRouteDefinitions } from '@ocean/shared';
 import { TranslateService } from '@ngx-translate/core';
 import { LocalizationService } from '@ocean/internationalization';
-import { take } from 'rxjs/operators';
+import * as Sentry from '@sentry/angular';
+import { Action } from '@ngrx/store';
+import { TestScheduler } from 'rxjs/testing';
+import { HttpErrorResponse } from '@angular/common/http';
+
+export function getScheduler() {
+  const testScheduler = new TestScheduler((actual, expected) => {
+    expect(actual).toEqual(expected);
+  });
+  return testScheduler;
+}
+
+afterEach(() => {
+  expect.hasAssertions();
+});
 
 describe('SessionEffects', () => {
-  const actions$: ReplaySubject<any> = new ReplaySubject<any>(1);
   let effects: SessionEffects;
   let authService: AuthService;
   let user: UserProvider;
   let notifier: NotifierService;
-  let translate: TranslateService;
   let userFacade: UserFacade;
 
   const router = {
-    navigate: jest.fn()
+    navigate: jest.fn(),
   };
+
+  let actions$: Observable<Action>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -50,7 +65,7 @@ describe('SessionEffects', () => {
         ...StoreTesting,
       ],
       providers: [
-        {provide: API_ENVIRONMENT, useValue: mockEnvironment},
+        { provide: API_ENVIRONMENT, useValue: mockEnvironment },
         SessionEffects,
         provideMockActions(() => actions$),
         MockProvider(AuthService),
@@ -60,7 +75,8 @@ describe('SessionEffects', () => {
         MockProvider(TranslateService),
         MockProvider(UserFacade),
         MockProvider(LocalizationService),
-        {provide: Router, useValue: router}
+        MockProvider(TranslateService, { instant: jest.fn((k) => k) }),
+        { provide: Router, useValue: router },
       ],
     });
 
@@ -68,7 +84,6 @@ describe('SessionEffects', () => {
     authService = TestBed.inject(AuthService);
     user = TestBed.inject(UserProvider);
     notifier = TestBed.inject(NotifierService);
-    translate = TestBed.inject(TranslateService);
     userFacade = TestBed.inject(UserFacade);
   });
 
@@ -77,102 +92,100 @@ describe('SessionEffects', () => {
     jest.restoreAllMocks();
   });
 
-  it('should be created', () => {
-    expect(effects).toBeTruthy();
-  });
-
   it('initStart$ success', () => {
-    actions$.next(SystemActions.loadSystem());
-
     const accessToken: Auth0DecodedHash = {
-      accessToken: 'accessToken'
+      accessToken: 'accessToken',
     };
 
-    jest.spyOn(authService, 'getAccessToken').mockImplementationOnce(() => {
-      return of(accessToken) as any;
-    });
+    getScheduler().run(({ expectObservable, hot, flush }) => {
+      authService.getAccessToken = jest.fn().mockReturnValue(of(accessToken));
 
-    effects.initStart$
-      .pipe(take(1))
-      .subscribe(res => {
-        expect(res).toEqual(UserActions.tokenLoaded({hash: accessToken}));
+      actions$ = hot('a', { a: SystemActions.loadSystem() });
+
+      expectObservable(effects.initStart$).toBe('a', {
+        a: UserActions.tokenLoaded({ hash: accessToken }),
       });
+
+      flush();
+    });
   });
 
   it('initStart$ error', () => {
-    const accessToken: Auth0DecodedHash = {
-      accessToken: 'accessToken'
-    };
-
     jest.spyOn(authService, 'getAccessToken').mockImplementationOnce(() => {
-      return of(accessToken) as any;
+      return Promise.reject(new Error('error'));
     });
 
-    jest.spyOn(UserActions, 'tokenLoaded').mockImplementationOnce(() => {
-      throw new Error();
-    });
+    getScheduler().run(({ expectObservable, hot, flush }) => {
+      actions$ = hot('a', { a: SystemActions.loadSystem() });
 
-    actions$.next(SystemActions.loadSystem());
-
-    effects.initStart$
-      .pipe(take(1))
-      .subscribe(res => {
-        expect(res).toEqual(SystemActions.loadSystemSuccess());
+      expectObservable(effects.initStart$).toBe('10s e', {
+        e: SystemActions.loadSystemSuccess(),
       });
-  });
 
-  it('tokenLoaded$ error', () => {
-    const accessToken: Auth0DecodedHash = {
-      accessToken: 'accessToken'
-    };
-
-    const error: ApiError = {
-      error: 'error',
-      message: 'error message'
-    };
-
-    jest.spyOn(user, 'getCurrentUser').mockImplementationOnce(() => {
-      throw error;
+      flush();
     });
-
-    actions$.next(UserActions.tokenLoaded({hash: accessToken}));
-
-    effects.tokenLoaded$
-      .pipe(take(1))
-      .subscribe(res => {
-        expect(res).toEqual(UserActions.loginUserFailure({error}));
-        expect(res).toEqual(SystemActions.loadSystemSuccess());
-      });
   });
 
   it('tokenLoaded$ success', () => {
     const accessToken: Auth0DecodedHash = {
-      accessToken: 'accessToken'
+      accessToken: 'accessToken',
     };
 
     const loggedUser: User = {
-      email: 'test@test.com'
+      email: 'test@test.com',
     };
 
     jest.spyOn(user, 'getCurrentUser').mockImplementationOnce(() => {
       return of(loggedUser);
     });
 
-    actions$.next(UserActions.tokenLoaded({hash: accessToken}));
-
-    effects.tokenLoaded$
-      .pipe(take(1))
-      .subscribe(res => {
-        expect(res).toEqual(UserActions.loginUserSuccess({user: loggedUser}));
-        expect(res).toEqual(SystemActions.loadSystemSuccess());
+    getScheduler().run(({ expectObservable, cold, flush }) => {
+      actions$ = cold('a', {
+        a: UserActions.tokenLoaded({ hash: accessToken }),
       });
+
+      expectObservable(effects.tokenLoaded$).toBe('(ab)', {
+        a: UserActions.loginUserSuccess({ user: loggedUser }),
+        b: SystemActions.loadSystemSuccess(),
+      });
+
+      flush();
+    });
+  });
+
+  it('tokenLoaded$ error', () => {
+    const accessToken: Auth0DecodedHash = {
+      accessToken: 'accessToken',
+    };
+
+    const error: ApiError = {
+      error: 'error',
+      message: 'error message',
+    };
+
+    jest
+      .spyOn(user, 'getCurrentUser')
+      .mockImplementation(() => throwError(() => error));
+
+    getScheduler().run(({ expectObservable, cold, hot, flush }) => {
+      actions$ = hot('a', {
+        a: UserActions.tokenLoaded({ hash: accessToken }),
+      });
+
+      expectObservable(effects.tokenLoaded$).toBe('(ab)', {
+        a: UserActions.loginUserFailure({ error }),
+        b: SystemActions.loadSystemSuccess(),
+      });
+
+      flush();
+    });
   });
 
   it('signupUser$ success', () => {
     const userObject: UserInputDTO = {
       email: 'test@test.com',
       login: 'login',
-      password: 'password'
+      password: 'password',
     };
 
     jest.spyOn(user, 'registerAccount').mockImplementation(() => {
@@ -181,49 +194,161 @@ describe('SessionEffects', () => {
 
     jest.spyOn(notifier, 'success').mockReturnValue(null);
 
-    jest.spyOn(translate, 'instant').mockImplementationOnce((key: string) => {
-      return key;
+    getScheduler().run(({ expectObservable, cold, flush }) => {
+      actions$ = cold('a', {
+        a: UserActions.signUpUser({ user: userObject }),
+      });
+
+      expectObservable(effects.signupUser$).toBe('a', { a: {} });
+
+      flush();
+
+      expect(user.registerAccount).toHaveBeenCalledWith(
+        expect.objectContaining({
+          userInputDTO: userObject,
+        })
+      );
+
+      expect(notifier.success).toHaveBeenCalledWith(
+        'REGISTRATION.CHECK_YOUR_EMAIL_FOR_CONFIRMATION_REGISTRATION_MSG',
+        'COMMON.OK',
+        5000
+      );
+
+      expect(router.navigate).toHaveBeenCalledWith(['/signup/created']);
+    });
+  });
+
+  it('signupUser$ error', () => {
+    const userObject: UserInputDTO = {
+      email: '',
+      login: 'login',
+      password: 'password',
+    };
+    jest.spyOn(user, 'registerAccount').mockImplementation(() => {
+      return throwError(() => Error('API error'));
     });
 
-    actions$.next(UserActions.signUpUser({user: userObject}));
+    jest.spyOn(notifier, 'confirm').mockReturnValue(null);
 
-    effects.signupUser$
-      .pipe(take(1))
-      .subscribe(res => {
-        expect(res).toEqual({});
-
-        expect(user.registerAccount).toHaveBeenCalledWith(expect.objectContaining({
-          userInputDTO: userObject
-        }));
-
-        expect(notifier.success).toHaveBeenCalledWith(
-          'REGISTRATION.CHECK_YOUR_EMAIL_FOR_CONFIRMATION_REGISTRATION_MSG',
-          'OK',
-          5000
-        );
-
-        expect(router.navigate).toHaveBeenCalledWith(['/signup/created']);
+    getScheduler().run(({ expectObservable, cold, flush }) => {
+      actions$ = cold('a', {
+        a: UserActions.signUpUser({ user: userObject }),
       });
+
+      expectObservable(effects.signupUser$).toBe('a', { a: null });
+
+      flush();
+      expect(notifier.confirm).toHaveBeenCalledWith('AUTH0.ERROR.UNHANDLED');
+
+      expect(user.registerAccount).toHaveBeenCalledWith({
+        userInputDTO: userObject,
+      });
+    });
   });
 
   it('loginUser$ success', () => {
     jest.spyOn(authService, 'doLogin').mockReturnValue(null);
 
-    actions$.next(UserActions.loginUser());
-
-    effects.loginUser$
-      .pipe(take(1))
-      .subscribe(res => {
-        expect(res).toEqual(UserActions.loginUser());
-        expect(authService.doLogin).toHaveBeenCalled();
+    getScheduler().run(({ expectObservable, hot, flush }) => {
+      actions$ = hot('a', {
+        a: UserActions.loginUser(),
       });
+
+      expectObservable(effects.loginUser$).toBe('a', {
+        a: UserActions.loginUser(),
+      });
+      flush();
+      expect(authService.doLogin).toHaveBeenCalled();
+    });
+  });
+
+  it('loginSuccess$ success', () => {
+    const user: User = {
+      id: 1,
+      authId: '123',
+      login: 'login',
+      firstName: 'first',
+      lastName: 'last',
+      email: 'test@test.com',
+      userTypes: [
+        { id: 1, type: 'user' },
+        { id: 2, type: 'admin' },
+      ],
+    };
+    const scopeMock = {
+      setUser: jest.fn(),
+      setTag: jest.fn(),
+    };
+    jest
+      .spyOn(Sentry, 'configureScope')
+      .mockImplementation((cb: any) => cb(scopeMock));
+
+    getScheduler().run(({ expectObservable, hot, flush }) => {
+      actions$ = hot('a', {
+        a: UserActions.loginUserSuccess({ user: user }),
+      });
+
+      expectObservable(effects.loginSuccess$).toBe('a', {
+        a: UserActions.loginUserSuccess({ user: user }),
+      });
+
+      flush();
+      expect(scopeMock.setUser).toHaveBeenCalledWith({
+        ...user,
+        userTypes: undefined,
+        id: '1',
+        type: 'user,admin',
+      });
+      expect(scopeMock.setTag).toHaveBeenCalledWith('environment', 'local');
+    });
+  });
+
+  it('loginError$ success', () => {
+    const error: ApiError = {
+      error: 'error',
+      message: 'error message',
+    };
+    jest.spyOn(notifier, 'error').mockReturnValue(null);
+
+    getScheduler().run(({ expectObservable, hot, flush }) => {
+      actions$ = hot('a', {
+        a: UserActions.loginUserFailure({ error: error }),
+      });
+
+      expectObservable(effects.loginError$).toBe('a', {
+        a: UserActions.loginUserFailure({ error: error }),
+      });
+
+      flush();
+
+      expect(notifier.error).toHaveBeenCalledWith(error.error, '', 5000);
+    });
+  });
+
+  it('reauthUser$ success', () => {
+    jest.spyOn(authService, 'reauth').mockReturnValue(null);
+
+    getScheduler().run(({ expectObservable, hot, flush }) => {
+      actions$ = hot('a', {
+        a: UserActions.reauth(),
+      });
+
+      expectObservable(effects.reauthUser$).toBe('a', {
+        a: UserActions.reauth(),
+      });
+
+      flush();
+
+      expect(authService.reauth).toHaveBeenCalled();
+    });
   });
 
   it('updateUser$ success', () => {
     const userUpdate: UserUpdateDTO = {
       firstName: 'firstName',
       lastName: 'lastName',
-      phoneNumber: '00000000'
+      phoneNumber: '00000000',
     };
 
     const userUpdateExpected = {
@@ -232,105 +357,217 @@ describe('SessionEffects', () => {
       phoneNo: userUpdate.phoneNumber,
     };
 
-    jest.spyOn(user, 'updateUser').mockImplementation(() => {
-      return of(userUpdateExpected);
-    });
+    jest
+      .spyOn(user, 'updateUser')
+      .mockImplementation(() => of(userUpdateExpected));
 
-    actions$.next(UserActions.updateUser({user: userUpdate}));
-
-    effects.updateUser$
-      .pipe(take(1))
-      .subscribe(res => {
-        expect(res).toEqual(UserActions.updateUserSuccess({user: userUpdateExpected}));
+    getScheduler().run(({ expectObservable, hot, flush }) => {
+      actions$ = hot('a', {
+        a: UserActions.updateUser({ user: userUpdate }),
       });
+
+      expectObservable(effects.updateUser$).toBe('a', {
+        a: UserActions.updateUserSuccess({ user: userUpdateExpected }),
+      });
+
+      flush();
+
+      expect(user.updateUser).toHaveBeenCalledWith({ userDTO: userUpdate });
+    });
   });
 
   it('updateUser$ error', () => {
     const userUpdate: UserUpdateDTO = {
       firstName: 'firstName',
       lastName: 'lastName',
-      phoneNumber: '00000000'
+      phoneNumber: '00000000',
     };
-
     jest.spyOn(user, 'updateUser').mockImplementation(() => {
       return of(null);
     });
 
-    actions$.next(UserActions.updateUser({user: userUpdate}));
-
-    effects.updateUser$
-      .pipe(take(1))
-      .subscribe(res => {
-        expect(res).toEqual(UserActions.updateUserFailure({error: new TypeError("Cannot read properties of null (reading 'firstName')")}));
+    getScheduler().run(({ expectObservable, hot, flush }) => {
+      actions$ = hot('a', {
+        a: UserActions.updateUser({ user: userUpdate }),
       });
+
+      expectObservable(effects.updateUser$).toBe('a', {
+        a: UserActions.updateUserFailure({
+          error: new TypeError(
+            "Cannot read properties of null (reading 'firstName')"
+          ),
+        }),
+      });
+
+      flush();
+
+      expect(user.updateUser).toHaveBeenCalledWith({ userDTO: userUpdate });
+    });
   });
 
-  it('UpdateSuccess$ success', () => {
-    const userObject: Partial<User> = {
-      email: 'test@test.com'
-    };
+  it('updateUser$ BAD_REQUEST', () => {
+    const error = new HttpErrorResponse({
+      statusText: 'BAD_REQUEST',
+    });
+    jest.spyOn(user, 'updateUser').mockImplementation(() => {
+      return throwError(() => error);
+    });
+    jest.spyOn(notifier, 'error').mockReturnValue(null);
 
-    jest.spyOn(notifier, 'success').mockReturnValue(null);
-
-    actions$.next(UserActions.updateUserSuccess({user: userObject}));
-
-    effects.updateSuccess$
-      .pipe(take(1))
-      .subscribe(res => {
-        expect(res).toEqual(UserActions.updateUserSuccess({user: userObject}));
-        expect(notifier.success).toHaveBeenCalledWith('Profile updated successfully');
-        expect(router.navigate).toHaveBeenCalledWith(['/dashboard/profile']);
+    getScheduler().run(({ expectObservable, hot, flush }) => {
+      actions$ = hot('a', {
+        a: UserActions.updateUser({ user: null }),
       });
-  });
 
-  it('logout$ success', () => {
-    jest.spyOn(authService, 'doLogout').mockReturnValue(null);
-
-    actions$.next(UserActions.logoutUser());
-
-    effects.logout$
-      .pipe(take(1))
-      .subscribe(res => {
-        expect(res).toEqual(undefined);
-        expect(authService.doLogout).toHaveBeenCalled();
+      expectObservable(effects.updateUser$).toBe('a', {
+        a: UserActions.updateUserFailure({
+          error: error,
+        }),
       });
+
+      flush();
+
+      expect(user.updateUser).toHaveBeenCalledWith({ userDTO: null });
+      expect(notifier.error).toHaveBeenCalledWith('FORMS.ERRORS.INVALID_DATA');
+    });
   });
 
   it('updateUserAvatar$ success', () => {
     const testFile: File = new File([], 'name');
 
     const userObj: Partial<User> = {
-      email: 'test@test.com'
+      email: 'test@test.com',
     };
 
     jest.spyOn(user, 'updateUserAvatar').mockReturnValue(of(userObj));
 
-    actions$.next(UserActions.updateUserAvatar({file: testFile}));
-
-    effects.updateUserAvatar$
-      .pipe(take(1))
-      .subscribe(res => {
-        expect(res).toEqual(UserActions.updateUserSuccess({user: userObj}));
+    getScheduler().run(({ expectObservable, hot, flush }) => {
+      actions$ = hot('a', {
+        a: UserActions.updateUserAvatar({ file: testFile }),
       });
+
+      expectObservable(effects.updateUserAvatar$).toBe('a', {
+        a: UserActions.updateUserSuccess({ user: userObj }),
+      });
+
+      flush();
+
+      expect(user.updateUserAvatar).toHaveBeenCalledWith({ file: testFile });
+    });
+  });
+
+  it('updateUserAvatar$ error', () => {
+    const error = new HttpErrorResponse({ statusText: 'BAD_REQUEST' });
+    const testFile = new File([], 'testFile');
+    jest.spyOn(user, 'updateUserAvatar').mockImplementation(() => {
+      return throwError(() => error);
+    });
+
+    getScheduler().run(({ expectObservable, hot, flush }) => {
+      actions$ = hot('a', {
+        a: UserActions.updateUserAvatar({ file: testFile }),
+      });
+
+      expectObservable(effects.updateUserAvatar$).toBe('a', {
+        a: UserActions.updateUserFailure({
+          error: error,
+        }),
+      });
+
+      flush();
+
+      expect(user.updateUserAvatar).toHaveBeenCalledWith({ file: testFile });
+    });
+  });
+
+  it('UpdateSuccess$ success', () => {
+    const userObject: Partial<User> = {
+      email: 'test@test.com',
+    };
+
+    jest.spyOn(notifier, 'success').mockReturnValue(null);
+
+    getScheduler().run(({ expectObservable, hot, flush }) => {
+      actions$ = hot('a', {
+        a: UserActions.updateUserSuccess({ user: userObject }),
+      });
+
+      expectObservable(effects.updateSuccess$).toBe('a', {
+        a: UserActions.updateUserSuccess({ user: userObject }),
+      });
+
+      flush();
+
+      expect(notifier.success).toHaveBeenCalledWith('PROFILE.UPDATED');
+      expect(router.navigate).toHaveBeenCalledWith(['/dashboard/profile']);
+    });
+  });
+
+  it('logout$ success', () => {
+    jest.spyOn(authService, 'doLogout').mockReturnValue(null);
+
+    getScheduler().run(({ expectObservable, hot, flush }) => {
+      actions$ = hot('a', {
+        a: UserActions.logoutUser(),
+      });
+
+      expectObservable(effects.logout$).toBe('a', {
+        a: null,
+      });
+
+      flush();
+
+      expect(authService.doLogout).toHaveBeenCalled();
+    });
   });
 
   it('setUpIntent$ success', () => {
     const paymentSetupIntent: PaymentSetUpIntent = {
       clientSecret: 'clientSecret',
-      setupIntentId: 'setupIntentId'
+      setupIntentId: 'setupIntentId',
     };
 
     jest.spyOn(user, 'setUpIntent').mockImplementationOnce(() => {
       return of(paymentSetupIntent);
     });
 
-    actions$.next(UserActions.setUpIntent());
-
-    effects.setUpIntent$
-      .pipe(take(1))
-      .subscribe(res => {
-        expect(res).toEqual(UserActions.setUpIntentSuccess({payment: paymentSetupIntent}));
+    getScheduler().run(({ expectObservable, hot, flush }) => {
+      actions$ = hot('a', {
+        a: UserActions.setUpIntent(),
       });
+
+      expectObservable(effects.setUpIntent$).toBe('a', {
+        a: UserActions.setUpIntentSuccess({ payment: paymentSetupIntent }),
+      });
+
+      flush();
+
+      expect(user.setUpIntent).toHaveBeenCalled();
+    });
+  });
+
+  it('setUpIntent$ error', () => {
+    const error = new HttpErrorResponse({
+      statusText: 'BAD_REQUEST',
+    });
+
+    jest.spyOn(user, 'setUpIntent').mockImplementation(() => {
+      return throwError(() => error);
+    });
+
+    getScheduler().run(({ expectObservable, hot, flush }) => {
+      actions$ = hot('a', {
+        a: UserActions.setUpIntent(),
+      });
+
+      expectObservable(effects.setUpIntent$).toBe('a', {
+        a: UserActions.setUpIntentFailure({ payment: error }),
+      });
+
+      flush();
+
+      expect(user.setUpIntent).toHaveBeenCalled();
+    });
   });
 
   it('getUserCards success', () => {
@@ -339,64 +576,203 @@ describe('SessionEffects', () => {
         details: 'details',
         id: 0,
         stripeMethodId: 'stripeMethodId',
-        type: 'type'
-      }
+        type: 'type',
+      },
     ];
 
     jest.spyOn(user, 'getSavedCards').mockImplementationOnce(() => {
       return of(cards);
     });
 
-    actions$.next(UserActions.getUserCards());
-
-    effects.getUserCards
-      .pipe(take(1))
-      .subscribe(res => {
-        expect(res).toEqual(UserActions.getUserCardsSuccess({paymentMethods: cards}));
+    getScheduler().run(({ expectObservable, hot, flush }) => {
+      actions$ = hot('a', {
+        a: UserActions.getUserCards({}),
       });
+
+      expectObservable(effects.getUserCards$).toBe('a', {
+        a: UserActions.getUserCardsSuccess({ paymentMethods: cards }),
+      });
+
+      flush();
+
+      expect(user.getSavedCards).toHaveBeenCalled();
+    });
+  });
+
+  it('getUserCards success new card loaded', () => {
+    const cards: PaymentMethod[] = [
+      {
+        details: 'details',
+        id: 0,
+        stripeMethodId: 'stripeMethodId',
+        type: 'type',
+      },
+    ];
+
+    jest.spyOn(user, 'getSavedCards').mockImplementationOnce(() => {
+      return of(cards);
+    });
+
+    getScheduler().run(({ expectObservable, hot, flush }) => {
+      actions$ = hot('a', {
+        a: UserActions.getUserCards({ lastLength: 0 }),
+      });
+
+      expectObservable(effects.getUserCards$).toBe('a', {
+        a: UserActions.getUserCardsSuccess({ paymentMethods: cards }),
+      });
+
+      flush();
+
+      expect(user.getSavedCards).toHaveBeenCalled();
+    });
+  });
+  it('getUserCards success with reload if amount not changed', () => {
+    const cards: PaymentMethod[] = [
+      {
+        details: 'details',
+        id: 0,
+        stripeMethodId: 'stripeMethodId',
+        type: 'type',
+      },
+    ];
+
+    jest.spyOn(user, 'getSavedCards').mockImplementationOnce(() => {
+      return of(cards);
+    });
+
+    getScheduler().run(({ expectObservable, hot, flush }) => {
+      actions$ = hot('a', {
+        a: UserActions.getUserCards({ lastLength: 1 }),
+      });
+
+      expectObservable(effects.getUserCards$).toBe('1s a', {
+        a: UserActions.getUserCards({ lastLength: 1 }),
+      });
+
+      flush();
+
+      expect(user.getSavedCards).toHaveBeenCalled();
+    });
+  });
+
+  it('getUserCards error', () => {
+    const error = new HttpErrorResponse({
+      statusText: 'BAD_REQUEST',
+    });
+    jest.spyOn(user, 'getSavedCards').mockImplementationOnce(() => {
+      return throwError(error);
+    });
+
+    getScheduler().run(({ expectObservable, hot, flush }) => {
+      actions$ = hot('a', {
+        a: UserActions.getUserCards({}),
+      });
+
+      expectObservable(effects.getUserCards$).toBe('a', {
+        a: UserActions.getUserCardsFailure({ error }),
+      });
+
+      flush();
+
+      expect(user.getSavedCards).toHaveBeenCalled();
+    });
   });
 
   it('deletePaymentMethod success', () => {
-    const deleteItemNumber = 0;
     const dbPaymentId = 1;
-    const nullValue = null;
 
     jest.spyOn(user, 'deletePaymentMethod').mockImplementationOnce(() => {
-      return of(dbPaymentId);
+      return of(null);
+    });
+
+    jest.spyOn(userFacade, 'loadSavedCards');
+
+    getScheduler().run(({ expectObservable, hot, flush }) => {
+      actions$ = hot('a', {
+        a: UserActions.deletePaymentMethod({ id: dbPaymentId }),
+      });
+
+      expectObservable(effects.deletePaymentMethod$).toBe('500ms a', {
+        a: UserActions.deletePaymentMethodSuccess({ id: dbPaymentId }),
+      });
+
+      flush();
+
+      expect(user.deletePaymentMethod).toHaveBeenCalledWith(dbPaymentId);
+      expect(userFacade.loadSavedCards).toHaveBeenCalled();
+    });
+  });
+
+  it('deletePaymentMethod error', () => {
+    const deleteItemNumber = 0;
+
+    const error = new HttpErrorResponse({
+      statusText: 'BAD_REQUEST',
+    });
+    jest.spyOn(user, 'deletePaymentMethod').mockImplementationOnce(() => {
+      return throwError(() => error);
     });
 
     jest.spyOn(userFacade, 'loadSavedCards').mockReturnValue(null);
 
-    actions$.next(UserActions.deletePaymentMethod({id: deleteItemNumber}));
-
-    effects.deletePaymentMethod
-      .pipe(take(1))
-      .subscribe(res => {
-        expect(res).toEqual(nullValue);
+    getScheduler().run(({ expectObservable, hot, flush }) => {
+      actions$ = hot('a', {
+        a: UserActions.deletePaymentMethod({ id: deleteItemNumber }),
       });
+
+      expectObservable(effects.deletePaymentMethod$).toBe('a', {
+        a: UserActions.deletePaymentMethodFailure({ error }),
+      });
+
+      flush();
+
+      expect(user.deletePaymentMethod).toHaveBeenCalledWith(deleteItemNumber);
+      expect(userFacade.loadSavedCards).not.toHaveBeenCalled();
+    });
   });
 
   it('editPaymentMethod success', () => {
     const dbPaymentId = 1;
     const editedYearAndMonth: EditPaymentMethod = {
       expMonth: 1,
-      expYear: 2023
+      expYear: 2023,
     };
 
     const editPayment: EditPayment = {
-      paymentMethodId: 'paymentMethodId'
+      paymentMethodId: 'paymentMethodId',
     };
 
     jest.spyOn(user, 'editPaymentMethod').mockImplementationOnce(() => {
       return of(editPayment);
     });
 
-    actions$.next(UserActions.editPaymentMethod({edit: {dbPaymentId, editedYearAndMonth}}));
+    jest.spyOn(userFacade, 'loadSavedCards').mockReturnValue(null);
+    jest.spyOn(notifier, 'success').mockReturnValue(null);
 
-    effects.editPaymentMethod
-      .pipe(take(1))
-      .subscribe(res => {
-        expect(res).toEqual(UserActions.editPaymentMethodSuccess());
+    getScheduler().run(({ expectObservable, hot, flush }) => {
+      actions$ = hot('a', {
+        a: UserActions.editPaymentMethod({
+          edit: { dbPaymentId, editedYearAndMonth },
+        }),
       });
+
+      expectObservable(effects.editPaymentMethod$).toBe('1s a', {
+        a: UserActions.editPaymentMethodSuccess(),
+      });
+
+      flush();
+
+      expect(user.editPaymentMethod).toHaveBeenCalledWith(
+        dbPaymentId,
+        editedYearAndMonth
+      );
+
+      expect(userFacade.loadSavedCards).toHaveBeenCalled();
+
+      expect(notifier.success).toHaveBeenCalledWith(
+        'PAYMENT.PAYMENT_METHOD_EDITED_SUCCESSFULLY'
+      );
+    });
   });
 });

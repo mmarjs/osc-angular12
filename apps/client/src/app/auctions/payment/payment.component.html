@@ -2,11 +2,12 @@
   <div class="payment-header">
     <div class="heading">
       <h2 class="title-page" data-testid="title">
-        {{ 'AUCTIONS.DEPOSIT' | translate }} - {{ depositAmount | currency:
-        'USD' }}
+        {{ 'AUCTIONS.DEPOSIT' | translate }} -
+        {{ depositAmount | currency: 'USD' }}
       </h2>
       <p class="deposit-description">
-        {{ 'AUCTIONS.DEPOSIT_DESCRIPTION' | translate: { value: depositAmount }
+        {{
+        'AUCTIONS.DEPOSIT_DESCRIPTION' | translate: {value: depositAmount}
         }}
       </p>
     </div>
@@ -14,23 +15,21 @@
   <div class="payment-container">
     <div class="payment-content-card">
       <ng-container *ngIf="depositSuccess">
-        <div class="smart-message">
+        <div class="deposit-payment-container">
+          <div class="smart-message">
           <span class="bold-dark">
             {{ 'APPLICATION.SUCCESS' | translate }}!
           </span>
-          {{ 'AUCTIONS.SUCCESSFULLY_DEPOSITED' | translate }}
-          <span class="bold-dark"> {{ depositAmount | currency: 'USD' }} </span>
-          {{ 'AUCTIONS.TO_GET_STARTED' | translate }}
-          <a
-            #dashboardLink
-            class="bold-primary"
-            (click)="goToDashboard()"
-          >
-            {{ 'AUCTIONS.DASHBOARD' | translate }}.
-          </a>
+            {{ 'AUCTIONS.SUCCESSFULLY_DEPOSITED' | translate }}
+            <span class="bold-dark"> {{ depositAmount | currency: 'USD' }} </span>
+            {{ 'AUCTIONS.TO_GET_STARTED' | translate }}
+            <a class="bold-primary" (click)="goToDashboard()">
+              {{ 'AUCTIONS.DASHBOARD' | translate }}.
+            </a>
+          </div>
         </div>
       </ng-container>
-      <div class="deposit-payment-container">
+      <div class="deposit-payment-container" data-testid="payment-cmp" *ngIf="!depositSuccess">
         <layout-panel-wrapper
           class="mt-1"
           [panelTitle]="'AUCTIONS.PAYMENT_METHOD' | translate"
@@ -67,7 +66,7 @@
         class="auction-detail-panel"
       >
         <div class="edit">
-          <mat-icon>edit</mat-icon>
+          <ocean-icon [iconType]="iconType.EDIT"></ocean-icon>
           <p
             [appLink]="['AUCTION_EDIT', { id: auction?.id }]"
             (click)="onEditAuction(auction)"
@@ -75,7 +74,18 @@
             {{ 'COMMON.BUTTONS.EDIT' | translate }}
           </p>
         </div>
-        <img src="/assets/images/no-image.png" alt="" class="default-img" />
+        <div class="carousel">
+          <ng-container *ngIf="images$ | async as images; else noFiles">
+            <app-carousel-view *ngIf="images.length; else noFiles" [media]="images"></app-carousel-view>
+          </ng-container>
+          <ng-template #noFiles>
+            <img
+              src="/assets/images/no-image.png"
+              alt=""
+              class="default-img-big"
+            />
+          </ng-template>
+        </div>
         <p>{{ auction.name }}</p>
         <p>
           <b>{{ 'FORMS.LABELS.TYPE' | translate }}: </b>

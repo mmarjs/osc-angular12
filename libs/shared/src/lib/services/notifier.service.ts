@@ -7,11 +7,11 @@ export enum NotifierStatus {
   success = 'app-notification-success',
   info = 'app-notification-info',
   warning = 'app-notification-warning',
-  error = 'app-notification-error'
+  error = 'app-notification-error',
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NotifierService {
   duration = 4500;
@@ -22,8 +22,8 @@ export class NotifierService {
     this.dialog.open(ConfirmDialogComponent, {
       data: {
         title: 'Done',
-        content: this.extractMessage(message)
-      }
+        content: this.extractMessage(message),
+      },
     });
   }
 
@@ -31,8 +31,8 @@ export class NotifierService {
     this.dialog.open(ConfirmDialogComponent, {
       data: {
         title: 'Error',
-        content: this.extractMessage(message)
-      }
+        content: this.extractMessage(message),
+      },
     });
   }
 
@@ -69,7 +69,9 @@ export class NotifierService {
 
     this.snackbar.open(this.extractMessage(message), action, {
       duration: duration ? duration : this.duration,
-      panelClass: [status]
+      panelClass: [status],
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
     });
   }
 

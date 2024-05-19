@@ -20,10 +20,17 @@
             <span aria-hidden="true">*</span>
           </label>
           <mat-form-field>
-            <mat-select id="signup-usertype" placeholder="" formControlName="userTypes"
-              [compareWith]="compareWith" #type>
-              <mat-option *ngFor="let user of userTypes" [value]="[user]">{{ user.type |
-                formatType }}</mat-option>
+            <mat-select
+              id="signup-usertype"
+              data-testid="signup-usertype"
+              placeholder=""
+              formControlName="userTypes"
+              [compareWith]="compareWith"
+              #type
+            >
+              <mat-option *ngFor="let user of userTypes" [value]="[user]">
+                {{ user?.type | formatType }}
+              </mat-option>
             </mat-select>
             <mat-hint>
               {{'FORMS.HINTS.ROLE' | translate}}
@@ -36,19 +43,32 @@
   <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="4%">
       <div class="info-personal" fxLayout="column" fxFlex="48" fxFlex.xs="100">
         <h2 class="title-process subHeading"> {{'PROFILE.LOGIN_INFORMATION' | translate}}</h2>
-        <app-field-text contextId="signup" formControlName="login"
-          label="FORMS.LABELS.USERNAME" errorMsg="FORMS.ERRORS.USERNAME"
-          [minLength]="5" [maxLength]="50"></app-field-text>
+        <app-field-text
+          contextId="signup"
+          formControlName="login"
+          label="FORMS.LABELS.USERNAME"
+          errorMsg="FORMS.ERRORS.USERNAME"
+          [minLength]="5"
+          [maxLength]="50"
+          [tip]="usernameTips"
+        >
+        </app-field-text>
         <app-field-password-confirm contextId="signup" formControlName="password"
           label="FORMS.LABELS.PASSWORD">
         </app-field-password-confirm>
       </div>
-      <div fxLayout="column" fxFlex="48" fxFlex.xs="100">
-        <div [ngSwitch]="roleSelected[0].type" class="text-center mt-15"
-          *ngIf="roleSelected">
-          <div *ngSwitchCase="'BOAT_OWNER'">
-            <app-boat-signup (formValue)="onSubmit($event)"
-              [isParentValid]="form.invalid"></app-boat-signup>
+      <div fxLayout="column" fxFlex="48" fxFlex.xs="100" fxLayoutAlign="flex-end">
+        <div [ngSwitch]="roleSelected[0]?.type" class="text-center mt-15" *ngIf="roleSelected">
+          <div *ngSwitchCase="'BOAT_OWNER'" class="boat-owner-wrapper">
+            <button
+              mat-raised-button
+              color="primary"
+              type="submit"
+              [disabled]="form.invalid"
+              (click)="onSubmit()"
+            >
+            {{'COMMON.BUTTONS.CREATE_ACCOUNT' | translate}}
+          </button>
           </div>
           <div *ngSwitchCase="'SHIPYARD'">
             <app-shipyard-surveyor-signup [role]="roleSelected[0].type"

@@ -9,7 +9,7 @@ import {
   Optional,
   Output,
   SkipSelf,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import {
   AbstractControl,
@@ -17,10 +17,11 @@ import {
   ControlValueAccessor,
   FormControl,
   NG_VALIDATORS,
-  NG_VALUE_ACCESSOR
+  NG_VALUE_ACCESSOR,
 } from '@angular/forms';
 import { MatInput } from '@angular/material/input';
 import { FormUtils } from '@ocean/shared/utils';
+import { IconType } from '@ocean/icons';
 
 @Component({
   selector: 'app-field-password',
@@ -30,13 +31,13 @@ import { FormUtils } from '@ocean/shared/utils';
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => PasswordFieldComponent),
-      multi: true
+      multi: true,
     },
     {
       provide: NG_VALIDATORS,
       useExisting: forwardRef(() => PasswordFieldComponent),
-      multi: true
-    }
+      multi: true,
+    },
   ],
   // tslint:disable-next-line:use-host-property-decorator
   host: {
@@ -44,8 +45,8 @@ import { FormUtils } from '@ocean/shared/utils';
     '[class.mat-input-invalid]': '_control?.invalid && _control?.touched',
     '[class.mat-form-field-invalid]': '_control?.invalid && _control?.touched',
     '[class.mat-form-field-disabled]': '_control?.disabled',
-    '[class.mat-form-field-autofilled]': '_control?.autofilled'
-  }
+    '[class.mat-form-field-autofilled]': '_control?.autofilled',
+  },
 })
 export class PasswordFieldComponent implements ControlValueAccessor, OnInit {
   @Input() formControlName: string;
@@ -64,6 +65,8 @@ export class PasswordFieldComponent implements ControlValueAccessor, OnInit {
   _control: AbstractControl | undefined;
   value = '';
 
+  readonly iconType = IconType;
+
   /**
    * Status Controls
    */
@@ -71,28 +74,34 @@ export class PasswordFieldComponent implements ControlValueAccessor, OnInit {
   get disabled() {
     return this._disabled;
   }
+
   set disabled(value: boolean) {
     this._disabled = coerceBooleanProperty(value);
     this._disabled ? this._control.disable() : this._control.enable();
   }
+
   _disabled = false;
 
   @Input()
   get readonly() {
     return this._readonly;
   }
+
   set readonly(value) {
     this._readonly = coerceBooleanProperty(value);
   }
+
   _readonly: boolean;
 
   @Input()
   get required() {
     return this._required;
   }
+
   set required(value) {
     this._required = coerceBooleanProperty(value);
   }
+
   _required: boolean;
 
   get getErrorMsg() {

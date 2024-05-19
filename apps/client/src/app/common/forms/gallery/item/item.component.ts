@@ -1,7 +1,25 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { ChangeDetectorRef, Component, EventEmitter, forwardRef, Host, Input, OnInit, Optional, Output, SkipSelf, } from '@angular/core';
-import { AbstractControl, ControlContainer, FormArray, NG_VALIDATORS, NG_VALUE_ACCESSOR, } from '@angular/forms';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  forwardRef,
+  Host,
+  Input,
+  OnInit,
+  Optional,
+  Output,
+  SkipSelf,
+} from '@angular/core';
+import {
+  AbstractControl,
+  ControlContainer,
+  FormArray,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
 import { MediaResponse } from '@ocean/api/client';
+import { IconType } from '@ocean/icons';
 
 export enum UploadItemType {
   IMAGE = 'IMAGE',
@@ -31,6 +49,7 @@ interface Value {
 })
 export class FormGalleryItemComponent implements OnInit {
   readonly uploadItemType = UploadItemType;
+  readonly iconType = IconType;
 
   private _control: AbstractControl | undefined;
 
@@ -52,8 +71,7 @@ export class FormGalleryItemComponent implements OnInit {
     @SkipSelf()
     private readonly parent: ControlContainer,
     private readonly cd: ChangeDetectorRef
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     if (coerceBooleanProperty(this.formGroupName)) {
@@ -72,7 +90,11 @@ export class FormGalleryItemComponent implements OnInit {
   }
 
   writeValue(value: Value): void {
-    if (value === null || value === undefined || !(typeof value?.file === 'string' || value?.file instanceof File)) {
+    if (
+      value === null ||
+      value === undefined ||
+      !(typeof value?.file === 'string' || value?.file instanceof File)
+    ) {
       return;
     }
 

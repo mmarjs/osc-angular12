@@ -1,53 +1,82 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, HostListener, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { ROUTES } from '@ocean/shared';
-import { UserTypeTitle } from '@ocean/api/shared';
-import { UserFacade } from '@ocean/api/state';
+import {
+  BroadcastChannelType,
+  CustomBroadcastChannel,
+  PATHS,
+  ROUTES,
+} from '@ocean/shared';
 import { AuctionsFacade } from '@ocean/client/state/auctions';
-import { untilDestroyed } from 'ngx-take-until-destroy';
-import { filter } from 'rxjs';
+import { UserFacade } from '@ocean/api/state';
+import { firstValueFrom } from 'rxjs';
+import { UserTypeTitles } from '@ocean/api/shared';
+import { IconType } from '@ocean/icons';
+
+interface ViewerData {
+  link: string;
+  jobId?: number;
+}
+
+export const BOLD_SIGN_ORIGIN_URL = 'https://app.boldsign.com';
+export const SIGNED_DOCUMENT_ACTION = 'onDocumentSigned';
+export const DECLINED_DOCUMENT_ACTION = 'onDocumentDeclined';
 
 @Component({
   selector: 'ocean-document-viewer',
   templateUrl: './document-viewer.component.html',
   styleUrls: ['./document-viewer.component.scss'],
 })
-export class DocumentViewerComponent implements OnInit, OnDestroy {
+export class DocumentViewerComponent {
+  readonly iconType = IconType;
+
+  action?: string;
+  link?: SafeUrl;
+
   constructor(
-    private dialogRef: MatDialogRef<DocumentViewerComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private userFacade: UserFacade,
-    private auctionsFacade: AuctionsFacade,
-    private router: Router,
-    private sanitizer: DomSanitizer
-  ) {}
-
-  link: SafeUrl | undefined;
-  userType!: UserTypeTitle | undefined;
-
-  ngOnInit() {
+    @Inject(MAT_DIALOG_DATA) public readonly data: ViewerData,
+    private readonly sanitizer: DomSanitizer,
+    private readonly dialogRef: MatDialogRef<DocumentViewerComponent>,
+    private readonly router: Router,
+    private readonly auctionsFacade: AuctionsFacade,
+    private readonly userFacade: UserFacade,
+    private readonly broadcast: CustomBroadcastChannel
+  ) {
     this.link = this.sanitizer.bypassSecurityTrustResourceUrl(this.data.link);
-    this.userFacade.userType$
-      .pipe(
-        filter((userType) => !!userType),
-        untilDestroyed(this)
-      )
-      .subscribe((userType) => {
-        this.userType = userType;
-      });
+  }
+
+  @HostListener('window:message', ['$event'])
+  private listener({ origin, data }: MessageEvent) {
+    if (origin !== BOLD_SIGN_ORIGIN_URL) {
+      return;
+    }
+
+    this.action = data?.action;
+  }
+
+  async onPageLoad() {
+    if (this.action === SIGNED_DOCUMENT_ACTION) {
+      this.broadcast.send(
+        BroadcastChannelType.USER_TYPE,
+        (await firstValueFrom(this.userFacade.userType$)) as UserTypeTitles,
+        5000
+      );
+    } else if (this.action === DECLINED_DOCUMENT_ACTION) {
+      this.link = this.sanitizer.bypassSecurityTrustResourceUrl(
+        `${location.origin}/${PATHS['DOCUMENT_DECLINED']}`
+      );
+      this.action = undefined;
+    }
   }
 
   closeDocument() {
     this.dialogRef.close();
+
     if (this.data?.jobId) {
       this.auctionsFacade.getDocuments(this.data.jobId);
     }
-    this.router.navigate([ROUTES.link('DASHBOARD')]);
-  }
 
-  ngOnDestroy(): void {
-    return;
+    void this.router.navigate([ROUTES.link('DASHBOARD')]);
   }
 }

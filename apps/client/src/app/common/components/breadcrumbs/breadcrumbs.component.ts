@@ -16,7 +16,7 @@ import { RouterFacade } from '../../../state/router';
   encapsulation: ViewEncapsulation.None
 })
 export class BreadcrumbsComponent implements OnInit, OnDestroy {
-  @HostBinding('attr.aria-hidden') ariaHidden = true;
+  @HostBinding('attr.aria-hidden') ariaHidden = false;
 
   paths: Array<AppBreadcrumb> = [];
 

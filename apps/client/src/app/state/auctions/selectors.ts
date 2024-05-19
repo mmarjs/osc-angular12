@@ -38,6 +38,11 @@ const getSelectedDocument = createSelector(
   (state: State) => state.selectedDocument
 );
 
+const getRefreshStatus = createSelector(
+  getAuctionsState,
+  (state: State) => state.refresh
+);
+
 export const auctionsQuery = {
   getIsCreating,
   getIsCreateSuccess,
@@ -45,5 +50,6 @@ export const auctionsQuery = {
   getIsBidCreated,
   getSelectedAuction,
   getSelectedBid,
-  getSelectedDocument
+  getSelectedDocument,
+  getRefreshStatus,
 };

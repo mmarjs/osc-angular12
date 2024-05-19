@@ -1,0 +1,50 @@
+name: PR Checks
+
+on:
+  pull_request:
+    branches: [ "master", "qa" ]
+
+jobs:
+  pr_checks:
+    if: github.event.pull_request.head.ref != 'qa' && github.event.pull_request.base.ref != 'master'
+    runs-on: ubuntu-latest
+    env:
+      AWS_ROLE: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'yarn'
+      - name: Derive appropriate SHAs for base and head for `nx affected` commands
+        uses: nrwl/nx-set-shas@v3
+        with:
+          main-branch-name: ${{ github.event.pull_request.base.ref }}
+      - name: Set build number
+        run: |
+          export BUILD_NUMBER="$(jq -r .name package.json)@$(jq -r .version package.json)"
+          echo "Build number: $BUILD_NUMBER"
+          echo "NG_APP_BUILD_NUMBER=${BUILD_NUMBER}" >> .env
+      - name: Install dependencies
+        run: yarn install --immutable
+      - name: Run tests
+        uses: mansagroup/nrwl-nx-action@v3
+        with:
+          targets: test
+          args: --reporters=jest-junit
+        env:
+          JEST_JUNIT_OUTPUT_DIR: ./reports/
+          JEST_JUNIT_UNIQUE_OUTPUT_NAME: 'true'
+          TZ: UTC
+      - name: Build
+        uses: mansagroup/nrwl-nx-action@v3
+        with:
+          targets: build
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action/composite@v2
+        if: success() || failure() # always run even if the previous step fails
+        with:
+          files: 'reports/*.xml'

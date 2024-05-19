@@ -3,6 +3,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 
 import { MenuComponentComponent } from './menu-component.component';
+import { IconsModule } from '@ocean/icons';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { translateServiceMock } from '@ocean/testing/mocks/translate-service-mock';
+import { MockPipe } from 'ng-mocks';
 
 describe('MenuComponentComponent', () => {
   let component: MenuComponentComponent;
@@ -10,8 +14,12 @@ describe('MenuComponentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [MenuComponentComponent],
-      providers: [provideMockStore({})],
+      imports: [IconsModule],
+      declarations: [MenuComponentComponent, MockPipe(TranslatePipe, (v) => v)],
+      providers: [
+        provideMockStore({}),
+        { provide: TranslateService, useValue: translateServiceMock },
+      ],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   });

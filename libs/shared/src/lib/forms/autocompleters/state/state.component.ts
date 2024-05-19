@@ -10,7 +10,7 @@ import {
   Optional,
   Output,
   SkipSelf,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import {
   AbstractControl,
@@ -18,14 +18,18 @@ import {
   ControlValueAccessor,
   FormControl,
   NG_VALIDATORS,
-  NG_VALUE_ACCESSOR
+  NG_VALUE_ACCESSOR,
 } from '@angular/forms';
-import { MatAutocompleteSelectedEvent, MatAutocompleteTrigger } from '@angular/material/autocomplete';
+import {
+  MatAutocompleteSelectedEvent,
+  MatAutocompleteTrigger,
+} from '@angular/material/autocomplete';
 import { DataSourceItem } from '@ocean/material';
 import { FormUtils } from '@ocean/shared/utils';
 import { find, result } from 'lodash-es';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { STATES } from './state.data';
+import { IconType } from '@ocean/icons';
 
 @Component({
   selector: 'app-autocompleter-state',
@@ -35,13 +39,13 @@ import { STATES } from './state.data';
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => StateAutocompleterComponent),
-      multi: true
+      multi: true,
     },
     {
       provide: NG_VALIDATORS,
       useExisting: forwardRef(() => StateAutocompleterComponent),
-      multi: true
-    }
+      multi: true,
+    },
   ],
   // tslint:disable-next-line:use-host-property-decorator
   host: {
@@ -50,11 +54,12 @@ import { STATES } from './state.data';
     '[class.mat-form-field-invalid]': '_control?.invalid && _control?.touched',
     '[class.mat-form-field-disabled]': '_control?.disabled',
     '[class.mat-form-field-autofilled]': '_control?.autofilled',
-    '[class.mat-form-field-readonly]': '_readonly'
-  }
+    '[class.mat-form-field-readonly]': '_readonly',
+  },
 })
 export class StateAutocompleterComponent
-  implements ControlValueAccessor, OnInit {
+  implements ControlValueAccessor, OnInit
+{
   @Input() formControlName: string;
   @Input() contextId: string;
 
@@ -64,13 +69,16 @@ export class StateAutocompleterComponent
 
   @Output() change = new EventEmitter<string | null>();
 
-  @ViewChild(MatAutocompleteTrigger, { static: true }) trigger: MatAutocompleteTrigger;
+  @ViewChild(MatAutocompleteTrigger, { static: true })
+  trigger: MatAutocompleteTrigger;
 
   _control: AbstractControl | undefined;
   _input: FormControl;
   hasSelected = false;
   items: Array<DataSourceItem> = [];
   value: string | null = null;
+
+  readonly iconType = IconType;
 
   /**
    * Status Controls
@@ -118,9 +126,9 @@ export class StateAutocompleterComponent
   ) {}
 
   ngOnInit() {
-    this.items = STATES.map(state => ({
+    this.items = STATES.map((state) => ({
       value: state.abbr,
-      title: state.name
+      title: state.name,
     }));
 
     // setup the current control
@@ -133,11 +141,8 @@ export class StateAutocompleterComponent
     // setup the autocompleter input
     this._input = new FormControl();
     this._input.valueChanges
-      .pipe(
-        debounceTime(500),
-        distinctUntilChanged()
-      )
-      .subscribe(query => {
+      .pipe(debounceTime(500), distinctUntilChanged())
+      .subscribe((query) => {
         typeof query === 'string' && query !== ''
           ? this.fetch(query)
           : this.trigger.closePanel();
@@ -217,11 +222,11 @@ export class StateAutocompleterComponent
   }
 
   fetch(query: string): void {
-    this.items = STATES.filter(state =>
+    this.items = STATES.filter((state) =>
       state.name.toLowerCase().includes(query.toLowerCase())
-    ).map(state => ({
+    ).map((state) => ({
       value: state.abbr,
-      title: state.name
+      title: state.name,
     }));
 
     if (this.items.length) {

@@ -1,820 +1,1013 @@
 {
   "APPLICATION": {
-      "TITLE": "Ocean Service Center",
-      "COPYRIGHT": "Copyright",
-      "BOAT_OWNER": "Boat Owner",
-      "SHIPYARD": "Shipyard",
-      "SURVEYOR": "Surveyor",
-      "MY_BUSINESSES": "My Businesses",
-      "REPAIR": "Repair",
-      "REPAIR_REFIT": "Repair/Refit",
-      "SURVEY": "Survey",
-      "SUCCESS": "Success!",
-      "POWERED_BY": "Powered by IBM Blockchain Technology"
+    "TITLE": "Ocean Service Center",
+    "COPYRIGHT": "Copyright",
+    "BOAT_OWNER": "Boat Owner",
+    "SHIPYARD": "Shipyard",
+    "SURVEYOR": "Surveyor",
+    "MY_BOATS": "My Boats",
+    "REPAIR": "Repair",
+    "REPAIR_REFIT": "Repair/Refit",
+    "SURVEY": "Survey",
+    "SUCCESS": "Success!",
+    "POWERED_BY": "Powered by IBM Blockchain Technology",
+    "PROCESSING_REQUEST": "Processing request(s)"
+  },
+  "AUTH0": {
+    "ERROR": {
+      "EMAILALREADYTAKEN": "This email is already registered",
+      "LOGINNAMEALREADYTAKEN": "This username is already registered",
+      "UNHANDLED": "Unhandled error occurred"
+    }
+  },
+  "POLICY": {
+    "TERMS": "Terms of Service",
+    "PRIVACY": "Privacy Policy",
+    "COOKIE": "Cookie Policy",
+    "DATA_PROTECTION": "Data Protection Policy",
+    "PROPRIETARY_RIGHTS": "Proprietary Rights",
+    "SOFTWARE": "Software License Agreement"
+  },
+  "TOOLTIP": {
+    "PASSWORD": {
+      "TITLE": "Password must have",
+      "CONDITIONS": [
+        "at least 8 characters long;",
+        "a lowercase letter;",
+        "an uppercase letter;",
+        "a special character like \"!@#$^&*()\""
+      ]
+    },
+    "USERNAME": {
+      "TITLE": "Username must have",
+      "CONDITIONS": [
+        "at least 5 characters long;",
+        "only lowercase letters or numbers;",
+        "special characters aren't allowed, except minus;"
+      ]
+    },
+    "EMPTY": "",
+    "EDIT": "EDIT",
+    "REJECT": "REJECT",
+    "REMOVE": "REMOVE",
+    "ADD": "ADD",
+    "ACCEPT": "ACCEPT",
+    "CHEVRON_LEFT": "BACK",
+    "CHEVRON_RIGHT": "NEXT",
+    "DELETE_OUTLINE": "DELETE",
+    "LAUNCH": "GO TO DETAILS PAGE",
+    "AUCTION_LAUNCH": "GO TO AUCTION PAGE",
+    "COMMENT": "NOTE",
+    "CHECK": "ACCEPTED",
+    "SELECTED": "SELECTED",
+    "CLOSE": "CLOSE",
+    "FA-BELL": "NOTIFICATION",
+    "DOWNLOAD": "DOWNLOAD",
+    "PICTURE_IN_PICTURE": "CONTACT",
+    "ATTACH_MONEY": "MONEY",
+    "SEARCH": "SEARCH",
+    "EXPAND_MORE": "EXPAND MORE",
+    "SWAP_HORIZONTAL_CIRCLE": "TRANSFER FUNDS",
+    "MONETIZATION_ON": "BANK INFORMATION",
+    "CHECK_CIRCLE": "VIEW TRANSACTIONS",
+    "SUBDIRECTORY_ARROW_RIGHT": "GO BACK TO DASHBOARD",
+    "ACCOUNT_BALANCE": "BANK",
+    "ACCOUNT_CIRCLE": "ACCOUNT",
+    "DONE": "DONE",
+    "MENU": "MENU",
+    "CREDIT_CARD": "CARD",
+    "CAKE": "BIRTHDAY",
+    "LOCATION_ON": "LOCATION",
+    "CALL": "PHONE",
+    "BUSINESS": "BUSINESS",
+    "ALTERNATE_EMAIL": "EMAIL",
+    "VISIBILITY": "SHOW",
+    "VISIBILITY_OFF": "HIDE",
+    "CANCEL": "CANCEL",
+    "SEND": "SEND",
+    "PERSON": "PERSON",
+    "LOCK": "LOCK",
+    "BUILD": "PROFILE SERVICES",
+    "NOTIFICATIONS": "NOTIFICATIONS",
+    "NOTIFICATIONS_NONE": "NO NEW NOTIFICATIONS",
+    "CLEAR": "CLEAR",
+    "SHIP": "SHIP",
+    "COG": "COG",
+    "ACCOUNT": "ACCOUNT",
+    "CAMERA": "CAMERA",
+    "MESSAGES": "MESSAGES",
+    "DISMISS": "DISMISS",
+    "PAYMENT_DETAILS": "PAYMENT DETAILS",
+    "POLICY_TERMS": "TERMS OF SERVICE",
+    "POLICY_PRIVACY": "PRIVACY POLICY",
+    "POLICY_COOKIE": "COOKIE POLICY",
+    "POLICY_DATA_PROTECTION": "DATA PROTECTION POLICY",
+    "POLICY_PROPRIETARY_RIGHTS": "PROPRIETARY RIGHTS",
+    "POLICY_SOFTWARE": "SOFTWARE LICENSE AGREEMENT",
+    "INFO": "INFORMATION"
   },
   "COMMON": {
-      "BUTTONS": {
-          "ADD": "Add",
-          "GET_STARTED": "Get Started",
-          "LOGIN": "Login",
-          "LOGOUT": "Logout",
-          "GO_TO_DASHBOARD": "Go to the Dashboard",
-          "CREATE_ACCOUNT": "Create Account",
-          "POST_YOUR_JOB": "Post Your Job",
-          "SIGN_UP_BOAT_OWNER": "Signup as Boat Owner",
-          "SIGN_UP_SHIPYARD": "Signup as Repair Professional/Shipyard",
-          "SIGN_UP_SURVEYOR": "Signup as Surveyor",
-          "VIEW_ALL": "View All",
-          "ADD_BOAT": "Add Boat",
-          "CREATE_AUCTION": "Create Auction",
-          "CANCEL": "Cancel",
-          "NEXT": "Next",
-          "BACK": "Back",
-          "LATER": "Later",
-          "UPDATE": "Update",
-          "CREATE_SHIPYARD": "Create Shipyard",
-          "UPDATE_PROFILE": "Update Profile",
-          "OK": "Ok",
-          "SEND_EMAIL": "Send Email",
-          "TRY_AGAIN": "Try Again",
-          "NEXT_ITEM_BID": "Next : Item Bid",
-          "NEXT_PREVIEWS_AND_LIST": "Next : Previews & List",
-          "NEXT_ADD_PAYMENT": "Next : Add Payment",
-          "SECONDS": "Seconds",
-          "ADD_ITEM": "Add Item",
-          "SUBMIT_BID": "Submit Bid",
-          "SUBMIT_REVIEW_BID": "Submit & Review Repair Bid",
-          "CONTACT_LISTER": "Contact Lister",
-          "EDIT": "Edit",
-          "INFORMATION": "Information",
-          "MAKE_CHANGES": "Make Changes",
-          "CREATE_LISTING": "Create Listing",
-          "EDIT_SHIPYARD": "Edit Shipyard",
-          "UPDATE_SHIPYARD": "Update Shipyard",
-          "ADD_A_BUSINESS": "Add a Business",
-          "CREATE_NEW_SURVEYING_BUSINESS": "Create New Surveying Business",
-          "VIEW_RATINGS": "View Ratings",
-          "SAVE_DRAFT": "Save Draft",
-          "ADD_NOTE": "Add Note",
-          "REMOVE": "Remove",
-          "SAVE": "Save",
-          "DEPOSIT": "Deposit",
-          "CANCEL_THIS_REPAIR": "Cancel this Repair",
-          "VIEW_MORE": "View More",
-          "COMPLETE_FORM_BELOW": "Complete form below",
-          "ACCEPT": "Accept",
-          "REJECT": "Reject",
-          "SEND_MESSAGE": "Send Message",
-          "VIEW_BID_DETAILS": "View Bid Details",
-          "VIEW_BID_STATUS": "View Bid Status",
-          "COLLAPSE_BID_DETAILS": "Collapse Bid Details",
-          "SUBMIT_DEPOSIT": "Submit Deposit",
-          "SUBMIT": "Submit",
-          "FULL_PAYMENT": "To start the work, you need to make a full payment of <b>{{ value }}</b> to the bid winner.",
-          "REQUEST_CANCELLATION": "Request Cancellation",
-          "UPLOAD_IMAGES": "Upload images",
-          "UPDATE_BID": "Update Bid",
-          "CLOSE": "Close",
-          "EDIT_BOAT": "Edit Boat",
-          "UPDATE_BOAT": "Update Boat",
-          "VIEW_AUCTIONS": "View Auctions",
-          "SAVE_CHANGES": "Save Changes",
-          "CANCEL_AUCTION": "Cancel Auction"
-      },
-      "MENU": {
-          "TITLE": "Menu",
-          "NOTTIFICATIONS": "Notifications",
-          "PROFILE": "Profile",
-          "DASHBOARD": "Dashboard",
-          "AUCTIONS": "Auctions",
-          "WHO_WE_ARE": " Who we are",
-          "FAQ": "Faq",
-          "LEGAL": "Legal",
-          "PRIVACY_POLICY": "Privacy policy",
-          "COOKIE_POLICY": "Cookie policy",
-          "TERMS_OF_SERVICE": "Terms of service",
-          "DRAFTS": "Drafts",
-          "DOCUMENTS": "Documents",
-          "MY_BIDS": "My Bids"
-      },
-      "INFO": {
-          "WORK_IN_PROGRESS": "This is a work in progress, coming soon!",
-          "PAYMENT_SUCCESS": "Payment success",
-          "PAYMENT_FAILED": "Payment Failed!",
-          "CONTACT_LISTER": "Contact the Lister",
-          "COMPLETE_THE_FORM_BELOW_TO_CONTACT": "Complete the form below to contact the person/entity that listed",
-          "SENDING_AS": "Sending As",
-          "YOUR_MESSAGE": "Your Message",
-          "MESSAGE_SENT_SUCCESSFULLY": "Your message was sent successfully.",
-          "WINDOW_CLOSE": "This window will close in 5 seconds…",
-          "BIG_BLUE": "“Big Blue”",
-          "CANCEL_REPAIR": "Cancel Repair",
-          "REALLY_WANT_TO_CANCEL_REPAIR": "Do you really want to cancel the repair ?",
-          "ABOUT_TO_ACCEPT_BID": "You are about to accept a bid.",
-          "ACTION_CANNOT_BE_UNDONE": "This action cannot be undone.",
-          "PLEASE_REVIEW_BID_DETAILS": "Please review the bid details",
-          "BELOW_BEFORE_ACCEPTING": "below before accepting.",
-          "ALREADY_PAID": "Payment for this auction is already done",
-          "BID_CANNOT_BE_UPDATED": "This bid's payment has been made, so it cannot be updated."
-      },
-      "SEARCH": {
-          "BY_NAME": "Search by name"
-      },
-      "TABLE": {
-          "HEADER": {
-              "NAME": "Name",
-              "ACTIONS": "Actions",
-              "ITEM": "Item",
-              "QUANTITY": "Quantity",
-              "TASK_NAME_AND_DESCRIPTION": "Task Name & Description",
-              "YOUR_BID": "Your Bid",
-              "BID": "Bid",
-              "YOUR_NOTES": "Your Notes",
-              "ID": "ID",
-              "BID_PRICES": "Bid Prices",
-              "BID_DATES": "Bid Dates",
-              "START_DATE": "Start Date",
-              "TYPE": "Type",
-              "NUMBER_OF_BIDS": "No. of Bids"
-          }
-      },
-      "N/A": "N/A"
+    "BUTTONS": {
+      "ADD": "Add",
+      "GET_STARTED": "Get Started",
+      "LOGIN": "Login",
+      "LOGOUT": "Logout",
+      "GO_TO_DASHBOARD": "Go to the Dashboard",
+      "CREATE_ACCOUNT": "Create Account",
+      "POST_YOUR_JOB": "Post Your Job",
+      "SIGN_UP_BOAT_OWNER": "Signup as Boat Owner",
+      "SIGN_UP_SHIPYARD": "Signup as Repair Professional/Shipyard",
+      "SIGN_UP_SURVEYOR": "Signup as Surveyor",
+      "VIEW_ALL": "View All",
+      "ADD_BOAT": "Add Boat",
+      "CREATE_AUCTION": "Create Auction",
+      "CANCEL": "Cancel",
+      "NEXT": "Next",
+      "BACK": "Back",
+      "LATER": "Later",
+      "UPDATE": "Update",
+      "CREATE_SHIPYARD": "Create Shipyard",
+      "UPDATE_PROFILE": "Update Profile",
+      "OK": "Ok",
+      "SEND_EMAIL": "Send Email",
+      "TRY_AGAIN": "Try Again",
+      "NEXT_ITEM_BID": "Next : Item Bid",
+      "NEXT_PREVIEWS_AND_LIST": "Next : Previews & List",
+      "NEXT_ADD_PAYMENT": "Next : Add Payment",
+      "SECONDS": "Seconds",
+      "ADD_ITEM": "Add Item",
+      "SUBMIT_BID": "Submit Bid",
+      "SUBMIT_REVIEW_BID": "Submit & Review Repair Bid",
+      "CONTACT_LISTER": "Contact Lister",
+      "EDIT": "Edit",
+      "INFORMATION": "Information",
+      "MAKE_CHANGES": "Make Changes",
+      "CREATE_LISTING": "Create Listing",
+      "EDIT_SHIPYARD": "Edit Shipyard",
+      "UPDATE_SHIPYARD": "Update Shipyard",
+      "ADD_A_BUSINESS": "Add a Business",
+      "CREATE_NEW_SURVEYING_BUSINESS": "Create New Surveying Business",
+      "VIEW_RATINGS": "View Ratings",
+      "SAVE_DRAFT": "Save Draft",
+      "ADD_NOTE": "Add Note",
+      "REMOVE": "Remove",
+      "SAVE": "Save",
+      "DEPOSIT": "Deposit",
+      "CANCEL_THIS_REPAIR": "Cancel this Repair",
+      "VIEW_MORE": "View More",
+      "COMPLETE_FORM_BELOW": "Complete form below",
+      "ACCEPT": "Accept",
+      "REJECT": "Reject",
+      "SEND_MESSAGE": "Send Message",
+      "VIEW_BID_DETAILS": "View Bid Details",
+      "VIEW_BID_STATUS": "View Bid Status",
+      "COLLAPSE_BID_DETAILS": "Collapse Bid Details",
+      "SUBMIT_DEPOSIT": "Submit Deposit",
+      "SUBMIT": "Submit",
+      "FULL_PAYMENT": "To start the work, you need to make a full payment of <b>{{ value }}</b> to the bid winner.",
+      "REQUEST_CANCELLATION": "Request Cancellation",
+      "UPLOAD_IMAGES": "Upload images",
+      "UPDATE_BID": "Update Bid",
+      "VIEW_BID": "View Bid",
+      "CLOSE": "Close",
+      "EDIT_BOAT": "Edit Boat",
+      "UPDATE_BOAT": "Update Boat",
+      "VIEW_AUCTIONS": "View Auctions",
+      "SAVE_CHANGES": "Save Changes",
+      "CANCEL_AUCTION": "Cancel Auction"
+    },
+    "MENU": {
+      "TITLE": "Menu",
+      "NOTTIFICATIONS": "Notifications",
+      "PROFILE": "Profile",
+      "DASHBOARD": "Dashboard",
+      "AUCTIONS": "Auctions",
+      "WHO_WE_ARE": " Who we are",
+      "FAQ": "Faq",
+      "LEGAL": "Legal",
+      "PRIVACY_POLICY": "Privacy policy",
+      "COOKIE_POLICY": "Cookie policy",
+      "TERMS_OF_SERVICE": "Terms of service",
+      "DRAFTS": "Drafts",
+      "DOCUMENTS": "Documents",
+      "MY_BIDS": "My Bids"
+    },
+    "INFO": {
+      "WORK_IN_PROGRESS": "This is a work in progress, coming soon!",
+      "PAYMENT_SUCCESS": "Payment success",
+      "PAYMENT_FAILED": "Payment Failed!",
+      "CONTACT_LISTER": "Contact the Lister",
+      "COMPLETE_THE_FORM_BELOW_TO_CONTACT": "Complete the form below to contact the person/entity that listed",
+      "SENDING_AS": "Sending As",
+      "YOUR_MESSAGE": "Your Message",
+      "MESSAGE_SENT_SUCCESSFULLY": "Your message was sent successfully.",
+      "WINDOW_CLOSE": "This window will close in 5 seconds…",
+      "BIG_BLUE": "“Big Blue”",
+      "CANCEL_REPAIR": "Cancel Repair",
+      "REALLY_WANT_TO_CANCEL_REPAIR": "Do you really want to cancel the repair ?",
+      "ABOUT_TO_ACCEPT_BID": "You are about to accept a bid.",
+      "ACTION_CANNOT_BE_UNDONE": "This action cannot be undone.",
+      "PLEASE_REVIEW_BID_DETAILS": "Please review the bid details",
+      "BELOW_BEFORE_ACCEPTING": "below before accepting.",
+      "ALREADY_PAID": "Payment for this auction is already done",
+      "BID_CANNOT_BE_UPDATED": "This bid's payment has been made, so it cannot be updated."
+    },
+    "SEARCH": {
+      "BY_NAME": "Search by name"
+    },
+    "TABLE": {
+      "HEADER": {
+        "NAME": "Name",
+        "ACTIONS": "Actions",
+        "ITEM": "Item",
+        "QUANTITY": "Quantity",
+        "TASK_NAME_AND_DESCRIPTION": "Task Name & Description",
+        "YOUR_BID": "Your Bid",
+        "BID": "Bid",
+        "YOUR_NOTES": "Your Notes",
+        "ID": "ID",
+        "BID_PRICES": "Bid Prices",
+        "BID_DATES": "Bid Dates",
+        "START_DATE": "Start Date",
+        "TYPE": "Type",
+        "NUMBER_OF_BIDS": "No. of Bids"
+      }
+    },
+    "N/A": "N/A",
+    "OK": "Ok"
   },
   "ABOUT": {
-      "DETAILS": {
-          "AUCTIONS": "We are a full service boat repair auction website.Boat owners in need of a repair, place their repair job on our <i>Auctions</i> section and shipyards/repair professionals and surveyors (when needed) bid on that job.",
-          "BOAT_OWNERS": "Boat owners then choose their winning bid and we put you in contact with the repair professional or shipyard and allow you to oversee the process. The boat owner then pays via our secure platform and the shipyard gets to work.",
-          "REPAIR_PROFESSIONALS": "Repair professionals will give updates along the way during the repair or refit and when done, the boat owner has a fully repaired/surveyed boat and a smile on their face.It’s just that easy."
-      },
-      "WHO_WE_ARE": "We are Ocean Service Center!"
+    "DETAILS": {
+      "AUCTIONS": "We are a full service boat repair auction website.Boat owners in need of a repair, place their repair job on our <i>Auctions</i> section and shipyards/repair professionals and surveyors (when needed) bid on that job.",
+      "BOAT_OWNERS": "Boat owners then choose their winning bid and we put you in contact with the repair professional or shipyard and allow you to oversee the process. The boat owner then pays via our secure platform and the shipyard gets to work.",
+      "REPAIR_PROFESSIONALS": "Repair professionals will give updates along the way during the repair or refit and when done, the boat owner has a fully repaired/surveyed boat and a smile on their face.It’s just that easy."
+    },
+    "WHO_WE_ARE": "We are Ocean Service Center!"
   },
   "HOW_IT_WORKS": {
-      "TITLE": "How It Works",
-      "ICONS": {
-          "BOAT_OWNER": {
-              "BIDDING_BEGIN": "The Bidding Begin",
-              "CERTIFIED_PROS": "Get Bids from Certified Pros",
-              "BEST_OFFER": "Select Best Offer",
-              "MONITOR_REPAIR_PROCESS": "Monitor Repair Process",
-              "REPAIR_FINISHED": "Repair is Finished",
-              "BEGIN_PAYMENTS": "Begin Payments",
-              "BACK_ON_WATER": "Get back on the Water!"
-          },
-          "SHIPYARD": {
-              "FIND_REPAIR_JOBS": "Find Repair Jobs in Your Area",
-              "BID_ON_JOBS": "Bid on Jobs",
-              "GET_WORK": "Get Work",
-              "SEND_UPDATES": "Send Updates",
-              "GET_PAID": "Get Paid"
-          },
-          "SURVEYOR": {
-              "FIND_JOBS": "Find Survey Jobs in your Area",
-              "BID_ON_JOBS": "Bid on Jobs",
-              "GET_WORK": "Get Work",
-              "GET_PAID": "Get Paid",
-              "FEEDBACK": "Leave Feedback"
-          }
+    "TITLE": "How It Works",
+    "ICONS": {
+      "BOAT_OWNER": {
+        "BIDDING_BEGIN": "The Bidding Begin",
+        "CERTIFIED_PROS": "Get Bids from Certified Pros",
+        "BEST_OFFER": "Select Best Offer",
+        "MONITOR_REPAIR_PROCESS": "Monitor Repair Process",
+        "REPAIR_FINISHED": "Repair is Finished",
+        "BEGIN_PAYMENTS": "Begin Payments",
+        "BACK_ON_WATER": "Get back on the Water!"
       },
-      "TABS": {
-          "BOAT_OWNER": {
-              "CREATE_ACCOUNT": "Create an account on our website. It’s a simple process.",
-              "POST_YOUR_JOB": "Post pictures and a description of your boat repair, of any size,for free to our secure auction website where repair professionals/shipyards and surveyors (when needed) will bid on your job. Only you will see the bids.",
-              "BIDDING_BEGIN": "Repair Professionals/Shipyards and surveyors have access to your job auction, and then bid on that repair. Normal bidding time is 28 days.",
-              "CERTIFIED_PROS": "You’ll get bids from our verified pool of certified professionals who will give you a price for that given repair or survey job. Everyone will compete to give you the best price!",
-              "BEST_OFFER": "You get to choose who you want to repair your boat at the price that was offered.All certified, all verified, only the best offers win.",
-              "MONITOR_REPAIR_PROCESS": "You’ll get repair updates along the way so you know exactly how much progress has been made.",
-              "REPAIR_FINISHED": "You’ll get a notification once your repair has been finished so you know when you can get your boat back.",
-              "BEGIN_PAYMENTS": "Once the auction is closed, boat owners have 48 hours to make the initial payment of the bid price through the secure payment section. Boat owners are responsible for completing all milestone payments along the way. If initial payment is not made, the auction then reopens.",
-              "BACK_ON_WATER": "Now that you have your boat back, get back to doing the things you love. Also, feel free to leave a rating and feedback about your experience with your repair professional/shipyard or surveyor on our site."
-          },
-          "SHIPYARD": {
-              "CREATE_ACCOUNT": "Set up an account with location, all certifications, and your guarantees.Transparency is key.",
-              "FIND_REPAIR_JOBS": "Search through the bids in your area and find work that is within your expertise.",
-              "BID_ON_JOBS": "You can bid on jobs that your company is equipped to repair. You choose the price you’re willing to get paid for that job.",
-              "GET_WORK": "If you win the bid, then you get the work. You’ll receive a notice if your bid won.",
-              "SEND_UPDATES": "You’ll send repair updates to the owner along the way. Larger jobs may require more updates.",
-              "GET_PAID": "Once the auction is closed, boat owners have 48 hours to make the initial payment of the bid price through the secure payment section. Boat owners are responsible for completing all milestone payments along the way. If initial payment is not made, the auction then reopens."
-          },
-          "SURVEYOR": {
-              "CREATE_ACCOUNT": "Set up an account with location, all certifications, and your guarantees.",
-              "FIND_JOBS": "Search through the bids in your area and find work that is within your expertise.",
-              "BID_ON_JOBS": "You can bid on jobs that your company is equipped to survey. You choose the price you’re willing to get paid for that job.",
-              "GET_WORK": "If you win the bid, then you get the work. You’ll receive a notice if your bid won.",
-              "GET_PAID": "Once the auction is closed, boat owners have 48 hours to make the initial payment of the bid price through the secure payment section. Boat owners are responsible for completing all milestone payments along the way. If initial payment is not made, the auction then reopens.",
-              "FEEDBACK": "When everything is said and done that’s the moment of truth. Feel free to leave a comment about your experience with our service or the boat owner."
-          }
+      "SHIPYARD": {
+        "FIND_REPAIR_JOBS": "Find Repair Jobs in Your Area",
+        "BID_ON_JOBS": "Bid on Jobs",
+        "GET_WORK": "Get Work",
+        "SEND_UPDATES": "Send Updates",
+        "GET_PAID": "Get Paid"
+      },
+      "SURVEYOR": {
+        "FIND_JOBS": "Find Survey Jobs in your Area",
+        "BID_ON_JOBS": "Bid on Jobs",
+        "GET_WORK": "Get Work",
+        "GET_PAID": "Get Paid",
+        "FEEDBACK": "Leave Feedback"
       }
+    },
+    "TABS": {
+      "BOAT_OWNER": {
+        "CREATE_ACCOUNT": "Create an account on our website. It’s a simple process.",
+        "POST_YOUR_JOB": "Post pictures and a description of your boat repair, of any size,for free to our secure auction website where repair professionals/shipyards and surveyors (when needed) will bid on your job. Only you will see the bids.",
+        "BIDDING_BEGIN": "Repair Professionals/Shipyards and surveyors have access to your job auction, and then bid on that repair. Normal bidding time is 28 days.",
+        "CERTIFIED_PROS": "You’ll get bids from our verified pool of certified professionals who will give you a price for that given repair or survey job. Everyone will compete to give you the best price!",
+        "BEST_OFFER": "You get to choose who you want to repair your boat at the price that was offered.All certified, all verified, only the best offers win.",
+        "MONITOR_REPAIR_PROCESS": "You’ll get repair updates along the way so you know exactly how much progress has been made.",
+        "REPAIR_FINISHED": "You’ll get a notification once your repair has been finished so you know when you can get your boat back.",
+        "BEGIN_PAYMENTS": "Once the auction is closed, boat owners have 48 hours to make the initial payment of the bid price through the secure payment section. Boat owners are responsible for completing all milestone payments along the way. If initial payment is not made, the auction then reopens.",
+        "BACK_ON_WATER": "Now that you have your boat back, get back to doing the things you love. Also, feel free to leave a rating and feedback about your experience with your repair professional/shipyard or surveyor on our site."
+      },
+      "SHIPYARD": {
+        "CREATE_ACCOUNT": "Set up an account with location, all certifications, and your guarantees.Transparency is key.",
+        "FIND_REPAIR_JOBS": "Search through the bids in your area and find work that is within your expertise.",
+        "BID_ON_JOBS": "You can bid on jobs that your company is equipped to repair. You choose the price you’re willing to get paid for that job.",
+        "GET_WORK": "If you win the bid, then you get the work. You’ll receive a notice if your bid won.",
+        "SEND_UPDATES": "You’ll send repair updates to the owner along the way. Larger jobs may require more updates.",
+        "GET_PAID": "Once the auction is closed, boat owners have 48 hours to make the initial payment of the bid price through the secure payment section. Boat owners are responsible for completing all milestone payments along the way. If initial payment is not made, the auction then reopens."
+      },
+      "SURVEYOR": {
+        "CREATE_ACCOUNT": "Set up an account with location, all certifications, and your guarantees.",
+        "FIND_JOBS": "Search through the bids in your area and find work that is within your expertise.",
+        "BID_ON_JOBS": "You can bid on jobs that your company is equipped to survey. You choose the price you’re willing to get paid for that job.",
+        "GET_WORK": "If you win the bid, then you get the work. You’ll receive a notice if your bid won.",
+        "GET_PAID": "Once the auction is closed, boat owners have 48 hours to make the initial payment of the bid price through the secure payment section. Boat owners are responsible for completing all milestone payments along the way. If initial payment is not made, the auction then reopens.",
+        "FEEDBACK": "When everything is said and done that’s the moment of truth. Feel free to leave a comment about your experience with our service or the boat owner."
+      }
+    }
   },
   "DASHBOARD": {
-      "TITLE": "Dashboard"
+    "TITLE": "Dashboard"
   },
   "DIALOGS": {
-      "GALLERY_IMAGES": {
-          "TITLE": "Confirm your action",
-          "DESC": "Are you sure trying to delete {{length}} file(s)?"
-      }
+    "GALLERY_IMAGES": {
+      "TITLE": "Confirm your action",
+      "DESC": "Are you sure trying to delete {{length}} file(s)?"
+    }
   },
   "AUCTIONS": {
-      "PAYMENT_METHOD": "Payment Method",
-      "MY_AUCTIONS": "My Auctions",
-      "MY_AUCTIONS_DESCRIPTION": "Manage your live and completed auctions",
-      "TITLE": "Repair, Survey & Refit Auctions",
-      "LIST_BOAT": "List Your Boat",
-      "CURRENT_BID_RANGE": "Current Bid Range",
-      "BID_ON": "Bid on",
-      "NO_AUCTIONS": "No auctions have been added.",
-      "BIDS": "Bids",
-      "BIDDING_FORM": "Bidding Form",
-      "LIST_ITEMS": "list items",
-      "STARTED_ON": "Auction started on",
-      "EMPTY": {
-          "TITLE": "Auctions not created yet",
-          "DESC": "Create it after you add your boat to the My Boats section and click on Create Auction"
+    "PAYMENT_METHOD": "Payment Method",
+    "MY_AUCTIONS": "My Auctions",
+    "MY_AUCTIONS_DESCRIPTION": "Manage your live and completed auctions",
+    "TITLE": "Repair, Survey & Refit Auctions",
+    "LIST_BOAT": "List Your Boat",
+    "CURRENT_BID_RANGE": "Current Bid Range",
+    "BID_ON": "Bid on",
+    "NO_AUCTIONS": "No auctions have been added.",
+    "BIDS": "Bids",
+    "BIDDING_FORM": "Bidding Form",
+    "LIST_ITEMS": "list items",
+    "STARTED_ON": "Auction started on",
+    "EMPTY": {
+      "TITLE": "Auctions not created yet",
+      "DESC": "Create it after you add your boat to the My Boats section and click on Create Auction"
+    },
+    "STATUS": {
+      "TITLE": "Status",
+      "DRAFT": "Draft",
+      "AUCTION_LIVE": "Auction Live",
+      "JOB_IN_PROGRESS": "Job in Progress",
+      "AUCTION_CANCELLED": "Cancelled",
+      "COMPLETED": "Completed",
+      "AWARDED": "Awarded",
+      "EXPIRED": "Expired",
+      "NONE": "Status unknown"
+    },
+    "DIALOG": {
+      "DELETE": {
+        "TITLE": "Delete Auction",
+        "DESC": "Do you really want to delete the auction?"
+      }
+    },
+    "DETAILS": {
+      "BID_CREATED_MESSAGE": "Your bid has been succesfully created. You're being redirected to the dashboard in",
+      "BIDDING_FORM_DESCRIPTION_FIRST_ROW": "Fill out all the fields below to create a bid on <span class='bold-dark'>{{auctionName}}.</span> Click the <q>Read Surveyor's Notes </q> button to expand any additional details about the line item. If this is missing, then there are no additional notes from the surveyor.",
+      "BIDDING_FORM_DESCRIPTION_SECOND_ROW": "You can add notes to any of the line items as well as create additional line items after the surveyor's line items.",
+      "STEPS": {
+        "DESCRIPTION": "General Description/Cover letter",
+        "ITEM_BID": "Item Bid"
       },
-      "STATUS": {
-          "TITLE": "Status",
-          "DRAFT": "Draft",
-          "AUCTION_LIVE": "Auction Live",
-          "JOB_IN_PROGRESS": "Job in Progress",
-          "AUCTION_CANCELLED": "Cancelled",
-          "COMPLETED": "Completed",
-          "AWARDED": "Awarded",
-          "NONE": "Status unknown"
+      "BID_STATUSES": {
+        "WORK_IN_PROGRESS": {
+          "TITLE": "Work on the boat repair is in progress"
+        },
+        "IN_REVIEW": {
+          "TITLE": "Bids Being Reviewed",
+          "DESC": "The boat owner is currently reviewing all bids.<br>You will be notified once your bid is either accepted or rejected."
+        },
+        "NA": {
+          "TITLE": "Auction Ended",
+          "DESC": "Your auction has ended and you received 8 bids.<br>Click the button below to review your bids."
+        },
+        "ACCEPTED": {
+          "TITLE": "Bid Accepted!",
+          "DESC": "Your bid from Bollinger Shipyards for {{amount}} was accepted by the boat owner.<br>Message the owner to get started on repairs.",
+          "SIGN_DOCUMENTS": "Before getting started, please review and sign the following documents. Once you have signed the documents, you will be able to start the job ",
+          "WAIT_FOR_BOAT_OWNER": "Wait for the boat owner to sign the documents and make the full payment.",
+          "FULL_AMOUNT_PAID": "The boat owner has paid the full amount. You can now start the job."
+        },
+        "COMPLETED": {
+          "TITLE": "Auction Finished",
+          "DESC": "Auction has ended, you have no way to interact any further, but you can view some information below"
+        },
+        "REJECTED": {
+          "TITLE": "Bid Rejected",
+          "DESC": "Your bid from Bollinger Shipyards for {{amount}} was rejected by the boat owner.<br>Find more auctions to bid on by using the button below.",
+          "FULL_AMOUNT_ERROR": "There was an error on the part of the auction owner when paying"
+        }
+      }
+    },
+    "IS_ALREADY_STARTED": "Auction is already started",
+    "NOT_LISTED": "Auction is not listed yet",
+    "DETAIL": "Auction Details",
+    "DEPOSIT": "Deposit",
+    "DEPOSIT_DESCRIPTION": "To start an auction there is a {{ value }} dollar deposit required. We will be refunding this amount after you process the full payment for the bid. If the auction is closed or cancelled for any reason this will go towards your account.",
+    "SUCCESSFULLY_DEPOSITED": "You have successfully deposited",
+    "TO_GET_STARTED": "to get started. Return to",
+    "DASHBOARD": "Dashboard",
+    "WIZARD_STEPS": {
+      "WORK_DESCRIPTION": "Work Description",
+      "SURVEY_INFORMATION": "Survey Information",
+      "LIST_BOAT": "List Boat",
+      "START_AUCTION": "Start Auction"
+    },
+    "CREATE": {
+      "STEPS": {
+        "WORK_DESCRIPTION": "Work Description",
+        "INFORMATION": "Information",
+        "PREVIEWS/LIST": "Previews/List",
+        "ADD_PAYMENT": "Add Payment"
       },
-      "DIALOG": {
-          "DELETE": {
-              "TITLE": "Delete Auction",
-              "DESC": "Do you really want to delete the auction?"
-          }
-      },
-      "DETAILS": {
-          "BID_CREATED_MESSAGE": "Your bid has been succesfully created. You're being redirected to the dashboard in",
-          "BIDDING_FORM_DESCRIPTION_FIRST_ROW": "Fill out all the fields below to create a bid on <span class='bold-dark'>{{auctionName}}.</span> Click the <q>Read Surveyor's Notes </q> button to expand any additional details about the line item. If this is missing, then there are no additional notes from the surveyor.",
-          "BIDDING_FORM_DESCRIPTION_SECOND_ROW": "You can add notes to any of the line items as well as create additional line items after the surveyor's line items.",
-          "STEPS": {
-              "DESCRIPTION": "General Description/Cover letter",
-              "ITEM_BID": "Item Bid"
-          },
-          "BID_STATUSES": {
-              "WORK_IN_PROGRESS": {
-                "TITLE": "Work on the boat repair is in progress"
-              },
-              "IN_REVIEW": {
-                  "TITLE": "Bids Being Reviewed",
-                  "DESC": "The boat owner is currently reviewing all bids.<br>You will be notified once your bid is either accepted or rejected."
-              },
-              "NA": {
-                  "TITLE": "Auction Ended",
-                  "DESC": "Your auction has ended and you received 8 bids.<br>Click the button below to review your bids."
-              },
-              "ACCEPTED": {
-                  "TITLE": "Bid Accepted!",
-                  "DESC": "Your bid from Bollinger Shipyards for {{amount}} was accepted by the boat owner.<br>Message the owner to get started on repairs.",
-                  "SIGN_DOCUMENTS": "Before getting started, please review and sign the following documents. Once you have signed the documents, you will be able to start the job ",
-                  "WAIT_FOR_BOAT_OWNER": "Wait for the boat owner to sign the documents and make the full payment.",
-                  "FULL_AMOUNT_PAID": "The boat owner has paid the full amount. You can now start the job."
-              },
-              "REJECTED": {
-                  "TITLE": "Bid Rejected",
-                  "DESC": "Your bid from Bollinger Shipyards for {{amount}} was rejected by the boat owner.<br>Find more auctions to bid on by using the button below."
-              }
-          }
-      },
-      "IS_ALREADY_STARTED": "Auction is already started",
-      "NOT_LISTED": "Auction is not listed yet",
-      "DETAIL": "Auction Details",
-      "DEPOSIT": "Deposit",
-      "DEPOSIT_DESCRIPTION": "To start an auction there is a {{ value }} dollar deposit required. This deposit will go towards the final price. If the auction is closed or cancelled for any reason this will go towards your account",
-      "SUCCESSFULLY_DEPOSITED": "You have successfully deposited",
-      "TO_GET_STARTED": "to get started. You are being transferred to your",
-      "DASHBOARD": "Dashboard",
-      "WIZARD_STEPS": {
-          "WORK_DESCRIPTION": "Work Description",
-          "SURVEY_INFORMATION": "Survey Information",
-          "LIST_BOAT": "List Boat",
-          "START_AUCTION": "Start Auction"
-      },
-      "CREATE": {
-          "STEPS": {
-              "WORK_DESCRIPTION": "Work Description",
-              "INFORMATION": "Information",
-              "PREVIEWS/LIST": "Previews/List",
-              "ADD_PAYMENT": "Add Payment"
-          },
-          "SUCCESS_MESSAGE": "Your listing has been successfully created. You’re being redirected to the dashboard in",
-          "SERVICE_TYPE_DESCRIPTION": "Choose the service type that most appropriately fits the work you’re looking to create a listing for. After a survey, a listing can be turned into a repair auction with the surveyor’s list items for the bidding form.",
-          "REPAIRS_DESCRIPTION": "Larger, list-itemed repairs that requires the expertise of a full shipyard.",
-          "SURVEY_DESCRIPTION": "Have a surveyor come out and assess damage and necessary repairs for the shipyard.",
-          "REFIT_DESCRIPTION": "Minor repairs, upgrades, or work that doesn’t require a long bidding form or docking at a shipyard...",
-          "INFORMATION": "Information",
-          "INFORMATION_DESCRIPTION_FIRST_ROW": "Input all pertinent information about your repair to the best of your ability. Before submitting a listing, you will have the option to create a survey auction before listing your vessel for repair.",
-          "INFORMATION_DESCRIPTION_SECOND_ROW": "The order of items do not indicate priority. The more descriptive your survey information, the more accurate the repair bid will be.",
-          "PREVIEW_YOUR_LISTING": "Preview your listing below, then select a date to start and end your auction.",
-          "FINALIZE_LISTING": "Finalize Listing",
-          "FINALIZE_LISTING_DESCRIPTION": "You are choosing to list your boat for repair without first going through a survey auction. You may get fewer bids without an official survey and could encounter unexpected charges from unforeseen items that a surveyor may catch.",
-          "SUPPORTED_FILES_TITLE": "Upload Pictures, Media and Supported Documents",
-          "SUPPORTED_FILES": "Supported Media Files: .gif, .jpg, .mpg, pdf, doc. "
-      },
-      "DIALOGS": {
-          "ADD_LINE_ITEM": "Add Line Item",
-          "UPLOAD_DOCUMENTS": "Upload documents"
-      },
-      "BE_THE_FIRST_TO_BID": "Be the first to bid",
-      "BIDDERS": "bidders",
-      "AUCTION_UPDATED": "Auction Updated",
-      "AUCTION_CANCELLED": "Auction Cancelled",
-      "AUCTION_CREATED": "Auction Created"
+      "SUCCESS_MESSAGE": "Your listing has been successfully created. You’re being redirected to the dashboard in",
+      "SERVICE_TYPE_DESCRIPTION": "Choose the service type that most appropriately fits the work you’re looking to create a listing for. After a survey, a listing can be turned into a repair auction with the surveyor’s list items for the bidding form.",
+      "REPAIRS_DESCRIPTION": "Larger, list-itemed repairs that requires the expertise of a full shipyard.",
+      "SURVEY_DESCRIPTION": "Have a surveyor come out and assess damage and necessary repairs for the shipyard.",
+      "REFIT_DESCRIPTION": "Minor repairs, upgrades, or work that doesn’t require a long bidding form or docking at a shipyard...",
+      "INFORMATION": "Information",
+      "INFORMATION_DESCRIPTION_FIRST_ROW": "Input all pertinent information about your repair to the best of your ability. Before submitting a listing, you will have the option to create a survey auction before listing your vessel for repair.",
+      "INFORMATION_DESCRIPTION_SECOND_ROW": "The order of items do not indicate priority. The more descriptive your survey information, the more accurate the repair bid will be.",
+      "PREVIEW_YOUR_LISTING": "Preview your listing below, then select a date to start and end your auction.",
+      "FINALIZE_LISTING": "Finalize Listing",
+      "FINALIZE_LISTING_DESCRIPTION": "You are choosing to list your boat for repair without first going through a survey auction. You may get fewer bids without an official survey and could encounter unexpected charges from unforeseen items that a surveyor may catch.",
+      "SUPPORTED_FILES_TITLE": "Upload Pictures, Media and Supported Documents",
+      "SUPPORTED_FILES": "Supported Media Files: .gif, .jpg, .mpg, pdf, doc. "
+    },
+    "DIALOGS": {
+      "ADD_LINE_ITEM": "Add Line Item",
+      "UPLOAD_DOCUMENTS": "Upload documents"
+    },
+    "BE_THE_FIRST_TO_BID": "Be the first to bid",
+    "BIDDERS": "bidders",
+    "AUCTION_UPDATED": "Auction Updated",
+    "AUCTION_CANCELLED": "Auction Cancelled",
+    "AUCTION_CREATED": "Auction Created",
+    "AUCTION_EXTENED": "Acution successfully extended for {{days}} days"
   },
   "BIDS": {
-      "REVIEW_BIDS": "Review Bids",
-      "REPAIR_PROCESS": "Repair Process",
-      "TIME_REMAINING": "Time Remaining",
-      "DEPOSIT": "Deposit",
-      "PAYMENT": "Payment",
-      "TIME_LEFT": "The time left to accept a bid and make full payment",
-      "REVIEW_WORK": "Review Work",
-      "ACCEPT": "Accept Bid",
-      "REJECT": "Reject Bid",
-      "BALANCE": "Balance",
-      "PAID_IN": "Paid in",
-      "BID_AMOUNT": "Bid Amount",
-      "REMAINING": "Remaining",
-      "MINIMUM": "Minimum",
-      "VIEW_PROFILE": "View Profile",
-      "RATING": "Rating",
-      "REJECT_CONTENT": "Do you really want to reject this bid?",
-      "BID_ACCEPTED": "Bid Accepted",
-      "DEPOSIT_AMOUNT": "Deposit Amount",
-      "SUCCESSFULLY_DEPOSITED": "You have successfully deposited",
-      "TRANSFERRED_TO_YOUR": " You are being transferred to your",
-      "REVIEW_WORK_FEED": "Review Work Feed",
-      "DEPOSINT_INFO_FIRST_PART": "Before repairs start, a minimum deposit of",
-      "DEPOSINT_INFO_SECOND_PART": "must be transferred. As the repair progresses, more funds will need to be transferred.",
-      "BID_WINNER": {
-          "DEPOSIT_INFO": "Before repairs start, a minimum deposit of <b>{{depositAmount}}</b> must be transferred."
-      },
-      "BID_EDITED": "Bid Edited",
-      "NO_BIDS": "No Bids have been added.",
-      "DOCUMENTS": "Documents",
-      "PAY_DEPOSIT": "Pay Deposit",
-      "PAY": "Pay",
-      "BID_CREATED": "Bid Created",
-      "BID_REJECTED": "Bid Rejected",
-      "BID_ON_REPAIR": "Bid on Repair",
-      "BID_START_REPAIR": "Start Repairing"
+    "REVIEW_BIDS": "Review Bids",
+    "REPAIR_PROCESS": "Repair Process",
+    "TIME_REMAINING": "Time Remaining",
+    "DEPOSIT": "Deposit",
+    "PAYMENT": "Payment",
+    "TIME_LEFT": "The time left to accept a bid and make full payment",
+    "REVIEW_WORK": "Review Work",
+    "ACCEPT": "Accept Bid",
+    "REJECT": "Reject Bid",
+    "BALANCE": "Balance",
+    "PAID_IN": "Paid in",
+    "BID_AMOUNT": "Bid Amount",
+    "REMAINING": "Remaining",
+    "MINIMUM": "Minimum",
+    "VIEW_PROFILE": "View Profile",
+    "RATING": "Rating",
+    "REJECT_CONTENT": "Do you really want to reject this bid?",
+    "BID_ACCEPTED": "Bid Accepted",
+    "DEPOSIT_AMOUNT": "Deposit Amount",
+    "SUCCESSFULLY_DEPOSITED": "You have successfully deposited",
+    "TRANSFERRED_TO_YOUR": " You are being transferred to your",
+    "REVIEW_WORK_FEED": "Review Work Feed",
+    "DEPOSINT_INFO_FIRST_PART": "Before repairs start, a minimum deposit of",
+    "DEPOSINT_INFO_SECOND_PART": "must be transferred. As the repair progresses, more funds will need to be transferred.",
+    "BID_WINNER": {
+      "DEPOSIT_INFO": "Before repairs start, a minimum deposit of <b>{{depositAmount}}</b> must be transferred."
+    },
+    "BID_EDITED": "Bid Edited",
+    "NO_BIDS": "No Bids have been added.",
+    "DOCUMENTS": "Documents",
+    "PAY_DEPOSIT": "Pay Deposit",
+    "PAY": "Pay",
+    "BID_CREATED": "Bid Created",
+    "BID_REJECTED": "Bid Rejected",
+    "BID_ON_REPAIR": "Bid on Repair",
+    "BID_START_REPAIR": "Start Repairing",
+    "EXTEND_AUCTION": "Extend Auction"
   },
   "BOATS": {
-      "MY_BOAT": "My Boat",
-      "LISTING": "Listing",
-      "MY_BOATS": "My Boats",
-      "MY_BOATS_DESCRIPTION": "Manage your boats and their actions",
-      "INFO": {
-          "NO_BOATS": "No boats have been added to your account."
-      },
-      "CREATE": {
-          "TITLE": "Add a Boat"
-      },
-      "TABS": {
-          "INFORMATION": "Boat Information",
-          "DESCRIPTION": "Boat Description",
-          "PICTURES_AND_MEDIA": "Pictures & Media"
-      },
-      "ADD_PICTURES_AND_MEDIA": "Add pictures & media to your Business",
-      "DRAG_AND_DROP_MEDIA": "Drag and drop or add your media.",
-      "BOAT_CREATED_NOTIFICATION": "Boat Created",
-      "BOAT_UPDATED_NOTIFICATION": "Boat Updated"
+    "MY_BOAT": "My Boat",
+    "LISTING": "Listing",
+    "MY_BOATS": "My Boats",
+    "MY_BOATS_DESCRIPTION": "Manage your boats and their actions",
+    "INFO": {
+      "NO_BOATS": "No boats have been added to your account."
+    },
+    "CREATE": {
+      "TITLE": "Add a Boat"
+    },
+    "TABS": {
+      "INFORMATION": "Boat Information",
+      "DESCRIPTION": "Boat Description",
+      "PICTURES_AND_MEDIA": "Pictures & Media"
+    },
+    "ADD_PICTURES_AND_MEDIA": "Add pictures & media to your Business",
+    "DRAG_AND_DROP_MEDIA": "Drag and drop or add your media.",
+    "BOAT_CREATED_NOTIFICATION": "Boat Created",
+    "BOAT_UPDATED_NOTIFICATION": "Boat Updated"
   },
   "SHIPYARDS": {
-      "ADD_SHIPYARD": "Add Shipyard",
-      "MY_SHIPYARDS": "My Shipyards",
-      "MY_SHIPYARDS_DESCRIPTION": "Manage your shipyards and actions related to them",
-      "INFO": {
-          "NO_SHIPYARDS": "No shipyards have been added to your account."
-      },
-      "STEPS": {
-          "SHIPYARD_INFORMATION": "Shipyard Information",
-          "ABOUT_YOUR_SHIPYARD": "About your shipyard"
-      },
-      "ADD_PICTURES_AND_MEDIA": "Add pictures & media to your shipboard profile"
+    "ADD_SHIPYARD": "Add Shipyard",
+    "MY_SHIPYARDS": "My Shipyards",
+    "MY_SHIPYARDS_DESCRIPTION": "Manage your shipyards and actions related to them",
+    "INFO": {
+      "NO_SHIPYARDS": "No shipyards have been added to your account."
+    },
+    "STEPS": {
+      "SHIPYARD_INFORMATION": "Shipyard Information",
+      "ABOUT_YOUR_SHIPYARD": "About your shipyard"
+    },
+    "ADD_PICTURES_AND_MEDIA": "Add pictures & media to your shipboard profile"
   },
   "SURVEYOS": {
-      "MANAGE_YOUR_BUSINESSES": "Manage your surveying businesses",
-      "NO_BUSINESS_INFO": "No businesses have been added to your account."
+    "MANAGE_YOUR_BUSINESSES": "Manage your surveying businesses",
+    "NO_BUSINESS_INFO": "No businesses have been added to your account."
   },
   "PROFILE": {
-      "TITLE": "Profile",
-      "MENU": "Profile Menu",
-      "SERVICES": "Services",
-      "EDIT_PROFILE": "Edit Profile",
-      "CHANGE_PASSWORD": "Change Password",
-      "SWITCH_ACCOUNTS": "Switch Accounts",
-      "I_AM_A": "I am a",
-      "MY_PROFILE": "My Profile",
-      "CREATE_AN_ACCOUNT": "Create an Account",
-      "PERSONAL_INFORMATION": "Personal Information",
-      "LOGIN_INFORMATION": "Login Information",
-      "RATINGS_AND_REVIEWS": "Ratings & Reviews",
-      "PAYMENT_DETAILS": "Payment Details",
-      "PAYMENT_NO_STRIPE_ACCOUNT": "Create Stripe account to which payments will be received, without creating this account you won't be able to bid on auctions",
-      "STRIPE_ACCOUNT_PROCEED": "Account created, but did not pass validation, enter the data again",
-      "MANAGE_PAYMENT_DETAILS": "Manage your payment details.",
-      "RESET_PASSWORD": {
-          "EMAIL_SENT_INFO": "We've just sent you an email to reset your password",
-          "DESCRIPTION_FIRST_ROW": "To change your password just click the <q>Send Email</q> button and you will receive a link by email.",
-          "DESCRIPTION_SECOND_ROW": "Once you receive the email just click the link and you will be asked to change your password there."
-      },
-      "BOAT_DETAILS": "Boat Details",
-      "SHIPYARD_DETAILS": "Shipyard Details",
-      "SURVEYOR_DETAILS": "Surveyor Details",
-      "ADDITIONAL_INFORMATION": "Additional Information",
-      "NO_PAYMENT_METHODS_ARE_ADDED": "No payment methods are added",
-      "EXPIRES": "Expires",
-      "ADD_PAYMENT_METHOD": "Add Payment Method",
-      "AVATAR": {
-          "UPDATED": "Profile avatar updated"
-      },
-      "UPDATED": "Profile updated successfully"
+    "TITLE": "Profile",
+    "MENU": "Profile Menu",
+    "SERVICES": "Services",
+    "EDIT_PROFILE": "Edit Profile",
+    "CHANGE_PASSWORD": "Change Password",
+    "SWITCH_ACCOUNTS": "Switch Accounts",
+    "I_AM_A": "I am a",
+    "MY_PROFILE": "My Profile",
+    "CREATE_AN_ACCOUNT": "Create an Account",
+    "PERSONAL_INFORMATION": "Personal Information",
+    "LOGIN_INFORMATION": "Login Information",
+    "RATINGS_AND_REVIEWS": "Ratings & Reviews",
+    "PAYMENT_DETAILS": "Payment Details",
+    "PAYMENT_NO_STRIPE_ACCOUNT": "Create Stripe account to which payments will be received",
+    "STRIPE_ACCOUNT_PROCEED": "Account created, but did not pass validation, enter the data again",
+    "MANAGE_PAYMENT_DETAILS": "Manage your payment details.",
+    "RESET_PASSWORD": {
+      "EMAIL_SENT_INFO": "We've just sent you an email to reset your password",
+      "DESCRIPTION_FIRST_ROW": "To change your password just click the <q>Send Email</q> button and you will receive a link by email.",
+      "DESCRIPTION_SECOND_ROW": "Once you receive the email just click the link and you will be asked to change your password there."
+    },
+    "BOAT_DETAILS": "Boat Details",
+    "SHIPYARD_DETAILS": "Shipyard Details",
+    "SURVEYOR_DETAILS": "Surveyor Details",
+    "ADDITIONAL_INFORMATION": "Additional Information",
+    "NO_PAYMENT_METHODS_ARE_ADDED": "No payment methods are added",
+    "EXPIRES": "Expires",
+    "ADD_PAYMENT_METHOD": "Add Payment Method",
+    "AVATAR": {
+      "UPDATED": "Profile avatar updated",
+      "DELETED": "Profile avatar deleted"
+    },
+    "UPDATED": "Profile updated successfully",
+    "DELETE_PAYMENT_METHOD": "Delete Payment Method",
+    "DO_YOU_REALLY_WANT_DELETE_PAYMENT_METHOD": "Do you really want to delete payment method?"
   },
   "STRIPE": {
-      "ERROR": {
-          "VALIDATE": "Unable to validate an user",
-          "CREATING": "Unable to create a Stripe User account",
-          "READING": "Unable to get stripe account detail"
+    "TITLE": "Stripe Integration Management",
+    "MANAGE": "Here you can manage your Stripe account, add and configure debit cards or banks that will be used later for payment(s)",
+    "DETAILS": "Details",
+    "DIVIDER": "OR",
+    "ACTIONS": {
+      "CREATE": "Create",
+      "CLOSE": "Close",
+      "DELETE": "Delete",
+      "MARK": "Set as Default"
+    },
+    "ERROR": {
+      "VALIDATE": "Unable to validate an user",
+      "CREATING": "Unable to create a Stripe User account",
+      "READING": "Unable to get stripe account detail",
+      "UNEXPECTED": "Unexpected Error"
+    },
+    "ACCOUNT": {
+      "CREATE": "Create Stripe Account",
+      "EDIT": "Update an Account Details",
+      "MANAGE": "Manage Stripe Integration",
+      "TITLE": "Create Your Personal Stripe Account",
+      "PREVIEW": "Preview Account Details",
+      "REVALIDATE": "Submit And Revalidate Errors"
+    },
+    "BANKS": {
+      "TITLE": "Banks",
+      "ADD_NEW": "Add a new bank",
+      "DESCRIPTION": "You have added this bank to your account on our website<br>Click on this entry to see more details or to designate this bank as your primary bank for withdrawals",
+      "MARKED": "This bank account is set as the main one for withdrawal<br>You can change this by adding another one and assign it when viewing details",
+      "EMPTY": "No bank accounts associated with Stripe found",
+      "SELECTED": "Selected Bank Account",
+      "ACCOUNT_TITLE": "Bank Account",
+      "ACCOUNT_ATTACH": "Attaching a new bank account",
+      "LINKED": "You have attached this Bank Account to your account on our website"
+    },
+    "CARDS": {
+      "TITLE": "Cards",
+      "ADD_NEW": "Add a new card",
+      "HOLDER_NAME": "Card Holder Name",
+      "EXPIRES": "Expires",
+      "EMPTY": "No cards associated with Stripe found",
+      "SELECTED": "Selected Card",
+      "CARD_TITLE": "Debit Card",
+      "CARD_ATTACH": "Attaching a new debit card",
+      "LINKED": "You have attached this Debit Card to your account on our website"
+    },
+    "PAGE": {
+      "NAVIGATION": {
+        "TITLE": "Stripe Integration Settings",
+        "BACK": "Back to Dashboard Page"
       },
-      "ACCOUNT": {
-          "CREATE": "Create Stripe Account",
-          "EDIT": "Update an Account Details",
-          "TITLE": "Create Your Personal Stripe Account"
+      "TABS": {
+        "MANAGE": "Manage",
+        "ACCOUNT": "Account"
       }
+    }
   },
   "FORMS": {
-      "SELECT": {
-          "GENDER": {
-              "MALE": "male",
-              "FEMALE": "female"
-          }
-      },
-      "LABELS": {
-          "WHAT_IS_THE_NAME_OF_YOUR_BOAT": "What is the name of your boat?",
-          "WHAT_IS_THE_TYPE_OF_YOUR_BOAT": "What is the type of your boat?",
-          "WHERE_IS_YOUR_BOAT_LOCATION": "Where is your boat located?",
-          "YEAR": "Year",
-          "LENGTH": "Length",
-          "CITY": "City",
-          "STATE": "State",
-          "PROVINCE": "Province",
-          "REGION": "Region",
-          "TAX_ID": "Taxpayer Identification Number",
-          "SSN_LAST4": "Social Security Number, Last 4 Digits",
-          "ID_NUMBER": "Identity Number",
-          "ZIP_CODE": "Zip Code",
-          "CREATE_BOAT_DESCRIPTION": "Add a description of your boat",
-          "TIMEZONE": "Timezone",
-          "FIRST_NAME": "First Name",
-          "LAST_NAME": "Last Name",
-          "EMAIL_ADDRESS": "Email Address",
-          "ADDRESS": "Address",
-          "ADDRESS2": "Address 2",
-          "PHONE": "Phone",
-          "GENDER": "Gender",
-          "LISTED": "Listed",
-          "ENDS": "Ends",
-          "USERNAME": "Username",
-          "PASSWORD": "Password",
-          "CONFIRM_PASSWORD": "Confirm Password",
-          "BID_DESCRIPTION": "Bid Description",
-          "APPROX_TIME_TO_COMPLETE_JOB": "Approximate time to complete job",
-          "THE_WORK_CAN_START_ON": "The work can start on",
-          "SUB_TOTAL": "Sub Total",
-          "SALES_TAX": "Sales Tax",
-          "TOTAL": "Total",
-          "LOW_BID": "Low Bid",
-          "HIGH_BID": "High Bid",
-          "YOUR_BID": "Your Bid",
-          "I_AM_LOOKING_FOR": "I am looking for",
-          "SERVICE_TYPES": "Service Types",
-          "REPAIRS": "Repairs",
-          "SURVEY": "Survey",
-          "REFIT": "Refit",
-          "CHOOSE_LISTING_SERVICE_TYPE": "Choose listing service type",
-          "BOAT_LISTING_TITLE": "Boat Listing Title",
-          "BOAT_LISTING_DESCRIPTION": "Boat Listing Description",
-          "BOAT_LENGTH_TYPE_AND_YEAR": "Boat length, type and year",
-          "BOAT_LENGTH": "Boat Length",
-          "BOAT_TYPE": "Type",
-          "BOAT_YEAR": "Year",
-          "LOCATION": "Location",
-          "DESCRIPTION": "Description",
-          "NOTE": "Note",
-          "AUCTION_START_DATE": "Auction start date",
-          "AUCTION_END_DATE": "Auction end date",
-          "SHIPYARD_NAME": "Shipyard Name",
-          "NAME": "Name",
-          "WHAT_IS_THE_SHIPYARD_NAME": "What is the name of your shipyard?",
-          "WHAT_IS_ITS_PHONE_NUMBER": "What is its phone number?",
-          "TELL_US_ABOUT_YOUR_SHIPYARD": "Tell us a bit about your Shipyard",
-          "DO_YOU_HAVE_WEBSITE": "Do you have a website for it?",
-          "DOES_IT_HAVE_EMAIL": "Does it have an email address?",
-          "REQUIRED": "This field is required",
-          "MIN_SIZE": "Minimum {{ size }} characters",
-          "MAX_SIZE": "Maximum {{ size }} characters",
-          "MIN_AMOUNT": "Minimum amount {{ amount }}",
-          "COUNTRY": "Country",
-          "YOUR_NOTE": "Your Note",
-          "TITLE": "Title",
-          "UPLOAD_ADDITIONAL_DOCUMENTS": "Upload any additional documents",
-          "CREDID_CARD_NUMBER": "Credit Card Number",
-          "EXPIRATION": "Expiration",
-          "CVC": "CVC",
-          "TYPE": "Type",
-          "INVALID_ZIP_FOR_COUNTRY": "Invalid zip code for country: {{countryCode}}",
-          "TOTAL_BID": "Total Bid",
-          "STARTING_DEPOSIT": "Starting Deposit",
-          "WORK_CAN_START": "Work Can Start",
-          "TIME_TO_COMPLETE": "Time to Complete",
-          "DEPOSIT": "Deposit",
-          "PAYMENT": "Payment",
-          "HIGH_TO_LOW": "High to Low",
-          "LOW_TO_HIGH": "Low to High",
-          "MINIMUM_STARTING_DEPOSIT": "Minimum starting deposit",
-          "DATE_OF_BIRTH": "Date of Birth",
-          "DRIVER_LICENSE": "Driver License",
-          "PASSPORT_NUMBER": "Passport Number",
-          "REPRESENTATIVE_NAME": "Representative Name",
-          "REPRESENTATIVE_CONTACT": "Representative Contact",
-          "DOCKAGE_FEE": "Dockage Fee",
-          "UTILITY_FEE": "Utility Fee",
-          "GARBAGE_FEE": "Garbage Fee",
-          "AMP_SERVICE_FEE": "AMP Service Fee",
-          "SECURITY": "Security",
-          "ABRITRATION_LOCATION": "Abritration Location",
-          "WARRANTY_DAYS": "Warranty Days",
-          "SURVEYOR_FEE": "Surveyor Fee",
-          "MODEL": "Model",
-          "FLAG": "Flag",
-          "OFFICIAL_NUMBER": "Official Number",
-          "LOA": "Length Overall",
-          "BEAM": "Beam",
-          "DRAFT": "Draft",
-          "DISPLACEMENT": "Displacement",
-          "HULL_ID": "Hull Id",
-          "ELECTRICAL_REQUIREMENTS": "Electrical Requirements",
-          "BOAT_CLASS": "Class",
-          "INSURANCE_NUMBER": "Insurance Number",
-          "DAMAGE": "Damage",
-          "PART_TIME": "Part time",
-          "FULL_TIME": "Full time",
-          "ADDRESS_LINE_1": "Address Line 1",
-          "ADDRESS_LINE_2": "Address Line 2",
-          "BUSINESS_EMAIL": "Business Email",
-          "BUSINESS_URL": "Business Url",
-          "SHIPYARD_WEBSITE": "Shipyard Website",
-          "SHIPYARD_ADDRESS": "Shipyard Address",
-          "SHIPYARD_ADDRESS_2": "Shipyard Address 2",
-          "BUSINESS_NAME": "Business Name",
-          "SURVEYING_WEBSITE": "Surveying Website",
-          "SURVEYING_OFFICE_ADDRESS": "Surveying Office Address",
-          "SURVEYING_OFFICE_ADDRESS_2": "Surveying Office Address 2",
-          "BOAT_NAME": "Boat Name",
-          "YARD_OWNER": "Yard Owner",
-          "AWAY_FROM_PROVIDERS_YARD": "Is repair work to be done away from provider's yard?",
-          "AWAY_FROM_PROVIDERS_YARD_DESCRIPTION": "Yes, work will be done away from provider's yard"
-      },
-      "HINTS": {
-          "VERIFICATION_EMAIL": "Please be sure to type it correctly to receive the verification email.",
-          "ROLE": "Your dashboard will depend on your role."
-      },
-      "ERRORS": {
-          "USERNAME": "Only lowercase letters, numbers and dash",
-          "NAME": "Please enter a valid name",
-          "ZIP": "Please enter a valid ZIP",
-          "AUCTION_START_DATE_BEFORE_AUCTION_END_DATE": "Auction start date should be set before auction end date.",
-          "AUCTION_END_DATE_SET_AFTER_THE_CURRENT_DATE": "Auction end date should be set after current date.",
-          "DATE_SET_AFTER_THE_CURRENT_DATE": "Date should be set after current date.",
-          "MUST_HAVE_MAXIMUM__OF": "Must have a maximum of {{value}} characters.",
-          "YEAR_SHOULD_NOT_START_WITH_ZERO": "Year should not start with 0",
-          "INVALID_DATA": "Invalid data!",
-          "SHOULD_BE_GREATER_THAN_ZERO": "Should be greater than zero",
-          "PLEASE_ENTER_VALID_DATA": "Please enter valid data",
-          "SHOULD_NOT_GREATER_THAN_CURRENT_YEAR": "Should not greater then current year",
-          "SHOULD_NOT_LESS_THAN": "Should not less than {{value}}",
-          "SHOULD_NOT_GREATER_THAN": "Should not greater than {{value}}",
-          "YEAR_FORMAT": "Year should be in YYYY format",
-          "SHOULD_NOT_LESS_THAN_CURRENT_YEAR": "Should not less than current year",
-          "SHOULD_BE_BETWEEN": "Should be between {{value1}} and {{value2}}",
-          "COUNTRY_REQUIRED": "Country is required",
-          "START_SPACE_ERROR": "Starting space is not allowed",
-          "INVALID_PHONE": "Please enter valid phone number",
-          "INVALID_PATTERN": "Invalid pattern",
-          "INVALID_BOAT_LENGTH": "Invalid boat length",
-          "PASSWORD": "Password should contains Uppercase, Lowercase, Special Character, Number",
-          "DUPLICATE": "This is a duplicate",
-          "INVALID_DATE": "Please enter a valid date",
-          "INVALID_MONTH": "Should not less than current month",
-          "INVALID_TEXT_PATTERN": "Invalid text provided",
-          "INVALID_ADDRESS_PATTERN": "Invalid address",
-          "INVALID_WEB_URL_PATTERN": "Invalid URL",
-          "INVALID_HULL_NUMBER": "Invalid Hull Number"
-      },
-      "PLACEHOLDERS": {
-          "LIST_BOAT_TITLE": "(eg. My Awesome Boat needs Surveying) Make it engaging. This is the first thing people will see.",
-          "LIST_BOAT_DESCRIPTION": "Details about your boat listing. This can be details of your repairs needed or request for survey.",
-          "CHOOSE_DATE": "Choose a date...",
-          "ENTER_TASK_TITLE": "Enter task title",
-          "ENTER_QUANTITY": "Enter Quantity",
-          "ENTER_AMOUNT": "Enter Amount",
-          "ENTER_TASK_DESCRIPTION": "Enter task description",
-          "ADDRESS": "Eg. 1682 Federal Way",
-          "ADDRESS2": "Suite, Floor",
-          "STATE": "Florida",
-          "CITY": "Bartow",
-          "LENGTH": "35",
-          "TYPE": "Small Boat",
-          "YEAR": "1987",
-          "HULL_ID": "ABC12345B8E4",
-          "BOAT_NAME": "Blue Miracle",
-          "COUNTRY": "The United States Of America",
-          "ZIP_CODE": "99501",
-          "BOAT_DESCRIPTION": "My boat is used for...",
-          "BOAT_MODEL": "Bowrider Boats",
-          "BOAT_CLASS": "Class A, Class 1, Class 2, Class 3",
-          "BOAT_DRAFT": "My Boat Draft",
-          "ELECTRICAL_REQUIREMENTS": "How many consumes the engine",
-          "NUMBER": "12345",
-          "WHAT_IS_THE_SHIPYARD_NAME": "Eg. “My Shipyard”",
-          "CHOOSE_YOUR_TIMEZONE": "Choose your timezone"
-      },
-      "CLEAR_FORM": "Clear Form"
+    "SELECT": {
+      "GENDER": {
+        "MALE": "Male",
+        "FEMALE": "Female"
+      }
+    },
+    "LABELS": {
+      "WHAT_IS_THE_NAME_OF_YOUR_BOAT": "What is the name of your boat?",
+      "WHAT_IS_THE_TYPE_OF_YOUR_BOAT": "What is the type of your boat?",
+      "WHERE_IS_YOUR_BOAT_LOCATION": "Where is your boat located?",
+      "BANK_NAME": "Bank Name",
+      "ACCOUNT_HOLDER_NAME": "Account Holder Name",
+      "ACCOUNT_NUMBER": "Account Number",
+      "CURRENCY": "Currency",
+      "ROUTING_NUMBER": "Routing Number",
+      "BRAND": "Brand",
+      "YEAR": "Year",
+      "LENGTH": "Length",
+      "CITY": "City",
+      "STATE": "State",
+      "PROVINCE": "Province",
+      "REGION": "Region",
+      "TAX_ID": "Taxpayer Identification Number (9 digits)",
+      "SSN_LAST4": "Social Security Number (Last 4 digits)",
+      "ID_NUMBER": "Identity Number",
+      "ZIP_CODE": "Zip Code",
+      "CREATE_BOAT_DESCRIPTION": "Add a description of your boat",
+      "TIMEZONE": "Timezone",
+      "FIRST_NAME": "First Name",
+      "LAST_NAME": "Last Name",
+      "EMAIL_ADDRESS": "Email Address",
+      "ADDRESS": "Address",
+      "ADDRESS2": "Address 2",
+      "PHONE": "Phone",
+      "GENDER": "Gender",
+      "LISTED": "Listed",
+      "ENDS": "Ends",
+      "USERNAME": "Username",
+      "PASSWORD": "Password",
+      "CONFIRM_PASSWORD": "Confirm Password",
+      "BID_DESCRIPTION": "Bid Description",
+      "APPROX_TIME_TO_COMPLETE_JOB": "Approximate time to complete job",
+      "THE_WORK_CAN_START_ON": "The work can start on",
+      "SUB_TOTAL": "Sub Total",
+      "SALES_TAX": "Sales Tax",
+      "TOTAL": "Total",
+      "LOW_BID": "Low Bid",
+      "HIGH_BID": "High Bid",
+      "YOUR_BID": "Your Bid",
+      "I_AM_LOOKING_FOR": "I am looking for",
+      "SERVICE_TYPES": "Service Types",
+      "REPAIRS": "Repairs",
+      "SURVEY": "Survey",
+      "REFIT": "Refit",
+      "CHOOSE_LISTING_SERVICE_TYPE": "Choose listing service type",
+      "BOAT_LISTING_TITLE": "Boat Listing Title",
+      "BOAT_LISTING_DESCRIPTION": "Boat Listing Description",
+      "BOAT_LENGTH_TYPE_AND_YEAR": "Boat length, type and year",
+      "BOAT_LENGTH": "Boat Length",
+      "BOAT_TYPE": "Type",
+      "BOAT_YEAR": "Year",
+      "LOCATION": "Location",
+      "DESCRIPTION": "Description",
+      "NOTE": "Note",
+      "AUCTION_START_DATE": "Auction start date",
+      "AUCTION_END_DATE": "Auction end date",
+      "DAYS_BEFORE_END_AUCTION": "Days before end of auction",
+      "SHIPYARD_NAME": "Shipyard Name",
+      "NAME": "Name",
+      "WHAT_IS_THE_SHIPYARD_NAME": "What is the name of your shipyard?",
+      "WHAT_IS_ITS_PHONE_NUMBER": "What is its phone number?",
+      "TELL_US_ABOUT_YOUR_SHIPYARD": "Tell us a bit about your Shipyard",
+      "DO_YOU_HAVE_WEBSITE": "Do you have a website for it?",
+      "DOES_IT_HAVE_EMAIL": "Does it have an email address?",
+      "REQUIRED": "This field is required",
+      "MIN_SIZE": "Minimum {{ size }} characters",
+      "MAX_SIZE": "Maximum {{ size }} characters",
+      "MIN_AMOUNT": "Minimum amount {{ amount }}",
+      "COUNTRY": "Country",
+      "YOUR_NOTE": "Your Note",
+      "TITLE": "Title",
+      "UPLOAD_ADDITIONAL_DOCUMENTS": "Upload any additional documents",
+      "CREDID_CARD_NUMBER": "Credit Card Number",
+      "EXPIRATION": "Expiration",
+      "CVC": "CVC",
+      "TYPE": "Type",
+      "INVALID_ZIP_FOR_COUNTRY": "Invalid zip code for country: {{countryCode}}",
+      "TOTAL_BID": "Total Bid",
+      "STARTING_DEPOSIT": "Starting Deposit",
+      "WORK_CAN_START": "Work Can Start",
+      "TIME_TO_COMPLETE": "Time to Complete",
+      "DEPOSIT": "Deposit",
+      "PAYMENT": "Payment",
+      "HIGH_TO_LOW": "High to Low",
+      "LOW_TO_HIGH": "Low to High",
+      "MINIMUM_STARTING_DEPOSIT": "Minimum starting deposit",
+      "DATE_OF_BIRTH": "Date of Birth",
+      "DRIVER_LICENSE": "Driver License",
+      "PASSPORT_NUMBER": "Passport Number",
+      "REPRESENTATIVE_NAME": "Representative Name",
+      "REPRESENTATIVE_CONTACT": "Representative Contact",
+      "DOCKAGE_FEE": "Dockage Fee",
+      "UTILITY_FEE": "Utility Fee",
+      "GARBAGE_FEE": "Garbage Fee",
+      "AMP_SERVICE_FEE": "AMP Service Fee",
+      "SECURITY": "Security",
+      "ABRITRATION_LOCATION": "Abritration Location",
+      "WARRANTY_DAYS": "Warranty Days",
+      "SURVEYOR_FEE": "Surveyor Fee",
+      "MODEL": "Model",
+      "FLAG": "Flag",
+      "OFFICIAL_NUMBER": "Official Number",
+      "LOA": "Length Overall",
+      "BEAM": "Beam",
+      "DRAFT": "Draft",
+      "DISPLACEMENT": "Displacement",
+      "HULL_ID": "Hull Id",
+      "ELECTRICAL_REQUIREMENTS": "Electrical Requirements",
+      "BOAT_CLASS": "Class",
+      "INSURANCE_NUMBER": "Insurance Number",
+      "DAMAGE": "Damage",
+      "PART_TIME": "Part time",
+      "FULL_TIME": "Full time",
+      "ADDRESS_LINE_1": "Address Line 1",
+      "ADDRESS_LINE_2": "Address Line 2",
+      "BUSINESS_EMAIL": "Business Email",
+      "BUSINESS_URL": "Business Url",
+      "SHIPYARD_WEBSITE": "Shipyard Website",
+      "SHIPYARD_ADDRESS": "Shipyard Address",
+      "SHIPYARD_ADDRESS_2": "Shipyard Address 2",
+      "BUSINESS_NAME": "Business Name",
+      "SURVEYING_WEBSITE": "Surveying Website",
+      "SURVEYING_OFFICE_ADDRESS": "Surveying Office Address",
+      "SURVEYING_OFFICE_ADDRESS_2": "Surveying Office Address 2",
+      "BOAT_NAME": "Boat Name",
+      "YARD_OWNER": "Yard Owner",
+      "AWAY_FROM_PROVIDERS_YARD": "Is repair work to be done away from provider's yard?",
+      "AWAY_FROM_PROVIDERS_YARD_DESCRIPTION": "Yes, work will be done away from provider's yard",
+      "CARD_NUMBER": "Card Number",
+      "CARD_EXPIRE_DATE": "Expire Date",
+      "CARD_CVC": "CVC",
+      "SSN_OR_TAXID": "Tax ID or SSN (These fields will not be displayed during editing, as they are security sensitive, you will need to re-enter them)"
+    },
+    "HINTS": {
+      "VERIFICATION_EMAIL": "Please be sure to type it correctly to receive the verification email.",
+      "ROLE": "Your dashboard will depend on your role."
+    },
+    "ERRORS": {
+      "USERNAME": "Only lowercase letters, numbers and dash",
+      "NAME": "Please enter a valid name",
+      "ZIP": "Please enter a valid ZIP",
+      "AUCTION_START_DATE_BEFORE_AUCTION_END_DATE": "Auction start date should be set before auction end date.",
+      "AUCTION_END_DATE_SET_AFTER_THE_CURRENT_DATE": "Auction end date should be set after current date.",
+      "DATE_SET_AFTER_THE_CURRENT_DATE": "Date should be set after current date.",
+      "MUST_HAVE_MAXIMUM__OF": "Must have a maximum of {{value}} characters.",
+      "YEAR_SHOULD_NOT_START_WITH_ZERO": "Year should not start with 0",
+      "INVALID_DATA": "Invalid data!",
+      "SHOULD_BE_GREATER_THAN_ZERO": "Should be greater than zero",
+      "PLEASE_ENTER_VALID_DATA": "Please enter valid data",
+      "SHOULD_NOT_GREATER_THAN_CURRENT_YEAR": "Should not greater than current year",
+      "SHOULD_NOT_LESS_THAN": "Should not less than {{value}}",
+      "SHOULD_NOT_GREATER_THAN": "Should not greater than {{value}}",
+      "YEAR_FORMAT": "Year should be in YYYY format",
+      "SHOULD_NOT_LESS_THAN_CURRENT_YEAR": "Should not less than current year",
+      "SHOULD_BE_BETWEEN": "Should be between {{value1}} and {{value2}}",
+      "COUNTRY_REQUIRED": "Country is required",
+      "START_SPACE_ERROR": "Starting space is not allowed",
+      "INVALID_PHONE": "Please enter valid phone number",
+      "INVALID_PATTERN": "Invalid pattern",
+      "INVALID_BOAT_LENGTH": "Invalid boat length",
+      "PASSWORD": "Password should contains Uppercase, Lowercase, Special Character, Number",
+      "DUPLICATE": "This is a duplicate",
+      "INVALID_DATE": "Please enter a valid date",
+      "INVALID_MONTH": "Should not less than current month",
+      "INVALID_TEXT_PATTERN": "Invalid text provided",
+      "INVALID_ADDRESS_PATTERN": "Invalid address",
+      "INVALID_WEB_URL_PATTERN": "Invalid URL",
+      "INVALID_HULL_NUMBER": "Invalid Hull Number",
+      "INVALID_CARD_EXPIRE_DATE": "Invalid Expire Date",
+      "INVALID_EMAIL": "Invalid email",
+      "INVALID_LAST4": "Last 4 digits should match",
+      "SHOULD_BE_INTEGER": "Should contain only 0-9 without other symbols",
+      "INVALID_NUMBER_RANGE": "Invalid range: [1-{{ integer }}].([1-{{ fraction }}]) expected"
+    },
+    "PLACEHOLDERS": {
+      "LIST_BOAT_TITLE": "(eg. My Awesome Boat needs Surveying) Make it engaging. This is the first thing people will see.",
+      "LIST_BOAT_DESCRIPTION": "Details about your boat listing. This can be details of your repairs needed or request for survey.",
+      "CHOOSE_DATE": "Choose a date...",
+      "ENTER_TASK_TITLE": "Enter task title",
+      "ENTER_QUANTITY": "Enter Quantity",
+      "ENTER_AMOUNT": "Enter Amount",
+      "ENTER_TASK_DESCRIPTION": "Enter task description",
+      "ADDRESS": "Eg. 1682 Federal Way",
+      "ADDRESS2": "Suite, Floor",
+      "STATE": "Florida",
+      "CITY": "Bartow",
+      "LENGTH": "35",
+      "TYPE": "Small Boat",
+      "YEAR": "1987",
+      "HULL_ID": "ABC12345B8E4",
+      "BOAT_NAME": "Blue Miracle",
+      "COUNTRY": "The United States Of America",
+      "ZIP_CODE": "99501",
+      "BOAT_DESCRIPTION": "My boat is used for...",
+      "BOAT_MODEL": "Bowrider Boats",
+      "BOAT_CLASS": "Class A, Class 1, Class 2, Class 3",
+      "BOAT_DRAFT": "My Boat Draft",
+      "ELECTRICAL_REQUIREMENTS": "How many consumes the engine",
+      "NUMBER": "12345",
+      "WHAT_IS_THE_SHIPYARD_NAME": "Eg. “My Shipyard”",
+      "CHOOSE_YOUR_TIMEZONE": "Choose your timezone",
+      "BANK_NAME": "JPMorgan Chase",
+      "ACCOUNT_HOLDER_NAME": "John Doe",
+      "ACCOUNT_NUMBER": "012345",
+      "ROUTING_NUMBER": "000123456",
+      "CARD_NUMBER": "0000 0000 0000 0000",
+      "CARD_EXPIRE_DATE": "00/00",
+      "CARD_CVC": "000",
+      "SSN_OR_TAXID": "By default Tax ID is required, click on the checkbox to change it to SSN",
+      "USER_NAME": "John",
+      "USER_SURNAME": "Doe",
+      "EMAIL": "user@mail.com",
+      "REGION": "Region",
+      "PROVINCE": "Province",
+      "BUSINESS_URL": "my-website.com"
+    },
+    "CLEAR_FORM": "Clear Form"
   },
   "FAQ": {
-      "TITLE": "FAQ",
-      "WHAT_SIZE_BOATS_CAN_BID": {
-          "TITLE": "What size boats can be bid on?",
-          "DESCRIPTION": "Any size! Big or small, we serve them all."
-      },
-      "IS_ANY_KIND_OF_REPAIR_ABLE_TO_BID": {
-          "TITLE": "Is any kind of repair or damage able to be bid on?",
-          "DESCRIPTION": "Yes! We make sure everything from the smallest jobs to massive damages get bid on by top professionals."
-      },
-      "HOW_DO_I_KNOW_THE_REPAIR_IS_DONE_PROPERLY": {
-          "TITLE": "How do I know the repair is done properly?",
-          "DESCRIPTION": "We only use screened, certified technicians and shipyards. We also give you access to their ratings. You will be given progress reports as your job is closer to being completed as well as have the ability to keeping constant contact with those professionals through our secure communications platform."
-      },
-      "HOW_DO_I_KNOW_THE_REPAIR_PROFESSIONAL_IS_CERTIFIED": {
-          "TITLE": "How do I know the repair professional/shipyard is certified?",
-          "DESCRIPTION": "We keep a record of all certifications. All shipyards must have Ship Repairer's Legal Liability, which is a standard certification and required for access to boat owners’ bids on this site."
-      },
-      "HOW_MUCH_CAN_I_SAVE_ON_REPAIR": {
-          "TITLE": "How much can I save on my repair?",
-          "DESCRIPTION": "On average, we’ve seen savings from 20% to over 50% on most repair jobs."
-      },
-      "CAN_THE_REPAIR_BE_DONE_AT_MY_HOME": {
-          "TITLE": "Can the repair be done at my home/dock?",
-          "DESCRIPTION": "Most repairs can be completed at your location. Of course when you need to take the boat out of the water it have to be done at a shipyard.Part of a technician's bid will include the location of service."
-      },
-      "WHAT_IF_THERE_IS_MORE_DAMAGE": {
-          "TITLE": "What if there is more damage/repairs to be done than originally expected?",
-          "DESCRIPTION": "This is a fairly common issue. When this happens, you have the opportunity to stop the repairs or allow the shipyard or technician to continue.You can also put these newly found repairs up for bid. The choice is up to you."
-      },
-      "HOW_DO_I_MAKE_PAYMENTS": {
-          "TITLE": "How do I make payments/get paid?",
-          "DESCRIPTION": "To start an auction you will have to give your credit card or bank account information for a $100 hold. This payment will go toward your repair or survey and be refunded if you do not select a winning bid. Once you select a winner and the auction is closed, boat owners have 48 hours to make the initial payment of the bid price through our secure payment platform. Boat owners are responsible for completing all milestone payments along the way. If initial payment is not made, the auction then reopens."
-      },
-      "IS_MY_INFORMATION_SECURE": {
-          "TITLE": "Is my information secure? Can anyone just see my account info?",
-          "DESCRIPTION": "Yes, all information is completely secure by our PCI-compliant technology."
-      },
-      "HOW_LONG_IS_THE_BIDDING_PROCESS": {
-          "TITLE": "How long is the bidding process?",
-          "DESCRIPTION": "The default time for a repair or survey auction is 21 days, but the boat owner can change this to any amount of time."
-      },
-      "HOW_DO_I_MONITOR_THE_REPAIR_PROCESS": {
-          "TITLE": "How do I monitor the repair process?",
-          "DESCRIPTION": "During every step of the repair process, the technician updates the winning bid with all relevant info. You can also keep in touch with the technician at any time through our secure communications platform."
-      },
-      "HOW_DO_I_KNOW_THE_BEST_OFFER": {
-          "TITLE": "How do I know the best offer will be the best repair?",
-          "DESCRIPTION": "Boat owners choose who they want to repair their vessel. You are more than welcome to contact them, look through their reviews, and make an educated choice based on all relevant information given. You will also have the chance to rate everyone who does work for you, so they are extremely motivated to do their very best work for every job because all ratings are seen throughout our site."
-      },
-      "CAN_I_BID_ON_JOBS_OUTSIDE_MY_AREA": {
-          "TITLE": "Can I bid on jobs/survey outside my area?",
-          "DESCRIPTION": "Yes, surveyors and shipyards can bid on any job."
-      },
-      "HOW_I_KNOW_I_WIN_BID": {
-          "TITLE": "How will I know if/when I win a bid?",
-          "DESCRIPTION": "We will notify you via email and through our notifications tab on your dashboard."
-      },
-      "WHO_CAN_SEE_THE_BIDS": {
-          "TITLE": "Who can see the bids per repair post?",
-          "DESCRIPTION": "Only the boat owner can see the bids for their auction. Surveyors and shipyards cannot see what others have bid."
-      },
-      "WHAT_IF_THE_REPAIR_NEEDS_FIX_AGAIN": {
-          "TITLE": "What if the repair needs to get fixed again? Is there a guarantee?",
-          "DESCRIPTION": "Every technician/shipyard has their own repair warranty and this will be explained as part of the bid. If you do not see it, simply notify the technician on the bid."
-      },
-      "HOW_DO_I_GET_IN_CONTACT_WITH_SHIPYARD/SURVEYOR": {
-          "TITLE": "How do I get in contact with the shipyard/surveyor?",
-          "DESCRIPTION": "All shipyard/surveyor information, as well as their profiles, are on the bid. Also, once the bid is won, you can communicate through our secure and private messaging platform."
-      },
-      "WHAT_IS_THE_COMISSION": {
-          "TITLE": "What is the commission taken by Ocean Service Center?",
-          "DESCRIPTION": "We take a 7% fee for all repairs/surveys, which should be taken into consideration when bidding on jobs."
-      },
-      "HOW_DO_I_KNOW_THE_CONTRACTOR_IS_RELIABLE": {
-          "TITLE": "How do I know the shipyard, contractor, or surveyor is reliable and will do quality work?",
-          "DESCRIPTION": "We regularly monitor all reviews and performance records with the intention of only allowing the most reliable and trustworthy contractors, surveyors, and shipyards to bid on work for our boat owners. If any fail to meet our standards they will be delisted and not able to use the platform any more"
-      }
+    "TITLE": "FAQ",
+    "WHAT_SIZE_BOATS_CAN_BID": {
+      "TITLE": "What size boats can be bid on?",
+      "DESCRIPTION": "Any size! Big or small, we serve them all."
+    },
+    "IS_ANY_KIND_OF_REPAIR_ABLE_TO_BID": {
+      "TITLE": "Is any kind of repair or damage able to be bid on?",
+      "DESCRIPTION": "Yes! We make sure everything from the smallest jobs to massive damages get bid on by top professionals."
+    },
+    "HOW_DO_I_KNOW_THE_REPAIR_IS_DONE_PROPERLY": {
+      "TITLE": "How do I know the repair is done properly?",
+      "DESCRIPTION": "We only use screened, certified technicians and shipyards. We also give you access to their ratings. You will be given progress reports as your job is closer to being completed as well as have the ability to keeping constant contact with those professionals through our secure communications platform."
+    },
+    "HOW_DO_I_KNOW_THE_REPAIR_PROFESSIONAL_IS_CERTIFIED": {
+      "TITLE": "How do I know the repair professional/shipyard is certified?",
+      "DESCRIPTION": "We keep a record of all certifications. All shipyards must have Ship Repairer's Legal Liability, which is a standard certification and required for access to boat owners’ bids on this site."
+    },
+    "HOW_MUCH_CAN_I_SAVE_ON_REPAIR": {
+      "TITLE": "How much can I save on my repair?",
+      "DESCRIPTION": "On average, we’ve seen savings from 20% to over 50% on most repair jobs."
+    },
+    "CAN_THE_REPAIR_BE_DONE_AT_MY_HOME": {
+      "TITLE": "Can the repair be done at my home/dock?",
+      "DESCRIPTION": "Most repairs can be completed at your location. Of course when you need to take the boat out of the water it have to be done at a shipyard.Part of a technician's bid will include the location of service."
+    },
+    "WHAT_IF_THERE_IS_MORE_DAMAGE": {
+      "TITLE": "What if there is more damage/repairs to be done than originally expected?",
+      "DESCRIPTION": "This is a fairly common issue. When this happens, you have the opportunity to stop the repairs or allow the shipyard or technician to continue.You can also put these newly found repairs up for bid. The choice is up to you."
+    },
+    "HOW_DO_I_MAKE_PAYMENTS": {
+      "TITLE": "How do I make payments/get paid?",
+      "DESCRIPTION": "To start an auction you will have to give your credit card or bank account information for a $100 hold. This payment will go toward your repair or survey and be refunded if you do not select a winning bid. Once you select a winner and the auction is closed, boat owners have 48 hours to make the initial payment of the bid price through our secure payment platform. Boat owners are responsible for completing all milestone payments along the way. If initial payment is not made, the auction then reopens."
+    },
+    "IS_MY_INFORMATION_SECURE": {
+      "TITLE": "Is my information secure? Can anyone just see my account info?",
+      "DESCRIPTION": "Yes, all information is completely secure by our PCI-compliant technology."
+    },
+    "HOW_LONG_IS_THE_BIDDING_PROCESS": {
+      "TITLE": "How long is the bidding process?",
+      "DESCRIPTION": "The default time for a repair or survey auction is 21 days, but the boat owner can change this to any amount of time."
+    },
+    "HOW_DO_I_MONITOR_THE_REPAIR_PROCESS": {
+      "TITLE": "How do I monitor the repair process?",
+      "DESCRIPTION": "During every step of the repair process, the technician updates the winning bid with all relevant info. You can also keep in touch with the technician at any time through our secure communications platform."
+    },
+    "HOW_DO_I_KNOW_THE_BEST_OFFER": {
+      "TITLE": "How do I know the best offer will be the best repair?",
+      "DESCRIPTION": "Boat owners choose who they want to repair their vessel. You are more than welcome to contact them, look through their reviews, and make an educated choice based on all relevant information given. You will also have the chance to rate everyone who does work for you, so they are extremely motivated to do their very best work for every job because all ratings are seen throughout our site."
+    },
+    "CAN_I_BID_ON_JOBS_OUTSIDE_MY_AREA": {
+      "TITLE": "Can I bid on jobs/survey outside my area?",
+      "DESCRIPTION": "Yes, surveyors and shipyards can bid on any job."
+    },
+    "HOW_I_KNOW_I_WIN_BID": {
+      "TITLE": "How will I know if/when I win a bid?",
+      "DESCRIPTION": "We will notify you via email and through our notifications tab on your dashboard."
+    },
+    "WHO_CAN_SEE_THE_BIDS": {
+      "TITLE": "Who can see the bids per repair post?",
+      "DESCRIPTION": "Only the boat owner can see the bids for their auction. Surveyors and shipyards cannot see what others have bid."
+    },
+    "WHAT_IF_THE_REPAIR_NEEDS_FIX_AGAIN": {
+      "TITLE": "What if the repair needs to get fixed again? Is there a guarantee?",
+      "DESCRIPTION": "Every technician/shipyard has their own repair warranty and this will be explained as part of the bid. If you do not see it, simply notify the technician on the bid."
+    },
+    "HOW_DO_I_GET_IN_CONTACT_WITH_SHIPYARD/SURVEYOR": {
+      "TITLE": "How do I get in contact with the shipyard/surveyor?",
+      "DESCRIPTION": "All shipyard/surveyor information, as well as their profiles, are on the bid. Also, once the bid is won, you can communicate through our secure and private messaging platform."
+    },
+    "WHAT_IS_THE_COMISSION": {
+      "TITLE": "What is the commission taken by Ocean Service Center?",
+      "DESCRIPTION": "We take a 7% fee for all repairs/surveys, which should be taken into consideration when bidding on jobs."
+    },
+    "HOW_DO_I_KNOW_THE_CONTRACTOR_IS_RELIABLE": {
+      "TITLE": "How do I know the shipyard, contractor, or surveyor is reliable and will do quality work?",
+      "DESCRIPTION": "We regularly monitor all reviews and performance records with the intention of only allowing the most reliable and trustworthy contractors, surveyors, and shipyards to bid on work for our boat owners. If any fail to meet our standards they will be delisted and not able to use the platform any more"
+    }
   },
   "MEDIA": {
-      "UPLOAD_PICTURES_AND_FILES": "Upload Pictures & Media",
-      "SUPPORTED_MEDIA_FILES": "Supported media files: png, gif, jpg, jpeg, webp, bmp, tiff, ico",
-      "IMAGE_UPLOADED": "Image Uploaded",
-      "IMAGES_UPLOADED": "Image(s) Uploaded",
-      "NO_IMAGES_UPLOADED": "No images uploaded",
-      "DRAG_AND_DROP_MEDIA": "Drag and drop or add your media.",
-      "IMAGES_DELETED": "Image(s) Deleted",
-      "INVALID_FORMAT": "{{file}} This is an unsupported file format."
+    "UPLOAD_PICTURES_AND_FILES": "Upload Pictures & Media",
+    "SUPPORTED_MEDIA_FILES": "Supported media files: png, gif, jpg, jpeg, webp, bmp, tiff, ico",
+    "IMAGE_UPLOADED": "Image Uploaded",
+    "IMAGES_UPLOADED": "Image(s) Uploaded",
+    "NO_IMAGES_UPLOADED": "No images uploaded",
+    "DRAG_AND_DROP_MEDIA": "Drag and drop or add your media.",
+    "IMAGES_DELETED": "Image(s) Deleted",
+    "INVALID_FORMAT": "{{file}} This is an unsupported file format.",
+    "DUPLICATED_FILE": "A file with the name {{ name }} has already been uploaded"
   },
   "PAYMENT": {
-      "PAYMENT_METHOD": "Payment Method",
-      "PAYMENT_METHOD_EDITED_SUCCESSFULLY": "Payment Method Edited Successfully",
-      "PAYMENT_METHOD_ADDED_SUCCESSFULLY": "Payment Method Added Successfully",
-      "UNABLE_TO_SETUP_INTENT": "Unable to setup intent",
-      "EDIT_PAYMENT_METHOD_FAILED": "Edit Payment Method Failed",
-      "PAYMENT_METHOD_DETAILS": "Payment Method Details",
-      "EXPIRES": "Expires",
-      "ADD_PAYMENT_METHOD": "Add Payment Method",
-      "EDIT_PAYMENT_METHOD": "Edit Payment Method",
-      "CARD_NUMBER": "Card Number",
-      "EXP_MONTH": "Expiry Month",
-      "EXP_YEAR": "Expiry Year",
-      "AVATAR": {
-          "UPDATED": "Profile avatar updated"
-      }
+    "PAYMENT_METHOD": "Payment Method",
+    "PAYMENT_METHOD_EDITED_SUCCESSFULLY": "Payment Method Edited Successfully",
+    "PAYMENT_METHOD_ADDED_SUCCESSFULLY": "Payment Method Added Successfully",
+    "UNABLE_TO_SETUP_INTENT": "Unable to setup intent",
+    "EDIT_PAYMENT_METHOD_FAILED": "Edit Payment Method Failed",
+    "PAYMENT_METHOD_DETAILS": "Payment Method Details",
+    "EXPIRES": "Expires",
+    "ADD_PAYMENT_METHOD": "Add Payment Method",
+    "EDIT_PAYMENT_METHOD": "Edit Payment Method",
+    "CARD_NUMBER": "Card Number",
+    "EXP_MONTH": "Expiry Month",
+    "EXP_YEAR": "Expiry Year",
+    "AVATAR": {
+      "UPDATED": "Profile avatar updated"
+    }
   },
   "DRAFTS": {
-      "SAVED": "Saved to Drafts",
-      "SAVED_DRAFTS": "Saved Drafts",
-      "UPDATED": "Draft Updated",
-      "REMOVED": "Removed from drafts",
-      "MY_DRAFTS": "My Drafts",
-      "MY_DRAFTS_DESCRIPTION": "Manage your drafts",
-      "CONTINUE_EDITING": "Continue Editing",
-      "DELETE": "Delete",
-      "INFO": {
-          "NO_DRAFTS": "No Drafts Saved"
-      },
-      "DIALOG": {
-          "DELETE_TITLE": "Delete Draft",
-          "DELETE_CONTENT": "Do you really want to delete {{ name }}?",
-          "ADD_NAME_PLACEHOLDER": "Add Draft Name",
-          "ADD_NAME_LABEL": "Draft Name",
-          "ADD_NAME": "Add Name"
-      }
+    "SAVED": "Saved to Drafts",
+    "SAVED_DRAFTS": "Saved Drafts",
+    "UPDATED": "Draft Updated",
+    "REMOVED": "Removed from drafts",
+    "MY_DRAFTS": "My Drafts",
+    "MY_DRAFTS_DESCRIPTION": "Manage your drafts",
+    "CONTINUE_EDITING": "Continue Editing",
+    "DELETE": "Delete",
+    "INFO": {
+      "NO_DRAFTS": "No Drafts Saved"
+    },
+    "DIALOG": {
+      "DELETE_TITLE": "Delete Draft",
+      "DELETE_CONTENT": "Do you really want to delete {{ name }}?",
+      "ADD_NAME_PLACEHOLDER": "Add Draft Name",
+      "ADD_NAME_LABEL": "Draft Name",
+      "ADD_NAME": "Add Name"
+    }
   },
   "NOTES": {
-      "ADD_NOTE": "Add Note",
-      "ADD_NOTE_TO_THE_LINE": "Add a note to the line item",
-      "COLLAPSE_NOTES": "Collapse Notes -",
-      "READ_NOTES": "Read Notes +"
+    "ADD_NOTE": "Add Note",
+    "ADD_NOTE_TO_THE_LINE": "Add a note to the line item",
+    "COLLAPSE_NOTES": "Collapse Notes -",
+    "READ_NOTES": "Read Notes +"
   },
   "FILES": {
-      "DRAG_AND_DROP_HERE": "Drag and drop files here"
+    "DRAG_AND_DROP_HERE": "Drag and drop files here"
   },
   "WHO_WE_ARE": {
-      "HOME_BANNER": {
-          "TITLE_ROW_ONE": "Helping people like you",
-          "TITLE_ROW_TWO": "Connect & Save"
-      },
-      "TRUSTED_BY": "Trusted By"
+    "HOME_BANNER": {
+      "TITLE_ROW_ONE": "Helping people like you",
+      "TITLE_ROW_TWO": "Connect & Save"
+    },
+    "TRUSTED_BY": "Trusted By"
   },
   "REVIEW_WORK": {
-      "YOU_SUBMITTED": "You submitted",
-      "NO_JOB_ITEMS": "Completed work and any actions that happen pertaining to Bid #{{bidId}} will appear in this feed.",
-      "ACCEPT_WORK_MESSAGE": "When the auction is over, you are able to accept the work result and complete the job.",
-      "ACCEPT_WORK_BTN": "Accept Work",
-      "ACCEPT_WORK_CAUTION_TITLE": "Accept Work Caution",
-      "ACCEPT_WORK_CAUTION_MESSAGE": "Are you sure you want to accept the work result? You will not be able to change it after accepting."
+    "YOU_SUBMITTED": "You submitted",
+    "NO_JOB_ITEMS": "Completed work and any actions that happen pertaining to Bid #{{bidId}} will appear in this feed.",
+    "ACCEPT_WORK_MESSAGE": "When the auction is over, you are able to accept the work result and complete the job.",
+    "ACCEPT_WORK_BTN": "Accept Work",
+    "ACCEPT_WORK_CAUTION_TITLE": "Accept Work Caution",
+    "ACCEPT_WORK_CAUTION_MESSAGE": "Are you sure you want to accept the work result? You will not be able to change it after accepting."
   },
   "REGISTRATION": {
-      "CHECK_YOUR_EMAIL_FOR_CONFIRMATION_REGISTRATION_MSG": "Your account has been successfully created. Please check your email for confirmation"
+    "CHECK_YOUR_EMAIL_FOR_CONFIRMATION_REGISTRATION_MSG": "Your account has been successfully created. Please check your email for confirmation"
   },
   "DOCUMENTS": {
-      "TITLE": "Job #{{ job_id }} Documents",
-      "GO_BACK_TO_JOB": "Go back to job",
-      "STATUS": "Status",
-      "SIGN_BTN": "Sign",
-      "SIGN_TITLE": "Time to Sign the Agreements!",
-      "SIGN_TEXT": "Click “Review and Sign” to  electronically sign the agreement",
-      "REVIEW_AND_SIGN": "Review and Sign",
-      "EMPTY": "No documents found",
-      "CONTRACT_INPROGRESS": "Contract is in progress",
-      "PLEASE_WAIT": "Please wait for bidder to sign the contract.",
-      "YOU_WILL_RECIEVE_AN_EMAIL": "You will recieve an email containing the signed document.",
-      "ONCE_EVERYONE_SIGNED": "once everyone has finished signing.",
-      "GREAT_BOTH_SIGNED_SUCCESSFULLY": "Great! both have signed the contract successfully.",
-      "PAY_NOW": "Pay now",
-      "CONTRACT": "Contract",
-      "REVIEW_DOCUMENTS": "Review Documents"
+    "TITLE": "Job #{{ job_id }} Documents",
+    "GO_BACK_TO_JOB": "Go back to job",
+    "STATUS": "Status",
+    "SIGN_BTN": "Sign",
+    "SIGN_TITLE": "Time to Sign the Agreements!",
+    "SIGN_TEXT": "Click “Review and Sign” to  electronically sign the agreement",
+    "DECLINED_TITLE": "The Document has been declined",
+    "DECLINED_TEXT": "The signing of the document was declined, no further action is required",
+    "REVIEW_AND_SIGN": "Review and Sign",
+    "EMPTY": "No documents found",
+    "CONTRACT_INPROGRESS": "Contract is in progress",
+    "PLEASE_WAIT": "An email was already sent to the winning bidder to sign the agreement.<br>Please wait for bidder to sign the contract.",
+    "YOU_WILL_RECIEVE_AN_EMAIL": "You will recieve an email containing the signed document.",
+    "ONCE_EVERYONE_SIGNED": "once everyone has finished signing.",
+    "GREAT_BOTH_SIGNED_SUCCESSFULLY": "Great! both have signed the contract successfully.",
+    "PAY_NOW": "Pay now",
+    "CONTRACT": "Contract",
+    "REVIEW_DOCUMENTS": "Review Documents",
+    "SIGNED": "This document has been successfully signed, you can now close this window",
+    "DECLINED": "This document has been declined, you can now close this window",
+    "STATUSES": {
+      "COMPLETED": "Completed",
+      "NOT_COMPLETED": "Not Completed",
+      "DECLINED": "Declined"
+    }
   }
 }

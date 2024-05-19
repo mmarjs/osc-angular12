@@ -1,6 +1,6 @@
 <div class="mt-1" *ngIf="savedCards$ | async as savedCards">
   <div *ngFor="let card of savedCards" class="card">
-    <img [src]="getCardBrandImage(card)" class="cardBrands" />
+    <img [src]="getCardBrandImage(card)" class="cardBrands"/>
     <p class="cardName" data-testid="card-info">
       <span data-testid="card-brand">
         {{ extractDataFromJson(card.details).card.brand }}
@@ -11,7 +11,7 @@
       <span data-testid="card-last4">
         {{ extractDataFromJson(card.details).card.last4 }}
       </span>
-      <br />
+      <br/>
       <span class="cardExp" data-testid="card-exp">
         {{ 'PAYMENT.EXPIRES' | translate }}
         {{ getExpirationDate(card) }}
@@ -28,7 +28,7 @@
   </div>
   <div class="no-card" *ngIf="!savedCards?.length">
     <p class="cardName">
-    {{ 'PROFILE.NO_PAYMENT_METHODS_ARE_ADDED' | translate }}
+      {{ 'PROFILE.NO_PAYMENT_METHODS_ARE_ADDED' | translate }}
     </p>
   </div>
 </div>
@@ -39,5 +39,6 @@
   (click)="openDialog()"
   class="mt-1 payment"
 >
-  <mat-icon>add</mat-icon> {{ 'PAYMENT.ADD_PAYMENT_METHOD' | translate }}
+  <ocean-icon as="" [iconType]="iconType.ADD"></ocean-icon>
+  <span>{{ 'PAYMENT.ADD_PAYMENT_METHOD' | translate }}</span>
 </button>

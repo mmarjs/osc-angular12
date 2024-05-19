@@ -16,6 +16,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { AppComponentsModule } from '@ocean/client/common/components/components.module';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { SharedModule } from '@ocean/shared';
+import { urlBuilder, ROUTE_MAPPING } from '../bids.module';
 
 xdescribe('BidsComponent', () => {
   let component: BidsComponent;
@@ -49,4 +50,11 @@ xdescribe('BidsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+});
+
+test('should urlBuilder return correct url', () => {
+  const url = urlBuilder(ROUTE_MAPPING.documents, {
+    bidId: '3007460',
+  });
+  expect(url).toBe('documents/3007460');
 });

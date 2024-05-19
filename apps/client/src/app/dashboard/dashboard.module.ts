@@ -10,7 +10,10 @@ import { AppComponentsModule } from '../common';
 import { BoatsModule } from './boats';
 import { ShipyardsModule } from './shipyards';
 import { SurveyorsModule } from './surveyors';
-import { DashboardComponents, DashboardEntryComponents } from './dashboard.barrel';
+import {
+  DashboardComponents,
+  DashboardEntryComponents,
+} from './dashboard.barrel';
 import { DashboardImports } from './dashboard.imports';
 import { routes } from './dashboard.routing';
 import { AppFormsModule } from '../common/forms';
@@ -18,6 +21,7 @@ import { BarRatingModule } from 'ngx-bar-rating';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { SharedBidsComponentsModule } from '../common/components/shared-bids-components/shared-bids-components.module';
+import { LibsFormBuilderModule } from '@ocean/libs/form-builder';
 
 @NgModule({
   imports: [
@@ -37,10 +41,10 @@ import { SharedBidsComponentsModule } from '../common/components/shared-bids-com
     BarRatingModule,
     MatProgressSpinnerModule,
     NgxIntlTelInputModule,
-    SharedBidsComponentsModule
+    SharedBidsComponentsModule,
+    LibsFormBuilderModule,
   ],
   declarations: DashboardComponents,
-  entryComponents: DashboardEntryComponents
+  entryComponents: DashboardEntryComponents,
 })
-export class DashboardModule {
-}
+export class DashboardModule {}

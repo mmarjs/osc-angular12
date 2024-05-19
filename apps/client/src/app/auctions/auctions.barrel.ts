@@ -4,7 +4,6 @@ import { AuctionsListTableComponent } from './list/table/table.component';
 import { AuctionCreateComponent } from './create/create.component';
 import { WorkDescriptionComponent } from './create/work-description';
 import { BoatInfoComponent } from './create/boat-info';
-import { SurveyInformationComponent } from './create/survey-information';
 import { PreviewComponent } from './create/preview';
 import { FinalizeComponent } from './create/finalize';
 import { AuctionCarouselComponent } from './create/auction-carousel';
@@ -24,7 +23,6 @@ export const AuctionsComponents = [
   AuctionCreateComponent,
   WorkDescriptionComponent,
   BoatInfoComponent,
-  SurveyInformationComponent,
   PreviewComponent,
   FinalizeComponent,
   AuctionCarouselComponent,

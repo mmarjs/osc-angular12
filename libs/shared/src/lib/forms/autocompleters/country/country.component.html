@@ -1,8 +1,17 @@
-<label for="{{ contextId }}-{{ formControlName }}">
-  {{ label | translate}}
+<label *ngIf="label" for="{{ contextId }}-{{ formControlName }}">
+  {{ label | translate }}
   <span *ngIf="_required">*</span>
 </label>
 
-<mat-select-country label="" [placeHolder]="placeholder" [formControlName]="formControlName"
-  id="{{ contextId }}-{{ formControlName }}" (onCountrySelected)="onCountrySelected($event)">
+<mat-select-country
+  id="{{ contextId }}-{{ formControlName }}"
+  label=""
+  [name]="name"
+  [placeHolder]="placeholder"
+  [formControl]="_control"
+  [trimInput]="true"
+  [countries]="countries"
+  (onCountrySelected)="onCountrySelectedHandler($event)"
+  (input)="onInputChanged($event.target?.value)"
+>
 </mat-select-country>

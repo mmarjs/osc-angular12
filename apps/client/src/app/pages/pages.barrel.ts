@@ -23,11 +23,15 @@ import { SignupCreatedComponent } from './signup/created/created.component';
 import { SignupComponent } from './signup/signup.component';
 import { BoatSignupComponent } from './signup/forms/boat-signup/boat-signup.component';
 import { ShipyardSurveyorSignupComponent } from './signup/forms/shipyard-surveyor-signup/shipyard-surveyor-signup.component';
+import { DocumentSignedComponent } from './document-signed/document-signed.component';
+import { DocumentDeclinedComponent } from './document-declined/document-declined.component';
 
 export const PagesComponents = [
   CallbackComponent,
   ErrorComponent,
   FaqComponent,
+  DocumentSignedComponent,
+  DocumentDeclinedComponent,
   HomepageComponent,
   HowItWorksComponent,
   TestimonialsComponent,
@@ -54,7 +58,7 @@ export const PagesComponents = [
 
 export const PagesEntryComponents = [
   ForgotPasswordDialogComponent,
-  LoginDialogComponent
+  LoginDialogComponent,
 ];
 
 export {
@@ -74,5 +78,5 @@ export {
   ProtectionPolicyComponent,
   UserAgreementComponent,
   MenuComponentComponent,
-  CookiePolicyComponent
+  CookiePolicyComponent,
 };

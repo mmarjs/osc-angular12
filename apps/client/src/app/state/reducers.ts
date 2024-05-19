@@ -11,6 +11,8 @@ import { bidItemsReducer } from './bid-items/reducer';
 import { bidsReducer } from './bids/reducer';
 import { myAuctionsReducer } from './my-auctions/reducer';
 import { imagesReducer } from '@ocean/client/state/images/images.reducer';
+import { PROGRESS_INDICATOR_KEY } from '@ocean/client/state/progress-indicator/state';
+import { progressIndicatorReducer } from '@ocean/client/state/progress-indicator/reducer';
 
 export const reducers: ActionReducerMap<State> = {
   auctions: auctionsReducer,
@@ -21,7 +23,8 @@ export const reducers: ActionReducerMap<State> = {
   drafts: draftsReducer,
   bidItems: bidItemsReducer,
   bids: bidsReducer,
-  images: imagesReducer
+  images: imagesReducer,
+  [PROGRESS_INDICATOR_KEY]: progressIndicatorReducer,
 };
 
 export const metaReducers: MetaReducer<State>[] = !environment.production

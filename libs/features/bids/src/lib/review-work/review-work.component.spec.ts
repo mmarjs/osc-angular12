@@ -1,7 +1,11 @@
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { provideMockStore } from '@ngrx/store/testing';
-import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslatePipe,
+  TranslateService,
+} from '@ngx-translate/core';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
 import { AppComponentsModule } from '@ocean/client/common/components/components.module';
 // eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
@@ -23,6 +27,9 @@ import { TestBed } from '@angular/core/testing';
 import { PromptDialogComponent } from '@ocean/shared/dialogs';
 import { LocalizationService } from '@ocean/internationalization';
 import { JobStatus } from '@ocean/api/services';
+import { translateServiceMock } from '@ocean/testing/mocks/translate-service-mock';
+import { MatButtonModule } from '@angular/material/button';
+import { ButtonComponent } from '@ocean/shared/partials/button/button.component';
 
 describe('ReviewWorkComponent', () => {
   it('should render with no job items', async () => {
@@ -33,7 +40,6 @@ describe('ReviewWorkComponent', () => {
         IconsModule,
         LayoutComponentsModule,
         AppComponentsModule,
-        PartialsModule,
       ],
       routes: [],
       declarations: [MockPipe(TranslatePipe, (v) => v)],
@@ -45,6 +51,7 @@ describe('ReviewWorkComponent', () => {
         provideMockStore({
           initialState: { auctions: { selectedAuction: { jobItems: [] } } },
         }),
+        { provide: TranslateService, useValue: translateServiceMock },
       ],
     });
 
@@ -59,7 +66,6 @@ describe('ReviewWorkComponent', () => {
         IconsModule,
         LayoutComponentsModule,
         AppComponentsModule,
-        PartialsModule,
         TranslateModule.forRoot(),
       ],
       routes: [],
@@ -88,6 +94,7 @@ describe('ReviewWorkComponent', () => {
           },
         }),
         MockProvider(BidsFacade, { loadBid: jest.fn(), bid$: of({}) }),
+        { provide: TranslateService, useValue: translateServiceMock },
       ],
     });
 
@@ -103,13 +110,14 @@ describe('ReviewWorkComponent', () => {
         MatDialogModule,
         MatTableModule,
         IconsModule,
+        MatButtonModule,
         LayoutComponentsModule,
         AppComponentsModule,
-        PartialsModule,
         TranslateModule.forRoot(),
       ],
       routes: [],
       declarations: [
+        ButtonComponent,
         SurveyItemsTableComponent,
         MockPipe(TranslatePipe, (v) => v),
       ],
@@ -136,6 +144,7 @@ describe('ReviewWorkComponent', () => {
           },
         }),
         MockProvider(BidsFacade, { loadBid: jest.fn(), bid$: of({}) }),
+        { provide: TranslateService, useValue: translateServiceMock },
       ],
     });
 
@@ -154,11 +163,11 @@ describe('ReviewWorkComponent', () => {
         IconsModule,
         LayoutComponentsModule,
         AppComponentsModule,
-        PartialsModule,
         TranslateModule.forRoot(),
       ],
       routes: [],
       declarations: [
+        ButtonComponent,
         SurveyItemsTableComponent,
         MockPipe(TranslatePipe, (v) => v),
       ],
@@ -181,6 +190,7 @@ describe('ReviewWorkComponent', () => {
             };
           }),
         }),
+        { provide: TranslateService, useValue: translateServiceMock },
       ],
     });
 

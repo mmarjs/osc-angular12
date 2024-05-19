@@ -1,17 +1,30 @@
 import {
   Component,
   forwardRef,
+  OnDestroy,
   OnInit,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { getUserType, getUserTypes, UserType, UserTypeTitles } from '@ocean/api/shared';
+import {
+  getUserType,
+  getUserTypes,
+  Shipyard,
+  UserInputDTO,
+  UserType,
+  UserTypeTitles,
+} from '@ocean/api/shared';
 import { UserFacade } from '@ocean/api/state';
 import { BINDFORM_TOKEN, FormUtils } from '@ocean/shared';
-import { nameValidator, usernameValidator } from '@ocean/shared/utils';
-import { get } from 'lodash-es';
-import { passwordValidator } from '@ocean/shared/utils';
+import {
+  nameValidator,
+  passwordValidator,
+  usernameValidator,
+} from '@ocean/shared/utils';
+import { map } from 'rxjs/operators';
+import { untilDestroyed } from 'ngx-take-until-destroy';
+import { TipProperties } from '@ocean/shared/forms/directives/app-tip/shared';
 
 @Component({
   selector: 'app-page-signup',
@@ -21,14 +34,20 @@ import { passwordValidator } from '@ocean/shared/utils';
   providers: [
     {
       provide: BINDFORM_TOKEN,
-      useExisting: forwardRef(() => SignupComponent)
-    }
-  ]
+      useExisting: forwardRef(() => SignupComponent),
+    },
+  ],
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent implements OnInit, OnDestroy {
   form: FormGroup;
   userTypes = getUserTypes();
   userTypeTitles = UserTypeTitles;
+
+  readonly usernameTips: TipProperties = {
+    title: 'TOOLTIP.USERNAME.TITLE',
+    tip: 'TOOLTIP.USERNAME.CONDITIONS',
+  };
+
   get roleSelected() {
     return this.form.get('userTypes').value;
   }
@@ -36,41 +55,68 @@ export class SignupComponent implements OnInit {
   constructor(
     private builder: FormBuilder,
     private route: ActivatedRoute,
-    private user: UserFacade,
-  ) {
-  }
+    private user: UserFacade
+  ) {}
 
   ngOnInit() {
-    // checks the param ;role=boatowner
-    const userType = getUserType(this.route.snapshot.paramMap.get('role'));
-
     this.form = this.builder.group({
       firstName: ['', [Validators.required, nameValidator]],
       lastName: ['', [Validators.required, nameValidator]],
       email: ['', [Validators.required, Validators.email]],
       login: ['', [Validators.required, usernameValidator]],
       password: ['', [Validators.required, passwordValidator]],
-      userTypes: [[{ "id": 1, "type": "BOAT_OWNER" }], Validators.required],
+      userTypes: [
+        [getUserType(UserTypeTitles.BOAT_OWNER)],
+        Validators.required,
+      ],
     });
+
+    this.route.params
+      .pipe(
+        map((params) => getUserType(params.role as UserTypeTitles)),
+        untilDestroyed(this)
+      )
+      .subscribe((params) => {
+        if (params) {
+          this.form.get('userTypes').setValue([params]);
+        }
+      });
   }
-  onSubmit(event) {
-    let formValue;
-    if (this.form.valid) {
-      if (this.roleSelected[0].type === this.userTypeTitles.BOAT_OWNER) {
-        formValue = Object.assign({}, this.form.value, { boatDetails: { ...event, country: event.country.alpha3Code } })
-      } else if (this.roleSelected[0].type === this.userTypeTitles.SHIPYARD) {
-        formValue = Object.assign({}, this.form.value, { shipyardDetails: { ...event, phone: event.phone.internationalNumber } })
-      } else {
-        formValue = Object.assign({}, this.form.value, event)
-      }
-      this.user.signup(formValue);
-    } else {
+
+  ngOnDestroy() {
+    return;
+  }
+
+  onSubmit(event?: Shipyard) {
+    if (!this.form.valid) {
       FormUtils.markAsTouched(this.form);
+      return;
+    }
+
+    switch (this.roleSelected[0].type) {
+      case this.userTypeTitles.BOAT_OWNER:
+        this.user.signup(Object.assign({}, this.form.value));
+        break;
+      case this.userTypeTitles.SHIPYARD:
+      case this.userTypeTitles.SURVEYOR:
+        this.user.signup(
+          Object.assign({}, this.form.value, event, {
+            phoneNo: this.replaceSpaces(event?.phone),
+            cell: this.replaceSpaces(event?.phone),
+            country: event?.country?.alpha3Code,
+          })
+        );
+        break;
+      default:
+        return;
     }
   }
 
-
   compareWith(option: UserType[], selected: UserType[]) {
-    return get(option, '0.id') === get(selected, '0.id');
+    return option?.[0]?.id === selected?.[0]?.id;
+  }
+
+  private replaceSpaces(value?: string) {
+    return value?.replace(/\s/g, '') ?? '';
   }
 }

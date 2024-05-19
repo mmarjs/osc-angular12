@@ -29,7 +29,6 @@ button {
   &.mat-primary {
     .mat-button-wrapper {
       color: #fff;
-      // text-shadow: 0px 1px white;
     }
   }
 }
@@ -38,10 +37,28 @@ button {
   border-color: mat-color($palette, A100);
 }
 
-.mat-icon-button .mat-button-wrapper > ocean-icon {
-  vertical-align: unset;
+.large-icon {
   .mat-icon {
-    vertical-align: middle;
+    font-size: 2.0em;
+    color: mat-color($base, A100);
+  }
+}
+
+.mat-icon-button .mat-icon {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+}
+
+.mat-button ocean-icon {
+  position: relative;
+  margin-right: 1em;
+  .mat-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }
 

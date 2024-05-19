@@ -37,6 +37,7 @@ import {
 } from '@angular-material-extensions/select-country';
 import { of } from 'rxjs';
 import { MediaService } from '@ocean/api/client';
+import { CountryComponent } from '@ocean/shared/forms/autocompleters/country/country.component';
 
 describe('BoatInfoComponent', () => {
   let component: BoatInfoComponent;
@@ -142,6 +143,7 @@ describe('BoatInfoComponent integration', () => {
         MockComponent(FormGalleryComponent),
         FormBuilderComponent,
         TextFieldComponent,
+        CountryComponent,
       ],
       providers: [
         FormBuilderService,

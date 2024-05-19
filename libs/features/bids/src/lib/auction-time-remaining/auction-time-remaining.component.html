@@ -1,6 +1,10 @@
 <div>
-  <p class="time-left-txt">
-    {{'BIDS.TIME_LEFT' | translate}}:
-  </p>
+  <p class="time-left-txt">{{'BIDS.TIME_LEFT' | translate}}:</p>
   <app-time-remaining [date]="auctionEndDate"></app-time-remaining>
+
+  <p>
+    <app-button (btnClick)="extendAuctionEndDate()">
+      {{ 'BIDS.EXTEND_AUCTION' | translate }}
+    </app-button>
+  </p>
 </div>

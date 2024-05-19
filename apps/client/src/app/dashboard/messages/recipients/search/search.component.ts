@@ -3,12 +3,13 @@ import { FormControl } from '@angular/forms';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { MOCK_THREADS } from '../threads.mock';
+import { IconType } from '@ocean/icons';
 
 @Component({
   selector: 'app-messages-recipients-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class MessagesRecipientsSearchComponent implements OnInit {
   @ViewChild(MatAutocompleteTrigger, { static: true })
@@ -20,16 +21,15 @@ export class MessagesRecipientsSearchComponent implements OnInit {
   uid = '1';
   accounts = MOCK_THREADS;
 
+  readonly iconType = IconType;
+
   constructor() {}
 
   ngOnInit() {
     this.searchCtrl = new FormControl();
     this.searchCtrl.valueChanges
-      .pipe(
-        debounceTime(500),
-        distinctUntilChanged()
-      )
-      .subscribe(query => {
+      .pipe(debounceTime(500), distinctUntilChanged())
+      .subscribe((query) => {
         if (query) {
           this.doSearch(query);
         } else {
@@ -43,7 +43,7 @@ export class MessagesRecipientsSearchComponent implements OnInit {
 
   doSelect(account: any) {
     if (
-      !this.selected.some(a => a.name === account.name) &&
+      !this.selected.some((a) => a.name === account.name) &&
       account.name !== this.uid
     ) {
       this.selected.push(account);
@@ -53,12 +53,12 @@ export class MessagesRecipientsSearchComponent implements OnInit {
   }
 
   doRemove(account: any): void {
-    this.selected = this.selected.filter(a => a.name !== account.name);
+    this.selected = this.selected.filter((a) => a.name !== account.name);
   }
 
   private doSearch(query: string) {
     this.accounts = MOCK_THREADS.filter(
-      account => account.name.indexOf(query) !== -1
+      (account) => account.name.indexOf(query) !== -1
     );
 
     if (this.accounts.length > 0) {

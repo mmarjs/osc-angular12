@@ -6,4 +6,7 @@ export interface NumberFieldModel extends BaseFieldModel<number> {
   hideArrowsForNumber: boolean;
   isCurrency?: boolean;
   contextId?: string;
+  min?: number;
+  onlyIntegers?: boolean;
+  numberValidate?: boolean;
 }

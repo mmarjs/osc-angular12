@@ -1,19 +1,17 @@
-<app-stripe-account-guard>
-  <ng-container *ngIf="(isLoading$ | async)">
-    <div class="spinner-wrapper">
-      <mat-progress-spinner
-        mode="indeterminate"
-        [diameter]="40"
-        [strokeWidth]="5"
-      >
-      </mat-progress-spinner>
-    </div>
-  </ng-container>
+<ng-container *ngIf="(isLoading$ | async)">
+  <div class="spinner-wrapper">
+    <mat-progress-spinner
+      mode="indeterminate"
+      [diameter]="40"
+      [strokeWidth]="5"
+    >
+    </mat-progress-spinner>
+  </div>
+</ng-container>
 
-  <div
-    class="auctions-container"
-  >
-    <div *ngIf="!(isLoading$ | async)">
+<div class="auctions-container">
+  <ng-container *ngIf="!(isLoading$ | async)">
+    <ng-container *ngIf="(auction$ | async) as auction">
       <div class="banner-header">
         <div>
           <span class="bold-dark">{{'APPLICATION.' + auction.type | translate}}</span>
@@ -41,11 +39,12 @@
       </div>
       <ng-template #madeBid>
         <div
+          *ngIf="bid$ | async as bid"
           [ngSwitch]="bid?.status"
           class="text-center mt-15"
           fxLayout="column"
           fxLayoutAlign="center center"
-          >
+        >
           <div *ngSwitchCase="bidStatus.IN_REVIEW">
             <h2>{{ 'AUCTIONS.DETAILS.BID_STATUSES.IN_REVIEW.TITLE' | translate }}</h2>
             <p [innerHTML]="'AUCTIONS.DETAILS.BID_STATUSES.IN_REVIEW.DESC' | translate"></p>
@@ -56,20 +55,25 @@
             <app-button>{{ 'BIDS.REVIEW_BIDS' | translate }}</app-button>
           </div>
           <div *ngSwitchCase="bidStatus.ACCEPTED">
-            <h2>{{ 'AUCTIONS.DETAILS.BID_STATUSES.ACCEPTED.TITLE' | translate }}</h2>
-            <p [innerHTML]="'AUCTIONS.DETAILS.BID_STATUSES.ACCEPTED.DESC' | translate : {amount: bid?.bidAmount}"></p>
-            <div>
-              {{ bidAcceptedMessage$ | async | translate }}
-            </div>
-            <div fxLayout="row" class="mt-10" fxLayoutGap="1rem" fxLayoutAlign="center center">
-              <!-- Todo <app-button>{{ 'COMMON.BUTTONS.SEND_MESSAGE' | translate }}</app-button> -->
-              <app-button *ngIf="shouldSignDocument$ | async" [routerLink]="['/documents', 'job', bid?.jobId]">
-                {{ 'BIDS.DOCUMENTS' | translate }}
-              </app-button>
-              <app-button *ngIf="isFullAmountPaid" (btnClick)="markToProgress()">
-                {{ 'BIDS.BID_START_REPAIR' | translate }}
-              </app-button>
-            </div>
+            <ng-container *ngIf="auction?.status === auctionStatus.COMPLETED">
+              <h2>{{ 'AUCTIONS.DETAILS.BID_STATUSES.COMPLETED.TITLE' | translate }}</h2>
+              <p>{{ 'AUCTIONS.DETAILS.BID_STATUSES.COMPLETED.DESC' | translate }}</p>
+            </ng-container>
+            <ng-container *ngIf="auction?.status !== auctionStatus.COMPLETED">
+              <h2>{{ 'AUCTIONS.DETAILS.BID_STATUSES.ACCEPTED.TITLE' | translate }}</h2>
+              <p [innerHTML]="'AUCTIONS.DETAILS.BID_STATUSES.ACCEPTED.DESC' | translate : {amount: bid?.bidAmount}"></p>
+              <div>
+                {{ message | translate }}
+              </div>
+              <div fxLayout="row" class="mt-10" fxLayoutGap="1rem" fxLayoutAlign="center center">
+                <app-button *ngIf="isAbleToSignDocument" [routerLink]="['/documents', 'job', bid?.jobId]">
+                  {{ 'BIDS.DOCUMENTS' | translate }}
+                </app-button>
+                <app-button *ngIf="isFullAmountPaid" (btnClick)="markToProgress()">
+                  {{ 'BIDS.BID_START_REPAIR' | translate }}
+                </app-button>
+              </div>
+            </ng-container>
           </div>
           <div *ngSwitchCase="bidStatus.REJECTED">
             <h2>{{ 'AUCTIONS.DETAILS.BID_STATUSES.REJECTED.TITLE' | translate }}</h2>
@@ -81,34 +85,36 @@
         </div>
       </ng-template>
 
-      <layout-two-columns
-        class="boat-layout"
-        [width]="50"
-      >
-        <div class="carousel">
-          <img src="/assets/images/no-image.png" alt="" class="default-img-big">
-        </div>
-        <div
-          class="boat-description"
-          aside
-        >
-          <app-boat-details
-            [boat]="auction.boat"
-          >
-          </app-boat-details>
-        </div>
-      </layout-two-columns>
+      <app-boat-details [boat]="auction.boat"></app-boat-details>
+
+      <!--      <layout-two-columns-->
+      <!--        class="boat-layout"-->
+      <!--        [width]="50"-->
+      <!--      >-->
+      <!--        <div class="carousel">-->
+      <!--          <img src="/assets/images/no-image.png" alt="" class="default-img-big">-->
+      <!--        </div>-->
+      <!--        <div-->
+      <!--          class="boat-description"-->
+      <!--          aside-->
+      <!--        >-->
+      <!--          <app-boat-details-->
+      <!--            [boat]="auction.boat"-->
+      <!--          >-->
+      <!--          </app-boat-details>-->
+      <!--        </div>-->
+      <!--      </layout-two-columns>-->
 
       <layout-two-columns
         class="auction-layout"
-        *ngIf="shouldShowBidForm"
+        *ngIf="isAbleToShowBidForm$ | async"
         [width]="25"
       >
         <div class="auction-info card-bg-widget">
           <h3>{{'AUCTIONS.BIDS' | translate}}</h3>
           <app-auction-info
             [auction]="auction"
-            [bidAmount]="biddingTableFormModel | sumArrayValues: 'amount'"
+            [bidAmount]="biddingTableFormModel | sumArrayValues: 'amount' : 'quantity'"
           >
           </app-auction-info>
         </div>
@@ -127,6 +133,7 @@
             [innerHTML]="'AUCTIONS.DETAILS.BIDDING_FORM_DESCRIPTION_FIRST_ROW' | translate : {auctionName: auction.name}">
           </p>
           <p>{{'AUCTIONS.DETAILS.BIDDING_FORM_DESCRIPTION_SECOND_ROW' | translate}}</p>
+          <p>{{'FAQ.WHAT_IS_THE_COMISSION.DESCRIPTION' | translate}}</p>
 
           <app-bidding-form-table
             #biddingFormTable
@@ -134,23 +141,23 @@
             (removeSurveyItem)="removeLineItem($event)"
             (addSurveyItem)="addLineItem($event)"
             (addJobItemNote)="updateOne($event)"
-            (bidsValueChange)="biddingTableFormModel = $event"
+            (bidsValueChange)="onBiddingTableChange($event)"
             [showOnlyDescription]="showOnlyDescription"
           >
           </app-bidding-form-table>
 
           <app-bidding-form-footer-group
             [form]="form"
+            [fields]="fields"
             (bidSubmit)="bidSubmit($event)"
             [tableFormInvalid]="biddingFormTable?.ngForm?.invalid"
-            [bidAmount]="biddingTableFormModel | sumArrayValues: 'amount'"
+            [bidAmount]="biddingTableFormModel | sumArrayValues: 'amount' : 'quantity'"
             [isBidCreating]="isBidCreating$ | async"
-            [fields]="formBlock"
-            [isBidAmountPaid]="bid?.paymentItemDTO?.eventType === paymentEvent.SUCCEEDED && auction.status === auctionStatus.AWARDED"
+            [isBidAmountPaid]="isBidAmountPaid"
           >
           </app-bidding-form-footer-group>
         </div>
       </layout-two-columns>
-    </div>
-  </div>
-</app-stripe-account-guard>
+    </ng-container>
+  </ng-container>
+</div>

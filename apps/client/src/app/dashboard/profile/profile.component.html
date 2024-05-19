@@ -6,14 +6,23 @@
   <layout-two-columns [width]="50">
     <div class="carousel">
       <div [style.text-align]="'center'">
-        <div class="avatar-wrapper">
-          <img *ngIf="userAvatar;else tempImg" [src]="(userAvatar | transform:mediaTransform.AVATAR)" alt=""
-               class="avatar">
-          <button mat-icon-button (click)="avatarUploader.uploader.onclick()">
-            <mat-icon>edit</mat-icon>
-          </button>
+        <div class="avatar-wrapper" data-testid="avatar">
+          <img
+            *ngIf="userAvatar; else tempImg"
+            [src]="userAvatar | transform: mediaTransform.AVATAR"
+            alt=""
+            class="avatar"
+          />
+          <div class="actions">
+            <button mat-icon-button (click)="avatarUploader.uploader.onclick()">
+              <ocean-icon [iconType]="iconType.EDIT"></ocean-icon>
+            </button>
+            <button mat-icon-button (click)="deleteAvatar()" aria-label="Delete avatar">
+              <ocean-icon [iconType]="iconType.DELETE_OUTLINE"></ocean-icon>
+            </button>
+          </div>
         </div>
-        <app-form-gallery 
+        <app-form-gallery
           #avatarUploader
           [form]="avatarForm"
           (fileAdded)="updateAvatar($event)"
@@ -30,6 +39,7 @@
         fontSet="fas"
         icon="fa-camera"
         class="upload-container"
+        asIcon="CAMERA"
       >
         <p>
           {{'MEDIA.DRAG_AND_DROP_MEDIA' | translate}}
@@ -59,51 +69,47 @@
       <app-personal-information
         [user]="user$ | async"
         [isUpdating]="isUpdating$ | async"
-        (controlSubmittedValue)="patchUser($event)"
-        (updateAvatar)="updateAvatar($event)"
+        (patch)="patchUser($event)"
       >
       </app-personal-information>
       <div *ngIf="userType$ | async as userType">
-      <layout-panel-wrapper
-        class="change-password-container"
-        [panelTitle]="'PROFILE.ADDITIONAL_INFORMATION' | translate" fontSet="far"
-        *ngIf="userType === userTypes.BOAT_OWNER || userType === userTypes.SHIPYARD"
-      >
-        <button
-          *ngIf="isDisableAdditionalInfo"
-          mat-icon-button
-          class="edit"
-          (click)="isDisableAdditionalInfo=!isDisableAdditionalInfo"
+        <layout-panel-wrapper
+          class="change-password-container"
+          [panelTitle]="'PROFILE.ADDITIONAL_INFORMATION' | translate" fontSet="far"
+          *ngIf="userType === userTypes.BOAT_OWNER || userType === userTypes.SHIPYARD"
         >
-          <mat-icon>edit</mat-icon>
-          <span>
-            {{ ('COMMON.BUTTONS.EDIT' | translate)}}
-          </span>
-        </button>
-        <div *ngIf="userType$ | async as userType" class="text-center mt-16">
-          <div *ngIf="userType === userTypes.BOAT_OWNER">
-            <app-boat-user #boatOwner [isDisabled]="isDisableAdditionalInfo" [user]="user$ | async"></app-boat-user>
-          </div>
-          <div *ngIf="userType === userTypes.SHIPYARD">
-            <app-shipyard-user #shipyard [isDisabled]="isDisableAdditionalInfo"
-                               [user]="user$ | async"></app-shipyard-user>
-          </div>
-        </div>
-        <div class="d-flex justify-content-end" *ngIf="userType$ | async as userType">
           <button
-            type="button"
-            class="w-150"
-            *ngIf="!isDisableAdditionalInfo"
-            mat-raised-button
-            color="primary"
-            (click)="updateAdditionalInfo()"
-            [disabled]="userType === userTypes.SHIPYARD ? shipyard?.form.invalid : boatOwner?.form.invalid"
+            *ngIf="isDisableAdditionalInfo"
+            mat-icon-button
+            class="edit"
+            (click)="isDisableAdditionalInfo=!isDisableAdditionalInfo"
           >
-            {{'COMMON.BUTTONS.SAVE' | translate}}
+            <ocean-icon [iconType]="iconType.EDIT"></ocean-icon>
           </button>
-        </div>
-      </layout-panel-wrapper>
-    </div>
+          <div *ngIf="userType$ | async as userType" class="text-center mt-16">
+            <div *ngIf="userType === userTypes.BOAT_OWNER">
+              <app-boat-user #boatOwner [isDisabled]="isDisableAdditionalInfo" [user]="user$ | async"></app-boat-user>
+            </div>
+            <div *ngIf="userType === userTypes.SHIPYARD">
+              <app-shipyard-user #shipyard [isDisabled]="isDisableAdditionalInfo"
+                                 [user]="user$ | async"></app-shipyard-user>
+            </div>
+          </div>
+          <div class="d-flex justify-content-end" *ngIf="userType$ | async as userType">
+            <button
+              type="button"
+              class="w-150"
+              *ngIf="!isDisableAdditionalInfo"
+              mat-raised-button
+              color="primary"
+              (click)="updateAdditionalInfo()"
+              [disabled]="userType === userTypes.SHIPYARD ? shipyard?.form.invalid : boatOwner?.form.invalid"
+            >
+              {{'COMMON.BUTTONS.SAVE' | translate}}
+            </button>
+          </div>
+        </layout-panel-wrapper>
+      </div>
       <div class="change-password-container">
         <app-profile-password></app-profile-password>
       </div>
@@ -119,8 +125,7 @@
           </app-surveyors-widget>
         </div>
       </ng-container>
-      <app-payment-details></app-payment-details>
+      <app-stripe-integration-details></app-stripe-integration-details>
     </div>
-
   </layout-two-columns>
 </div>

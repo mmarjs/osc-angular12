@@ -14,6 +14,7 @@ import {
   SearchCountryField,
 } from 'ngx-intl-tel-input';
 import { Country } from 'ngx-intl-tel-input/lib/model/country.model';
+import { IconType } from '@ocean/icons';
 
 @Component({
   selector: 'app-form-control-update-on-submit',
@@ -22,6 +23,7 @@ import { Country } from 'ngx-intl-tel-input/lib/model/country.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormControlUpdateOnSubmitComponent implements OnInit {
+  readonly iconType = IconType;
   readonly preferredCountries: CountryISO[] = [CountryISO.UnitedStates];
   readonly PhoneNumberFormat = PhoneNumberFormat;
   readonly CountryISO = CountryISO;
@@ -60,6 +62,7 @@ export class FormControlUpdateOnSubmitComponent implements OnInit {
     }
     this.control.updateValueAndValidity();
   }
+
   onValueChange() {
     this.ctrlHasError();
   }

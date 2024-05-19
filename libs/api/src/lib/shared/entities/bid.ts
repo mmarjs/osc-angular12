@@ -31,11 +31,11 @@ export interface Bid {
   awayFromProvidersYard?: boolean;
   yardOwner?: string;
   paymentItemDTO?: {
-    paymentIntentId: string,
-    eventType: PaymentEvent,
-    amount: Number,
-    fee: Number
-  }
+    paymentIntentId: string;
+    eventType: PaymentEvent;
+    amount: Number;
+    fee: Number;
+  };
 }
 
 export const TAX = 6;
@@ -50,5 +50,5 @@ export enum BidStatus {
 
 export enum PaymentEvent {
   SUCCEEDED = 'payment_intent.succeeded',
-  FAILED = 'payment_intent.payment_failed'
+  FAILED = 'payment_intent.payment_failed',
 }

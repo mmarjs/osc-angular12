@@ -1,4 +1,4 @@
-@import "variables";
+@import 'variables';
 
 .mat-header-row {
   display: none;
@@ -6,19 +6,18 @@
 
 * {
   color: #283B4D;
-
 }
 
 .auction-row {
   position: relative;
   display: flex;
-  max-width: 510px;
+  max-width: 544px;
   background: mat-color($background, widget);
   border-bottom: none;
   margin-bottom: 10px;
-  width: auto;
+  width: 100%;
 
-  .default-img{
+  .default-img {
     height: 150px;
   }
 
@@ -45,8 +44,8 @@
       }
     }
 
-    >div {
-      border-bottom: 1px solid mat-color($foreground, "divider");
+    > div {
+      border-bottom: 1px solid mat-color($foreground, 'divider');
 
       &:last-child {
         border-bottom: none;
@@ -65,7 +64,7 @@
     }
 
     figcaption {
-      background: mat-color($background, "background", 0.75);
+      background: mat-color($background, 'background', 0.75);
       color: black;
       padding: 5px 2px 1px;
       text-align: center;
@@ -88,13 +87,35 @@
   }
 
   button {
-    line-height: 22px;
-    font-size: 14px;
-    padding: 0 10px;
-    border: 2px solid #5A8EA1;
-    color: #00467F;
+    line-height: 20px;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 0 10px 3px;
+    border: 2px solid #5a8ea1;
+    color: #00467f;
     width: 145px;
     height: 35px;
+    border-radius: 0;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .auctionsTable {
+    column-gap: 18px;
+    margin: 0 auto;
+    max-width: 1110px;
+  }
+  .auction-row {
+    figure {
+      width: 100%;
+      max-width: 250px;
+      img {
+        min-height: 200px;
+        max-width: 250px;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
   }
 }
 

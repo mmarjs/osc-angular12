@@ -12,9 +12,9 @@ export const routes: AppRoutes = [
     key: 'MY_BIDS',
     path: 'mybids',
     data: {
-      title: 'My Bids'
+      title: 'My Bids',
     },
-  }
+  },
 ];
 
 // 1. not-AoT compliant
@@ -89,12 +89,16 @@ export const PATHS = {
   DRAFTS: 'drafts',
   MY_BIDS: 'mybids',
   DOCUMENTS: 'documents',
-  CREATE_STRIPE_ACCOUNT: 'stripe-account'
+  STRIPE: 'stripe',
+  STRIPE_MANAGEMENT: 'stripe/manage',
+  CREATE_STRIPE_ACCOUNT: 'stripe/account',
+  DOCUMENT_SIGNED: 'document-signed',
+  DOCUMENT_DECLINED: 'document-declined',
 };
 
 export const DATA = {
   AUCTIONS: { title: 'Auctions' },
-  MY_BIDS: {title: 'My Bids'},
+  MY_BIDS: { title: 'My Bids' },
   AUCTION_CREATE: { title: 'Add Auction' },
   AUCTION_DETAIL: { title: 'Auction Details' },
   AUCTION_DETAIL_EDIT: { title: 'Edit Bid' },

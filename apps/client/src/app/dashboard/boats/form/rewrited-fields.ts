@@ -1,67 +1,67 @@
 export const fieldsForRewrite = {
   name: {
     order: 0,
-    label: 'FORMS.LABELS.NAME'
+    label: 'FORMS.LABELS.NAME',
   },
   type: {
     order: 2,
     label: 'FORMS.LABELS.TYPE',
-    cssClassName: 'triple'
+    cssClassName: 'triple',
   },
   length: {
     order: 1,
-    cssClassName: 'triple'
+    cssClassName: 'triple',
   },
   makeModelYear: {
     order: 3,
-    cssClassName: 'triple'
+    cssClassName: 'triple',
   },
   city: {
     order: 7,
-    cssClassName: 'half'
+    cssClassName: 'half',
   },
   state: {
     order: 6,
-    cssClassName: 'half'
+    cssClassName: 'half',
   },
   address: {
     order: 8,
-    cssClassName: 'half'
+    cssClassName: 'half',
   },
   address2: {
     order: 9,
-    cssClassName: 'half'
+    cssClassName: 'half',
   },
   timeZone: {
     order: 11,
-    cssClassName: 'full'
+    cssClassName: 'full',
   },
   zipCode: {
     order: 10,
-    cssClassName: 'full'
+    cssClassName: 'full',
   },
   hullId: {
     order: 12,
-    cssClassName: 'half'
+    cssClassName: 'half',
   },
   flag: {
     order: 13,
-    cssClassName: 'half'
+    cssClassName: 'half',
   },
   about: {
     order: 14,
-    cssClassName: 'full'
+    cssClassName: 'full',
   },
   electricalRequirements: {
     order: 23,
-    cssClassName: 'full'
+    cssClassName: 'full',
   },
   boatClass: {
     order: 21,
-    cssClassName: 'half'
+    cssClassName: 'half',
   },
   insuranceNumber: {
     order: 22,
-    cssClassName: 'half'
-  }
+    cssClassName: 'full',
+  },
 };

@@ -1,40 +1,58 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MatDialogModule,
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MockModule } from 'ng-mocks';
-import { TestModule } from '@ocean/testing/helpers/test.module'
+import { MatInputModule } from '@angular/material/input';
+import { TranslatePipe } from '@ngx-translate/core';
+import { render, screen } from '@testing-library/angular';
+import userEvent from '@testing-library/user-event';
+import { MockPipe } from 'ng-mocks';
 import { InputDialogComponent } from './input-dialog.component';
 
 describe('InputDialogComponent', () => {
-  let component: InputDialogComponent;
-  let fixture: ComponentFixture<InputDialogComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  it('should not allow to save without input value', async () => {
+    await render(InputDialogComponent, {
       imports: [
-        MockModule( MatDialogModule ),
-        MockModule(MatFormFieldModule),
-        TestModule
+        MatDialogModule,
+        MatInputModule,
+        MatFormFieldModule,
+        FormsModule,
+        ReactiveFormsModule,
       ],
-      declarations: [InputDialogComponent],
+      declarations: [
+        InputDialogComponent,
+        MockPipe(TranslatePipe, (value: string) => value),
+      ],
       providers: [
-        { provide: MatDialogRef, useValue: {} },
+        {
+          provide: MatDialogRef,
+          useValue: { close: jest.fn() },
+        },
         { provide: MAT_DIALOG_DATA, useValue: {} },
       ],
-    }).compileComponents();
-  });
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(InputDialogComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    const dialogRefMock = TestBed.inject(MatDialogRef);
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(
+      screen.getByRole('button', { name: 'COMMON.BUTTONS.OK' })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: 'COMMON.BUTTONS.OK' })
+    ).toBeDisabled();
+
+    userEvent.type(screen.getByRole('textbox'), 'test');
+
+    expect(
+      screen.getByRole('button', { name: 'COMMON.BUTTONS.OK' })
+    ).toBeEnabled();
+
+    userEvent.click(screen.getByRole('button', { name: 'COMMON.BUTTONS.OK' }));
+
+    expect(dialogRefMock.close).toHaveBeenCalledWith('test');
   });
 });

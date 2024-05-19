@@ -1,51 +1,50 @@
-import {
-  Component,
-  EventEmitter,
-  OnDestroy,
-  OnInit,
-  Output
-} from '@angular/core';
+import { Component, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserTypeTitles } from '@ocean/api/shared';
 import { UserFacade } from '@ocean/api/state';
 import { ROUTES } from '@ocean/shared';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import { Observable } from 'rxjs';
+import { IconType } from '@ocean/icons';
 
 @Component({
   selector: 'layout-basic-menu-overlay',
   templateUrl: './menu-overlay.component.html',
-  styleUrls: ['./menu-overlay.component.scss']
+  styleUrls: ['./menu-overlay.component.scss'],
 })
-export class MenuOverlayComponent implements OnInit, OnDestroy {
-  @Output()
-  close = new EventEmitter();
-  loggedIn: boolean;
-  userRole$: Observable<string> = this.user.userType$;
-  userRoles = UserTypeTitles;
+export class MenuOverlayComponent implements OnDestroy {
+  @Output() close = new EventEmitter();
 
-  constructor(private router: Router, private user: UserFacade) {
+  readonly userRoles = UserTypeTitles;
+  readonly iconType = IconType;
+
+  readonly userRole$: Observable<string> = this.user.userType$;
+
+  loggedIn?: boolean;
+
+  constructor(
+    private readonly router: Router,
+    private readonly user: UserFacade
+  ) {
     this.user.loggedIn$
       .pipe(untilDestroyed(this))
-      .subscribe(loggedIn => (this.loggedIn = loggedIn));
+      .subscribe((loggedIn) => (this.loggedIn = loggedIn));
   }
 
-  ngOnInit() { }
-
-  ngOnDestroy() { }
+  ngOnDestroy() {
+    return;
+  }
 
   goTo(name: string) {
-    this.router.navigate([ROUTES.link(name)]);
+    void this.router.navigate([ROUTES.link(name)]);
     this.close.emit();
   }
 
   getStarted() {
     if (this.loggedIn) {
-      // redirect to add auction
-      this.router.navigate([ROUTES.link('DASHBOARD')]);
+      void this.router.navigate([ROUTES.link('DASHBOARD')]);
     } else {
-      // go to signup
-      this.router.navigate([ROUTES.link('SIGNUP')]);
+      void this.router.navigate([ROUTES.link('SIGNUP')]);
     }
     this.close.emit();
   }

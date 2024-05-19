@@ -12,6 +12,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ContactListerComponent } from '@ocean/shared/dialogs/contact-lister/contact-lister.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocalizationService } from '@ocean/internationalization';
+import { ROUTE_MAPPING, urlBuilder } from '../bids.module';
 
 @Component({
   selector: 'ocean-bids',
@@ -20,15 +21,26 @@ import { LocalizationService } from '@ocean/internationalization';
 })
 export class BidsComponent implements OnInit, OnDestroy {
   bids:Bid[]=[];
-  constructor(private bidsFacade: BidsFacade, private bidDialogs: BidDialogs, private fb: FormBuilder,private matDialog:MatDialog,private router:Router,private localizationService:LocalizationService,private activatedRoute: ActivatedRoute,private auctionsFacade: AuctionsFacade) { }
   filterForm!: FormGroup;
   searchValue: Subject<string> = new Subject<string>();
   priceFilters = [{ title: this.localizationService.translate('FORMS.LABELS.HIGH_TO_LOW'), value: 'desc' },
   { title: this.localizationService.translate('FORMS.LABELS.LOW_TO_HIGH'), value: 'asc' }]
-  isLoading: boolean = false;
-  bidsSubscription!: Subscription;
-  acceptedBid!: Bid;
-  bidRejectSubscription!: Subscription;
+  isLoading = false;
+  bidsSubscription: Subscription | null = null;
+  acceptedBid: Bid | null = null;
+  bidRejectSubscription: Subscription | null = null;
+
+  constructor(
+    private bidsFacade: BidsFacade,
+    private bidDialogs: BidDialogs,
+    private fb: FormBuilder,
+    private matDialog:MatDialog,
+    private router:Router,
+    private localizationService:LocalizationService,
+    private activatedRoute: ActivatedRoute,
+    private auctionsFacade: AuctionsFacade
+  ) { }
+
   ngOnInit() {
     this.bidsSubscription = this.bidsFacade.bids$.pipe(
       tap(() => this.isLoading = true),
@@ -38,6 +50,7 @@ export class BidsComponent implements OnInit, OnDestroy {
         this.isLoading = false;
       })
     ).subscribe()
+
     this.filterForm = this.fb.group({
       price: [],
       startDate: [],
@@ -58,14 +71,19 @@ export class BidsComponent implements OnInit, OnDestroy {
       .acceptPrompt(bid)
       .pipe(
         tap(() => this.bidsFacade.acceptBid(bid?.id as number)),
-      ).pipe(
         switchMap(() => this.bidsFacade.selectAcceptedBid$),
         filter((res) => !!res),
+        tap((res) => this.auctionsFacade.getDocuments(res.jobId)),
+        map((res) => res?.id),
         untilDestroyed(this),
       )
-      .subscribe((res) => {
-        this.auctionsFacade.getDocuments(res.jobId)
-        this.router.navigate(['documents',res.id],{relativeTo:this.activatedRoute});
+      .subscribe((bidId) => {
+        const url = urlBuilder(ROUTE_MAPPING.documents, {
+          bidId: bidId?.toString() ?? '',
+        }).split('/');
+        const fullUrl = this.router.createUrlTree(['..', ...url], { relativeTo: this.activatedRoute });
+
+        this.router.navigateByUrl(fullUrl);
       });
   }
 
@@ -86,7 +104,7 @@ export class BidsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.bidsSubscription.unsubscribe();
-    this.bidRejectSubscription.unsubscribe();
+    this.bidsSubscription?.unsubscribe();
+    this.bidRejectSubscription?.unsubscribe();
   }
 }

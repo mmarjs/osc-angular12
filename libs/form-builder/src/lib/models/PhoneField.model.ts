@@ -7,6 +7,8 @@ import { ISO2 } from '@ocean/shared/utils/iso-mapper';
 
 export interface PhoneFieldModel extends BaseFieldModel<string> {
   type: FormFieldGroupTypes.phone;
+  disableISOInterceptor?: boolean;
+  disableCountryChangeInterceptor?: boolean;
   interceptSelectedCountryISO?: (form: FormGroup) => CountryISO;
   selectFirstCountry?: boolean;
   countries?: Lowercase<ISO2>[];

@@ -1,0 +1,26 @@
+$image-size: 100px;
+
+.text-center {
+  text-align: center;
+}
+
+img {
+  height: $image-size;
+  width: $image-size;
+}
+
+.success-icon {
+  display: flex;
+  justify-content: center;
+  margin-top: 18%;
+}
+
+.email-message {
+  margin: auto;
+}
+
+h2 {
+  color: #283b4d;
+  font-weight: bold;
+  font-size: xx-large;
+}

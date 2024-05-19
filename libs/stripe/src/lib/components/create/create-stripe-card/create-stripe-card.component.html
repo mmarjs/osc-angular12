@@ -1,0 +1,14 @@
+<div mat-dialog-content class="wrapper-dialog-container">
+  <div class="header">
+    <ocean-icon [iconType]="iconType.CREDIT_CARD"></ocean-icon>
+    <div class="title">
+      <span>{{ 'STRIPE.CARDS.CARD_TITLE' | translate }}</span>
+      <h4>{{ 'STRIPE.CARDS.CARD_ATTACH' | translate }}</h4>
+    </div>
+  </div>
+  <app-form-builder [form]="form" [fields]="fields" containerCssClass="form-container"></app-form-builder>
+</div>
+<div mat-dialog-actions class="inline-items">
+  <button mat-button (click)="create()">{{ 'STRIPE.ACTIONS.CREATE' | translate }}</button>
+  <button mat-button (click)="close()">{{ 'STRIPE.ACTIONS.CLOSE' | translate }}</button>
+</div>

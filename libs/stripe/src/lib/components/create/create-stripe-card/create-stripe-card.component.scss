@@ -1,0 +1,23 @@
+@import "../../../shared/styles";
+
+:host ::ng-deep {
+  .form-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .full {
+    width: 100%;
+    text-align: left;
+  }
+
+  .half {
+    text-align: left;
+    position: relative;
+    width: 49.2%;
+    display: block;
+  }
+}

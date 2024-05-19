@@ -14,13 +14,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectCountryModule } from '@angular-material-extensions/select-country';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { SharedDirectivesModule } from '../directives';
+import { IconsModule } from '@ocean/icons';
+
 export const AppFormsImports = [
   FlexLayoutModule,
   ReactiveFormsModule,
   MatAutocompleteModule,
   MatFormFieldModule,
   MatCheckboxModule,
-  MatIconModule,
+  IconsModule,
   MatInputModule,
   MatSelectModule,
   MatTooltipModule,

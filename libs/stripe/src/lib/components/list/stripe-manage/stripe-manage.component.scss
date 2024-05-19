@@ -1,0 +1,13 @@
+@import "../../../shared/styles";
+
+.inline-divider {
+  padding: 0 16px;
+  display: flex;
+  gap: 1rem;
+
+  hr {
+    width: 100%;
+    outline: 0;
+    border: 1px solid $light;
+  }
+}

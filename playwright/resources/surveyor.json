@@ -1,0 +1,12 @@
+{
+  "businessName": "Surveyor",
+  "surveyingOfficeAddress1": "",
+  "surveyingOfficeAddress2":"",
+  "country":"United States of America - USA",
+  "state":"California",
+  "city":"United State",
+  "address":"123 Abc",
+  "zipCode":"95697",
+  "phone":"+1 201-555-0123",
+  "businessEmail": "surveyor@team764000.testinator.com"
+ }

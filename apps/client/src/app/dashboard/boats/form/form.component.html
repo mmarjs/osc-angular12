@@ -73,7 +73,7 @@
           </app-boats-create-media>
           <app-button
             (click)="onUploadImages()"
-            [disabled]="!canUploadImages()"
+            [disabled]="!showUpload"
           >
             {{'COMMON.BUTTONS.UPLOAD_IMAGES' | translate}}
           </app-button>
@@ -91,7 +91,7 @@
           </app-boats-create-media>
           <app-button
             (click)="onUploadImages()"
-            [disabled]="!canUploadImages()"
+            [disabled]="showUpload"
           >
             {{'COMMON.BUTTONS.UPLOAD_IMAGES' | translate}}
           </app-button>

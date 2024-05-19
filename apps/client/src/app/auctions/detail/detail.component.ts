@@ -1,49 +1,39 @@
-import {
-  Component,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { JobStatus } from '@ocean/api/services';
 import {
-  Bid,
   BiddingTableFormModel,
-  BidDTO,
   BidItemDTO,
   BidStatus,
-  JobDTO,
   JobItem,
-  PaymentEvent,
 } from '@ocean/api/shared';
-import { createBiddingTableViewModel } from '@ocean/client/auctions/detail/detail.helper';
 import {
   AuctionsFacade,
   BidItemsFacade,
   BidsFacade,
 } from '@ocean/client/state';
-import { DocumentsFacadeService } from '@ocean/documents';
 import { FormBuilderService } from '@ocean/libs/form-builder';
 import { DATA, FormUtils } from '@ocean/shared';
 import { nameValidator } from '@ocean/shared/utils';
-import { countryEntityToISO } from '@ocean/shared/utils/country-to-iso';
-import { dateWithoutTimezone } from '@ocean/shared/utils/dateWithoutTimezone';
-import { stringToCountryField } from '@ocean/shared/utils/string-to-country-field';
-import { CountryISO } from 'ngx-intl-tel-input';
 import { untilDestroyed } from 'ngx-take-until-destroy';
 import {
   BehaviorSubject,
+  combineLatestWith,
   distinctUntilChanged,
+  filter,
+  firstValueFrom,
   map,
-  Observable,
-  of,
   tap,
-  catchError
 } from 'rxjs';
-import { BiddingFormTableComponent } from '../auctions.barrel';
-import { getDetailFormConfig, TypedDetailFormValues } from './detail.config';
+import {
+  changeCountryISOToCountryField,
+  createBiddingTableViewModel,
+  toBidDTO,
+  toBidItems,
+} from './detail.helper';
+import { getDetailFieldsConfig } from './detail.config';
+import { PreloadedDataForAuction } from '@ocean/api/resolvers/auction-bid-resolver/types';
 
 @Component({
   selector: 'app-detail',
@@ -51,134 +41,61 @@ import { getDetailFormConfig, TypedDetailFormValues } from './detail.config';
   styleUrls: ['./detail.component.scss'],
 })
 export class DetailComponent implements OnInit, OnDestroy {
-  formBlock = getDetailFormConfig();
-  form = this.formBuilderService.buildReactiveForm(this.formBlock);
-  bid: BidDTO | null = null;
+  readonly auctionStatus = JobStatus;
+  readonly bidStatus = BidStatus;
 
-  showOnlyDescription: boolean;
+  readonly fields = getDetailFieldsConfig();
+  readonly form = this.formBuilderService.buildReactiveForm(this.fields);
 
-  biddingTableFormModel: BiddingTableFormModel[];
-  auction: JobDTO | null = null;
-  shouldSignDocument$ = this.documentsFacade.shouldSignDocument$;
-  isBidCreating$: Observable<boolean> = this.auctionsFacade.isBidCreating$;
-  isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+  readonly isBidCreating$ = this.auctionsFacade.isBidCreating$;
+  readonly isLoading$ = new BehaviorSubject<boolean>(true);
 
-  paymentEvent = PaymentEvent;
-  auctionStatus = JobStatus;
-  bidStatus = BidStatus;
-  bids: Bid[] | undefined;
+  readonly auction$ = this.auctionsFacade.selectedAuction$;
 
-  @ViewChild('biddingForm') biddingForm: ElementRef;
-  @ViewChild('biddingFormTable') biddingFormTable: BiddingFormTableComponent;
+  readonly bid$ = this.auction$.pipe(
+    combineLatestWith(
+      this.activatedRoute.data,
+      this.auctionsFacade.selectedBid$
+    ),
+    map(([auction, route, currentBid]) => {
+      if (typeof auction?.id !== 'number') {
+        return undefined;
+      }
+
+      if (this.isEdit(route)) {
+        return route?.bid;
+      }
+
+      return typeof currentBid?.status === 'string'
+        ? currentBid
+        : route?.preloaded?.bid;
+    })
+  );
+
+  readonly isAbleToShowBidForm$ = this.bid$.pipe(
+    map((bid) => this.isEdit() || bid?.status === undefined)
+  );
+
+  message?: string;
+
+  isAbleToSignDocument?: boolean;
+  isWorkInProgress?: boolean;
+  isFullAmountPaid?: boolean;
+  isBidAmountPaid?: boolean;
+  showOnlyDescription?: boolean;
+
+  biddingTableFormModel?: BiddingTableFormModel[];
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly auctionsFacade: AuctionsFacade,
     private readonly bidItemsFacade: BidItemsFacade,
     private readonly bidsFacade: BidsFacade,
-    private readonly formBuilderService: FormBuilderService,
-    private readonly documentsFacade: DocumentsFacadeService,
+    private readonly formBuilderService: FormBuilderService
   ) {}
 
-  private get isEdit(): boolean {
-    return (
-      this.activatedRoute?.snapshot?.data.title ===
-      DATA.AUCTION_DETAIL_EDIT.title
-    );
-  }
-
-  get isFullAmountPaid(): boolean {
-    return this.bid?.paymentItemDTO?.eventType === PaymentEvent.SUCCEEDED;
-  }
-
-  get shouldShowBidForm(): boolean {
-    if (!this.isEdit) {
-      return !this.bid ? true : false;
-    }
-    if (this.bid) {
-      return this.bid.status !== BidStatus.ACCEPTED;
-    }
-    return this.auction?.status === JobStatus.AUCTION_LIVE;
-  }
-
-  get isWorkInProgress(): boolean {
-    return this.auction?.status === JobStatus.JOB_IN_PROGRESS;
-  }
-
-  get bidAcceptedMessage$(): Observable<string> {
-    if (this.isFullAmountPaid) {
-      return of('AUCTIONS.DETAILS.BID_STATUSES.ACCEPTED.FULL_AMOUNT_PAID');
-    }
-    return this.shouldSignDocument$.pipe(
-      map((shouldSignDocument) =>
-        shouldSignDocument
-          ? 'AUCTIONS.DETAILS.BID_STATUSES.ACCEPTED.SIGN_DOCUMENTS'
-          : 'AUCTIONS.DETAILS.BID_STATUSES.ACCEPTED.WAIT_FOR_BOAT_OWNER'
-      ),
-      untilDestroyed(this)
-    );
-  }
-
-  ngOnInit() {
-    // initializations
-    this.auctionsFacade.init();
-    this.bidItemsFacade.initBidItems([]);
-    this.initForm();
-
-    this.bidsFacade.bids$
-    .pipe(
-      catchError(error => {
-         this.bids = [];
-         return of(error);
-      }),
-      tap(res => this.bids = res),
-      untilDestroyed(this),
-    ).subscribe();
-
-    this.bidItemsFacade.biddingTableFormModel$
-      .pipe(untilDestroyed(this))
-      .subscribe(
-        (res: BiddingTableFormModel[]) =>
-          (this.biddingTableFormModel = JSON.parse(JSON.stringify(res)))
-    );
-
-    this.auctionsFacade.selectedAuction$
-      .pipe(untilDestroyed(this))
-      .subscribe((auction) => {
-        this.form.reset();
-        this.auction = auction;
-        this.showOnlyDescription = this.isEdit;
-        const auctionId = auction.id;
-        // load related data
-        if (auctionId) {
-          const checkBidOfCurrentUser = this.bids?.some(bid => bid.job.id === auctionId);
-          this.documentsFacade.loadDocuments(auctionId);
-          if (checkBidOfCurrentUser) this.auctionsFacade.getBidByAuction(auctionId);
-        } else {
-          // if no auction reset bid and stop loading
-          this.auctionsFacade.resetSelectedBid();
-          this.isLoading$.next(false);
-        }
-        if (!this.isEdit) {
-          // init biding table
-          this.initBidItems(auction?.jobItems ?? []);
-          // if we look at auction details we need to reset bid
-          this.auctionsFacade.resetSelectedBid();
-          this.isLoading$.next(false);
-        }
-      });
-
-    // we get it only at edit time
-    this.auctionsFacade.selectedBid$
-      .pipe(untilDestroyed(this))
-      .subscribe((bid) => {
-        this.bid = bid;
-        if (bid) {
-          this.initBidItems(bid.bidItems);
-          this.form?.patchValue(this.changeCountryISOToCountryField(bid));
-        }
-        this.isLoading$.next(false);
-      });
+  private isEdit(entity = this.activatedRoute?.snapshot?.data) {
+    return entity?.title === DATA.AUCTION_DETAIL_EDIT.title;
   }
 
   private initBidItems(bidItems: BidItemDTO[] = []) {
@@ -189,22 +106,15 @@ export class DetailComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy() {
-    this.isLoading$.complete();
-  }
-
-  private initForm(bid?: Bid) {
-    this.form.patchValue({
-      approximateDuration: bid?.approximateDuration,
-      workStartDate: bid?.workStartDate,
-      awayFromProvidersYard: bid?.awayFromProvidersYard,
-      yardOwner: bid?.yardOwner,
-      country: stringToCountryField(bid?.country ?? CountryISO.UnitedStates),
-      zipCode: bid?.zipCode,
-    });
-    this.handleYardOwnerValidation();
-
+  private handleValidation() {
     const countryCtrl = this.form.get('country');
+    const yardOwnerCtrl = this.form.get('yardOwner');
+    const originalYardOwnerValidators = [
+      nameValidator,
+      Validators.maxLength(100),
+      Validators.required,
+    ];
+
     countryCtrl.valueChanges
       .pipe(
         distinctUntilChanged(),
@@ -214,15 +124,7 @@ export class DetailComponent implements OnInit, OnDestroy {
         untilDestroyed(this)
       )
       .subscribe();
-  }
 
-  private handleYardOwnerValidation() {
-    const yardOwnerCtrl = this.form.get('yardOwner');
-    const originalYardOwnerValidators = [
-      nameValidator,
-      Validators.maxLength(100),
-      Validators.required,
-    ];
     this.form
       .get('awayFromProvidersYard')
       .valueChanges.pipe(untilDestroyed(this))
@@ -236,57 +138,65 @@ export class DetailComponent implements OnInit, OnDestroy {
       });
   }
 
-  private toBidDTO(
-    formValues: TypedDetailFormValues,
-    bidItems: BidItemDTO[],
-    bidAmount: number
-  ): BidDTO {
-    return {
-      bidItems,
-      bidAmount,
-      description: 'test',
-      approximateDuration: +formValues?.approximateDuration,
-      workStartDate: dateWithoutTimezone(formValues?.workStartDate),
-      country: countryEntityToISO(formValues?.country),
-      address: formValues?.address,
-      address2: formValues?.address2,
-      city: formValues?.city,
-      startDeposit: 1,
-      state: formValues?.state,
-      zipCode: formValues?.zipCode ?? '0000',
-      awayFromProvidersYard: formValues?.awayFromProvidersYard,
-      yardOwner: formValues?.awayFromProvidersYard
-        ? formValues?.yardOwner
-        : null,
-    };
+  ngOnInit() {
+    this.handleValidation();
+    this.auctionsFacade.init();
+    this.bidItemsFacade.initBidItems([]);
+
+    this.bidItemsFacade.biddingTableFormModel$
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        (res) => (this.biddingTableFormModel = JSON.parse(JSON.stringify(res)))
+      );
+
+    this.activatedRoute.data
+      .pipe(
+        combineLatestWith(this.auction$),
+        untilDestroyed(this),
+        filter(([{ preloaded }]) => typeof preloaded === 'object')
+      )
+      .subscribe(([{ preloaded }, auction]) => {
+        const data = preloaded as PreloadedDataForAuction;
+
+        this.isWorkInProgress = auction?.status === JobStatus.JOB_IN_PROGRESS;
+
+        this.isAbleToSignDocument = data.isAbleToSignDocument;
+        this.isFullAmountPaid = data.isFullAmountPaid;
+        this.isBidAmountPaid = data.isBidAmountPaid;
+        this.message = data.message;
+      });
+
+    this.bid$
+      .pipe(
+        untilDestroyed(this),
+        filter((bid) => typeof bid === 'object')
+      )
+      .subscribe((bid) => {
+        this.initBidItems(bid?.bidItems);
+        this.form?.patchValue(changeCountryISOToCountryField(bid));
+        this.isLoading$.next(false);
+      });
+
+    this.auction$.pipe(untilDestroyed(this)).subscribe((auction) => {
+      this.showOnlyDescription = this.isEdit();
+
+      if (!this.isEdit()) {
+        this.initBidItems(auction?.jobItems ?? []);
+        this.auctionsFacade.resetSelectedBid();
+      }
+    });
   }
 
-  private toBidItems(items: BiddingTableFormModel[]) {
-    return items.map(
-      ({ amount, description, id, quantity, note, comments }) => ({
-        amount: amount || 0,
-        description,
-        id,
-        quantity,
-        auctionName: this.auction?.name ?? '',
-        comments: note?.text ? note.text : comments,
-      })
-    );
+  ngOnDestroy() {
+    this.isLoading$.complete();
+  }
+
+  onBiddingTableChange(table: BiddingTableFormModel[]) {
+    this.biddingTableFormModel = table;
   }
 
   updateOne(bidItem: BiddingTableFormModel) {
     return this.bidItemsFacade.updateOne(bidItem);
-  }
-
-  changeCountryISOToCountryField(entity?: BidDTO) {
-    const code =
-      typeof entity?.country === 'string'
-        ? entity.country
-        : entity?.country?.alpha3Code;
-    return {
-      ...(entity ?? {}),
-      country: stringToCountryField(code),
-    };
   }
 
   removeLineItem(id: number) {
@@ -299,22 +209,34 @@ export class DetailComponent implements OnInit, OnDestroy {
     this.bidItemsFacade.addBidItem(createBiddingTableViewModel(jobItem, false));
   }
 
-  markToProgress() {
-    this.isLoading$.next(true);
-    this.auctionsFacade.markAsInProgress(this.auction.id);
+  async markToProgress() {
+    const auction = await firstValueFrom(this.auction$);
+    if (typeof auction?.id === 'number') {
+      this.auctionsFacade.markAsInProgress(auction.id);
+    }
   }
 
-  bidSubmit(bidAmount: number) {
-    const bidDto = this.toBidDTO(
+  async bidSubmit(bidAmount: number) {
+    const { auction, bid } = await firstValueFrom(
+      this.auction$.pipe(
+        combineLatestWith(this.bid$),
+        map(([a, b]) => ({
+          auction: a,
+          bid: b,
+        }))
+      )
+    );
+
+    const bidDto = toBidDTO(
       this.form.value,
-      this.toBidItems(this.biddingTableFormModel),
+      toBidItems(this.biddingTableFormModel, auction?.name ?? ''),
       bidAmount
     );
 
-    if (this.bid) {
-      bidDto.id = this.bid.id;
-      bidDto.bidderName = this.bid.bidderName;
-      bidDto.jobId = this.auction.id;
+    if (bid) {
+      bidDto.id = bid.id;
+      bidDto.bidderName = bid.bidderName;
+      bidDto.jobId = auction.id;
       this.bidsFacade.editBid(bidDto);
       return;
     }

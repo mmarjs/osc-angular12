@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { BoatDatasource, BoatDialogs } from '@ocean/api/data';
@@ -7,32 +7,35 @@ import { Boat, BoatOutputDTO } from '@ocean/api/shared';
 import { AuctionsFacade, BoatsFacade } from '@ocean/client/state';
 import { getterPaginator, getterSort } from '@ocean/material';
 import { ROUTES } from '@ocean/shared';
+import { IconType } from '@ocean/icons';
+import { untilDestroyed } from 'ngx-take-until-destroy';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-boats-list-table',
   templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss']
+  styleUrls: ['./table.component.scss'],
 })
-export class BoatsListTableComponent implements OnInit {
-  columns = ['info', 'actions'];
-  // MatPaginator Output
-  pageEvent: PageEvent;
-  activeBoatId: number;
-
+export class BoatsListTableComponent implements OnInit, OnDestroy {
   @Input() isActionButtonHide = false;
-  @Input() source: BoatDatasource;
   @Input() hidePageSize = false;
-  @Input() limit: number;
+  @Input() source?: BoatDatasource;
+  @Input() limit?: number;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
+  readonly columns = ['info', 'actions'];
+  readonly iconType = IconType;
+
+  activeBoatId?: number;
+
   constructor(
-    private dialogs: BoatDialogs,
-    private router: Router,
-    private boatFacade: BoatsFacade,
-    private auctionsFacade: AuctionsFacade
-  ) { }
+    private readonly dialogs: BoatDialogs,
+    private readonly router: Router,
+    private readonly boatFacade: BoatsFacade,
+    private readonly auctionsFacade: AuctionsFacade
+  ) {}
 
   ngOnInit() {
     this.source.pageSize = this.limit;
@@ -44,21 +47,39 @@ export class BoatsListTableComponent implements OnInit {
     e.preventDefault();
     e.stopPropagation();
 
-    this.dialogs.deletePrompt(row).subscribe(() => this.source.refresh());
+    this.dialogs
+      .deletePrompt(row)
+      .pipe(untilDestroyed(this), take(1))
+      .subscribe(() => this.refreshOnDelete());
   }
 
   handleRowClick(boat: Boat): void {
     if (!this.isActionButtonHide) {
-      this.router.navigate([ROUTES.link('BOATS'), boat.id]);
+      void this.router.navigate([ROUTES.link('BOATS'), boat.id]);
     } else {
       this.activeBoatId = boat.id;
-      // this.router.navigate([ROUTES.link('SERVICES_BOATS'), id]);
       this.boatFacade.setSelectedBoat(boat);
     }
   }
 
- createAuction(){
-   this.auctionsFacade.setSelectedAuction(undefined);
- }
+  createAuction() {
+    this.auctionsFacade.setSelectedAuction(undefined);
+  }
 
+  isLastElementOnPage() {
+    return this.source.total % this.source.pageSize === 1;
+  }
+
+  refreshOnDelete() {
+    if (this.isLastElementOnPage()) {
+      this.paginator.previousPage();
+    }
+
+    this.source.refresh();
+    this.auctionsFacade.refresh();
+  }
+
+  ngOnDestroy() {
+    return;
+  }
 }

@@ -17,8 +17,10 @@
     <div aside class="bids-auction-aside">
         <ng-container *ngIf="!auction.isFinished && title !== 'BIDS.REVIEW_WORK'">
             <layout-panel-wrapper [panelTitle]="'BIDS.TIME_REMAINING' | translate">
-                <ocean-auction-time-remaining [auctionEndDate]="$any(auction.auctionEndDate)">
-                </ocean-auction-time-remaining>
+              <ocean-auction-time-remaining
+                [auctionEndDate]="$any(auction.auctionEndDate)"
+                [auctionId]="auction.id"
+              ></ocean-auction-time-remaining>
             </layout-panel-wrapper>
         </ng-container>
         <layout-panel-wrapper [panelTitle]="'BIDS.REPAIR_PROCESS' | translate">

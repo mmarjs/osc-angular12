@@ -1,11 +1,11 @@
 <div class="layout-basic" fxFlexFill fxLayout="column">
-  <layout-basic-header></layout-basic-header>
+  <layout-basic-header [shouldShowNavigation]="!shouldHideLayout"></layout-basic-header>
 
   <main fxFlex>
     <div class="router-wrapper">
-      <router-outlet (activate)="onActivate($event)" ></router-outlet>
+      <router-outlet (activate)="onActivate($event)"></router-outlet>
     </div>
   </main>
 
-  <layout-basic-footer></layout-basic-footer>
+  <layout-basic-footer *ngIf="!shouldHideLayout"></layout-basic-footer>
 </div>

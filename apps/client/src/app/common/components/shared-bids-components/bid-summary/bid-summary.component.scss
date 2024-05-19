@@ -13,11 +13,11 @@
     margin-right: 30px;
     height: 100%;
     width: 54%;
-    
+
     .display-item {
       display: flex;
       gap: 5px;
-    
+
       .display-item-text {
         width: 50%;
         text-align: end;
@@ -38,7 +38,7 @@
       ocean-icon {
         display: inline-flex;
       }
-      .mat-icon {
+      ::ng-deep .mat-icon {
         font-weight: 700;
         color: #fff;
         height: unset;

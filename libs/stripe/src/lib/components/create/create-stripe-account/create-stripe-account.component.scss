@@ -1,0 +1,94 @@
+@import "../../../shared/styles";
+
+::ng-deep {
+  app-create-stripe-account {
+    position: relative;
+    margin: 0 auto;
+    width: 500px;
+    padding: 30px 0;
+
+    button {
+      margin: auto;
+      width: 50%;
+    }
+
+    .progress {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 99;
+    }
+
+    .stripe-account-container {
+      height: auto;
+      margin: auto;
+      padding-top: 36px;
+    }
+
+    .form {
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      width: 90%;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .details {
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 30px;
+
+      app-stripe-account-preview {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+      }
+
+      app-form-builder {
+        display: flex;
+        align-items: center;
+        width: 100%;
+      }
+    }
+
+    @media screen and (max-width: $breakpoint-medium-in-px) {
+      .details {
+        flex-direction: column;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        width: 100%;
+      }
+
+      .form {
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        margin: auto;
+        width: 80%;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+  }
+
+  .full, label {
+    text-align: left;
+    width: 100%;
+  }
+
+  .half {
+    text-align: left;
+    position: relative;
+    width: 49.2%;
+    display: block;
+  }
+
+  @media screen and (max-width: $breakpoint-medium-in-px) {
+    .half {
+      width: 100%;
+    }
+  }
+}

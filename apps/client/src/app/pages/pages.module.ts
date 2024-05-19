@@ -9,6 +9,7 @@ import { AppComponentsModule } from '../common';
 import { PagesComponents, PagesEntryComponents } from './pages.barrel';
 import { PagesImports } from './pages.imports';
 import { coreRoutes } from './pages.routing';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   imports: [
@@ -18,9 +19,10 @@ import { coreRoutes } from './pages.routing';
     LayoutComponentsModule,
     ...PagesImports,
     RouterModule.forChild(coreRoutes),
-    AppComponentsModule
+    AppComponentsModule,
+    MatProgressSpinnerModule,
   ],
   declarations: PagesComponents,
-  entryComponents: PagesEntryComponents
+  entryComponents: PagesEntryComponents,
 })
-export class PagesModule { }
+export class PagesModule {}

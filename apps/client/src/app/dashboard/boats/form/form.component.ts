@@ -65,8 +65,10 @@ export class BoatsFormComponent implements OnInit, OnDestroy {
     this.fieldsService.init(boatFields);
 
     this.fields = {
-      ...this.fieldsService.pick(getBoatFieldsForType(this.fieldsService, BoatFieldsType.EDIT).flat(1)),
-      ...this.fieldsService.rewrite(fieldsForRewrite)
+      ...this.fieldsService.pick(
+        getBoatFieldsForType(this.fieldsService, BoatFieldsType.EDIT).flat(1)
+      ),
+      ...this.fieldsService.rewrite(fieldsForRewrite),
     };
 
     this.form = this.formBuilderService.buildReactiveForm(this.fields);
@@ -159,6 +161,10 @@ export class BoatsFormComponent implements OnInit, OnDestroy {
   }
 
   onUploadImages() {
+    if (!this.showUpload) {
+      return;
+    }
+
     this.showUpload = false;
     this.mediaService
       .uploadMultipleFilesWithTransformation({
@@ -189,10 +195,6 @@ export class BoatsFormComponent implements OnInit, OnDestroy {
         untilDestroyed(this)
       )
       .subscribe();
-  }
-
-  canUploadImages(): boolean {
-    return this.uploadImageForm?.get('files')?.value?.length || this.showUpload;
   }
 
   handleCarouselUseCaseEvents(event: any) {

@@ -1,0 +1,21 @@
+<div mat-dialog-content class="wrapper-dialog-container">
+  <div class="header">
+    <ocean-icon [iconType]="iconType.ACCOUNT_BALANCE"></ocean-icon>
+    <div class="title">
+      <span>{{ 'STRIPE.BANKS.SELECTED' | translate }}</span>
+      <h4>{{ get('bankName') | uppercase }}</h4>
+    </div>
+  </div>
+  <div class="details-description">
+    <p>{{ 'STRIPE.BANKS.LINKED' | translate }}</p>
+  </div>
+  <h4 class="details">{{ 'STRIPE.DETAILS' | translate }}</h4>
+  <div class="inline-items" *ngFor="let detail of BANK_DETAILS_TABLE">
+    <span class="detail-title">{{ detail.title | translate }}</span>
+    <span>{{ get(detail.key) | uppercase }}</span>
+  </div>
+</div>
+<div mat-dialog-actions *ngIf="!get('isDefaultForCurrency')" class="inline-items">
+  <button mat-button (click)="markAsDefault()">{{ 'STRIPE.ACTIONS.MARK' | translate }}</button>
+  <button mat-button (click)="delete()">{{ 'STRIPE.ACTIONS.DELETE' | translate }}</button>
+</div>

@@ -1,0 +1,14 @@
+<div mat-dialog-content class="wrapper-dialog-container">
+  <div class="header">
+    <ocean-icon [iconType]="iconType.ACCOUNT_BALANCE"></ocean-icon>
+    <div class="title">
+      <span>{{ 'STRIPE.BANKS.ACCOUNT_TITLE' | translate }}</span>
+      <h4>{{ 'STRIPE.BANKS.ACCOUNT_ATTACH' | translate }}</h4>
+    </div>
+  </div>
+  <app-form-builder [form]="form" [fields]="fields"></app-form-builder>
+</div>
+<div mat-dialog-actions class="inline-items">
+  <button mat-button (click)="create()">{{ 'STRIPE.ACTIONS.CREATE' | translate }}</button>
+  <button mat-button (click)="close()">{{ 'STRIPE.ACTIONS.CLOSE' | translate }}</button>
+</div>

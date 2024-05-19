@@ -25,28 +25,28 @@
         </ng-container>
 
         <ng-container matColumnDef="status">
-            <mat-header-cell mat-header-cell mat-sort-header *matHeaderCellDef class="justify-content-center"> {{'AUCTIONS.STATUS.TITLE' | translate}}
+            <mat-header-cell mat-header-cell mat-sort-header *matHeaderCellDef> {{'AUCTIONS.STATUS.TITLE' | translate}}
             </mat-header-cell>
-            <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center center">
-              {{'AUCTIONS.STATUS.' + element.status | translate}}
+            <mat-cell *matCellDef="let element" fxLayout="column" fxLayoutAlign="center start">
+              {{ getAuctionStatus(element) }}
             </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="actions">
             <mat-header-cell mat-header-cell *matHeaderCellDef> {{'COMMON.TABLE.HEADER.ACTIONS' | translate}}
             </mat-header-cell>
-            <mat-cell *matCellDef="let element" fxLayout="row" fxLayoutAlign="center center">
+            <mat-cell *matCellDef="let element" fxLayout="row" fxLayoutAlign="end center">
                 <button mat-icon-button color="accent" [appLink]="['BIDS', { id: element.id }]" >
-                    <ocean-icon [iconType]="iconType.DETAILS"></ocean-icon>
+                    <ocean-icon as="AUCTION_LAUNCH" [iconType]="iconType.LAUNCH"></ocean-icon>
                 </button>
                 <button
-                  *ngIf="element?.status !== jobAwarded"
+                  *ngIf="shouldShowOnDelete(element)"
                   (click)="onDeleteAuction(element.id)"
                   mat-icon-button
                   aria-label="Delete"
                   color="accent"
                 >
-                    <ocean-icon [iconType]="iconType.DELETE"></ocean-icon>
+                    <ocean-icon [iconType]="iconType.DELETE_OUTLINE"></ocean-icon>
                 </button>
             </mat-cell>
         </ng-container>
@@ -64,4 +64,4 @@
 </mat-datasource>
 
 <!-- PAGINATOR -->
-<mat-paginator [length]="source.total" [pageSize]="source.pageSize" [pageSizeOptions]="[5, 10, 15, 20]"></mat-paginator>
+ <mat-paginator [length]="source.total" [pageSize]="source.pageSize" [pageSizeOptions]="[5, 10, 15, 20]"></mat-paginator>

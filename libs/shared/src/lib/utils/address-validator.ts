@@ -8,8 +8,12 @@ export interface AddressValidatorError {
 
 const ADDRESS_PATTERN = /^[^-\s][a-zA-Z0-9\s-]+$/;
 
-export const addressValidator = (form: AbstractControl): AddressValidatorError | null => {
+export const addressValidator = (optional: boolean) => (form: AbstractControl): AddressValidatorError | null => {
   if (!(form instanceof AbstractControl)) {
+    return null;
+  }
+
+  if (optional && !form.value) {
     return null;
   }
 

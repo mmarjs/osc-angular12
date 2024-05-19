@@ -1,0 +1,28 @@
+<svg
+  fill="#fb4141"
+  height="64px"
+  width="64px"
+  version="1.1"
+  id="Capa_1"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  viewBox="0 0 283.19 283.19"
+  xml:space="preserve"
+  stroke="#fb4141"
+  transform="matrix(1, 0, 0, 1, 0, 0)rotate(0)"
+  stroke-width="0.0028319400000000002"
+>
+  <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+  <g
+    id="SVGRepo_tracerCarrier"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke="#CCCCCC"
+    stroke-width="10.761372"
+  ></g>
+  <g id="SVGRepo_iconCarrier"><g>
+    <path
+      d="M141.597,32.222c-60.31,0-109.375,49.065-109.375,109.375s49.065,109.375,109.375,109.375s109.375-49.065,109.375-109.375 S201.907,32.222,141.597,32.222z M50.222,141.597c0-50.385,40.991-91.375,91.375-91.375c22.268,0,42.697,8.01,58.567,21.296 L71.517,200.164C58.232,184.293,50.222,163.865,50.222,141.597z M141.597,232.972c-21.648,0-41.558-7.572-57.232-20.2 L212.772,84.366c12.628,15.674,20.2,35.583,20.2,57.231C232.972,191.982,191.981,232.972,141.597,232.972z"></path>
+    </g>
+  </g>
+</svg>

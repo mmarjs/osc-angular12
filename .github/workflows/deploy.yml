@@ -1,0 +1,80 @@
+name: Deploy S3
+
+on:
+  push:
+    branches:
+      - qa
+      - master
+
+env:
+  CLOUDFRONT_DISTRO_ID: ${{ github.ref == 'refs/heads/master' && vars.CLOUDFRONT_DISTRO_ID_PROD || vars.CLOUDFRONT_DISTRO_ID_QA }}
+  BUILD_CONFIGURATION: ${{ github.ref == 'refs/heads/master' && 'main' || 'qa' }}
+  AWS_REGION: ${{ vars.AWS_REGION }}
+  S3_BUCKET: ${{ github.ref == 'refs/heads/master' && vars.S3_BUCKET_PROD || vars.S3_BUCKET_QA }}
+  BUILD_NUMBER: osc@1.0.0
+  SENTRY_ORG: osc-oq
+  SENTRY_PROJECT: ${{ github.ref == 'refs/heads/master' && 'osc-prod' || 'osc-qa' }}
+  SENTRY_ENV: ${{ github.ref == 'refs/heads/master' && 'PROD' || 'QA' }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Restore cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            .yarn/cache
+            node_modules
+          key: v1-frontend-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            v1-frontend-
+      - name: Install dependencies
+        run: yarn install --immutable
+      - name: Set build number
+        run: |
+          export BUILD_NUMBER="$(jq -r .name package.json)@$(jq -r .version package.json)"
+          echo "Build number: $BUILD_NUMBER"
+          echo "NG_APP_BUILD_NUMBER=${BUILD_NUMBER}" >> .env
+      - name: Save cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            .yarn/cache
+            node_modules
+          key: v1-frontend-${{ hashFiles('yarn.lock') }}
+      - name: Build
+        run: yarn build --configuration ${{ env.BUILD_CONFIGURATION }}
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Deploy to AWS and invalidate CloudFront
+        run: |
+          aws s3 sync dist/apps/client/ s3://$S3_BUCKET
+          aws configure set preview.cloudfront true
+          aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRO_ID --paths "/*"
+      - name: Prepare Sentry release
+        uses: getsentry/action-release@v1
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets[format('SENTRY_AUTH_TOKEN_{0}', env.SENTRY_ENV)] }}
+          SENTRY_ORG: ${{ env.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ env.SENTRY_PROJECT }}
+          SENTRY_LOG_LEVEL: debug
+        with:
+          environment: ${{ env.BUILD_CONFIGURATION }}
+          sourcemaps: dist/apps/client/**/*.js.map
+          version: ${{ env.BUILD_NUMBER }}
+          ignore_missing: true
+          finalize: true

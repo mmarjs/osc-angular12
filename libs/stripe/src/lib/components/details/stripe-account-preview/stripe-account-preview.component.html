@@ -1,0 +1,44 @@
+<div class="preview">
+  <h2>{{ 'STRIPE.ACCOUNT.PREVIEW' | translate }}</h2>
+  <img [src]="(avatar$ | async)" alt="avatar" class="default-img"/>
+  <h2 class="initials">
+    {{ get('firstName') }} {{ get('lastName') }}
+  </h2>
+  <p class="inline" *ngIf="get('email')?.length">
+    <ocean-icon [iconType]="iconType.ALTERNATE_EMAIL"></ocean-icon>
+    <span>{{ get('email') }}</span>
+  </p>
+  <p class="inline" *ngIf="get('businessUrl')?.length">
+    <ocean-icon [iconType]="iconType.BUSINESS"></ocean-icon>
+    <span>{{ get('businessUrl') }}</span>
+  </p>
+  <p class="inline" *ngIf="get('phone')?.number">
+    <ocean-icon [iconType]="iconType.CALL"></ocean-icon>
+    <span>{{ get('phone')?.number }}</span>
+  </p>
+  <p class="inline" *ngIf="isAbleToShowAddress()">
+    <ocean-icon [iconType]="iconType.LOCATION_ON"></ocean-icon>
+    <span>
+      {{ addressLine1 }}<br>
+      {{ addressLine2 }}
+    </span>
+  </p>
+  <p class="inline" *ngIf="get('dob') ?? false">
+    <ocean-icon [iconType]="iconType.CAKE"></ocean-icon>
+    {{ get('dob') | date: 'longDate' }}
+  </p>
+  <ul class="validations">
+    <li *ngFor="let error of errors$ | async" class="validation-error">
+      {{ error }}
+    </li>
+  </ul>
+  <button
+    mat-flat-button
+    color="primary"
+    [disabled]="(loading$ | async) || form?.invalid"
+    (click)="submitted.emit()"
+  >
+    {{ ((status$ | async) === VALIDATION_STATUS.NOT_CREATED ? 'COMMON.BUTTONS.SUBMIT' : 'STRIPE.ACCOUNT.REVALIDATE') | translate}}
+  </button>
+</div>
+

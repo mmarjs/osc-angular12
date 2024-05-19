@@ -17,15 +17,7 @@
   <app-field-text fxLayout="column" formControlName="type" label="FORMS.LABELS.WHAT_IS_THE_TYPE_OF_YOUR_BOAT"
   [maxLength]="50">
 </app-field-text>
-  <label class="label">
-    {{ 'FORMS.LABELS.COUNTRY' | translate}}
-    <span>*</span>
-  </label>
-  <mat-select-country id="countrySelect" label="" placeHolder="" formControlName="country" [trimInput]="true">
-  </mat-select-country>
-  <mat-error id="countryError" class="d-none">
-    Country is required
-  </mat-error>
+  <app-country formControlName="country"></app-country>
   <app-drop-down [items]="timeZones" [placeholder]="'FORMS.PLACEHOLDERS.CHOOSE_YOUR_TIMEZONE'"
   formControlName="timeZone" [form]="form" label="Timezone" [required]="true"></app-drop-down>
 
@@ -35,12 +27,10 @@
   <app-form-location [form]="form"></app-form-location>
 
   <div class="flag">
-  <label class="label">
-    {{ 'FORMS.LABELS.FLAG' | translate}}
-    <span>*</span>
-  </label>
-  <mat-select-country id="flagSelect" label="" placeHolder="" formControlName="flag" [trimInput]="true">
-  </mat-select-country>
+  <app-country
+    formControlName="flag"
+    [label]="'FORMS.LABELS.FLAG' | translate"
+  ></app-country>
   </div>
     <app-field-text
       contextId="boat"

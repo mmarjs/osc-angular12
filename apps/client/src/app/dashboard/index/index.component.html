@@ -2,7 +2,12 @@
   <h2 class="title-page">
     {{'DASHBOARD.TITLE' | translate}}
   </h2>
-  <layout-panel-wrapper [panelTitle]="'COMMON.MENU.MY_BIDS' | translate" fontSet="fas" icon="fa-cog">
+  <layout-panel-wrapper
+    [panelTitle]="'COMMON.MENU.MY_BIDS' | translate"
+    fontSet="fas"
+    icon="fa-cog"
+    asIcon="COG"
+  >
     <div class="panel-content">
       <app-my-bids-widget></app-my-bids-widget>
     </div>
@@ -11,9 +16,14 @@
 <layout-two-columns noTitle>
   <!-- Main Content -->
 
-  <layout-panel-wrapper [panelTitle]="'AUCTIONS.MY_AUCTIONS' | translate"
-    [description]="'AUCTIONS.MY_AUCTIONS_DESCRIPTION' | translate" fontSet="fas" icon="fa-cog"
-    *ngIf="userType === userTypes.BOAT_OWNER">
+  <layout-panel-wrapper
+    *ngIf="userType === userTypes.BOAT_OWNER"
+    [panelTitle]="'AUCTIONS.MY_AUCTIONS' | translate"
+    [description]="'AUCTIONS.MY_AUCTIONS_DESCRIPTION' | translate"
+    fontSet="fas"
+    icon="fa-cog"
+    asIcon="COG"
+  >
     <div class="panel-content">
       <app-my-auctions></app-my-auctions>
     </div>

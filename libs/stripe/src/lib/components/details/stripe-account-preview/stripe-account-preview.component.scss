@@ -1,0 +1,69 @@
+@import '../../../shared/styles';
+
+.preview {
+  min-width: 50%;
+  max-width: 50%;
+  display: flex;
+  flex-direction: column;
+
+  .initials {
+    text-align: center;
+  }
+
+  .inline {
+    display: flex;
+    align-items: center;
+
+    ocean-icon {
+      margin-right: .5rem;
+    }
+  }
+
+  h2 {
+    margin-top: 2rem;
+    text-align: center;
+  }
+
+  p {
+    color: $description-color;
+    margin: .5rem 0;
+  }
+
+  .default-img {
+    margin: auto;
+    max-width: 300px;
+    border-radius: .2rem;
+    overflow: hidden;
+  }
+
+  .validations {
+    margin: 0;
+
+    .validation-error {
+      font-size: 1rem;
+      margin: 1rem 0;
+      color: $error-color;
+    }
+  }
+
+  button {
+    margin: .5rem;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: $breakpoint-medium-in-px) {
+  .preview {
+    min-width: 80%;
+    max-width: 80%;
+    margin-bottom: 2rem;
+  }
+}
+
+@media screen and (max-width: $breakpoint-small-in-px) {
+  .preview {
+    .default-img {
+      max-width: 200px;
+    }
+  }
+}

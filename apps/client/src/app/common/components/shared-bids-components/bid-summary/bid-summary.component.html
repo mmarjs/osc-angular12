@@ -12,11 +12,11 @@
   <div class="bids-summary-buttons-wrapper" *ngIf="showSummaryButtons">
     <div class="status-btns-wrapper">
       <app-button [disabled]="bid.status !== bidStatus.IN_REVIEW" class="accept-btn" (btnClick)="acceptBid.emit(bid)">
-        <ocean-icon [iconType]="iconType.CHECK"></ocean-icon>
+        <ocean-icon as="ACCEPT" [iconType]="iconType.CHECK"></ocean-icon>
         {{'COMMON.BUTTONS.ACCEPT' | translate}}
       </app-button>
       <app-button color='accent' [disabled]="bid.status !== bidStatus.IN_REVIEW" class="reject-btn" (btnClick)="rejectBid.emit(bid.id)">
-        <ocean-icon [iconType]="iconType.CLOSE"></ocean-icon>
+        <ocean-icon as="REJECT" [iconType]="iconType.CLOSE"></ocean-icon>
         {{'COMMON.BUTTONS.REJECT' | translate}}
       </app-button>
     </div>

@@ -1,12 +1,11 @@
-import { StripeForm, StripeAccount } from '../entities/stripe';
+import { StripeAccount, StripeForm } from '../entities/stripe';
 import { dateWithoutTimezone } from '@ocean/shared/utils/dateWithoutTimezone';
 import { FormGroup } from '@angular/forms';
-import { CountryISO } from 'ngx-intl-tel-input';
 
 const STRIPE_ACCOUNT_MCC = '5551';
 
 const normalizeLocation = (units: (string | null)[]): string =>
-  units.find(unit => typeof unit === 'string' && unit.length) ?? '';
+  units.find((unit) => typeof unit === 'string' && unit.length) ?? '';
 
 export const createStripeAccount = (form: FormGroup): StripeAccount => {
   const fields = form.value as StripeForm;
@@ -20,21 +19,30 @@ export const createStripeAccount = (form: FormGroup): StripeAccount => {
       lastName: fields?.lastName ?? '',
       phone: fields?.phone?.e164Number ?? '',
       dob: dateWithoutTimezone(fields?.dob ?? 0, false),
-      taxId: fields?.taxId ?? '',
       gender: fields?.gender ?? '',
       address: {
         city: fields?.city ?? '',
         line1: fields?.line1 ?? '',
-        line2: fields?.line2 ?? '',
         postalCode: fields?.postalCode ?? '0000',
         country: fields?.country?.alpha2Code ?? '',
-        state: normalizeLocation([fields?.state, fields?.province, fields?.region]),
-      }
-    }
+        state: normalizeLocation([
+          fields?.state,
+          fields?.province,
+          fields?.region,
+        ]),
+      },
+    },
   };
 
-  if (fields?.country?.alpha2Code?.toLowerCase() === CountryISO.UnitedStates) {
+  if (fields?.line2?.length) {
+    account.individual.address.line2 = fields.line2;
+  }
+
+  // taxId - false, SSN - true
+  if (fields?.taxIdOrSSN) {
     account.ssnLast4 = fields?.ssnLast4 ?? '';
+  } else {
+    account.individual.taxId = fields?.taxId?.replace(/ /g, '') ?? '';
   }
 
   return account;

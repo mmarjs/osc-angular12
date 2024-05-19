@@ -11,7 +11,12 @@ export interface Properties {
   margin: number;
   minSwipeDistance: number;
   transitionDuration: number;
-  transitionTimingFunction: 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear';
+  transitionTimingFunction:
+    | 'ease'
+    | 'ease-in'
+    | 'ease-out'
+    | 'ease-in-out'
+    | 'linear';
   videoProperties: any;
   eventHandler?: any;
   freeScroll: boolean;
@@ -24,8 +29,8 @@ export interface Images {
 
 export interface Image {
   fileTitle?: string;
-  path?: string;
-  fileURL: string;
+  path?: string | ArrayBuffer;
+  fileURL: string | ArrayBuffer;
   format: string;
   originalFilename: string;
   width?: number;

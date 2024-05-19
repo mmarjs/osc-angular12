@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { FormattedTimeZone, getFormattedTimeZones } from '@ocean/shared/utils/timeZones';
+import { getFormattedTimeZones } from '@ocean/shared/utils/timeZones';
 
 @Component({
   selector: 'app-boats-create-location',
   templateUrl: './location.component.html',
-  styleUrls: ['./location.component.scss']
+  styleUrls: ['./location.component.scss'],
 })
 export class BoatsCreateLocationComponent {
   @Output() submit: EventEmitter<void> = new EventEmitter<void>();
@@ -16,10 +16,11 @@ export class BoatsCreateLocationComponent {
     return this.form.get('country');
   }
 
-  readonly timeZones: FormattedTimeZone[] = getFormattedTimeZones();
+  readonly timeZones = getFormattedTimeZones();
 
-  constructor() {
+  constructor() {}
+
+  onSubmit() {
+    return this.submit.emit();
   }
-
-  onSubmit = () => this.submit.emit();
 }

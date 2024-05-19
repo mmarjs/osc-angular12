@@ -57,11 +57,21 @@ export class BiddingFormTableComponent implements AfterViewInit, OnDestroy {
       .subscribe();
 
     this.setValidators();
+
+    requestAnimationFrame(() => {
+      Object.keys(this.ngForm.form.controls).forEach((key) => {
+        this.ngForm.form.controls[key].updateValueAndValidity();
+      });
+    });
   }
 
   setValidators() {
     Object.keys(this.ngForm.form.controls).forEach((key) =>
-      this.ngForm.form.controls[key].addValidators([Validators.min(1)])
+      this.ngForm.form.controls[key].addValidators([
+        Validators.min(this.min),
+        Validators.maxLength(this.maxLength),
+        Validators.required,
+      ])
     );
   }
 

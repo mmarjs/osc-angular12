@@ -1,14 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import { PaymentMethod } from '@ocean/api/shared';
 import { UserFacade } from '@ocean/api/state';
 import { EditPaymentFormComponent } from '@ocean/client/common/components/edit-payment-form/edit-payment-form.component';
 import { PaymentModalComponent } from '@ocean/client/common/components/payment-modal/payment-modal.component';
+import { IconType } from '@ocean/icons';
 import { PromptDialogComponent, PromptDialogData } from '@ocean/shared/dialogs';
-import { catchError, EMPTY, tap } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
 import { untilDestroyed } from 'ngx-take-until-destroy';
-import { TranslateService } from '@ngx-translate/core';
+import { EMPTY } from 'rxjs';
+import { filter, first, take, catchError, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-payment-details',
@@ -16,6 +17,8 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./payment-details.component.scss'],
 })
 export class PaymentDetailsComponent implements OnInit, OnDestroy {
+  readonly iconType = IconType;
+
   savedCards: PaymentMethod[] = [];
   data: PromptDialogData;
 
@@ -31,7 +34,7 @@ export class PaymentDetailsComponent implements OnInit, OnDestroy {
     this.init();
     this.data = {
       title: this.translate.instant('PROFILE.DELETE_PAYMENT_METHOD'),
-      content: this.translate.instant('PROFILE.DO_YOU_REALLY_WANT_DELETE'),
+      content: this.translate.instant('PROFILE.DO_YOU_REALLY_WANT_DELETE_PAYMENT_METHOD'),
     };
   }
 
@@ -59,7 +62,18 @@ export class PaymentDetailsComponent implements OnInit, OnDestroy {
   }
 
   openDialog() {
-    this.dialog.open(PaymentModalComponent);
+    this.dialog
+      .open(PaymentModalComponent)
+      .afterClosed()
+      .pipe(
+        untilDestroyed(this),
+        first((success) => success === true),
+      )
+      .subscribe({
+        next: () => {
+          this.userFacade.loadSavedCards(this.savedCards.length);
+        },
+      });
   }
 
   onEdit(card: PaymentMethod) {

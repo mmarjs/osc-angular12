@@ -5,3 +5,4 @@ export * from './bidAcceptBid';
 export * from './bidAddItem';
 export * from './bidUpdateItem';
 export * from './bidPayRequest';
+export * from './auction-bid';

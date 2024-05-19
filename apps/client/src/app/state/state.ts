@@ -1,5 +1,6 @@
 import { RouterStateType } from './router';
 
+import { PROGRESS_INDICATOR_KEY, State as ProgressIndicatorState } from './progress-indicator/state';
 import * as BoatsState from './boats/state';
 import * as AuctionsState from './auctions/state';
 import * as MyAuctionsState from './my-auctions/state';
@@ -19,4 +20,5 @@ export interface State {
   bidItems: BidItemsState.State;
   bids: BidsState.State;
   images: ImagesState.State;
+  [PROGRESS_INDICATOR_KEY]: ProgressIndicatorState;
 }

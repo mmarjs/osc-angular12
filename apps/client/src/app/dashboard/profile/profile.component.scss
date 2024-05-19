@@ -49,13 +49,19 @@ layout-two-columns {
     transition: .3s;
   }
 
-  button {
+  .actions {
     position: absolute;
     top: 1rem;
     right: 1rem;
-    color: #5a8ea0;
-    background: #f7f6f4;
-    display: none;
+    display: flex;
+    gap: 1rem;
+    visibility: hidden;
+    pointer-events: none;
+
+    button {
+      color: #5a8ea0;
+      background: #f7f6f4;
+    }
   }
 
   &:hover {
@@ -63,8 +69,9 @@ layout-two-columns {
       filter: opacity(.5);
     }
 
-    button {
-      display: inline;
+    .actions {
+      visibility: visible;
+      pointer-events: all;
     }
   }
 }

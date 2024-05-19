@@ -1,22 +1,28 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MockComponent } from 'ng-mocks';
-import { DashboardImports } from '../../dashboard.imports';
 import { MessagesRecipientsComponent } from './recipients.component';
 import { MessagesRecipientsSearchComponent } from './search';
+import { TranslateService } from '@ngx-translate/core';
+import { translateServiceMock } from '@ocean/testing/mocks/translate-service-mock';
+import { SharedModule } from '@ocean/shared';
+import { MatListModule } from '@angular/material/list';
 
 describe('MessagesRecipientsComponent', () => {
   let component: MessagesRecipientsComponent;
   let fixture: ComponentFixture<MessagesRecipientsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: DashboardImports,
+      imports: [MatListModule, SharedModule],
       declarations: [
         MockComponent(MessagesRecipientsSearchComponent),
-        MessagesRecipientsComponent
-      ]
+        MessagesRecipientsComponent,
+      ],
+      providers: [
+        { provide: TranslateService, useValue: translateServiceMock },
+      ],
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MessagesRecipientsComponent);

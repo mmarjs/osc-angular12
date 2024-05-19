@@ -13,7 +13,7 @@
     </ng-container>
     <ng-template #showStatus>
       <div
-        *ngIf="(document?.status ===  documentStatus.New && document?.userStatus === userStatus.NotCompleted) || 
+        *ngIf="(document?.status ===  documentStatus.New && document?.userStatus === userStatus.NotCompleted) ||
          (document?.status ===  documentStatus.InProgress && document?.userStatus === userStatus.NotCompleted)">
         <div class="sign-page status">
           <div class="sign-page--title">{{ 'DOCUMENTS.SIGN_TITLE' | translate }}
@@ -33,9 +33,7 @@
           <h2>
             {{ 'DOCUMENTS.CONTRACT_INPROGRESS' | translate }}
           </h2>
-          <p>{{ 'DOCUMENTS.PLEASE_WAIT' | translate }}</p>
-          <p> {{ 'DOCUMENTS.YOU_WILL_RECIEVE_AN_EMAIL' | translate }} <br>
-            {{ 'DOCUMENTS.ONCE_EVERYONE_SIGNED' | translate }} </p>
+          <p [innerHTML]="'DOCUMENTS.PLEASE_WAIT' | translate"></p>
           <ng-template [ngTemplateOutlet]="reviewDocuments"></ng-template>
         </div>
       </div>
@@ -47,6 +45,12 @@
               *ngIf="!(bid?.paymentItemDTO?.eventType === paymentStatus.SUCCEEDED);else reviewDocuments">
               {{ 'DOCUMENTS.PAY_NOW' | translate }}</app-button>
           </div>
+        </div>
+      </div>
+      <div class="sign-page status" *ngIf="document?.status === documentStatus.Declined">
+        <div class="sign-page--title">{{ 'DOCUMENTS.DECLINED_TITLE' | translate }}
+        </div>
+        <div class="sign-page--text">{{ 'DOCUMENTS.DECLINED_TEXT' | translate }}
         </div>
       </div>
     </ng-template>

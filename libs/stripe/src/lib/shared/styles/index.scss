@@ -1,0 +1,141 @@
+@use '@angular/material' as mat;
+
+$breakpoint-small-in-px: 767px;
+$breakpoint-medium-in-px: 1279px;
+$breakpoint-large-in-px: 1280px;
+
+$primary-text-color: #fff;
+$light: #d7d3d3;
+$heavy: #9f9b9b;
+$description-color: #888585;
+$error-color: #ad3232;
+$container-height-in-px: 200px;
+$selected-background: linear-gradient(45deg, #e0645c 0%, #eb4034 100%);
+$card-background: linear-gradient(45deg, rgba(40, 40, 40, 1) 0%, rgba(0, 0, 0, 1) 100%);
+
+.content {
+  padding: 16px;
+  margin: auto;
+
+  .loading {
+    @extend .loading;
+  }
+}
+
+.loading {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99;
+}
+
+.wrapper-container {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  gap: 1rem;
+  align-items: center;
+  padding: 16px 0;
+  overflow: auto;
+}
+
+.inline-items {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+
+  .title {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  .brand {
+    margin: .5rem 0;
+  }
+
+  h5 {
+    color: $primary-text-color;
+    font-weight: normal;
+  }
+}
+
+.empty-content {
+  width: 100%;
+  height: $container-height-in-px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper-dialog-container {
+  width: 500px;
+
+  .header {
+    display: flex;
+    align-items: flex-start;
+
+    ::ng-deep mat-icon {
+      width: 50px;
+      height: 50px;
+      font-size: 2.25rem;
+    }
+
+    .title {
+      h4 {
+        padding-top: .2rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $breakpoint-small-in-px) {
+  .wrapper-dialog-container {
+    width: auto;
+  }
+}
+
+.detail-title {
+  margin-bottom: .5rem;
+  color: $description-color;
+}
+
+.details {
+  margin-top: 1rem;
+  margin-bottom: .5rem;
+}
+
+.details-description {
+  color: $description-color;
+
+  p {
+    margin: 0;
+  }
+}
+
+::ng-deep .mat-tab-label, ::ng-deep .mat-tab-label.mat-tab-label-active {
+  font-size: .75rem;
+  font-weight: normal;
+  width: 50%;
+  border: 0;
+}
+
+::-webkit-scrollbar {
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: 0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $light;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: $heavy;
+}

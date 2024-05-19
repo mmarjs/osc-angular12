@@ -17,13 +17,13 @@
       <mat-cell *matCellDef="let row" class="boat-column-actions" [class.active]="row.id === activeBoatId">
         <div class="actions-wrapper">
           <a [appLink]="['BOATS_DISPLAY', { id: row.id }]">
-            <mat-icon>launch</mat-icon>
+            <ocean-icon [iconType]="iconType.LAUNCH"></ocean-icon>
           </a>
           <a [appLink]="['BOATS_EDIT', { id: row.id }]">
-            <mat-icon>edit</mat-icon>
+            <ocean-icon [iconType]="iconType.EDIT"></ocean-icon>
           </a>
           <a href="#" (click)="onDelete($event, row)">
-            <mat-icon>delete_outline</mat-icon>
+            <ocean-icon [iconType]="iconType.DELETE_OUTLINE"></ocean-icon>
           </a>
         </div>
         <button type="button" mat-raised-button color="primary" [appLink]="['AUCTION_CREATE', { id: row.id }]"  (click)="createAuction()"

@@ -3,7 +3,6 @@
   #carouselUseCase
   [height]="250"
   [cellsToShow]="1"
-  (events)="handleCarouselUseCaseEvents.emit($event)"
 >
   <div
     class="carousel-cell"
@@ -18,10 +17,13 @@
     <ng-template #pdf>
       <img src="/assets/images/pdf_logo.png" class="pdf mt-1" alt="" />
       <p>{{ file.originalFilename || '' }}</p>
-      <mat-icon
+      <ocean-icon
+        [iconType]="iconType.DOWNLOAD"
         class="download"
-        (click)="download(file.secureFileURL, file.originalFilename)"
-        >download</mat-icon
+        (click)="
+          download(file?.secureFileURL ?? file?.fileURL, file?.originalFilename)
+        "
+        ></ocean-icon
       >
     </ng-template>
   </div>
@@ -47,7 +49,7 @@
       alt=""
     />
     <ng-template #pdf>
-      <img src="/assets/images/pdf_logo.png" class="pdf" alt="" />
+      <img src="/assets/images/pdf_logo.png" class="pdf" alt=""/>
     </ng-template>
   </div>
 </carousel>

@@ -1,17 +1,17 @@
 <h2 class="title-page">{{'AUCTIONS.TITLE' | translate}}</h2>
 
 <mat-datasource [dataSource]="source">
-  <mat-table [dataSource]="source" fxLayout="row wrap" fxLayout.xs="column">
+  <mat-table [dataSource]="source" fxLayout="row wrap" fxLayout.xs="column" class="auctionsTable">
 
-    <ng-container matColumnDef="image">
-      <mat-header-cell *matHeaderCellDef></mat-header-cell>
-      <mat-cell *matCellDef="let row">
-        <figure>
-          <img src="/assets/images/no-image.png" alt="" class="default-img"/>
-          <figcaption>{{ 'APPLICATION.' + row.type | translate}}</figcaption>
-        </figure>
-      </mat-cell>
-    </ng-container>
+<!--    <ng-container matColumnDef="image">-->
+<!--      <mat-header-cell *matHeaderCellDef></mat-header-cell>-->
+<!--      <mat-cell *matCellDef="let row">-->
+<!--        <figure>-->
+<!--          <img src="/assets/images/no-image.png" alt="" class="default-img"/>-->
+<!--          <figcaption>{{ 'APPLICATION.' + row.type | translate}}</figcaption>-->
+<!--        </figure>-->
+<!--      </mat-cell>-->
+<!--    </ng-container>-->
 
     <ng-container matColumnDef="info">
       <mat-header-cell *matHeaderCellDef></mat-header-cell>

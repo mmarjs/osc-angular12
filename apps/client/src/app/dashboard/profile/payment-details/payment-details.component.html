@@ -2,7 +2,7 @@
   class="mt-1"
   [panelTitle]="'PROFILE.PAYMENT_DETAILS' | translate"
 >
-  <img src="/assets/icons/payment-icon.png" class="payment-icon" alt="*" />
+  <ocean-icon as="PAYMENT_DETAILS" [iconType]="iconType.CREDIT_CARD" class="payment-icon large-icon"></ocean-icon>
   <p
     class="mt-1"
     [innerHTML]="'PROFILE.MANAGE_PAYMENT_DETAILS' | translate"
@@ -27,21 +27,14 @@
           <p class="cardName">
             {{ getCard(card.details).brand }}
             <span class="cardFont">&#8226;&#8226;&#8226;&#8226;</span
-            >{{ getCard(card.details).last4 }} <br /><span class="cardExp"
-              >{{ 'PROFILE.EXPIRES' | translate }}
-              {{ getCard(card.details).exp_year }}</span
-            >
+            >{{ getCard(card.details).last4 }} <br/><span class="cardExp"
+          >{{ 'PROFILE.EXPIRES' | translate }}
+            {{ getCard(card.details).exp_year }}</span
+          >
           </p>
           <div class="cardIcons">
-            <img
-              src="/assets/icons/pencil.png"
-              class="edit-icon"
-              (click)="onEdit(card)"
-              alt="cardIcon"
-            />
-            <a>
-              <mat-icon (click)="onDelete(card.id)">delete_outline</mat-icon>
-            </a>
+            <ocean-icon (click)="onEdit(card)" [iconType]="iconType.EDIT"></ocean-icon>
+            <ocean-icon (click)="onDelete(card.id)" [iconType]="iconType.DELETE_OUTLINE"></ocean-icon>
           </div>
         </div>
       </div>
@@ -59,8 +52,8 @@
       (click)="openDialog()"
       class="mt-1 payment"
     >
-      <mat-icon>add</mat-icon>
-      {{ 'PROFILE.ADD_PAYMENT_METHOD' | translate }}
+      <ocean-icon as="" [iconType]="iconType.ADD"></ocean-icon>
+      <span>{{ 'PROFILE.ADD_PAYMENT_METHOD' | translate }}</span>
     </button>
   </app-stripe-account-guard>
 </layout-panel-wrapper>

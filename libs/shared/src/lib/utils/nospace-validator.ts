@@ -15,16 +15,6 @@ const noOnlySpace: ValidatorFn = (control) => {
   }
 }
 
-const onlyPositiveNumbers = (service:LocalizationService):ValidatorFn => {
-  return (control) => {
-    if(control.value){
-      return control.value < 0 && { 'invalidNumber': true, 'message': service.translate('FORMS.ERRORS.SHOULD_BE_GREATER_THAN_ZERO') };
-    } else {
-      return null;
-    }
-}
-}
-
 const dontAllowOnlyZeros = (service?: LocalizationService): ValidatorFn => {
   return (control) => {
     if (control?.value?.toString().match(/^0+$/)) {
@@ -49,7 +39,6 @@ const startWithSpaceValidator: ValidatorFn = (control) => {
 export const CustomValidator = {
   noWhiteSpace,
   noOnlySpace,
-  onlyPositiveNumbers,
   dontAllowOnlyZeros,
-  startWithSpaceValidator
+  startWithSpaceValidator,
 } 

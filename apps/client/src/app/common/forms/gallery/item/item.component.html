@@ -6,11 +6,11 @@
 >
   <span class="file-name">{{ fileName || 'File' }}</span>
   <span class="delete" *ngIf="!selected">
-    <mat-icon>delete</mat-icon>
+    <ocean-icon as="REMOVE" [iconType]="iconType.DELETE_OUTLINE"></ocean-icon>
     {{ 'COMMON.BUTTONS.REMOVE' | translate }}
   </span>
   <span class="selected" *ngIf="selected" (click)="onUnselect(value)" role="button">
-    <mat-icon>check</mat-icon>
+    <ocean-icon as="SELECTED" [iconType]="iconType.CHECK"></ocean-icon>
   </span>
 </div>
 <div
@@ -20,9 +20,9 @@
   role="none"
 >
   <span class="delete" *ngIf="!selected" (click)="onDelete(value)" role="button">
-    <mat-icon>delete</mat-icon>
+    <ocean-icon [iconType]="iconType.DELETE_OUTLINE"></ocean-icon>
   </span>
   <span class="selected" *ngIf="selected" (click)="onUnselect(value)" role="button">
-    <mat-icon>check</mat-icon>
+    <ocean-icon as="SELECTED" [iconType]="iconType.CHECK"></ocean-icon>
   </span>
 </div>

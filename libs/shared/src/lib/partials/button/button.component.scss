@@ -1,4 +1,9 @@
 .mat-button-wrapper {
   display: flex;
+  justify-content: center;
   align-items: center;
+
+  .mat-icon {
+    padding-top: 1rem;
+  }
 }

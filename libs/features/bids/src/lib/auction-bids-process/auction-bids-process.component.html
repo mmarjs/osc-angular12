@@ -1,6 +1,6 @@
 <div class="steps-container">
   <a
-    [routerLink]="['../bids']"
+    [routerLink]="['./review-bids']"
     routerLinkActive="active"
     [routerLinkActiveOptions]="{exact: true}"
     class="bid-step-link"
@@ -35,7 +35,7 @@
     routerLinkActive="active"
     [routerLinkActiveOptions]="{exact: true}"
     class="bid-step-link"
-    [ngClass]="{'disabled': !(document?.status === 'Completed')}"
+    [ngClass]="{'disabled': (document$ | async)?.status !== documentStatus.Completed}"
   >
     <span class="mat-radio-container">
       <span class="mat-radio-outer-circle"></span>

@@ -24,11 +24,18 @@ import { TestModule } from '@ocean/testing/helpers/test.module';
 import { DropDownComponent } from '@ocean/shared/forms/fields/drop-down';
 import { FormBuilderComponent, LibsFormBuilderModule } from '@ocean/libs/form-builder';
 import { JobDialogs } from '@ocean/api/data';
+import { CountryComponent } from '@ocean/shared/forms/autocompleters/country/country.component';
+import { ButtonComponent } from '@ocean/shared/partials/button/button.component';
+import { BoatsCreateMediaComponent } from '../create/media';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('BoatsFormComponent', () => {
   const actions$: Observable<any> = of(null);
 
   const deps = {
+    schemas: [
+      NO_ERRORS_SCHEMA,
+    ],
     imports: [
       RouterTestingModule,
       ReactiveFormsModule,
@@ -50,6 +57,9 @@ describe('BoatsFormComponent', () => {
       FormBuilderComponent,
       TrimInputDirective,
       NumberOnlyDirective,
+      MockComponent(CountryComponent),
+      ButtonComponent,
+      BoatsCreateMediaComponent,
       MockComponent(MatSelectCountryComponent),
       MockComponent(DropDownComponent)
     ],

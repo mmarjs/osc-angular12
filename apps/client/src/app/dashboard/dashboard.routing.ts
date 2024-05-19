@@ -12,7 +12,8 @@ import {
   ProfileComponent,
   ProfileFormComponent,
   ProfilePasswordComponent,
-  ProfileRatingsComponent, ProfileServicesComponent
+  ProfileRatingsComponent,
+  ProfileServicesComponent,
 } from './dashboard.barrel';
 
 export const routes: Routes = [
@@ -28,7 +29,7 @@ export const routes: Routes = [
             path: '',
             pathMatch: 'full',
             component: DashboardIndexComponent,
-            data: DATA['DASHBOARD']
+            data: DATA['DASHBOARD'],
           },
           {
             path: PATHS['PROFILE'],
@@ -43,8 +44,8 @@ export const routes: Routes = [
                     component: ProfileFormComponent,
                     data: {
                       ...DATA['PROFILE'],
-                      readonly: true
-                    }
+                      readonly: true,
+                    },
                   },
                   {
                     path: PATHS['PROFILE_EDIT'],
@@ -52,14 +53,14 @@ export const routes: Routes = [
                     // TODO canDeactivate if the form is changed
                     data: {
                       ...DATA['PROFILE_EDIT'],
-                      readonly: false
-                    }
+                      readonly: false,
+                    },
                   },
                   {
                     path: PATHS['SERVICES'],
                     component: ProfileServicesComponent,
                     data: {
-                      ...DATA['SERVICES']
+                      ...DATA['SERVICES'],
                     },
                     children: [
                       {
@@ -67,7 +68,7 @@ export const routes: Routes = [
                         children: [
                           {
                             path: PATHS['BOATS_DISPLAY'],
-                            resolve: { item: BoatResolver },
+                            resolve: {item: BoatResolver},
                             children: [
                               {
                                 path: '',
@@ -75,36 +76,36 @@ export const routes: Routes = [
                                 component: BoatsFormComponent,
                                 data: {
                                   ...DATA['BOATS_DISPLAY'],
-                                  readonly: true
-                                }
+                                  readonly: true,
+                                },
                               },
                               {
                                 path: PATHS['BOATS_EDIT'],
                                 component: BoatsFormComponent,
                                 data: {
                                   ...DATA['BOATS_EDIT'],
-                                  readonly: false
-                                }
-                              }
-                            ]
-                          }
-                        ]
+                                  readonly: false,
+                                },
+                              },
+                            ],
+                          },
+                        ],
                       },
-                    ]
+                    ],
                   },
                   {
                     path: PATHS['PROFILE_PASSWORD'],
                     component: ProfilePasswordComponent,
-                    data: DATA['PROFILE_PASSWORD']
+                    data: DATA['PROFILE_PASSWORD'],
                   },
                   {
                     path: PATHS['PROFILE_RATINGS'],
                     component: ProfileRatingsComponent,
-                    data: DATA['PROFILE_RATINGS']
-                  }
-                ]
-              }
-            ]
+                    data: DATA['PROFILE_RATINGS'],
+                  },
+                ],
+              },
+            ],
           },
           // {
           //   path: PATHS['FINANCES'],
@@ -148,19 +149,19 @@ export const routes: Routes = [
           //     }
           //   ]
           // },
-          {
-            path: PATHS['NOTIFICATIONS'],
-            children: [
-              {
-                path: '',
-                pathMatch: 'full',
-                component: NotificationsComponent,
-                data: DATA['NOTIFICATIONS']
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
+          // {
+          //   path: PATHS['NOTIFICATIONS'],
+          //   children: [
+          //     {
+          //       path: '',
+          //       pathMatch: 'full',
+          //       component: NotificationsComponent,
+          //       data: DATA['NOTIFICATIONS']
+          //     }
+          //   ]
+          // }
+        ],
+      },
+    ],
+  },
 ];

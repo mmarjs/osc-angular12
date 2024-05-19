@@ -7,6 +7,5 @@
   "tslint.autoFixOnSave": true,
   "tslint.exclude": ["**/schematics/**/files/**/*.ts"],
   "prettier.disableLanguages": ["html", "js", "json", "jsonc"],
-  "prettier.printWidth": 120,
-  "chatgpt-ai.apiKey": "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"
+  "prettier.printWidth": 120
 }

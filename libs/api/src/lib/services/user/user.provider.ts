@@ -191,7 +191,7 @@ export class UserProvider {
   }
 
   public deletePaymentMethod(dbPaymentId: number) {
-    return this.api.request({
+    return this.api.request<void>({
       url: `/api/payment_methods/${dbPaymentId}`,
       method: 'DELETE',
     });

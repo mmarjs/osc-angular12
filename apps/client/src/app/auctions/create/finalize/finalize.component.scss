@@ -17,10 +17,6 @@
   position: absolute;
   right: 10px;
   top: 10px;
-  &.boat-icon {
-    background: url("/assets/icons/boat-icon.png") no-repeat center;
-    background-size: 40px;
-  }
 }
 
 .finalize-description {
@@ -38,6 +34,12 @@
 
 .form-control {
   width: 40%;
+}
+
+.wrapper-form {
+  > * {
+    width: 240px;
+  }
 }
 
 .finalize-text {

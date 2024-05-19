@@ -18,8 +18,5 @@ export class AuctionDetailCardComponent {
 
   ngOnInit(): void {
     this.images$ = this.jobs.getAssociatedMedia(this.auction?.id)
-    .pipe(
-      tap(console.log.bind(console, 'images$'))
-    )
   }
 }

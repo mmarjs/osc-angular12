@@ -1,0 +1,42 @@
+<div class="content">
+  <div class="inline-items">
+    <span class="title">{{ 'STRIPE.CARDS.TITLE' | translate }}</span>
+    <button mat-button (click)="handleCreateCard()" [disabled]="loading$ | async">
+      <ocean-icon [iconType]="iconType.ADD"></ocean-icon>&nbsp;
+      <span>{{ 'STRIPE.CARDS.ADD_NEW' | translate | uppercase }}</span>
+    </button>
+  </div>
+  <div class="wrapper-container" *ngIf="(cards$ | async) as cards; else noCards">
+    <ng-container *ngIf="cards?.length; else noCards">
+      <mat-card
+        *ngFor="let card of cards"
+        class="card"
+        (click)="handleCardDetails(card.id)"
+        [class.marked]="card.isDefaultForCurrency"
+      >
+        <div class="inline-items">
+          <div class="brand">{{ card.brand | uppercase }}</div>
+        </div>
+        <mat-card-content>
+          <div class="card-number">
+            <input type="password" value="0000" *ngFor="let _ of [1,2,3]" readonly>
+            <input type="text" [value]="card.last4" readonly>
+          </div>
+          <div class="inline-items">
+            <h5>{{ 'STRIPE.CARDS.HOLDER_NAME' | translate | uppercase }}</h5>
+            <h5>{{ 'STRIPE.CARDS.EXPIRES' | translate | uppercase }}</h5>
+          </div>
+          <div class="inline-items">
+            <span>{{ card.cardHolderName }}</span>
+            <span>{{ formatExpireDate(card) }}</span>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+  </div>
+  <ng-template #noCards>
+    <div class="empty-content">
+      <h4>{{ 'STRIPE.CARDS.EMPTY' | translate }}</h4>
+    </div>
+  </ng-template>
+</div>

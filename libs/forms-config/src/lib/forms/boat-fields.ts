@@ -1,9 +1,12 @@
+/* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import {
   CountryFieldModel,
   FormFieldGroupTypes,
   FormFieldListModel,
-  FormFieldModel, FormFieldsService,
-  NumberFieldModel, SelectFieldModel,
+  FormFieldModel,
+  FormFieldsService,
+  NumberFieldModel,
+  SelectFieldModel,
   TextareaFieldModel,
   TextFieldModel,
 } from '@ocean/libs/form-builder';
@@ -15,8 +18,11 @@ import { addressValidator } from '@ocean/shared/utils/address-validator';
 import { textValidator } from '@ocean/shared/utils/text-validator';
 import { hullIdValidator } from '@ocean/shared/utils/hull-id-validator';
 import { CustomValidator } from '@ocean/shared/utils/nospace-validator';
-import { FormattedTimeZone, getFormattedTimeZones } from '@ocean/shared/utils/timeZones';
-import * as moment from 'moment-timezone';
+import {
+  getFormattedTimeZones,
+  guessTimeZone,
+} from '@ocean/shared/utils/timeZones';
+import { NumberValidator } from '@ocean/shared/utils/number-validator';
 
 // BoatInputDTO
 export interface BoatFields {
@@ -35,10 +41,9 @@ export interface BoatFields {
   hullId: TextFieldModel;
   flag: CountryFieldModel;
   model: TextFieldModel;
-  officialNumber: NumberFieldModel;
   loa: NumberFieldModel;
   beam: NumberFieldModel;
-  draft: TextFieldModel;
+  draft: NumberFieldModel;
   displacement: NumberFieldModel;
   electricalRequirements: TextareaFieldModel;
   boatClass: TextFieldModel;
@@ -54,6 +59,14 @@ export enum BoatFieldsType {
   EDIT = 'EDIT',
 }
 
+const validatorsForNumberFields = [
+  Validators.maxLength(6),
+  CustomValidator.noOnlySpace,
+  CustomValidator.dontAllowOnlyZeros(),
+  NumberValidator.onlyPositiveNumbers(),
+  NumberValidator.onlyIntegers(),
+];
+
 // Components: Boat Owner Signup, Add Boat, Boat Info, Edit Boat
 export const boatFields: FormFieldListModel<BoatFields, FormFieldModel> = {
   name: {
@@ -63,10 +76,7 @@ export const boatFields: FormFieldListModel<BoatFields, FormFieldModel> = {
     type: FormFieldGroupTypes.text,
     defaultValue: '',
     cssClassName: 'full',
-    validators: [
-      Validators.required,
-      nameValidator,
-    ],
+    validators: [Validators.required, nameValidator],
   },
   makeModelYear: {
     order: 1,
@@ -76,10 +86,9 @@ export const boatFields: FormFieldListModel<BoatFields, FormFieldModel> = {
     hideArrowsForNumber: true,
     isCurrency: false,
     cssClassName: 'half',
-    validators: [
-      Validators.required,
-      YearValidator.yearCheck(),
-    ]
+    onlyIntegers: true,
+    numberValidate: true,
+    validators: [Validators.required, YearValidator.yearCheck()],
   },
   type: {
     order: 2,
@@ -91,6 +100,7 @@ export const boatFields: FormFieldListModel<BoatFields, FormFieldModel> = {
     validators: [
       Validators.required,
       CustomValidator.noOnlySpace,
+      textValidator,
     ],
   },
   length: {
@@ -101,10 +111,9 @@ export const boatFields: FormFieldListModel<BoatFields, FormFieldModel> = {
     hideArrowsForNumber: true,
     isCurrency: false,
     cssClassName: 'half',
-    validators: [
-      Validators.required,
-      boatLengthValidator,
-    ]
+    onlyIntegers: true,
+    numberValidate: true,
+    validators: [Validators.required, boatLengthValidator],
   },
   address: {
     order: 4,
@@ -113,10 +122,7 @@ export const boatFields: FormFieldListModel<BoatFields, FormFieldModel> = {
     type: FormFieldGroupTypes.text,
     cssClassName: 'half',
     defaultValue: '',
-    validators: [
-      Validators.required,
-      addressValidator,
-    ]
+    validators: [Validators.required, addressValidator(false)],
   },
   address2: {
     order: 5,
@@ -125,10 +131,7 @@ export const boatFields: FormFieldListModel<BoatFields, FormFieldModel> = {
     type: FormFieldGroupTypes.text,
     defaultValue: '',
     cssClassName: 'half',
-    validators: [
-      Validators.required,
-      addressValidator,
-    ]
+    validators: [addressValidator(true)],
   },
   city: {
     order: 6,
@@ -137,10 +140,7 @@ export const boatFields: FormFieldListModel<BoatFields, FormFieldModel> = {
     type: FormFieldGroupTypes.text,
     defaultValue: '',
     cssClassName: 'half',
-    validators: [
-      Validators.required,
-      textValidator,
-    ]
+    validators: [Validators.required, textValidator],
   },
   state: {
     order: 7,
@@ -149,10 +149,7 @@ export const boatFields: FormFieldListModel<BoatFields, FormFieldModel> = {
     type: FormFieldGroupTypes.text,
     defaultValue: '',
     cssClassName: 'half',
-    validators: [
-      Validators.required,
-      textValidator,
-    ]
+    validators: [Validators.required, textValidator],
   },
   zipCode: {
     order: 8,
@@ -161,20 +158,16 @@ export const boatFields: FormFieldListModel<BoatFields, FormFieldModel> = {
     type: FormFieldGroupTypes.text,
     defaultValue: '',
     cssClassName: 'half',
-    validators: [
-      Validators.required,
-    ],
-    shouldShow: form => !!form?.get('zipCode')?.enabled
+    validators: [Validators.required],
+    shouldShow: (form) => !!form?.get('zipCode')?.enabled,
   },
   country: {
     order: 9,
     label: 'FORMS.LABELS.COUNTRY',
     type: FormFieldGroupTypes.country,
-    onCountryChange: value => value,
+    onCountryChange: (value) => value,
     cssClassName: 'full',
-    validators: [
-      Validators.required,
-    ]
+    validators: [Validators.required],
   },
   timeZone: {
     order: 10,
@@ -182,14 +175,12 @@ export const boatFields: FormFieldListModel<BoatFields, FormFieldModel> = {
     type: FormFieldGroupTypes.select,
     cssClassName: 'full',
     options: getFormattedTimeZones(),
-    defaultValue: moment.tz.guess(),
-    value: moment.tz.guess(),
-    getOptionTitle: (value: FormattedTimeZone) => value.title,
-    getOptionValue: (value: FormattedTimeZone) => value.value,
-    onValueSelected: value => value,
-    validators: [
-      Validators.required,
-    ]
+    defaultValue: guessTimeZone().value,
+    value: guessTimeZone().value,
+    getOptionTitle: (value) => value.title,
+    getOptionValue: (value) => value.value,
+    onValueSelected: (value) => value,
+    validators: [Validators.required],
   },
   about: {
     order: 11,
@@ -199,10 +190,7 @@ export const boatFields: FormFieldListModel<BoatFields, FormFieldModel> = {
     rows: 10,
     defaultValue: '',
     cssClassName: 'full',
-    validators: [
-      Validators.required,
-      CustomValidator.noOnlySpace
-    ]
+    validators: [Validators.required, CustomValidator.noOnlySpace],
   },
   hullId: {
     order: 12,
@@ -211,20 +199,15 @@ export const boatFields: FormFieldListModel<BoatFields, FormFieldModel> = {
     type: FormFieldGroupTypes.text,
     defaultValue: '',
     cssClassName: 'half',
-    validators: [
-      Validators.required,
-      hullIdValidator
-    ]
+    validators: [Validators.required, hullIdValidator],
   },
   flag: {
     order: 13,
     label: 'FORMS.LABELS.FLAG',
     type: FormFieldGroupTypes.country,
-    onCountryChange: value => value,
+    onCountryChange: (value) => value,
     cssClassName: 'full',
-    validators: [
-      Validators.required,
-    ]
+    validators: [Validators.required],
   },
   model: {
     order: 14,
@@ -232,101 +215,108 @@ export const boatFields: FormFieldListModel<BoatFields, FormFieldModel> = {
     placeholder: 'FORMS.PLACEHOLDERS.BOAT_MODEL',
     type: FormFieldGroupTypes.text,
     cssClassName: 'half',
-    validators: [
-      CustomValidator.noOnlySpace
-    ]
-  },
-  officialNumber: {
-    order: 15,
-    label: 'FORMS.LABELS.OFFICIAL_NUMBER',
-    placeholder: 'FORMS.PLACEHOLDERS.NUMBER',
-    type: FormFieldGroupTypes.number,
-    cssClassName: 'half',
-    hideArrowsForNumber: true,
-    isCurrency: false,
+    validators: [CustomValidator.noOnlySpace],
   },
   loa: {
-    order: 16,
+    order: 15,
     label: 'FORMS.LABELS.LOA',
     type: FormFieldGroupTypes.number,
     placeholder: 'FORMS.PLACEHOLDERS.NUMBER',
     cssClassName: 'half',
     hideArrowsForNumber: true,
     isCurrency: false,
+    validators: validatorsForNumberFields,
   },
   beam: {
-    order: 17,
+    order: 16,
     label: 'FORMS.LABELS.BEAM',
     type: FormFieldGroupTypes.number,
     placeholder: 'FORMS.PLACEHOLDERS.NUMBER',
     cssClassName: 'half',
     hideArrowsForNumber: true,
     isCurrency: false,
+    validators: validatorsForNumberFields,
   },
   draft: {
-    order: 18,
+    order: 17,
     label: 'FORMS.LABELS.DRAFT',
-    placeholder: 'FORMS.PLACEHOLDERS.BOAT_DRAFT',
-    type: FormFieldGroupTypes.text,
+    placeholder: 'FORMS.PLACEHOLDERS.NUMBER',
+    type: FormFieldGroupTypes.number,
+    hideArrowsForNumber: true,
     cssClassName: 'half',
-    validators: [
-      CustomValidator.noOnlySpace
-    ]
+    validators: validatorsForNumberFields,
   },
   displacement: {
-    order: 19,
+    order: 18,
     label: 'FORMS.LABELS.DISPLACEMENT',
     placeholder: 'FORMS.PLACEHOLDERS.NUMBER',
     type: FormFieldGroupTypes.number,
     cssClassName: 'half',
     hideArrowsForNumber: true,
     isCurrency: false,
+    validators: validatorsForNumberFields,
   },
   electricalRequirements: {
-    order: 20,
+    order: 19,
     label: 'FORMS.LABELS.ELECTRICAL_REQUIREMENTS',
     placeholder: 'FORMS.PLACEHOLDERS.ELECTRICAL_REQUIREMENTS',
     type: FormFieldGroupTypes.textarea,
     cssClassName: 'full',
     rows: 10,
-    validators: [
-      CustomValidator.noOnlySpace
-    ]
+    validators: [CustomValidator.noOnlySpace],
   },
   boatClass: {
-    order: 21,
+    order: 20,
     label: 'FORMS.LABELS.BOAT_CLASS',
     placeholder: 'FORMS.PLACEHOLDERS.BOAT_CLASS',
     type: FormFieldGroupTypes.text,
     cssClassName: 'half',
     defaultValue: '',
-    validators: [
-      CustomValidator.noOnlySpace
-    ],
+    validators: [CustomValidator.noOnlySpace],
   },
   insuranceNumber: {
-    order: 22,
+    order: 21,
     label: 'FORMS.LABELS.INSURANCE_NUMBER',
     placeholder: 'FORMS.PLACEHOLDERS.NUMBER',
     type: FormFieldGroupTypes.number,
     cssClassName: 'half',
     hideArrowsForNumber: true,
     isCurrency: false,
+    validators: validatorsForNumberFields,
   },
 };
 
-export const getBoatFieldsForType = (fieldsService: FormFieldsService<Fields>, form: BoatFieldsType): FieldsInArray[] => {
+export const getBoatFieldsForType = (
+  fieldsService: FormFieldsService<Fields>,
+  form: BoatFieldsType
+): FieldsInArray[] => {
   const {
-    name, makeModelYear, length, type, country,
-    timeZone, address, address2, city, state,
-    zipCode, hullId, flag, about,
+    name,
+    makeModelYear,
+    length,
+    type,
+    country,
+    timeZone,
+    address,
+    address2,
+    city,
+    state,
+    zipCode,
+    hullId,
+    flag,
+    about,
     ...required
   } = fieldsService.getRequired();
 
   const {
-    model, officialNumber, loa, beam, draft,
-    displacement, electricalRequirements,
-    boatClass, insuranceNumber,
+    model,
+    loa,
+    beam,
+    draft,
+    displacement,
+    electricalRequirements,
+    boatClass,
+    insuranceNumber,
     ...optional
   } = fieldsService.getOptional();
 
@@ -334,40 +324,75 @@ export const getBoatFieldsForType = (fieldsService: FormFieldsService<Fields>, f
     case BoatFieldsType.CREATE:
       return [
         [
-          'name', 'makeModelYear', 'length', 'type', 'country',
-          'timeZone', 'address', 'address2', 'city', 'state',
-          'zipCode', 'hullId', 'flag',
-          ...Object.keys(required) as FieldsInArray,
-          'model', 'officialNumber', 'loa', 'beam', 'draft', 'displacement',
-          'electricalRequirements', 'boatClass', 'insuranceNumber',
-          ...Object.keys(optional) as FieldsInArray,
+          'name',
+          'makeModelYear',
+          'length',
+          'type',
+          'country',
+          'timeZone',
+          'address',
+          'address2',
+          'city',
+          'state',
+          'zipCode',
+          'hullId',
+          'flag',
+          ...(Object.keys(required) as FieldsInArray),
+          'model',
+          'loa',
+          'beam',
+          'draft',
+          'displacement',
+          'electricalRequirements',
+          'boatClass',
+          'insuranceNumber',
+          ...(Object.keys(optional).filter(
+            (e) => e !== 'address2'
+          ) as FieldsInArray),
         ],
-        [
-          'about'
-        ]
+        ['about'],
       ];
     case BoatFieldsType.EDIT:
       return [
         [
-          'name', 'length', 'type', 'makeModelYear', 'country',
-          'timeZone', 'address', 'address2', 'city', 'state',
-          'zipCode', 'hullId', 'flag', 'about',
-          ...Object.keys(required) as FieldsInArray,
-          'model', 'officialNumber', 'loa', 'beam', 'draft', 'displacement',
-          'electricalRequirements', 'boatClass', 'insuranceNumber',
-          ...Object.keys(optional) as FieldsInArray,
-        ]
+          'name',
+          'length',
+          'type',
+          'makeModelYear',
+          'country',
+          'timeZone',
+          'address',
+          'address2',
+          'city',
+          'state',
+          'zipCode',
+          'hullId',
+          'flag',
+          'about',
+          ...(Object.keys(required) as FieldsInArray),
+          'model',
+          'loa',
+          'beam',
+          'draft',
+          'displacement',
+          'electricalRequirements',
+          'boatClass',
+          'insuranceNumber',
+          ...(Object.keys(optional) as FieldsInArray),
+        ],
       ];
     case BoatFieldsType.SIGN_UP:
     default:
       return [
         [
-          'name', 'makeModelYear', 'length', 'type', 'about',
-          ...Object.keys(required) as FieldsInArray
+          'name',
+          'makeModelYear',
+          'length',
+          'type',
+          'about',
+          ...(Object.keys(required) as FieldsInArray),
         ],
-        [
-          'country', 'timeZone', 'state', 'city', 'address', 'zipCode'
-        ]
+        ['country', 'timeZone', 'state', 'city', 'address', 'zipCode'],
       ];
   }
 };

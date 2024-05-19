@@ -3,16 +3,21 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnDestroy,
   Output,
 } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
 import { User, UserPatchDTO } from '@ocean/api/shared';
-import { CustomValidator } from '../../../../../../../libs/shared/src/lib/utils/nospace-validator';
+import { FormBuilderService } from '@ocean/libs/form-builder';
+import {
+  defaultPersonalInformationObj,
+  personalInformationFields,
+  UserPersonalInformationAsObject,
+} from '@ocean/forms-config';
+import { untilDestroyed } from 'ngx-take-until-destroy';
+import { ChangeData } from 'ngx-intl-tel-input';
+
+const EMAIL: keyof UserPersonalInformationAsObject = 'email';
+const PHONE: keyof UserPersonalInformationAsObject = 'phone';
 
 @Component({
   selector: 'app-personal-information',
@@ -20,61 +25,70 @@ import { CustomValidator } from '../../../../../../../libs/shared/src/lib/utils/
   styleUrls: ['./personal-information.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PersonalInformationComponent {
-  @Output() controlSubmittedValue: EventEmitter<UserPatchDTO> =
-    new EventEmitter();
-  @Output() updateAvatar = new EventEmitter<File>();
-  @Input() isUpdating: boolean;
+export class PersonalInformationComponent implements OnDestroy {
+  @Output()
+  readonly patch = new EventEmitter<UserPatchDTO>();
+
   @Input()
-  set user(value: User) {
-    this.firstNameCtrl.patchValue(value.firstName);
-    this.lastNameCtrl.patchValue(value.lastName);
-    this.emailCtrl.patchValue(value.email);
-    this.phoneCtrl.patchValue(value.phoneNo);
+  readonly isUpdating: boolean;
+
+  @Input()
+  set user(user: User) {
+    this.form.patchValue(this.normalizePersonalInformation(user));
   }
 
-  firstNameCtrl = new FormControl(
-    { value: '', disabled: true },
-    {
-      validators: [Validators.required, Validators.maxLength(50), CustomValidator.noWhiteSpace,Validators.pattern("^[a-zA-Z ]*$")],
-      // updateOn: 'submit',
-    }
-  );
+  readonly fields = personalInformationFields;
+  readonly form = this.formBuilderService.buildReactiveForm(this.fields);
 
-  lastNameCtrl = new FormControl(
-    { value: '', disabled: true },
-    {
-      validators: [Validators.required, Validators.maxLength(50),Validators.pattern("^[a-zA-Z ]*$")],
-      // updateOn: 'submit',
-    }
-  );
+  private personalInformation = defaultPersonalInformationObj;
 
-  emailCtrl = new FormControl(
-    { value: '', disabled: true },
-    {
-      validators: [Validators.required, Validators.email],
-      updateOn: 'submit',
-    }
-  );
+  disabled = true;
 
-  phoneCtrl = new FormControl(
-    { value: '', disabled: true },
-    {
-      validators: [Validators.required],
-      // updateOn: 'submit'
-    }
-  );
+  constructor(private readonly formBuilderService: FormBuilderService) {
+    this.form.get(EMAIL)?.disable();
 
-  form: FormGroup;
-
-  constructor(private formBuilder: FormBuilder) {
-    this.form = this.formBuilder.group({
-      files: this.formBuilder.array([]),
+    this.form.valueChanges.pipe(untilDestroyed(this)).subscribe((current) => {
+      this.disabled = Object.keys(this.personalInformation).every(
+        (key: keyof UserPersonalInformationAsObject) => {
+          switch (key) {
+            case EMAIL:
+              return true;
+            case PHONE:
+              return typeof current[key] === 'object'
+                ? this.personalInformation[key] === current[key]?.number
+                : this.personalInformation[key] === current[key];
+            default:
+              return this.personalInformation[key] === current[key];
+          }
+        }
+      );
     });
   }
 
-  controlSubmitted(data: UserPatchDTO) {
-    this.controlSubmittedValue.emit(data);
+  submit() {
+    this.patch.emit(this.normalizeOutput(this.form.value));
   }
 
+  normalizePersonalInformation(user: User) {
+    this.form.get(PHONE)?.markAsUntouched();
+
+    const { firstName, lastName, email, phoneNo: phone } = user;
+    this.personalInformation = { firstName, lastName, email, phone };
+    return this.personalInformation;
+  }
+
+  normalizeOutput(output: UserPersonalInformationAsObject) {
+    const { phone, ...rest } = output;
+    return {
+      ...rest,
+      phoneNumber:
+        typeof phone === 'string'
+          ? phone
+          : (phone as ChangeData)?.internationalNumber,
+    };
+  }
+
+  ngOnDestroy() {
+    return;
+  }
 }

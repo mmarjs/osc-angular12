@@ -10,22 +10,24 @@ import { STORAGE_BID_STATUS_KEY } from '@ocean/shared/constants/storage';
 @Component({
   selector: 'app-auctions-list-table',
   templateUrl: './table.component.html',
-  styleUrls: ['./table.component.scss']
+  styleUrls: ['./table.component.scss'],
 })
 export class AuctionsListTableComponent implements OnInit, OnDestroy {
   @Input() source: JobDatasource;
   @Input() hidePageSize: boolean;
   @Input() limit: number;
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  readonly columns = ['image', 'info'];
+  readonly columns = ['info'];
 
   bids: BidDTO[];
   bidsFacadeSubscribe$: Subscription | undefined;
 
-  constructor(private readonly dialogs: JobDialogs, private readonly bidsFacade: BidsFacade) {
-  }
+  constructor(
+    private readonly dialogs: JobDialogs,
+    private readonly bidsFacade: BidsFacade
+  ) {}
 
   ngOnInit() {
     this.source.pageSize = this.limit;
@@ -37,11 +39,11 @@ export class AuctionsListTableComponent implements OnInit, OnDestroy {
     this.bidsFacade.loadMyBids({
       pageable: {
         page: 0,
-        size: 299
-      }
+        size: 299,
+      },
     });
 
-    this.bidsFacadeSubscribe$ = this.bidsFacade.bids$.subscribe(res => {
+    this.bidsFacadeSubscribe$ = this.bidsFacade.bids$.subscribe((res) => {
       this.bids = res;
     });
   }
@@ -54,14 +56,16 @@ export class AuctionsListTableComponent implements OnInit, OnDestroy {
     e.preventDefault();
     e.stopPropagation();
 
-    this.dialogs
-      .acceptPrompt(row)
-      .subscribe(() => this.source.refresh());
+    this.dialogs.acceptPrompt(row).subscribe(() => this.source.refresh());
   }
 
-  findBidById = (auction: JobDTO) => this.bids.find(bid => bid.job.id === auction.id);
+  findBidById = (auction: JobDTO) =>
+    this.bids.find((bid) => bid.job.id === auction.id);
 
   storeIsBidded(auction: JobDTO) {
-    localStorage.setItem(STORAGE_BID_STATUS_KEY, JSON.stringify(!!this.findBidById(auction)));
+    localStorage.setItem(
+      STORAGE_BID_STATUS_KEY,
+      JSON.stringify(!!this.findBidById(auction))
+    );
   }
 }

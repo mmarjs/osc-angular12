@@ -11,14 +11,11 @@
         [label]="role == 'SHIPYARD' ? 'FORMS.LABELS.SHIPYARD_NAME' : 'FORMS.LABELS.BUSINESS_NAME'"
         [trimInput]="true">
       </app-field-text>
-      <label class="label d-flex justify-content-start">
-        {{ 'FORMS.LABELS.COUNTRY' | translate}}
-        <span>*</span>
-      </label>
-      <mat-select-country #matCountry placeHolder="" [formControl]="countryCtrl"
-        [trimInput]="true" [required]="true"
-        [class.has-error]="countryCtrl.hasError('required') && countryCtrl.touched">
-      </mat-select-country>
+      <app-country
+        [label]="'FORMS.LABELS.COUNTRY' | translate"
+        formControlName="country" name="country"
+        [class.has-error]="countryCtrl.hasError('required') && countryCtrl.touched"
+      ></app-country>
       <mat-error class="country-error"
         *ngIf="countryCtrl.hasError('required') && countryCtrl.touched">
         {{'FORMS.ERRORS.COUNTRY_REQUIRED' | translate}}
@@ -29,7 +26,8 @@
           <span>*</span>
         </label>
         <ngx-intl-tel-input [cssClass]="'custom'" [enablePlaceholder]="true"
-          [selectedCountryISO]="countryAlpha2Code ? countryAlpha2Code : defaultCountry"
+          data-testid="phone"
+          [selectedCountryISO]="countryAlpha2Code$ | async"
           [phoneValidation]="true" name="phone" formControlName="phone">
         </ngx-intl-tel-input>
         <mat-error class="phone-error mt-4" *ngIf="phoneCtrl.hasError('required') && phoneCtrl.touched">

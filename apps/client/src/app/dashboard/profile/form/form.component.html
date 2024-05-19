@@ -1,6 +1,9 @@
 <layout-panel-wrapper
-  [panelTitle]="readonly ? ('PROFILE.MY_PROFILE' | translate)  : ('PROFILE.EDIT_PROFILE') | translate" fontSet="far"
-  icon="fa-user-circle">
+  [panelTitle]="readonly ? ('PROFILE.MY_PROFILE' | translate)  : ('PROFILE.EDIT_PROFILE') | translate"
+  fontSet="far"
+  icon="fa-user-circle"
+  asIcon="ACCOUNT"
+>
   <div class="panel-content">
     <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
 

@@ -1,26 +1,37 @@
 <div class="finalize-section">
-    <i class="icon boat-icon"></i>
-    <div class="finalize-description">
-        <h3>{{'AUCTIONS.CREATE.FINALIZE_LISTING' | translate}}</h3>
-        <p class="finalize-text"><b>{{'FORMS.LABELS.NOTE' | translate}}:</b>
-            {{'AUCTIONS.CREATE.FINALIZE_LISTING_DESCRIPTION' | translate}}
-            <br>
-        </p>
-    </div>
+  <ocean-icon fontSet="fas" fontIcon="fa-ship" as="SHIP" class="icon large-icon"></ocean-icon>
+  <div class="finalize-description">
+    <h3>{{ 'AUCTIONS.CREATE.FINALIZE_LISTING' | translate }}</h3>
+    <p class="finalize-text">
+      <b>{{ 'FORMS.LABELS.NOTE' | translate }}:</b>
+      {{ 'AUCTIONS.CREATE.FINALIZE_LISTING_DESCRIPTION' | translate }}
+      <br />
+    </p>
+  </div>
+  <div class="wrapper-form">
     <form class="finalize-form-group" [formGroup]="form">
-        <!-- <div class="form-control">
-            <app-datepicker label="FORMS.LABELS.AUCTION_START_DATE" placeholder="FORMS.PLACEHOLDERS.CHOOSE_DATE"
-                formControlName="auctionStartDate" (dateValueChanged)="onch()" fxLayout="column"
-                contextId="auctionEndDate" [minDate]="minDate" [readonly]="isStarted">
-            </app-datepicker>
-        </div> -->
-        <div class="w-100">
-            <app-datepicker label="FORMS.LABELS.AUCTION_END_DATE" placeholder="FORMS.PLACEHOLDERS.CHOOSE_DATE"
-                formControlName="auctionEndDate" fxLayout="column" contextId="auctionEndDate" [minDate]="startDt">
-            </app-datepicker>
-        </div>
+      <app-datepicker
+        label="FORMS.LABELS.AUCTION_END_DATE"
+        placeholder="FORMS.PLACEHOLDERS.CHOOSE_DATE"
+        formControlName="auctionEndDate"
+        fxLayout="column"
+        contextId="auctionEndDate"
+        [minDate]="minDate"
+      >
+      </app-datepicker>
     </form>
-    <mat-error *ngIf="form?.errors?.dates">
-        {{'FORMS.ERRORS.AUCTION_END_DATE_SET_AFTER_THE_CURRENT_DATE' | translate}}
-    </mat-error>
+    <app-field-text
+      [hideArrowsForNumber]="false"
+      [numberOnly]="true"
+      [min]="1"
+      [showDollar]="false"
+      [label]="'FORMS.LABELS.DAYS_BEFORE_END_AUCTION' | translate"
+      [ngModel]="days"
+      (change)="onDaysChange($event)"
+    >
+    </app-field-text>
+  </div>
+  <mat-error *ngIf="form?.errors?.dates">
+    {{ 'FORMS.ERRORS.AUCTION_END_DATE_SET_AFTER_THE_CURRENT_DATE' | translate }}
+  </mat-error>
 </div>

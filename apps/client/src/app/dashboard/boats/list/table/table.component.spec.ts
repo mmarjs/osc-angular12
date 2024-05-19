@@ -20,6 +20,11 @@ import { Observable, of } from 'rxjs';
 import { BoatsImports } from '../../boats.imports';
 import { BoatsListTableComponent } from './table.component';
 import { MediaService } from '@ocean/api/client';
+import { AuctionsFacade } from '@ocean/client/state';
+
+const mockAuctionsFacade = {
+  refresh: () => {},
+};
 
 describe('BoatsListTableComponent', () => {
   let component: BoatsListTableComponent;
@@ -43,12 +48,13 @@ describe('BoatsListTableComponent', () => {
         MockPipe(TranslatePipe, (value: string) => value),
       ],
       providers: [
-        {provide: API_ENVIRONMENT, useValue: mockEnvironment},
+        { provide: API_ENVIRONMENT, useValue: mockEnvironment },
+        { provide: AuctionsFacade, useValue: mockAuctionsFacade },
         MockProvider(BoatDatasource, {}),
         MockProvider(BoatDatabase),
         MockProvider(BoatDialogs),
         MockProvider(MediaService, {
-          getFilesByTags: of
+          getFilesByTags: of,
         }),
         provideMockStore(),
         provideMockActions(() => actions$),

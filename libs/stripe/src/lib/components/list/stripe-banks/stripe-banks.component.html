@@ -1,0 +1,36 @@
+<div class="content">
+  <div class="inline-items">
+    <span class="title">{{ 'STRIPE.BANKS.TITLE' | translate }}</span>
+    <button mat-button (click)="handleBankAccountCreate()" [disabled]="loading$ | async">
+      <ocean-icon [iconType]="iconType.ADD"></ocean-icon>&nbsp;
+      <span>{{ 'STRIPE.BANKS.ADD_NEW' | translate | uppercase }}</span>
+    </button>
+  </div>
+  <div class="wrapper-container" *ngIf="(banks$ | async) as banks; else noBanks">
+    <ng-container *ngIf="banks?.length; else noBanks">
+      <mat-card
+        class="bank"
+        *ngFor="let bank of banks"
+        (click)="handleBankAccountDetails(bank.id)"
+        [class.marked]="bank.isDefaultForCurrency"
+      >
+        <div class="bank-header">
+          <ocean-icon *ngIf="bank.isDefaultForCurrency" tooltip="" [iconType]="iconType.DONE"></ocean-icon>
+          <ocean-icon *ngIf="!bank.isDefaultForCurrency" tooltip="" [iconType]="iconType.ACCOUNT_BALANCE"></ocean-icon>
+        </div>
+        <mat-card-content>
+          <h4 class="bank-name">{{ bank.bankName | uppercase }}</h4>
+          <div
+            class="bank-description"
+            [innerHTML]="(bank.isDefaultForCurrency ? 'STRIPE.BANKS.MARKED' : 'STRIPE.BANKS.DESCRIPTION') | translate"
+          ></div>
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+  </div>
+  <ng-template #noBanks>
+    <div class="empty-content">
+      <h4>{{ 'STRIPE.BANKS.EMPTY' | translate }}</h4>
+    </div>
+  </ng-template>
+</div>

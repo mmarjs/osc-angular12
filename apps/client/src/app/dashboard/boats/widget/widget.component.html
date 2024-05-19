@@ -1,5 +1,10 @@
-<layout-panel-wrapper [panelTitle]="'BOATS.MY_BOATS' | translate"
-  [description]="'BOATS.MY_BOATS_DESCRIPTION' | translate" fontSet="fas" icon="fa-ship">
+<layout-panel-wrapper
+  [panelTitle]="'BOATS.MY_BOATS' | translate"
+  [description]="'BOATS.MY_BOATS_DESCRIPTION' | translate"
+  fontSet="fas"
+  icon="fa-ship"
+  asIcon="SHIP"
+>
   <div class="panel-content">
 
     <app-boats-list [hidePageSize]="true" [limit]="5" [isOnlyTable]="isTableOnly"></app-boats-list>

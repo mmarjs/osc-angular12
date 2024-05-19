@@ -1,6 +1,5 @@
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -9,11 +8,16 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
-import { SharedDirectivesModule, SharedModule, SharedPipesModule } from '@ocean/shared';
+import {
+  SharedDirectivesModule,
+  SharedModule,
+  SharedPipesModule,
+} from '@ocean/shared';
 import { MatSelectCountryModule } from '@angular-material-extensions/select-country';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { MatStepperModule } from '@angular/material/stepper';
 import { LibsFormBuilderModule } from '@ocean/libs/form-builder';
+import { IconsModule } from '@ocean/icons';
 
 export const PagesImports = [
   LibsFormBuilderModule,
@@ -29,9 +33,9 @@ export const PagesImports = [
   MatSelectModule,
   MatTabsModule,
   MatListModule,
-  MatIconModule,
+  IconsModule,
   SharedModule,
   MatSelectCountryModule,
   NgxIntlTelInputModule,
-  MatStepperModule
+  MatStepperModule,
 ];

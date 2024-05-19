@@ -1,41 +1,59 @@
-@import "variables";
+@import 'variables';
 
 .dollar {
-  width: 26px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
   border: 1px solid;
   text-align: center;
   border-radius: 42px;
   font-size: 18px;
   padding-top: 2px;
-  color: #283B4D;
+  color: #283b4d;
   margin-top: 4px;
 }
 
 .dollarParent {
   width: 35px;
-  background: #E0E0E5;
+  background: #e0e0e5;
   height: 34px;
   text-align: center;
   margin-top: 0.85rem;
   border-radius: 2px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .d-flex {
   display: flex;
 }
+
 .showArrow {
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
+
+  input[type=number] {
+    -moz-appearance:textfield;
+  }
 }
 
 :host ::ng-deep {
-  .mat-form-field-disabled > .mat-form-field-wrapper > .mat-form-field-flex > .mat-form-field-infix {
+  .mat-form-field-disabled
+    > .mat-form-field-wrapper
+    > .mat-form-field-flex
+    > .mat-form-field-infix {
     color: unset !important;
     background-color: unset !important;
     border: unset !important;
   }
+}
+
+.inline {
+  display: flex;
+  gap: 5px;
+  align-items: center;
 }

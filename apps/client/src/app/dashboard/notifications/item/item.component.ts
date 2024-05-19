@@ -3,17 +3,17 @@ import {
   HostBinding,
   HostListener,
   Input,
-  OnInit,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
+import { IconType } from '@ocean/icons';
 
 @Component({
   selector: 'app-notifications-item',
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
-export class NotificationsItemComponent implements OnInit {
+export class NotificationsItemComponent {
   @Input() notification: any;
 
   @HostBinding('class.mat-list-base')
@@ -27,13 +27,10 @@ export class NotificationsItemComponent implements OnInit {
   @Input()
   active = false;
 
-  constructor() {}
-
-  ngOnInit() {}
+  readonly iconType = IconType;
 
   @HostListener('click')
   onClick() {
     this.active = !this.active;
-    // TODO mark as read
   }
 }

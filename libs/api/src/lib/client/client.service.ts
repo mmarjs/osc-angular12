@@ -6,9 +6,10 @@ import { PATHS } from '@ocean/shared';
 import { NotifierService } from '@ocean/shared/services';
 import { Auth0DecodedHash } from 'auth0-js';
 import { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { Observable, throwError } from 'rxjs';
+import { Observable, tap, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Axios } from './axios';
+import { ProgressIndicatorFacade } from '@ocean/client/state/progress-indicator';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +23,8 @@ export class ClientService {
   constructor(
     @Inject(API_ENVIRONMENT) private readonly environment: ApiEnvironment,
     private readonly user: UserFacade,
-    private readonly notifier: NotifierService
+    private readonly notifier: NotifierService,
+    private readonly progressIndicatorFacade: ProgressIndicatorFacade
   ) {
     this.baseURL = environment.api.baseURL;
     this.webURL = environment.webURL;
@@ -38,6 +40,8 @@ export class ClientService {
   }
 
   request<T = any>(options: AxiosRequestConfig): Observable<T> {
+    this.progressIndicatorFacade.setLoadingStatus(true);
+
     const baseURL = this.baseURL;
     const headers = this.token
       ? {
@@ -53,6 +57,10 @@ export class ClientService {
         ...options.headers,
       },
     }).pipe(
+      tap({
+        next: () => this.progressIndicatorFacade.setLoadingStatus(false),
+        error: () => this.progressIndicatorFacade.setLoadingStatus(false),
+      }),
       map((res: AxiosResponse) => {
         switch (res.status) {
           // TODO test all the statuses
@@ -65,6 +73,7 @@ export class ClientService {
             }
             return {
               id: res.data?.id,
+              ...res.data ?? {},
             };
           case 204:
             return;

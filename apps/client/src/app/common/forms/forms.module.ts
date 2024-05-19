@@ -4,17 +4,11 @@ import { SharedFormsModule } from '@ocean/shared';
 
 import { FormComponents } from './form.barrel';
 import { AppFormsImports } from './forms.imports';
-import { MatIconModule } from '@angular/material/icon';
+import { IconsModule } from '@ocean/icons';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedFormsModule,
-    ...AppFormsImports,
-    MatIconModule
-  ],
+  imports: [CommonModule, SharedFormsModule, ...AppFormsImports, IconsModule],
   declarations: FormComponents,
-  exports: FormComponents
+  exports: FormComponents,
 })
-export class AppFormsModule {
-}
+export class AppFormsModule {}

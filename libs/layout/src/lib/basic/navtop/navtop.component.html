@@ -1,11 +1,9 @@
 <nav fxLayout="row" class="layout-basic-navtop-container">
-  <ng-container *ngIf="loggedIn then logged; else guest"></ng-container>
+  <ng-container *ngIf="(loggedIn$ | async) then logged; else guest"></ng-container>
   <ng-template #guest>
     <a
       mat-button
-      routerLink="/"
-      routerLinkActive="active"
-      [routerLinkActiveOptions]="{exact: true}"
+      (click)="scrollToHowItWorksSection()"
     >
       {{'COMMON.MENU.WHO_WE_ARE' | translate}}
     </a>

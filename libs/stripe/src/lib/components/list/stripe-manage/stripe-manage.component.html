@@ -1,0 +1,12 @@
+<app-stripe-debit-cards></app-stripe-debit-cards>
+<span class="inline-divider"><hr/><h4>{{ 'STRIPE.DIVIDER' | translate }}</h4><hr/></span>
+<app-stripe-banks></app-stripe-banks>
+<mat-progress-spinner
+  *ngIf="loading$ | async"
+  color="primary"
+  mode="indeterminate"
+  class="loading"
+  [strokeWidth]="5"
+  [diameter]="100"
+>
+</mat-progress-spinner>

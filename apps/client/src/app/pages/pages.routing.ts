@@ -17,8 +17,11 @@ import {
   // LoginComponent,
   ProtectionPolicyComponent,
   SignupComponent,
-  SignupCreatedComponent, UserAgreementComponent
+  SignupCreatedComponent,
+  UserAgreementComponent,
 } from './pages.barrel';
+import { DocumentSignedComponent } from './document-signed/document-signed.component';
+import { DocumentDeclinedComponent } from './document-declined/document-declined.component';
 
 export const openRoutes: Routes = [
   // {
@@ -42,12 +45,20 @@ export const coreRoutes: Routes = [
         path: PATHS['HOME'],
         pathMatch: 'full',
         component: HomepageComponent,
-        data: DATA['HOME']
+        data: DATA['HOME'],
       },
       {
         path: PATHS['FAQ'],
         component: FaqComponent,
-        data: DATA['FAQ']
+        data: DATA['FAQ'],
+      },
+      {
+        path: PATHS['DOCUMENT_SIGNED'],
+        component: DocumentSignedComponent,
+      },
+      {
+        path: PATHS['DOCUMENT_DECLINED'],
+        component: DocumentDeclinedComponent,
       },
       {
         path: PATHS['LEGAL'],
@@ -61,36 +72,36 @@ export const coreRoutes: Routes = [
                 path: PATHS['LICENSE_AGREEMENT'],
                 pathMatch: 'full',
                 component: LicenseAgreementComponent,
-                data: DATA['LICENSE_AGREEMENT']
+                data: DATA['LICENSE_AGREEMENT'],
               },
               {
                 path: PATHS['PRIVACY_POLICY'],
                 component: PrivacyPolicyComponent,
-                data: DATA['PRIVACY_POLICY']
+                data: DATA['PRIVACY_POLICY'],
               },
               {
                 path: PATHS['PROPRIETARY_RIGHTS'],
                 component: ProprietaryRightsComponent,
-                data: DATA['PROPRIETARY_RIGHTS']
+                data: DATA['PROPRIETARY_RIGHTS'],
               },
               {
                 path: PATHS['PROTECTION_POLICY'],
                 component: ProtectionPolicyComponent,
-                data: DATA['PROTECTION_POLICY']
+                data: DATA['PROTECTION_POLICY'],
               },
               {
                 path: PATHS['USER_AGREEMENT'],
                 component: UserAgreementComponent,
-                data: DATA['USER_AGREEMENT']
+                data: DATA['USER_AGREEMENT'],
               },
               {
                 path: PATHS['COOKIE_POLICY'],
                 component: CookiePolicyComponent,
-                data: DATA['COOKIE_POLICY']
-              }
-            ]
-          }
-        ]
+                data: DATA['COOKIE_POLICY'],
+              },
+            ],
+          },
+        ],
       },
       {
         path: PATHS['SIGNUP'],
@@ -99,23 +110,23 @@ export const coreRoutes: Routes = [
           {
             path: '',
             pathMatch: 'full',
-            component: SignupComponent
+            component: SignupComponent,
           },
           {
             path: PATHS['SIGNUP_CREATED'],
             component: SignupCreatedComponent,
-            data: DATA['SIGNUP_CREATED']
-          }
-        ]
+            data: DATA['SIGNUP_CREATED'],
+          },
+        ],
       },
       {
         path: PATHS['CALLBACK'],
-        component: CallbackComponent
+        component: CallbackComponent,
       },
       {
         path: PATHS['ERROR'],
-        component: ErrorComponent
-      }
-    ]
-  }
+        component: ErrorComponent,
+      },
+    ],
+  },
 ];

@@ -37,20 +37,18 @@ const routes: Routes = [
     canLoad: [SessionGuard],
   },
   {
-    path: PATHS.CREATE_STRIPE_ACCOUNT,
-    loadChildren: () => import('@ocean/stripe').then((m) => m.StripeRoutingModule),
+    path: PATHS.STRIPE,
+    loadChildren: () =>
+      import('@ocean/stripe').then((m) => m.StripeRoutingModule),
     canLoad: [SessionGuard],
     canActivate: [RoleGuard, StripeAccountMethodsGuard],
     data: {
-      roles: [
-        UserTypeTitles.SHIPYARD,
-        UserTypeTitles.SURVEYOR,
-      ],
+      roles: [UserTypeTitles.SHIPYARD, UserTypeTitles.SURVEYOR],
       methods: [
         StripeProviderMethod.CREATE,
         StripeProviderMethod.EDIT,
-        StripeProviderMethod.READ
-      ]
+        StripeProviderMethod.READ,
+      ],
     },
   },
   {

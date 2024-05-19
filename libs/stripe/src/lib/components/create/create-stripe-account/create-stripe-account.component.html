@@ -1,0 +1,16 @@
+<div class="stripe-account-container">
+  <ng-container *ngIf="loading$ | async">
+    <mat-progress-spinner
+      color="primary"
+      mode="indeterminate"
+      class="progress"
+      [strokeWidth]="5"
+      [diameter]="100"
+    >
+    </mat-progress-spinner>
+  </ng-container>
+  <div class="details">
+    <app-stripe-account-preview [form]="form" (submitted)="onSubmit()"></app-stripe-account-preview>
+    <app-form-builder [form]="form" [fields]="fields" containerCssClass="form"></app-form-builder>
+  </div>
+</div>

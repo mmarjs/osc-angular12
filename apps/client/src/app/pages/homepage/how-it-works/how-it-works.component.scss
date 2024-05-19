@@ -16,6 +16,11 @@ app-page-how-it-works {
   .role-action {
     padding: 25px 0;
 
+    &[routerLink],
+    &[ng-reflect-app-link] {
+      cursor: pointer;
+    }
+
     @media #{$xs} {
       padding: 20px 0;
     }

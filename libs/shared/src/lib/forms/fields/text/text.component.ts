@@ -5,14 +5,22 @@ import {
   forwardRef,
   Host,
   HostBinding,
+  HostListener,
   Input,
   OnInit,
   Optional,
   Output,
   SkipSelf,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
-import { AbstractControl, ControlContainer, ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+  AbstractControl,
+  ControlContainer,
+  ControlValueAccessor,
+  FormControl,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+} from '@angular/forms';
 import { MatInput } from '@angular/material/input';
 import { LocalizationService } from '@ocean/internationalization';
 import { FormUtils } from '@ocean/shared/utils';
@@ -22,6 +30,12 @@ import { TEXT_ERROR_NAME } from '@ocean/shared/utils/text-validator';
 import { ADDRESS_ERROR_NAME } from '@ocean/shared/utils/address-validator';
 import { WEB_URL_ERROR_NAME } from '@ocean/shared/utils/web-url-validator';
 import { HULL_ID_ERROR_NAME } from '@ocean/shared/utils/hull-id-validator';
+import { TextMaskConfig } from 'angular2-text-mask';
+import { EXPIRE_CARD_DATE_ERROR_NAME } from '@ocean/shared/utils/expire-card-date-validator';
+import { LAST4_ERROR_NAME } from '@ocean/shared/utils/last4-validator';
+import { NumberValidator } from '@ocean/shared/utils/number-validator';
+import { IconType } from '@ocean/icons';
+import { TipProperties } from '@ocean/shared/forms/directives/app-tip/shared';
 
 interface ErrorMsg {
   translation: string;
@@ -36,13 +50,13 @@ interface ErrorMsg {
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => TextFieldComponent),
-      multi: true
+      multi: true,
     },
     {
       provide: NG_VALIDATORS,
       useExisting: forwardRef(() => TextFieldComponent),
-      multi: true
-    }
+      multi: true,
+    },
   ],
   // tslint:disable-next-line:use-host-property-decorator
   host: {
@@ -51,8 +65,8 @@ interface ErrorMsg {
     '[class.mat-form-field-invalid]': '_control?.invalid && _control?.touched',
     '[class.mat-form-field-disabled]': '_control?.disabled',
     '[class.mat-form-field-autofilled]': '_control?.autofilled',
-    '[class.mat-form-field-readonly]': '_readonly'
-  }
+    '[class.mat-form-field-readonly]': '_readonly',
+  },
 })
 export class TextFieldComponent implements ControlValueAccessor, OnInit {
   @Input() formControlName: string;
@@ -71,11 +85,32 @@ export class TextFieldComponent implements ControlValueAccessor, OnInit {
   @Input() min: number;
   @Output() change = new EventEmitter<string>();
   @Input() hideArrowsForNumber: boolean = true;
+  @Input() inputMask: TextMaskConfig['mask'];
+  @Input() onlyIntegers?: boolean;
+  @Input() numberValidate?: boolean;
+  @Input() tip?: TipProperties;
 
-  @ViewChild(MatInput, {static: true}) _input: MatInput;
+  @ViewChild(MatInput, { static: true }) _input: MatInput;
+
+  readonly iconType = IconType;
 
   _control: AbstractControl | undefined;
   value = '';
+
+  @HostListener('keydown', ['$event'])
+  onKeydownHandler(event: KeyboardEvent) {
+    if (event.key === 'Backspace') {
+      return;
+    }
+
+    if (
+      (event.key === '.' && this.onlyIntegers) ||
+      (!/^[0-9]+$/.test(event.key) && this.numberValidate)
+    ) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }
 
   /**
    * Status Controls
@@ -139,50 +174,99 @@ export class TextFieldComponent implements ControlValueAccessor, OnInit {
     switch (errorCode) {
       case 'min':
         if (this.numberOnly) {
-          return this.localizationSerice.translate('FORMS.ERRORS.SHOULD_NOT_LESS_THAN', {
-            value: this._control.errors.min.min
-          });
+          return this.localizationSerice.translate(
+            'FORMS.ERRORS.SHOULD_NOT_LESS_THAN',
+            {
+              value: this._control.errors.min.min,
+            }
+          );
         }
 
-        return this.localizationSerice.translate('FORMS.ERRORS.MUST_HAVE_MAXIMUM__OF', {
-          value: this.minLength
-        });
+        return this.localizationSerice.translate(
+          'FORMS.ERRORS.MUST_HAVE_MAXIMUM__OF',
+          {
+            value: this.minLength,
+          }
+        );
       case 'max':
         if (this.numberOnly) {
-          return this.localizationSerice.translate('FORMS.ERRORS.SHOULD_NOT_GREATER_THAN', {
-            value: this._control.errors.max.max
-          });
+          return this.localizationSerice.translate(
+            'FORMS.ERRORS.SHOULD_NOT_GREATER_THAN',
+            {
+              value: this._control.errors.max.max,
+            }
+          );
         }
 
-        return this.localizationSerice.translate('FORMS.ERRORS.MUST_HAVE_MAXIMUM__OF', {
-          value: this.minLength
-        });
+        return this.localizationSerice.translate(
+          'FORMS.ERRORS.MUST_HAVE_MAXIMUM__OF',
+          {
+            value: this.minLength,
+          }
+        );
       case 'maxlength':
-        return this.localizationSerice.translate('FORMS.ERRORS.MUST_HAVE_MAXIMUM__OF', {
-          value: this._control.errors.maxlength.requiredLength
-        });
+        return this.localizationSerice.translate(
+          'FORMS.ERRORS.MUST_HAVE_MAXIMUM__OF',
+          {
+            value: this._control.errors.maxlength.requiredLength,
+          }
+        );
       case 'invalidCountryZip':
-        return this.localizationSerice.translate('FORMS.LABELS.INVALID_ZIP_FOR_COUNTRY', {
-          countryCode: this._control.errors.invalidCountryZip
-        });
+        return this.localizationSerice.translate(
+          'FORMS.LABELS.INVALID_ZIP_FOR_COUNTRY',
+          {
+            countryCode: this._control.errors.invalidCountryZip,
+          }
+        );
       case 'required':
         return this.localizationSerice.translate('FORMS.LABELS.REQUIRED');
       case 'pattern':
-        return this.localizationSerice.translate('FORMS.ERRORS.INVALID_PATTERN');
+        return this.localizationSerice.translate(
+          'FORMS.ERRORS.INVALID_PATTERN'
+        );
+      case 'email':
+        return this.localizationSerice.translate('FORMS.ERRORS.INVALID_EMAIL');
       case DUPLICATE_ERROR_NAME:
         return this.localizationSerice.translate('FORMS.ERRORS.DUPLICATE');
       case BOAT_LENGTH_ERROR_NAME:
-        return this.localizationSerice.translate('FORMS.ERRORS.INVALID_BOAT_LENGTH');
+        return this.localizationSerice.translate(
+          'FORMS.ERRORS.INVALID_BOAT_LENGTH'
+        );
       case TEXT_ERROR_NAME:
-        return this.localizationSerice.translate('FORMS.ERRORS.INVALID_TEXT_PATTERN');
+        return this.localizationSerice.translate(
+          'FORMS.ERRORS.INVALID_TEXT_PATTERN'
+        );
       case ADDRESS_ERROR_NAME:
-        return this.localizationSerice.translate('FORMS.ERRORS.INVALID_ADDRESS_PATTERN');
+        return this.localizationSerice.translate(
+          'FORMS.ERRORS.INVALID_ADDRESS_PATTERN'
+        );
       case WEB_URL_ERROR_NAME:
-        return this.localizationSerice.translate('FORMS.ERRORS.INVALID_WEB_URL_PATTERN');
+        return this.localizationSerice.translate(
+          'FORMS.ERRORS.INVALID_WEB_URL_PATTERN'
+        );
       case HULL_ID_ERROR_NAME:
-        return this.localizationSerice.translate('FORMS.ERRORS.INVALID_HULL_NUMBER');
+        return this.localizationSerice.translate(
+          'FORMS.ERRORS.INVALID_HULL_NUMBER'
+        );
+      case EXPIRE_CARD_DATE_ERROR_NAME:
+        return this.localizationSerice.translate(
+          'FORMS.ERRORS.INVALID_CARD_EXPIRE_DATE'
+        );
+      case LAST4_ERROR_NAME:
+        return this.localizationSerice.translate('FORMS.ERRORS.INVALID_LAST4');
+      case NumberValidator.NUMBER_RANGE_ERROR_NAME:
+        const { integer, fraction } = this._control.errors?.parts ?? {};
+
+        return this.localizationSerice.translate(
+          'FORMS.ERRORS.INVALID_NUMBER_RANGE',
+          { integer, fraction }
+        );
       default:
-        return this._control.errors?.message ?? this.errorMsg;
+        return (
+          this._control.errors?.message ??
+          this.errorMsg ??
+          this.localizationSerice.translate('FORMS.LABELS.REQUIRED')
+        );
     }
   }
 
@@ -192,14 +276,15 @@ export class TextFieldComponent implements ControlValueAccessor, OnInit {
     @SkipSelf()
     private parent: ControlContainer,
     private localizationSerice: LocalizationService
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     if (this.formControlName) {
       const parent = this.parent.control as AbstractControl;
       this._control = parent.get(this.formControlName);
       this._required = this._required || FormUtils.isRequired(this._control);
+    } else {
+      this._control = new FormControl(this.value);
     }
 
     if (this._focus) {
@@ -207,10 +292,8 @@ export class TextFieldComponent implements ControlValueAccessor, OnInit {
     }
   }
 
-  propagateChange = (data: any) => {
-  };
-  propagateTouch = () => {
-  };
+  propagateChange = (data: any) => {};
+  propagateTouch = () => {};
 
   isErrorMsg(value: unknown): value is ErrorMsg {
     return typeof value === 'object';
@@ -219,6 +302,9 @@ export class TextFieldComponent implements ControlValueAccessor, OnInit {
   onChange(value: string) {
     if (value === ' ') {
       return '';
+    }
+    if (this._control?.touched && this._control?.invalid) {
+      this.updateErrorState();
     }
 
     this.value = value;
@@ -254,16 +340,16 @@ export class TextFieldComponent implements ControlValueAccessor, OnInit {
   validate(c: FormControl) {
     if (!this._disabled) {
       if (this._required && !c.value) {
-        return {required: true};
+        return { required: true };
       }
-      if (this.minLength && (c.value && c.value.length < this.minLength)) {
-        return {min: true};
+      if (this.minLength && c.value && c.value.length < this.minLength) {
+        return { min: true };
       }
-      if (this.maxLength && (c.value && c.value.length > this.maxLength)) {
-        return {max: true};
+      if (this.maxLength && c.value && c.value.length > this.maxLength) {
+        return { max: true };
       }
-      if (this.min && (c.value < this.min)) {
-        return {minValue: true};
+      if (this.min && c.value < this.min) {
+        return { minValue: true };
       }
     }
     return null;

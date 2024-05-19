@@ -27,14 +27,6 @@ describe('NavtopComponent', () => {
     expect(screen.queryAllByRole('link')).toMatchInlineSnapshot(`
       [
         <a
-          href="/"
-          mat-button=""
-          routerlink="/"
-          routerlinkactive="active"
-        >
-           COMMON.MENU.WHO_WE_ARE 
-        </a>,
-        <a
           href="/faq"
           mat-button=""
           routerlink="/faq"

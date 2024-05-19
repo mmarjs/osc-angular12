@@ -56,15 +56,6 @@ const bid: Bid = {
   },
  }
 
- const source = {
-  currentPageNo: 1,
-  data: [
-    bid,
-  ],
-  totalPages: 10,
-  totalRecords: 100
-}
-
 describe('BidsTableComponent', () => {
   let component: BidsTableComponent;
   let fixture: ComponentFixture<BidsTableComponent>;
@@ -137,16 +128,6 @@ describe('BidsTableComponent', () => {
     });
   });
 
-  describe('check getBidStatus', () => {
-    it('should call getBidStatus', () => {
-      const returnType = 'SIGN' || 'PAY' || 'START_REPAIR' || undefined;
-      const spy = jest.spyOn(component, 'getBidStatus');
-      component.getBidStatus(bid);
-      expect(spy).toHaveBeenCalledWith(bid);
-      expect(spy).toReturnWith(returnType);
-    });
-  });
-
   describe('check onStartProgress', () => {
     it('should call onStartProgress', () => {
       const jobProvider = TestBed.inject(JobProvider);
@@ -170,23 +151,22 @@ describe('BidsTableComponent', () => {
     });
   });
 
-  describe('check ngOnChanges', () => {
-    it('should call findById', () => {
-      component.source = source;
-      const bidProvider = TestBed.inject(BidProvider);
-      jest.spyOn(bidProvider, 'findById').mockImplementation();
-      component.ngOnChanges();
-      expect(bidProvider.findById).toHaveBeenCalledWith({ id: bid?.id });
-    });
-  });
-
   describe('check onNavigate', () => {
-    it('onNavigate', () => {
+    it('should navigate to edit if bid can be updated', () => {
       const router = TestBed.inject(Router);
       jest.spyOn(router, 'navigate').mockImplementation();
-      component.onNavigate(bid);
+      component.onNavigate({ ...bid, status: BidStatus.IN_REVIEW });
       expect(router.navigate).toHaveBeenCalledWith([
         `auctions/${bid.job.id}/edit-details/${bid.id}`,
+      ]);
+    });
+
+    it('should navigate to view if bid cannot be updated', () => {
+      const router = TestBed.inject(Router);
+      jest.spyOn(router, 'navigate').mockImplementation();
+      component.onNavigate({ ...bid, status: BidStatus.ACCEPTED });
+      expect(router.navigate).toHaveBeenCalledWith([
+        `auctions/${bid.job.id}/details`,
       ]);
     });
   });

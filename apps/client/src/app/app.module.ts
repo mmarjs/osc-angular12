@@ -23,6 +23,7 @@ import { AppInterceptor } from './app.interceptor';
 import { AppStateModule } from './state/state.module';
 import { PasswordProtectionComponent } from './components/password-protection/password-protection.component';
 import { NgxStripeModule } from 'ngx-stripe';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient);
@@ -40,6 +41,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
       enableTracing: false
     }),
     MatFormFieldModule,
+    MatProgressSpinnerModule,
     MatInputModule,
     MatButtonModule,
     AppStateModule.forParent(),

@@ -1,0 +1,15 @@
+<mat-toolbar>
+  <span>{{ 'STRIPE.PAGE.NAVIGATION.TITLE' | translate | uppercase }}</span>
+  <span class="toolbar-spacer"></span>
+  <button mat-icon-button [routerLink]="[DASHBOARD_URL]" [disabled]="loading$ | async">
+    <ocean-icon tooltipPosition="left" [iconType]="iconType.SUBDIRECTORY_ARROW_RIGHT"></ocean-icon>
+  </button>
+</mat-toolbar>
+<mat-tab-group #tabs [selectedIndex]="selectedIndex" animationDuration="0">
+  <mat-tab [label]="'STRIPE.PAGE.TABS.MANAGE' | translate" [disabled]="(loading$ | async) || isManageDisabled">
+    <app-stripe-manage *ngIf="!isManageDisabled"></app-stripe-manage>
+  </mat-tab>
+  <mat-tab [label]="'STRIPE.PAGE.TABS.ACCOUNT' | translate" [disabled]="loading$ | async">
+    <app-create-stripe-account></app-create-stripe-account>
+  </mat-tab>
+</mat-tab-group>
